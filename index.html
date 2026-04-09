@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ADVANCED SEO META DATA -->
+    <title>Rover | Best Splunk & Snowflake Alternative for Data Lake Analytics</title>
+    <meta name="description" content="Rover is the high-performance distributed query engine for S3, GCS, and Azure. Search petabytes of raw logs in seconds. 10x faster than Presto/Trino and 90% cheaper than Splunk or Datadog. No indexing, zero ingestion latency.">
+    <meta name="keywords" content="Splunk alternative, Snowflake alternative, Datadog alternative, Elasticsearch alternative, Log analytics platform, Data lake search engine, S3 query engine, Athena vs Rover, Big data search, distributed SQL engine, petabyte scale search, zero indexing analytics, cloud observability cost reduction">
+    <link rel="canonical" href="https://roverhq.io/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://roverhq.io/">
+    <meta property="og:title" content="Rover | Search Petabytes in Seconds without Indexing">
+    <meta property="og:description" content="The cost-effective alternative to Splunk and Snowflake for massive-scale log search and data lake analytics.">
+    <meta property="og:image" content="https://roverhq.io/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://roverhq.io/">
+    <meta property="twitter:title" content="Rover | The Future of Data Lake Search">
+    <meta property="twitter:description" content="Stop paying the indexing tax. Search your data lake directly with Rover.">
+
+    <!-- Structured Data (JSON-LD) for Search Excellence -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Rover",
+      "operatingSystem": "Cloud-Native (AWS, Azure, GCP)",
+      "applicationCategory": "DataAnalytics, CloudComputing, Observability",
+      "description": "High-performance distributed search engine for data lakes with no ingestion latency. Replaces expensive legacy logging platforms.",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "124"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0.01",
+        "priceCurrency": "USD",
+        "description": "Cost per 1TB query scan"
+      },
+      "comparisonMetadata": {
+          "alternatives": ["Splunk", "Snowflake", "Datadog", "Elasticsearch", "Athena", "BigQuery"]
+      }
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --rover-yellow: #F0F000;
+            --rover-orange: #FF5A1F;
+        }
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--rover-yellow);
+            color: #000;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        .brutalist-card {
+            border: 4px solid #000;
+            box-shadow: 8px 8px 0px #000;
+            transition: all 0.1s ease-in-out;
+        }
+        @media (min-width: 768px) {
+            .brutalist-card { box-shadow: 12px 12px 0px #000; }
+        }
+        .brutalist-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 10px 10px 0px #000;
+        }
+        
+        .bg-rover-orange { background-color: var(--rover-orange); }
+        .text-rover-orange { color: var(--rover-orange); }
+        .text-rover-yellow { color: var(--rover-yellow); }
+        
+        .code-block {
+            background-color: #0a0a0a;
+            color: #d1d1d1;
+            padding: 1rem;
+            border: 2px solid #333;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .terminal-btn {
+            border: 2px solid #444;
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            background: #1a1a1a;
+            color: #888;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .terminal-btn.active {
+            border-color: var(--rover-orange);
+            color: #fff;
+            background: #222;
+        }
+
+        .query-suggestion {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .query-suggestion:hover {
+            color: var(--rover-orange);
+        }
+
+        .testimonial-avatar {
+            width: 64px;
+            height: 64px;
+            flex-shrink: 0;
+            border: 3px solid black;
+        }
+
+        .comparison-row {
+            border-bottom: 2px solid black;
+        }
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .expandable-content.open {
+            max-height: 2000px; 
+        }
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .scan-animation {
+            background: linear-gradient(90deg, transparent, rgba(255, 90, 31, 0.2), transparent);
+            background-size: 200% 100%;
+            animation: scan 1.5s infinite;
+        }
+        @keyframes scan {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rover | Zero-I/O Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --rover-yellow: #F0F000; --rover-orange: #FF5A1F; }
+        body { font-family: 'Space Grotesk', sans-serif; background-color: var(--rover-yellow); color: #000; }
+        .brutalist-card { border: 4px solid #000; box-shadow: 8px 8px 0px #000; transition: 0.1s; }
+        .brutalist-card:hover { transform: translate(-2px, -2px); box-shadow: 10px 10px 0px #000; }
+    </style>
+<body class="antialiased max-h-screen flex flex-col justify-center items-center px-4">
+
+    <div class="max-w-7xl w-full">
+    <nav class="bg-black text-white p-4 flex justify-between items-center border-b-4 border-black sticky top-0 z-[100] __web-inspector-hide-shortcut__">
+            <div class="flex items-center space-x-2">
+                <div class="bg-rover-orange text-black px-2 py-0.5 md:px-3 md:py-1 font-black text-xl md:text-2xl italic">R</div>
+                <span class="font-bold text-xl md:text-2xl tracking-tighter uppercase">ROVER</span>
+            </div>
+    </nav>
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 mt-10">
+        <div class="lg:col-span-8">
+            <h1 class="text-5xl sm:text-7xl md:text-8xl lg:text-[100px] font-black leading-[0.9] tracking-tighter uppercase italic mb-6 md:mb-8">
+                    SEARCH<br>PETABYTES<br><span class="bg-black text-white px-2 md:px-4">IN SECONDS.</span>
+                </h1>
+
+            <p class="text-xl md:text-3xl font-bold mb-12 max-w-2xl leading-tight uppercase">
+                <span class="text-rover-orange">Stop paying indexing-tax</span>. Search petabytes of raw logs in Azure with sub-second latency. Faster than Snowflake, cheaper than Datadog.
+            </p>
+        </div>
+        <div class="lg:col-span-4 flex flex-col gap-4">
+                <div class="bg-white p-6 brutalist-card">
+                    <h2 class="text-[10px] font-black uppercase mb-2 text-gray-500">Scan Speed</h2>
+                    <div class="text-5xl font-black italic">1.2s</div>
+                    <div class="text-xs font-bold uppercase">For 1TB Query</div>
+                </div>
+                <div class="bg-rover-orange p-6 brutalist-card text-white">
+                    <h2 class="text-[10px] font-black uppercase mb-2 text-black/50">Cost Efficiency</h2>
+                    <div class="text-5xl font-black italic text-black">$0.01</div>
+                    <div class="text-xs font-bold uppercase text-black">Per 1TB Scanned</div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white brutalist-card p-2 mb-12">
+            <form action="https://formspree.io/f/xgopbprl" method="POST" class="flex flex-col md:flex-row gap-2">
+                <input 
+                    type="email" name="email" 
+                    placeholder="EMAIL_ADDRESS" required
+                    class="flex-1 p-4 font-bold text-black focus:outline-none uppercase text-lg"
+                >
+                <button type="submit" class="bg-black text-white px-10 py-4 font-black text-xl hover:bg-rover-orange hover:text-[var(--rover-orange)] transition-all italic uppercase">
+                    JOIN_WAITING_LIST
+                </button>
+            </form>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 font-mono text-xs font-black uppercase italic">
+            <div class="border-l-4 border-black pl-3">
+                <div class="text-rover-orange">Paradigm</div>
+                <div>Zero-Copy_Architecture</div>
+            </div>
+            <div class="border-l-4 border-black pl-3">
+                <div class="text-rover-orange">Performance</div>
+                <div>100x_Latency_Gain</div>
+            </div>
+            <div class="border-l-4 border-black pl-3">
+                <div class="text-rover-orange">Retrieval</div>
+                <div>Surgical_Byte-Range</div>
+            </div>
+            <div class="border-l-4 border-black pl-3">
+                <div class="text-rover-orange">Economics</div>
+                <div>100x_Cost_Efficiency</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
