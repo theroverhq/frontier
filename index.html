@@ -3,724 +3,1436 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- ADVANCED SEO META DATA -->
-    <title>Rover | Best Splunk & Snowflake Alternative for Data Lake Analytics</title>
-    <meta name="description" content="Rover is the high-performance distributed query engine for S3, GCS, and Azure. Search petabytes of raw logs in seconds. 10x faster than Presto/Trino and 90% cheaper than Splunk or Datadog. No indexing, zero ingestion latency.">
-    <meta name="keywords" content="Splunk alternative, Snowflake alternative, Datadog alternative, Elasticsearch alternative, Log analytics platform, Data lake search engine, S3 query engine, Athena vs Rover, Big data search, distributed SQL engine, petabyte scale search, zero indexing analytics, cloud observability cost reduction">
+
+    <title>Rover | SIEM and Search for Security Data Lakes</title>
+    <meta name="description" content="Rover is a SIEM and search platform for security teams that need fast investigations across cloud, identity, endpoint, application, and archive logs without moving every byte into a legacy index.">
+    <meta name="keywords" content="Rover SIEM, security search, log search, data lake SIEM, security analytics, threat hunting, cloud security logs, SOC search, Splunk alternative, Elasticsearch alternative">
     <link rel="canonical" href="https://roverhq.io/">
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://roverhq.io/">
-    <meta property="og:title" content="Rover | Search Petabytes in Seconds without Indexing">
-    <meta property="og:description" content="The cost-effective alternative to Splunk and Snowflake for massive-scale log search and data lake analytics.">
+    <meta property="og:title" content="Rover | SIEM and Search">
+    <meta property="og:description" content="Search, investigate, and retain security telemetry across your data lake from one SIEM workspace.">
     <meta property="og:image" content="https://roverhq.io/og-image.png">
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://roverhq.io/">
-    <meta property="twitter:title" content="Rover | The Future of Data Lake Search">
-    <meta property="twitter:description" content="Stop paying the indexing tax. Search your data lake directly with Rover.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://roverhq.io/">
+    <meta name="twitter:title" content="Rover | SIEM and Search">
+    <meta name="twitter:description" content="A security data lake SIEM with fast search, long retention, and analyst-first investigations.">
 
-    <!-- Structured Data (JSON-LD) for Search Excellence -->
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Rover",
-      "operatingSystem": "Cloud-Native (AWS, Azure, GCP)",
-      "applicationCategory": "DataAnalytics, CloudComputing, Observability",
-      "description": "High-performance distributed search engine for data lakes with no ingestion latency. Replaces expensive legacy logging platforms.",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "124"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "0.01",
-        "priceCurrency": "USD",
-        "description": "Cost per 1TB query scan"
-      },
-      "comparisonMetadata": {
-          "alternatives": ["Splunk", "Snowflake", "Datadog", "Elasticsearch", "Athena", "BigQuery"]
-      }
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Rover",
+        "operatingSystem": "Cloud-native",
+        "applicationCategory": "SecurityApplication",
+        "description": "SIEM and search platform for security data lakes, threat hunting, incident investigation, and long-retention log analytics.",
+        "offers": {
+            "@type": "Offer",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/PreOrder"
+        }
     }
     </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --rover-yellow: #F0F000;
-            --rover-orange: #FF5A1F;
+            --background: oklch(0.92 0.01 96);
+            --foreground: oklch(0.2 0.01 60);
+            --card: oklch(0.95 0.01 96);
+            --muted: oklch(0.88 0.01 96);
+            --muted-foreground: oklch(0.45 0.01 60);
+            --primary: oklch(0.79 0.16 89);
+            --primary-soft: oklch(0.88 0.1 92);
+            --secondary: oklch(0.7 0.15 340);
+            --dark: oklch(0.13 0.01 70);
+            --dark-panel: oklch(0.17 0.01 70);
+            --dark-muted: oklch(0.18 0.01 70);
+            --dark-line: oklch(0.35 0.02 75);
+            --border: oklch(0.2 0.01 60);
+            --success: oklch(0.74 0.18 145);
+            --warning: oklch(0.76 0.16 64);
+            --danger: oklch(0.6 0.2 25);
+            --shadow: 8px 8px 0 var(--border);
+            --max: 1180px;
         }
-        body {
-            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--rover-yellow);
-            color: #000;
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
             scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--foreground);
+            font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             overflow-x: hidden;
         }
-        .brutalist-card {
-            border: 4px solid #000;
-            box-shadow: 8px 8px 0px #000;
-            transition: all 0.1s ease-in-out;
-        }
-        @media (min-width: 768px) {
-            .brutalist-card { box-shadow: 12px 12px 0px #000; }
-        }
-        .brutalist-card:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 10px 10px 0px #000;
-        }
-        
-        .bg-rover-orange { background-color: var(--rover-orange); }
-        .text-rover-orange { color: var(--rover-orange); }
-        .text-rover-yellow { color: var(--rover-yellow); }
-        
-        .code-block {
-            background-color: #0a0a0a;
-            color: #d1d1d1;
-            padding: 1rem;
-            border: 2px solid #333;
-            font-family: 'Courier New', Courier, monospace;
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                linear-gradient(rgba(40, 37, 30, 0.055) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(40, 37, 30, 0.045) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: linear-gradient(to bottom, black, transparent 78%);
         }
 
-        .terminal-btn {
-            border: 2px solid #444;
-            padding: 4px 10px;
-            font-size: 0.7rem;
-            background: #1a1a1a;
-            color: #888;
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        .mono {
+            font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+        }
+
+        .shell {
+            width: min(var(--max), calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: color-mix(in oklch, var(--background) 88%, white);
+            border-bottom: 2px solid var(--border);
+            backdrop-filter: blur(14px);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 72px;
+            gap: 20px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+        }
+
+        .brand-mark {
+            display: grid;
+            place-items: center;
+            width: 36px;
+            height: 36px;
+            color: var(--foreground);
+            background: var(--primary);
+            border: 2px solid var(--border);
+            box-shadow: 4px 4px 0 var(--border);
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            color: var(--muted-foreground);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover {
+            color: var(--foreground);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 42px;
+            padding: 0 18px;
+            border: 2px solid var(--border);
+            background: var(--foreground);
+            color: var(--background);
+            box-shadow: 4px 4px 0 var(--border);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
             cursor: pointer;
+            transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+        }
+
+        .button:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--border);
+        }
+
+        .button:active {
+            transform: translate(1px, 1px);
+            box-shadow: 2px 2px 0 var(--border);
+        }
+
+        .button.primary {
+            background: var(--primary);
+            color: var(--foreground);
+        }
+
+        .button.secondary {
+            background: var(--card);
+            color: var(--foreground);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            width: fit-content;
+            border: 2px solid var(--border);
+            background: var(--primary);
+            padding: 8px 10px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border: 2px solid var(--border);
+        }
+
+        .hero {
+            padding: 54px 0 34px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 0.95fr) minmax(420px, 1.05fr);
+            align-items: center;
+            gap: 42px;
+        }
+
+        .hero-grid > *,
+        .section-head > *,
+        .split > *,
+        .cta-box > * {
+            min-width: 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin: 0;
+        }
+
+        h1 {
+            max-width: 760px;
+            margin-top: 22px;
+            font-size: clamp(58px, 9vw, 124px);
+            line-height: 0.86;
+            letter-spacing: -0.075em;
+            text-transform: uppercase;
+        }
+
+        .hero-copy {
+            max-width: 680px;
+            margin-top: 26px;
+            color: var(--muted-foreground);
+            font-size: clamp(20px, 2.2vw, 30px);
+            font-weight: 600;
+            line-height: 1.08;
+            letter-spacing: -0.035em;
+        }
+
+        .hero-copy strong {
+            color: var(--foreground);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 34px;
+        }
+
+        .hero-proof {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 34px;
+            max-width: 650px;
+        }
+
+        .proof-item {
+            border-left: 4px solid var(--border);
+            padding-left: 12px;
+        }
+
+        .proof-item span {
+            display: block;
+            color: var(--muted-foreground);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .proof-item strong {
+            display: block;
+            margin-top: 4px;
+            font-size: 20px;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+        }
+
+        .console {
+            min-width: 0;
+            border: 2px solid var(--border);
+            background: var(--dark);
+            color: var(--background);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .console-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border-bottom: 2px solid var(--dark-line);
+            background: var(--dark-panel);
+            padding: 13px 14px;
+            color: color-mix(in oklch, var(--background) 78%, transparent);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 7px;
+        }
+
+        .window-dots i {
+            display: block;
+            width: 10px;
+            height: 10px;
+            border: 1px solid var(--dark-line);
+            background: var(--primary);
+        }
+
+        .window-dots i:nth-child(2) {
+            background: var(--secondary);
+        }
+
+        .window-dots i:nth-child(3) {
+            background: var(--muted-foreground);
+        }
+
+        .query-panel {
+            padding: 18px;
+        }
+
+        .query-label {
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .query-box {
+            margin-top: 10px;
+            border: 1px solid var(--dark-line);
+            background: oklch(0.1 0.01 70);
+            padding: 14px;
+            color: var(--background);
+            font-size: 13px;
+            line-height: 1.55;
+            min-height: 106px;
+            overflow-wrap: anywhere;
+        }
+
+        .query-box .keyword {
+            color: var(--primary);
+        }
+
+        .query-box .value {
+            color: var(--secondary);
+        }
+
+        .query-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .query-tab {
+            border: 1px solid var(--dark-line);
+            background: var(--dark-panel);
+            color: color-mix(in oklch, var(--background) 70%, transparent);
+            padding: 8px 9px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .query-tab.active,
+        .query-tab:hover {
+            border-color: var(--primary);
+            color: var(--dark);
+            background: var(--primary);
+        }
+
+        .signal-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 0;
+            border-top: 2px solid var(--dark-line);
+        }
+
+        .signal-list,
+        .signal-chart {
+            padding: 18px;
+        }
+
+        .signal-list {
+            border-right: 2px solid var(--dark-line);
+            background: var(--dark-panel);
+        }
+
+        .signal-row {
+            display: grid;
+            grid-template-columns: 10px minmax(0, 1fr) auto;
+            gap: 10px;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--dark-line);
+            font-size: 12px;
+        }
+
+        .signal-row:last-child {
+            border-bottom: 0;
+        }
+
+        .severity {
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+        }
+
+        .severity.high {
+            background: var(--danger);
+        }
+
+        .severity.med {
+            background: var(--warning);
+        }
+
+        .signal-row b {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
             white-space: nowrap;
         }
-        .terminal-btn.active {
-            border-color: var(--rover-orange);
-            color: #fff;
-            background: #222;
+
+        .signal-row span {
+            color: color-mix(in oklch, var(--background) 55%, transparent);
+            font-size: 11px;
         }
 
-        .query-suggestion {
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        .query-suggestion:hover {
-            color: var(--rover-orange);
+        .mini-metric {
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
         }
 
-        .testimonial-avatar {
-            width: 64px;
-            height: 64px;
-            flex-shrink: 0;
-            border: 3px solid black;
+        .bar-stack {
+            display: grid;
+            gap: 9px;
+            margin-top: 15px;
         }
 
-        .comparison-row {
-            border-bottom: 2px solid black;
+        .bar {
+            display: grid;
+            grid-template-columns: 62px 1fr 42px;
+            align-items: center;
+            gap: 10px;
+            color: color-mix(in oklch, var(--background) 72%, transparent);
+            font-size: 11px;
         }
-        .comparison-row:last-child {
-            border-bottom: none;
+
+        .bar-track {
+            height: 13px;
+            border: 1px solid var(--dark-line);
+            background: var(--dark-muted);
         }
-        .expandable-content {
-            max-height: 0;
+
+        .bar-fill {
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .bar:nth-child(2) .bar-fill {
+            background: var(--secondary);
+        }
+
+        .bar:nth-child(3) .bar-fill {
+            background: var(--warning);
+        }
+
+        .section {
+            padding: 72px 0;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section.dark {
+            background: var(--dark);
+            color: var(--background);
+        }
+
+        .section-head {
+            display: grid;
+            grid-template-columns: minmax(0, 0.82fr) minmax(280px, 0.55fr);
+            gap: 36px;
+            align-items: end;
+            margin-bottom: 34px;
+        }
+
+        h2 {
+            font-size: clamp(40px, 6vw, 78px);
+            line-height: 0.92;
+            letter-spacing: -0.065em;
+            text-transform: uppercase;
+        }
+
+        .section-head p,
+        .section-intro {
+            color: var(--muted-foreground);
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.24;
+            letter-spacing: -0.02em;
+        }
+
+        .section.dark .section-head p,
+        .section.dark .section-intro {
+            color: color-mix(in oklch, var(--background) 68%, transparent);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .card {
+            min-height: 245px;
+            border: 2px solid var(--border);
+            background: var(--card);
+            padding: 20px;
+            box-shadow: 5px 5px 0 var(--border);
+        }
+
+        .card.featured {
+            background: var(--primary);
+        }
+
+        .card.dark-card {
+            background: var(--dark-panel);
+            color: var(--background);
+            border-color: var(--dark-line);
+            box-shadow: 5px 5px 0 var(--dark-line);
+        }
+
+        .card-kicker {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            color: var(--muted-foreground);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .dark-card .card-kicker {
+            color: color-mix(in oklch, var(--background) 58%, transparent);
+        }
+
+        .card-index {
+            display: grid;
+            place-items: center;
+            min-width: 28px;
+            height: 28px;
+            border: 2px solid currentColor;
+            font-size: 12px;
+        }
+
+        h3 {
+            margin-top: 24px;
+            font-size: 26px;
+            line-height: 1;
+            letter-spacing: -0.045em;
+            text-transform: uppercase;
+        }
+
+        .card p {
+            margin-top: 16px;
+            color: var(--muted-foreground);
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.32;
+        }
+
+        .card.featured p {
+            color: color-mix(in oklch, var(--foreground) 74%, transparent);
+        }
+
+        .dark-card p {
+            color: color-mix(in oklch, var(--background) 64%, transparent);
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+            gap: 26px;
+            align-items: start;
+        }
+
+        .search-copy {
+            border: 2px solid var(--border);
+            background: var(--primary);
+            padding: 28px;
+            box-shadow: var(--shadow);
+        }
+
+        .search-copy h2 {
+            font-size: clamp(38px, 5vw, 66px);
+        }
+
+        .search-copy p {
+            margin-top: 22px;
+            color: color-mix(in oklch, var(--foreground) 78%, transparent);
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.14;
+            letter-spacing: -0.03em;
+        }
+
+        .search-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .search-list div {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            border-top: 2px solid var(--border);
+            padding-top: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .search-list span {
+            color: color-mix(in oklch, var(--foreground) 58%, transparent);
+        }
+
+        .query-workbench {
+            min-width: 0;
+            border: 2px solid var(--border);
+            background: var(--card);
+            box-shadow: var(--shadow);
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        .expandable-content.open {
-            max-height: 2000px; 
-        }
-        .nav-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
         }
 
-        .scan-animation {
-            background: linear-gradient(90deg, transparent, rgba(255, 90, 31, 0.2), transparent);
-            background-size: 200% 100%;
-            animation: scan 1.5s infinite;
+        .workbench-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border-bottom: 2px solid var(--border);
+            background: var(--foreground);
+            color: var(--background);
+            padding: 12px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
         }
-        @keyframes scan {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+
+        .workbench-body {
+            padding: 18px;
+        }
+
+        .workbench-query {
+            border: 2px solid var(--border);
+            background: var(--background);
+            min-height: 150px;
+            padding: 16px;
+            color: var(--foreground);
+            font-size: 13px;
+            line-height: 1.65;
+            overflow-wrap: anywhere;
+        }
+
+        .run-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 14px;
+        }
+
+        .result-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .result {
+            border: 2px solid var(--border);
+            background: var(--muted);
+            padding: 12px;
+        }
+
+        .result span {
+            display: block;
+            color: var(--muted-foreground);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .result strong {
+            display: block;
+            margin-top: 4px;
+            font-size: 24px;
+            letter-spacing: -0.05em;
+        }
+
+        .pipeline {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            border: 2px solid var(--border);
+            background: var(--card);
+            box-shadow: var(--shadow);
+        }
+
+        .pipe-step {
+            min-height: 230px;
+            padding: 20px;
+            border-right: 2px solid var(--border);
+        }
+
+        .pipe-step:last-child {
+            border-right: 0;
+        }
+
+        .pipe-step:nth-child(even) {
+            background: var(--muted);
+        }
+
+        .pipe-step span {
+            color: var(--secondary);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .pipe-step h3 {
+            margin-top: 40px;
+            font-size: 23px;
+        }
+
+        .pipe-step p {
+            margin-top: 14px;
+            color: var(--muted-foreground);
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border: 2px solid var(--dark-line);
+            background: var(--dark-panel);
+            box-shadow: 8px 8px 0 var(--dark-line);
+        }
+
+        .compare-col {
+            padding: 24px;
+        }
+
+        .compare-col:first-child {
+            border-right: 2px solid var(--dark-line);
+        }
+
+        .compare h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .compare ul {
+            display: grid;
+            gap: 14px;
+            margin: 22px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .compare li {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 10px;
+            color: color-mix(in oklch, var(--background) 72%, transparent);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .compare li::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            margin-top: 5px;
+            background: var(--secondary);
+            border: 1px solid var(--dark-line);
+        }
+
+        .compare-col:last-child li::before {
+            background: var(--primary);
+        }
+
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .use-case {
+            border: 2px solid var(--border);
+            background: var(--card);
+            min-height: 220px;
+            padding: 20px;
+        }
+
+        .use-case:nth-child(2),
+        .use-case:nth-child(5) {
+            background: var(--primary-soft);
+        }
+
+        .use-case span {
+            color: var(--secondary);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .use-case h3 {
+            margin-top: 28px;
+        }
+
+        .use-case p {
+            margin-top: 14px;
+            color: var(--muted-foreground);
+            font-weight: 600;
+            line-height: 1.32;
+        }
+
+        .cta {
+            padding: 72px 0;
+            background: var(--primary);
+            border-bottom: 2px solid var(--border);
+        }
+
+        .cta-box {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(320px, 0.58fr);
+            gap: 32px;
+            align-items: center;
+        }
+
+        .cta h2 {
+            max-width: 760px;
+        }
+
+        .signup {
+            border: 2px solid var(--border);
+            background: var(--card);
+            box-shadow: var(--shadow);
+            padding: 12px;
+        }
+
+        .signup form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .signup input {
+            min-width: 0;
+            flex: 1;
+            border: 2px solid var(--border);
+            background: white;
+            color: var(--foreground);
+            padding: 0 14px;
+            font-weight: 700;
+            outline: 0;
+        }
+
+        .footer {
+            background: var(--dark);
+            color: var(--background);
+            padding: 28px 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            color: color-mix(in oklch, var(--background) 62%, transparent);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        @media (max-width: 980px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-grid,
+            .section-head,
+            .split,
+            .cta-box {
+                grid-template-columns: 1fr;
+            }
+
+            .cards,
+            .pipeline,
+            .use-cases {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .pipe-step:nth-child(2n) {
+                border-right: 0;
+            }
+
+            .pipe-step {
+                border-bottom: 2px solid var(--border);
+            }
+
+            .pipe-step:nth-last-child(-n + 1) {
+                border-bottom: 0;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .shell {
+                width: min(100% - 22px, var(--max));
+            }
+
+            .nav-inner {
+                min-height: 66px;
+                gap: 10px;
+            }
+
+            .nav-actions .secondary {
+                display: none;
+            }
+
+            .brand-mark {
+                width: 32px;
+                height: 32px;
+            }
+
+            .nav-actions .primary {
+                min-height: 38px;
+                padding: 0 12px;
+                font-size: 11px;
+                box-shadow: 3px 3px 0 var(--border);
+            }
+
+            .console-top,
+            .workbench-top {
+                font-size: 10px;
+            }
+
+            .hero {
+                padding-top: 36px;
+            }
+
+            h1 {
+                font-size: clamp(56px, 18vw, 86px);
+            }
+
+            .hero-proof,
+            .cards,
+            .pipeline,
+            .use-cases,
+            .compare,
+            .result-strip,
+            .signal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .signal-list,
+            .compare-col:first-child {
+                border-right: 0;
+                border-bottom: 2px solid var(--dark-line);
+            }
+
+            .card,
+            .pipe-step,
+            .use-case {
+                min-height: auto;
+            }
+
+            .pipe-step {
+                border-right: 0;
+            }
+
+            .run-row,
+            .signup form,
+            .footer-inner {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .signup input {
+                min-height: 44px;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .shell {
+                width: min(calc(100% - 22px), 368px);
+                margin-left: 11px;
+                margin-right: 11px;
+            }
         }
     </style>
 </head>
-<body class="antialiased">
+<body>
+    <nav class="nav" aria-label="Main navigation">
+        <div class="shell nav-inner">
+            <a href="#" class="brand" aria-label="Rover home">
+                <span class="brand-mark">R</span>
+                <span>Rover</span>
+            </a>
 
-    <!-- Header / Nav -->
-    <nav class="bg-black text-white p-4 flex justify-between items-center border-b-4 border-black sticky top-0 z-[100]">
-        <div class="flex items-center space-x-2">
-            <div class="bg-rover-orange text-black px-2 py-0.5 md:px-3 md:py-1 font-black text-xl md:text-2xl italic">R</div>
-            <span class="font-bold text-xl md:text-2xl tracking-tighter uppercase">ROVER</span>
-        </div>
-        
-        <div class="hidden lg:flex space-x-6 xl:space-x-8 font-bold text-[10px] uppercase tracking-widest">
-            <a href="#playground" class="hover:text-rover-orange transition-colors">Playground</a>
-            <a href="#competitors" class="hover:text-rover-orange transition-colors">Vs Competitors</a>
-            <a href="#why-rover" class="hover:text-rover-orange transition-colors">Why Rover</a>
-            <a href="#architecture" class="hover:text-rover-orange transition-colors">Architecture</a>
-        </div>
+            <div class="nav-links" aria-label="Page sections">
+                <a href="#siem">SIEM</a>
+                <a href="#search">Search</a>
+                <a href="#architecture">Architecture</a>
+                <a href="#use-cases">Use Cases</a>
+            </div>
 
-        <a href="mailto:contactus@roverhq.io" class="bg-rover-orange border-2 border-black px-3 py-1.5 md:px-6 md:py-2 font-bold text-black uppercase text-[10px] md:text-sm shadow-[3px_3px_0px_white] active:shadow-none active:translate-x-0.5 transition-all">
-            Get_Started
-        </a>
+            <div class="nav-actions">
+                <a class="button secondary" href="#search">Try Search</a>
+                <a class="button primary" href="mailto:contactus@roverhq.io">Get Access</a>
+            </div>
+        </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="py-12 md:py-20 px-4 md:px-6 border-b-8 border-black">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
-            <div class="lg:col-span-8">
-                <h1 class="text-5xl sm:text-7xl md:text-8xl lg:text-[100px] font-black leading-[0.9] tracking-tighter uppercase italic mb-6 md:mb-8">
-                    SEARCH<br>PETABYTES<br><span class="bg-black text-white px-2 md:px-4">IN SECONDS.</span>
-                </h1>
-                <p class="text-xl md:text-3xl font-bold mb-12 max-w-2xl leading-tight uppercase">
-                    <span class="text-rover-orange">Stop paying indexing-tax</span>. Search petabytes of raw logs in Azure with sub-second latency. Faster than Snowflake, cheaper than Datadog.
-                </p>
-                <!-- <div class="flex flex-wrap gap-4">
-                    <a href="#playground" class="bg-black text-white px-8 py-4 font-bold text-xl brutalist-card hover:bg-rover-orange hover:text-black uppercase italic inline-block">
-                        Launch_Playground
-                    </a>
-                    <a href="#benchmarks" class="bg-white text-black px-8 py-4 font-bold text-xl brutalist-card hover:bg-black hover:text-white uppercase italic inline-block">
-                        View_Benchmarks
-                    </a>
-                </div> -->
-                <!-- Email Subscription Section -->
-                <div class="bg-white brutalist-card p-2 mb-12 mt-8">
-                    <form action="https://formspree.io/f/xgopbprl" method="POST" class="flex flex-col md:flex-row gap-2">
-                        <input 
-                            type="email" name="email" 
-                            placeholder="EMAIL_ADDRESS" required
-                            class="flex-1 p-4 font-bold text-black focus:outline-none uppercase text-lg"
-                        >
-                        <button type="submit" class="bg-black text-white px-10 py-4 font-black text-xl hover:bg-rover-orange hover:text-black transition-all italic uppercase">
-                            JOIN_WAITING_LIST
-                        </button>
+    <main>
+        <header class="hero">
+            <div class="shell hero-grid">
+                <div>
+                    <div class="eyebrow mono">Security data lake SIEM</div>
+                    <h1>Rover</h1>
+                    <p class="hero-copy">
+                        A SIEM and search workspace for teams that need to <strong>detect, hunt, investigate, and retain</strong> security telemetry without forcing every log into a legacy hot index.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="button primary" href="mailto:contactus@roverhq.io">Join Waiting List</a>
+                        <a class="button secondary" href="#siem">Explore Platform</a>
+                    </div>
+                    <div class="hero-proof">
+                        <div class="proof-item">
+                            <span>Signal</span>
+                            <strong>Cloud + identity</strong>
+                        </div>
+                        <div class="proof-item">
+                            <span>Workflow</span>
+                            <strong>Alert to query</strong>
+                        </div>
+                        <div class="proof-item">
+                            <span>Retention</span>
+                            <strong>Search archives</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="console" aria-label="Rover product interface preview">
+                    <div class="console-top">
+                        <div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+                        <span class="mono">rover.siem/search</span>
+                    </div>
+                    <div class="query-panel">
+                        <div class="query-label mono">Threat hunt</div>
+                        <div id="hero-query" class="query-box mono">
+                            <span class="keyword">from</span> identity.signin<br>
+                            <span class="keyword">where</span> user.risk = <span class="value">"high"</span> and mfa.result != <span class="value">"passed"</span><br>
+                            <span class="keyword">join</span> cloud.audit on user.id<br>
+                            <span class="keyword">summarize</span> attempts, countries, services by user.email
+                        </div>
+                        <div class="query-tabs" aria-label="Search examples">
+                            <button class="query-tab active" type="button" data-query="identity">Identity</button>
+                            <button class="query-tab" type="button" data-query="cloud">Cloud</button>
+                            <button class="query-tab" type="button" data-query="endpoint">Endpoint</button>
+                            <button class="query-tab" type="button" data-query="archive">Archive</button>
+                        </div>
+                    </div>
+                    <div class="signal-grid">
+                        <div class="signal-list">
+                            <div class="query-label mono">Correlated alerts</div>
+                            <div class="signal-row">
+                                <i class="severity high"></i>
+                                <div><b>Impossible travel</b><span>identity + vpn</span></div>
+                                <em class="mini-metric mono">P1</em>
+                            </div>
+                            <div class="signal-row">
+                                <i class="severity med"></i>
+                                <div><b>New admin token</b><span>aws cloudtrail</span></div>
+                                <em class="mini-metric mono">P2</em>
+                            </div>
+                            <div class="signal-row">
+                                <i class="severity"></i>
+                                <div><b>Rare process tree</b><span>edr telemetry</span></div>
+                                <em class="mini-metric mono">P3</em>
+                            </div>
+                        </div>
+                        <div class="signal-chart">
+                            <div class="query-label mono">Search coverage</div>
+                            <div class="bar-stack">
+                                <div class="bar mono">
+                                    <span>Hot</span>
+                                    <div class="bar-track"><div class="bar-fill" style="width: 86%"></div></div>
+                                    <b>86%</b>
+                                </div>
+                                <div class="bar mono">
+                                    <span>Warm</span>
+                                    <div class="bar-track"><div class="bar-fill" style="width: 71%"></div></div>
+                                    <b>71%</b>
+                                </div>
+                                <div class="bar mono">
+                                    <span>Cold</span>
+                                    <div class="bar-track"><div class="bar-fill" style="width: 93%"></div></div>
+                                    <b>93%</b>
+                                </div>
+                                <div class="bar mono">
+                                    <span>Cases</span>
+                                    <div class="bar-track"><div class="bar-fill" style="width: 64%"></div></div>
+                                    <b>64%</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </header>
+
+        <section id="siem" class="section">
+            <div class="shell">
+                <div class="section-head">
+                    <h2>SIEM built around search.</h2>
+                    <p>Rover gives analysts one place to triage detections, pivot into raw evidence, and keep years of telemetry searchable in the same workflow.</p>
+                </div>
+
+                <div class="cards">
+                    <article class="card featured">
+                        <div class="card-kicker"><span>Detect</span><span class="card-index mono">01</span></div>
+                        <h3>Correlate security signals</h3>
+                        <p>Connect identity, cloud, endpoint, network, application, and SaaS events into rules that keep context attached to every alert.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-kicker"><span>Hunt</span><span class="card-index mono">02</span></div>
+                        <h3>Ask better questions</h3>
+                        <p>Run structured searches across normalized fields and raw events so investigations do not stop when the data source changes.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-kicker"><span>Investigate</span><span class="card-index mono">03</span></div>
+                        <h3>Move from alert to evidence</h3>
+                        <p>Open a case, inspect timelines, pivot by user, IP, host, process, service, or cloud account, then preserve the query trail.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-kicker"><span>Retain</span><span class="card-index mono">04</span></div>
+                        <h3>Search beyond hot storage</h3>
+                        <p>Keep long-retention audit and security logs in your data lake while still making them available to analysts during incidents.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="search" class="section">
+            <div class="shell split">
+                <div class="search-copy">
+                    <div class="eyebrow mono">Rover Search</div>
+                    <h2>Fast answers across messy security data.</h2>
+                    <p>Search should not depend on whether data is hot, cold, structured, semi-structured, or sitting in object storage. Rover is designed for investigations that cross all of it.</p>
+                    <div class="search-list mono">
+                        <div><span>Search model</span><strong>Fields + raw text</strong></div>
+                        <div><span>Scope</span><strong>Cloud, app, auth, endpoint</strong></div>
+                        <div><span>Output</span><strong>Cases, alerts, exports, APIs</strong></div>
+                    </div>
+                </div>
+
+                <div class="query-workbench" aria-label="Interactive search workbench">
+                    <div class="workbench-top">
+                        <span class="mono">search console</span>
+                        <span id="workbench-status" class="mono">ready</span>
+                    </div>
+                    <div class="workbench-body">
+                        <div id="workbench-query" class="workbench-query mono">
+                            source = "cloudtrail"<br>
+                            event.name in ("CreateAccessKey", "AttachUserPolicy")<br>
+                            user.risk_score &gt; 70<br>
+                            group by user.name, aws.account_id
+                        </div>
+                        <div class="run-row">
+                            <button id="run-search" class="button primary" type="button">Run Search</button>
+                            <span class="mono" style="color: var(--muted-foreground); font-size: 12px;">Sample results only</span>
+                        </div>
+                        <div class="result-strip">
+                            <div class="result">
+                                <span>Events</span>
+                                <strong id="result-events" class="mono">18,420</strong>
+                            </div>
+                            <div class="result">
+                                <span>Sources</span>
+                                <strong id="result-sources" class="mono">12</strong>
+                            </div>
+                            <div class="result">
+                                <span>Elapsed</span>
+                                <strong id="result-elapsed" class="mono">0.84s</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture" class="section">
+            <div class="shell">
+                <div class="section-head">
+                    <h2>Keep the data lake. Upgrade the SOC.</h2>
+                    <p>Rover keeps the SIEM workflow close to analysts while letting storage, governance, and retention stay aligned with your cloud architecture.</p>
+                </div>
+
+                <div class="pipeline">
+                    <article class="pipe-step">
+                        <span class="mono">01 / Ingest</span>
+                        <h3>Stream events</h3>
+                        <p>Collect security telemetry from agents, APIs, message buses, object stores, and lakehouse tables.</p>
+                    </article>
+                    <article class="pipe-step">
+                        <span class="mono">02 / Normalize</span>
+                        <h3>Map fields</h3>
+                        <p>Bring common entities like user, host, IP, cloud account, process, and service into a consistent schema.</p>
+                    </article>
+                    <article class="pipe-step">
+                        <span class="mono">03 / Detect</span>
+                        <h3>Score signals</h3>
+                        <p>Apply rules, thresholds, lists, enrichment, and saved hunts to identify activity worth investigating.</p>
+                    </article>
+                    <article class="pipe-step">
+                        <span class="mono">04 / Search</span>
+                        <h3>Query evidence</h3>
+                        <p>Pivot from detections into raw logs, retained archives, and correlated context without switching tools.</p>
+                    </article>
+                    <article class="pipe-step">
+                        <span class="mono">05 / Respond</span>
+                        <h3>Close cases</h3>
+                        <p>Preserve notes, timelines, searches, exports, and handoffs for incident response and compliance review.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section dark">
+            <div class="shell">
+                <div class="section-head">
+                    <h2>Why teams look for a different SIEM.</h2>
+                    <p>Security data keeps growing faster than hot-index budgets. Rover is built for teams that need fast search and practical retention in the same system.</p>
+                </div>
+
+                <div class="compare">
+                    <div class="compare-col">
+                        <h3>Legacy SIEM pressure</h3>
+                        <ul>
+                            <li>High-value telemetry gets sampled, shortened, or excluded because every byte has to be indexed.</li>
+                            <li>Analysts leave the SIEM to search data lake archives during deep incident response.</li>
+                            <li>Detection, search, storage, and retention decisions become separate budget fights.</li>
+                            <li>Older investigations slow down when evidence moves from hot storage to cheaper tiers.</li>
+                        </ul>
+                    </div>
+                    <div class="compare-col">
+                        <h3>Rover approach</h3>
+                        <ul>
+                            <li>Treat search as a first-class SIEM workflow across hot, warm, and archived security data.</li>
+                            <li>Normalize common security entities while keeping raw logs available for exact evidence.</li>
+                            <li>Let teams retain more telemetry in cloud storage without giving up investigation access.</li>
+                            <li>Keep detections, cases, pivots, and query history in one analyst workspace.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="use-cases" class="section">
+            <div class="shell">
+                <div class="section-head">
+                    <h2>Built for common SOC searches.</h2>
+                    <p>Rover centers the workflows analysts run every day, from triage to after-action review.</p>
+                </div>
+
+                <div class="use-cases">
+                    <article class="use-case">
+                        <span class="mono">Identity</span>
+                        <h3>Account takeover</h3>
+                        <p>Search sign-ins, MFA events, VPN logs, device posture, and privilege changes around one user.</p>
+                    </article>
+                    <article class="use-case">
+                        <span class="mono">Cloud</span>
+                        <h3>Risky admin activity</h3>
+                        <p>Trace keys, policies, console actions, workload changes, and network exposure across accounts.</p>
+                    </article>
+                    <article class="use-case">
+                        <span class="mono">Endpoint</span>
+                        <h3>Host investigation</h3>
+                        <p>Pivot through process starts, command lines, DNS, file writes, and EDR alerts without losing context.</p>
+                    </article>
+                    <article class="use-case">
+                        <span class="mono">Application</span>
+                        <h3>Abuse detection</h3>
+                        <p>Connect API gateway, app, auth, payment, and fraud signals for user and session-level searches.</p>
+                    </article>
+                    <article class="use-case">
+                        <span class="mono">Compliance</span>
+                        <h3>Audit evidence</h3>
+                        <p>Find years-old access events and administrative activity without restoring separate archive systems.</p>
+                    </article>
+                    <article class="use-case">
+                        <span class="mono">Response</span>
+                        <h3>Incident timelines</h3>
+                        <p>Build timelines from alerts, searches, entity pivots, notes, and preserved result sets.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="shell cta-box">
+                <div>
+                    <div class="eyebrow mono">Early access</div>
+                    <h2>Bring SIEM and security search into one Rover workspace.</h2>
+                </div>
+                <div class="signup">
+                    <form action="https://formspree.io/f/xgopbprl" method="POST">
+                        <input type="email" name="email" placeholder="security@company.com" aria-label="Email address" required>
+                        <button class="button primary" type="submit">Request Access</button>
                     </form>
                 </div>
             </div>
-            
-            <div class="lg:col-span-4 flex flex-col gap-4">
-                <div class="bg-white p-6 brutalist-card">
-                    <h2 class="text-[10px] font-black uppercase mb-2 text-gray-500">Scan Speed</h2>
-                    <div class="text-5xl font-black italic">1.2s</div>
-                    <div class="text-xs font-bold uppercase">For 1TB Query</div>
-                </div>
-                <div class="bg-rover-orange p-6 brutalist-card text-white">
-                    <h2 class="text-[10px] font-black uppercase mb-2 text-black/50">Cost Efficiency</h2>
-                    <div class="text-5xl font-black italic text-black">$0.01</div>
-                    <div class="text-xs font-bold uppercase text-black">Per 1TB Scanned</div>
-                </div>
-            </div>
-        </div>
-    </header>
+        </section>
+    </main>
 
-
-    <!-- Playground Section -->
-    <section id="playground" class="py-16 md:py-24 px-4 md:px-6 bg-black text-white border-b-8 border-black">
-        <div class="max-w-5xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-6">
-                <div>
-                    <h2 class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter text-rover-yellow mb-2">QUERY_ENGINE_PLAYGROUND</h2>
-                    <p class="text-gray-400 font-bold uppercase text-xs italic tracking-widest">Direct SQL on Object Storage // Outperforming Presto & Trino</p>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-[9px] font-bold text-gray-500 uppercase mr-1">Cluster Size:</span>
-                    <button onclick="setSize(1)" id="size-1" class="terminal-btn active">1TB</button>
-                    <button onclick="setSize(10)" id="size-10" class="terminal-btn">10TB</button>
-                    <button onclick="setSize(50)" id="size-50" class="terminal-btn">50TB</button>
-                    <button onclick="setSize(100)" id="size-100" class="terminal-btn">100TB</button>
-                </div>
-            </div>
-
-            <div class="code-block brutalist-card relative overflow-hidden bg-[#0d0d0d] border-white/10">
-                <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
-                    <span class="text-rover-yellow font-bold text-[10px] tracking-widest uppercase italic">Rover Engine Live v2.6</span>
-                    <span class="text-gray-600 font-mono text-[10px] italic">EST_LATENCY: <span id="est-time" class="text-rover-yellow">0.5</span>s</span>
-                </div>
-
-                <div class="mb-8 min-h-[60px]">
-                    <div class="flex items-start gap-3">
-                        <span class="text-rover-orange font-bold font-mono text-xl">></span>
-                        <div id="query-input" class="text-white font-mono text-base md:text-lg outline-none w-full break-all" contenteditable="true">SELECT avg(latency) FROM llm_inference WHERE injection = true</div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:flex-row md:items-center gap-6 border-t border-white/10 pt-6">
-                    <button onclick="runQuery()" id="run-btn" class="bg-rover-orange text-black font-black px-8 py-3 uppercase italic hover:bg-white transition-all">
-                        EXECUTE_SEARCH
-                    </button>
-                    
-                    <div id="results-meta" class="hidden flex flex-wrap gap-x-8 gap-y-2 text-[11px] font-mono font-bold uppercase tracking-wider text-gray-400">
-                        <div>Rows: <span class="text-rover-yellow" id="res-rows">...</span></div>
-                        <div>Latency: <span class="text-rover-yellow" id="res-time">...</span>s</div>
-                        <div>Scanned: <span class="text-rover-yellow" id="res-scanned">...</span></div>
-                        <div>TCO: <span class="text-rover-yellow" id="res-cost">...</span></div>
-                    </div>
-                </div>
-
-                <div id="loading-overlay" class="absolute inset-0 bg-black/95 flex items-center justify-center hidden z-10">
-                    <div class="text-center">
-                        <div class="text-rover-orange font-black text-2xl italic animate-pulse mb-2 tracking-tighter uppercase">Scanning_Data_Lake</div>
-                        <div class="text-white text-[8px] font-mono tracking-[0.2em] uppercase">Workers Active: 1024 // Partition Pruning</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Suggestions -->
-            <div class="mt-10">
-                <h3 class="text-rover-yellow text-[10px] font-black uppercase mb-4 tracking-widest italic">Common Search Platform Queries</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px] font-mono text-gray-500">
-                    <div class="query-suggestion bg-white/5 p-3 border border-white/10 hover:border-rover-orange transition-all" onclick="setQuery(this.innerText)">SELECT count(*) FROM card_transactions WHERE type = 'beneficiary_change'</div>
-                    <div class="query-suggestion bg-white/5 p-3 border border-white/10 hover:border-rover-orange transition-all" onclick="setQuery(this.innerText)">SELECT LiDAR_status FROM vehicle_logs WHERE error = 'RADAR_FAIL'</div>
-                    <div class="query-suggestion bg-white/5 p-3 border border-white/10 hover:border-rover-orange transition-all" onclick="setQuery(this.innerText)">SELECT count(*) FROM patient_ehr_access WHERE role != 'Physician'</div>
-                    <div class="query-suggestion bg-white/5 p-3 border border-white/10 hover:border-rover-orange transition-all" onclick="setQuery(this.innerText)">SELECT avg(latency) FROM llm_inference WHERE injection = true</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ROVER VS COMPETITORS SECTION -->
-    <section id="competitors" class="py-16 md:py-24 px-4 md:px-6 bg-rover-yellow border-b-8 border-black">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-12">
-                <h2 class="text-4xl md:text-7xl font-black italic uppercase tracking-tighter mb-4">ROVER VS COMPETITORS</h2>
-                <p class="text-xl md:text-2xl font-bold max-w-3xl leading-tight">
-                    The comprehensive breakdown of why global enterprises are offloading legacy stacks to Rover's data lake query engine.
-                </p>
-            </div>
-
-            <div id="use-case-container" class="bg-white brutalist-card overflow-hidden">
-                <div id="records-list" class="divide-y-2 divide-black"></div>
-                
-                <div class="bg-black text-white p-4 flex justify-between items-center font-bold text-xs md:text-sm uppercase tracking-widest italic">
-                    <button id="prev-btn" onclick="prevPage()" class="nav-btn flex items-center gap-2 hover:text-rover-orange transition-all">
-                        <span>← PREV_PAGE</span>
-                    </button>
-                    <div id="page-indicator">PAGE 1 OF 3</div>
-                    <button id="next-btn" onclick="nextPage()" class="nav-btn flex items-center gap-2 hover:text-rover-orange transition-all">
-                        <span>NEXT_PAGE →</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Rover / Testimonials -->
-    <section id="why-rover" class="py-16 md:py-24 px-4 md:px-6 bg-white border-b-8 border-black">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl md:text-6xl font-black mb-12 md:mb-16 tracking-tighter italic uppercase text-center">WHY DATA LEADERS CHOOSE ROVER</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                <div class="flex flex-col sm:flex-row gap-4 md:gap-6 items-start">
-                    <div class="testimonial-avatar flex items-center justify-center bg-blue-500 shadow-[4px_4px_0px_black]">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/></svg>
-                    </div>
-                    <div class="brutalist-card p-5 md:p-6 bg-white relative w-full">
-                        <div class="text-[9px] font-black bg-black text-white px-2 py-1 absolute -top-3 left-4 uppercase italic">Search_Platform_Lead</div>
-                        <p class="font-bold text-sm md:text-base mb-4 italic">"We migrated from Athena to Rover for our log search. The latency dropped by 80%, and we stopped worrying about partition scanning costs."</p>
-                        <div class="flex justify-between items-center text-[9px] font-black uppercase text-gray-500 italic">
-                            <span>Migrated from: Amazon Athena</span>
-                            <span>Speed: 10x</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col sm:flex-row gap-4 md:gap-6 items-start">
-                    <div class="testimonial-avatar flex items-center justify-center bg-green-500 shadow-[4px_4px_0px_black]">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M11.8 2.1L3 6.1v1.9h18V6.1l-8.8-4c-.1 0-.3 0-.4 0zM5 11v8h2v-8H5zm5 0v8h2v-8h-2zm1.2 10.9c.1 0 .2.1.3.1.1 0 .2 0 .3-.1l8.8-4c.2-.1.4-.3.4-.5V11h-2v7.1L12 21.7l-7.1-3.6V11H3v6.4c0 .2.1.4.3.5l8.5 4zM15 11v8h2v-8h-2z"/></svg>
-                    </div>
-                    <div class="brutalist-card p-5 md:p-6 bg-white relative w-full">
-                        <div class="text-[9px] font-black bg-black text-white px-2 py-1 absolute -top-3 left-4 uppercase italic">CTO @ Global Fintech</div>
-                        <p class="font-bold text-sm md:text-base mb-4 italic">"Rover replaced our expensive Splunk cluster for fraud detection logs. We query 50TB of S3 data in under 2 seconds now."</p>
-                        <div class="flex justify-between items-center text-[9px] font-black uppercase text-gray-500 italic">
-                            <span>Old Platform: Splunk</span>
-                            <span>Infrastructure: S3 Data Lake</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col sm:flex-row gap-4 md:gap-6 items-start">
-                    <div class="testimonial-avatar flex items-center justify-center bg-purple-500 shadow-[4px_4px_0px_black]">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
-                    </div>
-                    <div class="brutalist-card p-5 md:p-6 bg-white relative w-full">
-                        <div class="text-[9px] font-black bg-black text-white px-2 py-1 absolute -top-3 left-4 uppercase italic">Head of AI @ AutoTech</div>
-                        <p class="font-bold text-sm md:text-base mb-4 italic">"Monitoring LiDAR and camera telemetry for millions of vehicles is a nightmare in Snowflake. Rover handles petabytes with zero indexing time."</p>
-                        <div class="flex justify-between items-center text-[9px] font-black uppercase text-gray-500 italic">
-                            <span>Scale: 500TB/Day</span>
-                            <span>Industry: Autonomous Vehicles</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col sm:flex-row gap-4 md:gap-6 items-start">
-                    <div class="testimonial-avatar flex items-center justify-center bg-red-500 shadow-[4px_4px_0px_black]">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                    </div>
-                    <div class="brutalist-card p-5 md:p-6 bg-white relative w-full">
-                        <div class="text-[9px] font-black bg-black text-white px-2 py-1 absolute -top-3 left-4 uppercase italic">CISO @ HealthNetwork</div>
-                        <p class="font-bold text-sm md:text-base mb-4 italic">"For HIPAA compliance, we need instant search over 7 years of audit trails. Rover gives us Datadog-like search speed at 1/10th the cost."</p>
-                        <div class="flex justify-between items-center text-[9px] font-black uppercase text-gray-500 italic">
-                            <span>Case: Security Auditing</span>
-                            <span>Savings: $1.2M / Year</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Architecture -->
-    <section id="architecture" class="py-16 md:py-24 px-4 md:px-6 bg-rover-yellow border-b-8 border-black">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl md:text-7xl font-black mb-12 tracking-tighter italic uppercase">ARCHITECTURE</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-rover-yellow p-8 brutalist-card">
-                    <div class="text-rover-orange text-[10px] font-black uppercase mb-2">01. INGESTION</div>
-                    <h3 class="text-2xl font-black italic uppercase mb-4">No Data Moving</h3>
-                    <p class="font-bold text-sm leading-tight">Rover sits on top of your existing S3/GCS/Azure buckets. No indexing pipelines to break. No double storage costs.</p>
-                </div>
-                <div class="bg-black text-white p-8 brutalist-card">
-                    <div class="text-rover-yellow text-[10px] font-black uppercase mb-2">02. EXECUTION</div>
-                    <h3 class="text-2xl font-black italic uppercase mb-4">Massively Parallel</h3>
-                    <p class="font-bold text-sm leading-tight text-gray-400">Queries are split across thousands of transient workers. Zero-bottleneck result aggregation for sub-second responses.</p>
-                </div>
-                <div class="bg-rover-orange p-8 brutalist-card">
-                    <div class="text-black text-[10px] font-black uppercase mb-2">03. OUTPUT</div>
-                    <h3 class="text-2xl font-black italic uppercase mb-4">Standard Interfaces</h3>
-                    <p class="font-bold text-sm leading-tight">Native SQL, JDBC/ODBC, and REST API support. Integrates with Grafana, Tableau, or your custom SIEM.</p>
-                </div>
-            </div>
-        </br></br>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 font-mono text-[10px] md:text-xs font-black uppercase italic pb-10">
-                <div class="border-l-4 border-black pl-3">
-                    <div class="text-rover-orange">Paradigm</div>
-                    <div>Zero-Copy_Architecture</div>
-                </div>
-                <div class="border-l-4 border-black pl-3">
-                    <div class="text-rover-orange">Performance</div>
-                    <div>100x_Latency_Gain</div>
-                </div>
-                <div class="border-l-4 border-black pl-3">
-                    <div class="text-rover-orange">Retrieval</div>
-                    <div>Surgical_Byte-Range</div>
-                </div>
-                <div class="border-l-4 border-black pl-3">
-                    <div class="text-rover-orange">Economics</div>
-                    <div>100x_Cost_Efficiency</div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- MINIMAL SINGLE LINE CONTACT FOOTER -->
-    <footer class="w-full border-t-4 border-black pt-6 pb-6 text-center">
-        <p class="font-black uppercase tracking-tight text-sm md:text-base">
-            Contact for early bird offers at 
-            <a href="mailto:contactus@roverhq.io" class="inline-block ml-1 bg-black text-rover-yellow px-3 py-1 hover:bg-rover-orange hover:text-black transition-all transform hover:scale-105">
-                contactus@roverhq.io
-            </a>
-        </p>
-    </footer>
-    <!-- Footer -->
-    <footer class="bg-black text-white ">
-        <div class="max-w-7xl mx-auto text-center">
-            <div class="mt-20 pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-widest text-gray-500">
-                <div>© 2024 Rover HQ Inc. All Rights Reserved.</div>
-                <div class="flex gap-8 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-rover-orange transition-colors">Privacy</a>
-                    <a href="#" class="hover:text-rover-orange transition-colors">Terms</a>
-                    <a href="#" class="hover:text-rover-orange transition-colors">Status</a>
-                </div>
+    <footer class="footer">
+        <div class="shell footer-inner">
+            <div>&copy; 2026 Rover HQ Inc.</div>
+            <div class="footer-links">
+                <a href="mailto:contactus@roverhq.io">contactus@roverhq.io</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
             </div>
         </div>
     </footer>
 
     <script>
-        const useCaseData = [
-            {
-                industry: "Banking & Financial Services",
-                useCase: "Fraud detection and account takeover monitoring",
-                tco: "$100K–$500K/month",
-                performanceDiff: "1-2 sec (vs 2–8 sec)",
-                impact: "Reduces fraud losses and improves compliance",
-                sampleData: "Failed logins, MFA failures, card transactions, IP changes",
-                dailySize: "1–5 TB/day",
-                sampleQuery: "index=banking (event_type=failed_login OR event_type=beneficiary_change) | stats count by customer_id, src_ip, device_id",
-                sources: "Core banking systems, IAM logs, ATM logs, payment gateways"
-            },
-            {
-                industry: "Insurance",
-                useCase: "Claims fraud analytics",
-                tco: "$100K–$300K/month",
-                performanceDiff: "1.5-2.5 sec (vs 3–10 sec)",
-                impact: "Detects fake claims and suspicious adjuster activity",
-                sampleData: "Claim IDs, claimant names, policy IDs, payment amounts",
-                dailySize: "500 GB–2 TB/day",
-                sampleQuery: "index=insurance sourcetype=claims amount>50000 | stats count sum(amount) by claimant_id, adjuster_id",
-                sources: "Claims systems, CRM, payment systems, policy databases"
-            },
-            {
-                industry: "Healthcare",
-                useCase: "Patient record access monitoring",
-                tco: "$80K–$200K/month",
-                performanceDiff: "1-2 sec (vs 2–7 sec)",
-                impact: "Prevents unauthorized access and supports HIPAA compliance",
-                sampleData: "User IDs, patient IDs, EHR access logs, audit trails",
-                dailySize: "300 GB–1.5 TB/day",
-                sampleQuery: "index=healthcare sourcetype=ehr_access | stats count by user_id, patient_id, access_type",
-                sources: "EHR systems, IAM logs, audit logs, SIEM"
-            },
-            {
-                industry: "E-commerce & Retail",
-                useCase: "Real-time inventory and supply chain observability",
-                tco: "$120K–$400K/month",
-                performanceDiff: "1.2-2.0 sec (vs 2–6 sec)",
-                impact: "Reduces stockouts and optimizes fulfillment latency",
-                sampleData: "SKU IDs, warehouse locations, timestamp, order status",
-                dailySize: "1–8 TB/day",
-                sampleQuery: "index=inventory status=out_of_stock | stats count by warehouse_id, category_id",
-                sources: "ERP systems, warehouse IoT, logistics logs"
-            },
-            {
-                industry: "Generative AI",
-                useCase: "LLM inference performance and prompt security",
-                tco: "$100K–$1M/month",
-                performanceDiff: "1-2 sec (vs 1–6 sec)",
-                impact: "Tracks LLM costs and detects prompt injection attacks",
-                sampleData: "Prompt text, token counts, latency, user IDs",
-                dailySize: "500 GB–10 TB/day",
-                sampleQuery: "index=llm (latency_ms>5000 OR prompt_injection=true) | stats avg(latency_ms), sum(token_count) by model_name, user_id",
-                sources: "API gateways, inference logs, OpenTelemetry, cloud billing logs"
-            },
-            {
-                industry: "Travel & Hospitality",
-                useCase: "Booking fraud and customer journey monitoring",
-                tco: "$90K–$300K/month",
-                performanceDiff: "1.5-2.5 sec (vs 2–8 sec)",
-                impact: "Detects fake bookings and abandoned journeys",
-                sampleData: "Booking IDs, payment failures, cancellation rates",
-                dailySize: "500 GB–4 TB/day",
-                sampleQuery: "index=travel booking_status=cancelled OR payment_status=failed | stats count by destination, payment_method, source_ip",
-                sources: "Booking engines, payment gateways, CRM, loyalty systems"
-            },
-            {
-                industry: "Automotive",
-                useCase: "Connected car telemetry and predictive maintenance",
-                tco: "$100K–$500K/month",
-                performanceDiff: "1.5-2.0 sec (vs 2–7 sec)",
-                impact: "Detects vehicle failures and software crashes",
-                sampleData: "Vehicle sensor data, firmware version, battery health",
-                dailySize: "1–10 TB/day",
-                sampleQuery: "index=connected_car battery_health<20 OR crash_detected=true | stats count avg(battery_health) by model, firmware_version",
-                sources: "Vehicle telemetry, IoT gateways, dealer systems"
-            },
-            {
-                industry: "Autonomous Vehicles",
-                useCase: "Sensor fusion monitoring and edge AI observability",
-                tco: "$150K–$800K/month",
-                performanceDiff: "1.8-3.0 sec (vs 5–50 sec)",
-                impact: "Improves safety by identifying sensor failures",
-                sampleData: "LiDAR events, camera telemetry, radar logs",
-                dailySize: "5–50 TB/day",
-                sampleQuery: "index=av sensor_status=fail | stats count by vehicle_id, sensor_type",
-                sources: "Vehicle logs, edge compute nodes, cloud storage"
-            }
-        ];
-
-        let currentPage = 0;
-        const recordsPerPage = 3;
-        const queryCache = {};
-
-        function renderUseCases() {
-            const list = document.getElementById('records-list');
-            const start = currentPage * recordsPerPage;
-            const end = start + recordsPerPage;
-            const currentData = useCaseData.slice(start, end);
-            
-            list.innerHTML = currentData.map((item, index) => {
-                const globalIndex = start + index;
-                const cached = queryCache[globalIndex];
-                
-                return `
-                <div class="p-6 md:p-8">
-                    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-                        <div class="flex-1">
-                            <span class="bg-black text-white text-[10px] px-2 py-1 uppercase font-black italic mb-2 inline-block">${item.industry}</span>
-                            <h3 class="text-2xl md:text-3xl font-bold italic tracking-tight mb-2 leading-none uppercase">${item.useCase}</h3>
-                            <div class="flex flex-wrap gap-x-6 gap-y-2 mt-4 font-bold text-xs uppercase text-gray-500 italic">
-                                <div><span class="text-black">Rover TCO:</span> ${item.tco}</div>
-                                <div><span class="text-black">Perf:</span> ${item.performanceDiff}</div>
-                            </div>
-                        </div>
-                        <button onclick="toggleDetails(${globalIndex})" class="bg-black text-white px-6 py-3 font-bold uppercase italic text-xs brutalist-card hover:bg-rover-orange hover:text-black transition-all">
-                            View_Details_++
-                        </button>
-                    </div>
-
-                    <div id="details-${globalIndex}" class="expandable-content">
-                        <div class="pt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 border-t border-black/10 mt-8">
-                            <div>
-                                <h4 class="text-[10px] font-black uppercase text-rover-orange mb-2">Business Impact</h4>
-                                <p class="text-sm font-bold leading-tight">${item.impact}</p>
-                            </div>
-                            <div>
-                                <h4 class="text-[10px] font-black uppercase text-rover-orange mb-2">Sample Data & Sources</h4>
-                                <p class="text-sm font-bold leading-tight mb-2 italic text-gray-600">${item.sampleData}</p>
-                                <p class="text-[10px] font-mono text-gray-400 uppercase">${item.sources}</p>
-                            </div>
-                            <div>
-                                <h4 class="text-[10px] font-black uppercase text-rover-orange mb-2">Daily Data Volume</h4>
-                                <p class="text-sm font-bold leading-tight">${item.dailySize}</p>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-8 bg-black text-rover-yellow p-6 font-mono text-[11px] leading-relaxed relative overflow-hidden group">
-                            <div class="absolute top-2 right-4 text-[8px] uppercase text-white/20 font-bold italic">Generated_SQL_Sample</div>
-                            <div class="flex items-start gap-4">
-                                <div class="flex-1">
-                                    <span class="text-white/50 select-none mr-2">rover_sql></span> ${item.sampleQuery}
-                                </div>
-                                <button onclick="executeUseCaseQuery(${globalIndex})" id="exec-btn-${globalIndex}" class="bg-rover-orange text-black px-4 py-1 text-[10px] font-black uppercase italic shadow-[3px_3px_0px_white] active:shadow-none hover:bg-white transition-all whitespace-nowrap">
-                                    Execute Query
-                                </button>
-                            </div>
-                            
-                            <div id="results-container-${globalIndex}" class="mt-6 pt-6 border-t border-white/10 ${cached ? '' : 'hidden'}">
-                                <div id="loading-bar-${globalIndex}" class="h-1 bg-white/10 mb-4 hidden relative overflow-hidden">
-                                    <div class="scan-animation absolute inset-0 w-full h-full"></div>
-                                </div>
-                                <div id="results-data-${globalIndex}" class="grid grid-cols-2 md:grid-cols-4 gap-4 text-white font-bold uppercase tracking-tighter">
-                                    <div>Rows: <span class="text-rover-yellow" id="rows-${globalIndex}">${cached ? cached.rows : '-'}</span></div>
-                                    <div>Latency: <span class="text-rover-yellow" id="lat-${globalIndex}">${cached ? cached.latency : '-'}</span>s</div>
-                                    <div>Scanned: <span class="text-rover-yellow" id="scan-${globalIndex}">${cached ? cached.scanned : '-'}</span>TB</div>
-                                    <div>TCO: <span class="text-rover-yellow" id="tco-${globalIndex}">${cached ? cached.tco : '-'}</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;}).join('');
-            updatePagination();
-        }
-
-        async function executeUseCaseQuery(idx) {
-            const container = document.getElementById(`results-container-${idx}`);
-            const loading = document.getElementById(`loading-bar-${idx}`);
-            const btn = document.getElementById(`exec-btn-${idx}`);
-            
-            container.classList.remove('hidden');
-            loading.classList.remove('hidden');
-            btn.innerText = "Scanning...";
-            btn.disabled = true;
-
-            await new Promise(r => setTimeout(r, 1200));
-
-            let results;
-            if (queryCache[idx]) {
-                results = queryCache[idx];
-            } else {
-                const baseLatency = useCaseData[idx].performanceDiff.split('-')[0].trim();
-                const latency = (parseFloat(baseLatency) + (Math.random() * 0.4)).toFixed(2);
-                const rows = (2503 + Math.floor(Math.random() * 100)).toLocaleString();
-                const scanned = (0.9 + (Math.random() * 0.1)).toFixed(1);
-                const tco = "$0.01";
-                results = { rows, latency, scanned, tco };
-                queryCache[idx] = results;
-            }
-
-            document.getElementById(`rows-${idx}`).innerText = results.rows;
-            document.getElementById(`lat-${idx}`).innerText = results.latency;
-            document.getElementById(`scan-${idx}`).innerText = results.scanned;
-            document.getElementById(`tco-${idx}`).innerText = results.tco;
-
-            loading.classList.add('hidden');
-            btn.innerText = "Query Success";
-            btn.classList.replace('bg-rover-orange', 'bg-green-500');
-            
-            setTimeout(() => {
-                btn.innerText = "Execute Query";
-                btn.classList.replace('bg-green-500', 'bg-rover-orange');
-                btn.disabled = false;
-            }, 3000);
-        }
-
-        function toggleDetails(index) {
-            document.getElementById(`details-${index}`).classList.toggle('open');
-        }
-
-        function updatePagination() {
-            const totalPages = Math.ceil(useCaseData.length / recordsPerPage);
-            document.getElementById('page-indicator').innerText = `PAGE ${currentPage + 1} OF ${totalPages}`;
-            document.getElementById('prev-btn').disabled = currentPage === 0;
-            document.getElementById('next-btn').disabled = currentPage >= totalPages - 1;
-        }
-
-        function nextPage() {
-            if (currentPage < Math.ceil(useCaseData.length / recordsPerPage) - 1) {
-                currentPage++;
-                renderUseCases();
-                document.getElementById('competitors').scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        function prevPage() {
-            if (currentPage > 0) {
-                currentPage--;
-                renderUseCases();
-                document.getElementById('competitors').scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        let selectedSize = 1;
-        function setSize(size) {
-            selectedSize = size;
-            document.querySelectorAll('.terminal-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('size-' + size).classList.add('active');
-            document.getElementById('est-time').innerText = (0.3 + (Math.log10(size) * 0.2)).toFixed(1);
-            document.getElementById('results-meta').classList.add('hidden');
-        }
-
-        function setQuery(text) {
-            document.getElementById('query-input').innerText = text;
-            document.getElementById('results-meta').classList.add('hidden');
-        }
-
-        async function runQuery() {
-            const overlay = document.getElementById('loading-overlay');
-            const meta = document.getElementById('results-meta');
-            const runBtn = document.getElementById('run-btn');
-            overlay.classList.remove('hidden');
-            runBtn.disabled = true;
-            meta.classList.add('hidden');
-            await new Promise(r => setTimeout(r, 600 + (selectedSize * 15)));
-            document.getElementById('res-rows').innerText = (2466 + Math.floor(Math.random() * 100)).toLocaleString();
-            document.getElementById('res-time').innerText = (parseFloat(document.getElementById('est-time').innerText) + (Math.random() * 0.15)).toFixed(2);
-            document.getElementById('res-scanned').innerText = (selectedSize * 0.9).toFixed(1) + 'TB';
-            document.getElementById('res-cost').innerText = '$' + (selectedSize * 0.01).toFixed(2);
-            overlay.classList.add('hidden');
-            meta.classList.remove('hidden');
-            runBtn.disabled = false;
-        }
-
-        window.onload = () => {
-            setSize(1);
-            renderUseCases();
+        const queryExamples = {
+            identity: `<span class="keyword">from</span> identity.signin<br><span class="keyword">where</span> user.risk = <span class="value">"high"</span> and mfa.result != <span class="value">"passed"</span><br><span class="keyword">join</span> cloud.audit on user.id<br><span class="keyword">summarize</span> attempts, countries, services by user.email`,
+            cloud: `<span class="keyword">from</span> cloud.audit<br><span class="keyword">where</span> event.name in (<span class="value">"CreateAccessKey"</span>, <span class="value">"AttachUserPolicy"</span>)<br><span class="keyword">lookup</span> asset.owner by cloud.account<br><span class="keyword">sort</span> by event.time desc`,
+            endpoint: `<span class="keyword">from</span> endpoint.process<br><span class="keyword">where</span> process.parent = <span class="value">"winword.exe"</span><br><span class="keyword">join</span> network.dns on host.id<br><span class="keyword">show</span> host, user, command_line, domain`,
+            archive: `<span class="keyword">from</span> archive.audit<br><span class="keyword">where</span> event.time between <span class="value">"2025-01-01"</span> and <span class="value">"2025-12-31"</span><br><span class="keyword">filter</span> action = <span class="value">"permission_change"</span><br><span class="keyword">summarize</span> by actor, resource, action`
         };
-    </script>
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-VEBTYNJ650"></script>
-        <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
 
-        gtag('config', 'G-VEBTYNJ650');
-        </script>
+        document.querySelectorAll(".query-tab").forEach((tab) => {
+            tab.addEventListener("click", () => {
+                document.querySelectorAll(".query-tab").forEach((item) => item.classList.remove("active"));
+                tab.classList.add("active");
+                document.getElementById("hero-query").innerHTML = queryExamples[tab.dataset.query];
+            });
+        });
+
+        document.getElementById("run-search").addEventListener("click", async () => {
+            const status = document.getElementById("workbench-status");
+            const events = document.getElementById("result-events");
+            const sources = document.getElementById("result-sources");
+            const elapsed = document.getElementById("result-elapsed");
+            const button = document.getElementById("run-search");
+
+            button.disabled = true;
+            status.textContent = "searching";
+
+            await new Promise((resolve) => setTimeout(resolve, 650));
+
+            events.textContent = (15400 + Math.floor(Math.random() * 6200)).toLocaleString();
+            sources.textContent = String(9 + Math.floor(Math.random() * 6));
+            elapsed.textContent = (0.58 + Math.random() * 0.62).toFixed(2) + "s";
+            status.textContent = "complete";
+            button.disabled = false;
+
+            setTimeout(() => {
+                if (status.textContent === "complete") {
+                    status.textContent = "ready";
+                }
+            }, 1800);
+        });
+    </script>
 </body>
 </html>
