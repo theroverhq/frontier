@@ -1600,18 +1600,43 @@
             }
             
             if (isValid) {
-                // Point to the actual PDF
-                const actualPdf = 'docs/Security_Data_Lake_vs_Legacy_SIEM_RoverHq.ai.pdf';
+                const form = e.target;
+                const submitButton = form.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.textContent;
+                submitButton.textContent = 'Submitting...';
+                submitButton.disabled = true;
+
+                const formData = new FormData(form);
                 
-                document.getElementById('download-link').href = actualPdf;
-                
-                document.getElementById('download-form-card').style.display = 'none';
-                document.getElementById('success-card').style.display = 'block';
-                
-                // Auto trigger download
-                setTimeout(() => {
-                    document.getElementById('download-link').click();
-                }, 500);
+                fetch('https://formspree.io/f/xgopbprl', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        // Point to the actual PDF
+                        const actualPdf = 'docs/Security_Data_Lake_vs_Legacy_SIEM_RoverHq.ai.pdf';
+                        document.getElementById('download-link').href = actualPdf;
+                        
+                        document.getElementById('download-form-card').style.display = 'none';
+                        document.getElementById('success-card').style.display = 'block';
+                        
+                        // Auto trigger download
+                        setTimeout(() => {
+                            document.getElementById('download-link').click();
+                        }, 500);
+                    } else {
+                        throw new Error('Network response was not ok.');
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
+                    alert('There was a problem submitting your request. Please try again.');
+                }).finally(() => {
+                    submitButton.textContent = originalButtonText;
+                    submitButton.disabled = false;
+                });
             }
         });
     </script>
