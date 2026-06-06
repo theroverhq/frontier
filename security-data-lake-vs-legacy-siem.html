@@ -1451,7 +1451,6 @@
             letter-spacing: 0.5px;
         }
         .success-state {
-            display: none;
             text-align: center;
             padding: 48px 32px;
         }
@@ -1525,31 +1524,33 @@
                 <div class="form-container">
                     <div class="form-card" id="download-form-card">
                         <h2>Get the Presentation</h2>
-                        <form id="presentation-form" novalidate>
+                        
+                        <div class="success-state" data-fs-success>
+                            <div class="icon mono">✓</div>
+                            <h3>You're all set!</h3>
+                            <p>Your presentation is ready for download.</p>
+                            <a id="download-link" href="docs/Security_Data_Lake_vs_Legacy_SIEM_RoverHq.ai.pdf" class="button secondary" download="Security_Data_Lake_vs_Legacy_SIEM.pdf">Download PDF Now</a>
+                        </div>
+                        <div class="form-error" data-fs-error style="margin-bottom: 16px;">Oops! There was a problem submitting your form.</div>
+
+                        <form id="presentation-form">
                             <div class="form-group">
                                 <label for="name">Full Name</label>
-                                <input type="text" id="name" name="name" required placeholder="Jane Doe">
-                                <div class="form-error" id="name-error">Please enter your name</div>
+                                <input type="text" id="name" name="name" required placeholder="Jane Doe" data-fs-field>
+                                <span class="form-error" data-fs-error="name"></span>
                             </div>
                             <div class="form-group">
                                 <label for="email">Company Email</label>
-                                <input type="email" id="email" name="email" required placeholder="jane@company.com">
-                                <div class="form-error" id="email-error">Please enter a valid work email</div>
+                                <input type="email" id="email" name="email" required placeholder="jane@company.com" data-fs-field>
+                                <span class="form-error" data-fs-error="email"></span>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" required placeholder="+1 (555) 000-0000">
-                                <div class="form-error" id="phone-error">Please enter a valid phone number</div>
+                                <input type="tel" id="phone" name="phone" required placeholder="+1 (555) 000-0000" data-fs-field>
+                                <span class="form-error" data-fs-error="phone"></span>
                             </div>
-                            <button class="button primary" type="submit">Download PDF</button>
+                            <button class="button primary" type="submit" data-fs-submit-btn>Download PDF</button>
                         </form>
-                    </div>
-                    
-                    <div class="form-card success-state" id="success-card">
-                        <div class="icon mono">✓</div>
-                        <h3>You're all set!</h3>
-                        <p>Your presentation is ready for download. Click the button below if it doesn't start automatically.</p>
-                        <a id="download-link" href="#" class="button secondary" download="Security_Data_Lake_vs_Legacy_SIEM.pdf">Download PDF Now</a>
                     </div>
                 </div>
             </div>
@@ -1568,76 +1569,23 @@
 
 
     <script>
-        document.getElementById('presentation-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            let isValid = true;
-            
-            const name = document.getElementById('name');
-            if (!name.value.trim()) {
-                document.getElementById('name-error').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('name-error').style.display = 'none';
-            }
-            
-            const email = document.getElementById('email');
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email.value)) {
-                document.getElementById('email-error').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('email-error').style.display = 'none';
-            }
-            
-            const phone = document.getElementById('phone');
-            const phoneRegex = /^[\d\s\-\+\(\)]+$/;
-            if (!phone.value.trim() || !phoneRegex.test(phone.value) || phone.value.replace(/\D/g,'').length < 10) {
-                document.getElementById('phone-error').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('phone-error').style.display = 'none';
-            }
-            
-            if (isValid) {
-                const form = e.target;
-                const submitButton = form.querySelector('button[type="submit"]');
-                const originalButtonText = submitButton.textContent;
-                submitButton.textContent = 'Submitting...';
-                submitButton.disabled = true;
-
-                const formData = new FormData(form);
-                
-                fetch('https://formspree.io/f/xgopbprl', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                }).then(response => {
-                    if (response.ok) {
-                        // Point to the actual PDF
-                        const actualPdf = 'docs/Security_Data_Lake_vs_Legacy_SIEM_RoverHq.ai.pdf';
-                        document.getElementById('download-link').href = actualPdf;
-                        
-                        document.getElementById('download-form-card').style.display = 'none';
-                        document.getElementById('success-card').style.display = 'block';
-                        
-                        // Auto trigger download
-                        setTimeout(() => {
-                            document.getElementById('download-link').click();
-                        }, 500);
-                    } else {
-                        throw new Error('Network response was not ok.');
-                    }
-                }).catch(error => {
-                    console.error('Error:', error);
-                    alert('There was a problem submitting your request. Please try again.');
-                }).finally(() => {
-                    submitButton.textContent = originalButtonText;
-                    submitButton.disabled = false;
-                });
-            }
+        window.formspree =
+            window.formspree ||
+            function () {
+                (formspree.q = formspree.q || []).push(arguments);
+            };
+        formspree("initForm", {
+            formElement: "#presentation-form",
+            formId: "xaqzqdjj",
+        });
+    </script>
+    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+    <script>
+        const formEl = document.getElementById('presentation-form');
+        formEl.addEventListener('formspree:success', function() {
+            setTimeout(() => {
+                document.getElementById('download-link').click();
+            }, 500);
         });
     </script>
 </body>
