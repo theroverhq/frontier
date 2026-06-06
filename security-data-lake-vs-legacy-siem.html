@@ -1536,17 +1536,17 @@
                         <form id="presentation-form">
                             <div class="form-group">
                                 <label for="name">Full Name</label>
-                                <input type="text" id="name" name="name" required placeholder="Jane Doe" data-fs-field>
+                                <input type="text" id="name" name="name" required minlength="2" maxlength="100" pattern="^[a-zA-ZÀ-ÿ\s\.\-']+$" title="Please enter a valid name (letters, spaces, and hyphens only)." placeholder="Jane Doe" data-fs-field>
                                 <span class="form-error" data-fs-error="name"></span>
                             </div>
                             <div class="form-group">
                                 <label for="email">Company Email</label>
-                                <input type="email" id="email" name="email" required placeholder="jane@company.com" data-fs-field>
+                                <input type="email" id="email" name="email" required pattern="^[a-zA-Z0-9._%+\-]+@(?!(gmail\.com|yahoo\.com|hotmail\.com|outlook\.com|aol\.com|icloud\.com|protonmail\.com|live\.com|msn\.com|me\.com|mac\.com)$)[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$" title="Please enter a valid company email address. Free email providers (like Gmail, Yahoo, etc.) are not accepted." placeholder="jane@company.com" data-fs-field>
                                 <span class="form-error" data-fs-error="email"></span>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" required placeholder="+1 (555) 000-0000" data-fs-field>
+                                <input type="tel" id="phone" name="phone" required pattern="^(\+\d{1,3}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$" title="Please enter a valid phone number, e.g., +1 (555) 000-0000" placeholder="+1 (555) 000-0000" data-fs-field>
                                 <span class="form-error" data-fs-error="phone"></span>
                             </div>
                             <button class="button primary" type="submit" data-fs-submit-btn>Download PDF</button>
