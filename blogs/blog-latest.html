@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rover Blog | The Agentic Database Wall: Runaway SIEM Bills</title>
+    <meta name="description" content="Why autonomous AI agents are quietly doubling cloud SIEM indexing taxes, and how S3-native architectures provide a safety boundary.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --background: oklch(0.92 0.01 96);
+            --foreground: oklch(0.2 0.01 60);
+            --card: oklch(0.95 0.01 96);
+            --muted: oklch(0.88 0.01 96);
+            --muted-foreground: oklch(0.45 0.01 60);
+            --primary: oklch(0.79 0.16 89);
+            --secondary: oklch(0.7 0.15 340);
+            --dark: oklch(0.13 0.01 70);
+            --dark-panel: oklch(0.17 0.01 70);
+            --dark-line: oklch(0.35 0.02 75);
+            --border: oklch(0.2 0.01 60);
+            --shadow: 6px 6px 0 var(--border);
+            --max: 1180px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--foreground);
+            font-family: "Space Grotesk", system-ui, sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+            background:
+                linear-gradient(rgba(40, 37, 30, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(40, 37, 30, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .mono {
+            font-family: "JetBrains Mono", monospace;
+        }
+
+        .shell {
+            width: min(var(--max), calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        /* Nav Header */
+        .nav {
+            border-bottom: 2px solid var(--border);
+            background: color-mix(in oklch, var(--background) 90%, white);
+            backdrop-filter: blur(14px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 72px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .brand-mark {
+            display: grid;
+            place-items: center;
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--border);
+            background: var(--primary);
+            box-shadow: 4px 4px 0 var(--border);
+            color: var(--foreground);
+        }
+
+        /* Two Column Layout */
+        .layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            margin-top: 40px;
+            margin-bottom: 80px;
+            align-items: start;
+        }
+
+        /* Left Panel - Blog List (Descending Counter) */
+        .sidebar {
+            position: sticky;
+            top: 112px;
+            border: 2px solid var(--border);
+            background: var(--card);
+            box-shadow: var(--shadow);
+            padding: 24px;
+        }
+
+        .sidebar-title {
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--muted-foreground);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .blog-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .blog-item {
+            border: 2px solid transparent;
+            padding: 12px;
+            transition: all 150ms ease;
+        }
+
+        .blog-item.active {
+            border-color: var(--border);
+            background: var(--primary);
+            box-shadow: 4px 4px 0 var(--border);
+        }
+
+        .blog-item:not(.active):hover {
+            border-color: var(--border);
+            background: white;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 var(--border);
+        }
+
+        .blog-item-counter {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--secondary);
+            margin-bottom: 4px;
+        }
+
+        .blog-item.active .blog-item-counter {
+            color: var(--foreground);
+        }
+
+        .blog-item-title {
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        /* Right Panel - Blog Content */
+        .content {
+            border: 2px solid var(--border);
+            background: white;
+            box-shadow: var(--shadow);
+            padding: 48px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid var(--border);
+            background: var(--primary);
+            padding: 6px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+        }
+
+        h1 {
+            font-size: 48px;
+            line-height: 0.95;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            font-weight: 800;
+        }
+
+        .meta {
+            display: flex;
+            gap: 16px;
+            color: var(--muted-foreground);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--muted);
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .case-study-box {
+            border: 2px solid var(--border);
+            background: var(--primary-soft);
+            padding: 24px;
+            box-shadow: 4px 4px 0 var(--border);
+            margin-bottom: 32px;
+        }
+
+        .case-study-box h3 {
+            margin: 0 0 10px 0;
+            color: var(--secondary);
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .case-study-box p {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .article p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .quote-block {
+            border-left: 6px solid var(--secondary);
+            background: var(--card);
+            padding: 24px;
+            margin: 32px 0;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .article h2 {
+            font-size: 28px;
+            text-transform: uppercase;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: var(--background);
+            padding: 28px 0;
+            border-top: 2px solid var(--border);
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .sidebar {
+                position: relative;
+                top: auto;
+            }
+
+            .content {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="shell nav-inner">
+            <a href="../index.html" class="brand">
+                <span class="brand-mark">R</span>
+                <span>Rover</span>
+            </a>
+            <a href="../index.html" class="mono" style="font-size: 12px; font-weight: 700; text-transform: uppercase;">← Back to Home</a>
+        </div>
+    </nav>
+
+    <div class="shell layout">
+        <!-- Left Sticky Panel: Descending List -->
+        <aside class="sidebar">
+            <div class="sidebar-title mono">Latest Insights</div>
+            <div class="blog-list">
+                <a href="blog-02.html" class="blog-item active">
+                    <div class="blog-item-counter mono">Blog #02 (Newest)</div>
+                    <div class="blog-item-title">The Agentic Database Wall</div>
+                </a>
+                <a href="blog-01.html" class="blog-item">
+                    <div class="blog-item-counter mono">Blog #01</div>
+                    <div class="blog-item-title">The Indexing Tax & S3 Analytics</div>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Right Content Panel -->
+        <main class="content">
+            <div class="eyebrow mono">Threat Intelligence</div>
+            <h1>The Agentic Database Wall: Why AI Agents Are Exploding Your SIEM Bills</h1>
+            
+            <div class="meta mono">
+                <span>Published: June 8, 2026</span>
+                <span>By: Rover Engineering</span>
+            </div>
+
+            <div class="case-study-box">
+                <h3>// Case Study: The Double-Billing Crisis</h3>
+                <p>We recently audited a fintech partner whose monthly cloud SIEM billing suddenly doubled. Investigation isolated the root cause: an autonomous diagnostic SecOps agent had caught itself in an infinite query loop, executing unoptimized searches over unindexed object stores.</p>
+            </div>
+
+            <article class="article">
+                <p>As large language models evolve from mere chatbots into autonomous agents capable of reasoning, planning, and acting, they are beginning to orchestrate complex application stacks on their own.</p>
+                <p>However, these agents are now encountering their most formidable obstacle: the database.</p>
+
+                <p>“Databases pose the hardest and most important challenge for agents, due to their unforgiving correctness and performance requirements,” Andy Pavlo, Associate Professor of Computer Science at Carnegie Mellon University, told attendees last week at the Percona Live 2026 conference here in Mountain View, California, at the Computer History Museum.</p>
+
+                <p>In a discussion on the intersection of AI and open-source infrastructure, Pavlo contended that while coding agents can readily regurgitate standard data structures, the database remains the most difficult part of any system to automate and optimize. Now THAT would be a cause for alarm.</p>
+
+                <div class="quote-block">
+                    “If an agent hallucinates a UI component, the page looks slightly off; if it hallucinates a query or a configuration change in a production database, the entire system can vanish.”
+                </div>
+
+                <h2>The Multi-Agent Tug-of-War</h2>
+                <p>Pavlo identifies two primary ways AI is impacting the database world: tuning agents and coding agents. Tuning agents aim to solve the “black magic” of database optimization — automatically adjusting system knobs, physical designs (such as indexes), and query execution strategies. Historically, this required a human database administrator (DBA) to spend years developing the intuition to know which configuration would yield better latency or throughput.</p>
+
+                <p>The challenge is that these specialized agents often operate in silos, Pavlo said. A knob-tuning agent might be unaware of what an index-tuning agent is doing, leading to local minima where the system is better than stock but far from optimal. CMU’s research into multi-round and sequential tuning aims to solve this by creating a coordinating framework, though even this faces a “curse of dimensionality,” Pavlo says.</p>
+
+                <p>Carnegie Mellon’s Database Group pioneered the concept of self-driving and machine-learning-driven database optimization. Sequential tuning and multi-round tuning are prime components of their autonomous database management system (DBMS) projects.</p>
+
+                <p>Multi-round and sequential tuning in AI databases refers to advanced machine learning and data engineering methods in which AI models are refined for multistep reasoning, tool use, or complex conversational histories. These frameworks ensure that AI models not only respond in isolated single-turn bursts but maintain context and logic across complex interactions. With trillions of possible configuration combinations, the search space for a perfect database is effectively exponential.</p>
+
+                <h2>The Coding Agent Advantage and the Optimizer Wall</h2>
+                <p>On the development side, coding agents are already proving to be hyper-productive collaborators. Pavlo observed that at CMU, student submissions for database projects saw a massive spike in lines of code once LLMs were permitted. “The coding agents are very good at building almost every part of a database — B+ trees, hash tables, buffer managers — because they can regurgitate standard implementations found in textbooks and open-source repos,” Pavlo said.</p>
+
+                <p>However, the “double black diamond” challenge, Pavlo said, remains the query optimizer. Unlike basic data structures, query optimizers are rarely available as clean, modular open-source references. They are often deeply entangled with the systems for which they were built. Furthermore, proving that an AI-generated transformation rule is semantically correct — meaning it produces the same result as the original query but faster — is an unsolved problem.</p>
+
+                <h2>Risks Include Hallucinations and Security</h2>
+                <p>The shift toward agentic database management isn’t without significant risk. Pavlo and other industry leaders, such as Percona co-founder Peter Zaitsev, warn that delegating orchestration to agents introduces massive stability and security gaps. There are already documented cases of agents being pointed at a database and accidentally dropping the entire system or leaking sensitive information because they didn’t understand the nuance of access controls, Zaitsev said.</p>
+
+                <p>Furthermore, LLMs suffer from so-called AI slop, in which they generate code that is hyper-specialized to a specific query but fails to generalize. For example, if a developer uses an agent to optimize an “Extract Year” clause, the agent might build an internal data structure that breaks the moment the developer tries to enact “Extract Month.”</p>
+
+                <h2>Automation as a Collaborator, Not a Replacement</h2>
+                <p>Despite these hurdles, Pavlo said he is optimistic about the Agent Operator model. This envisions agents handling the “3 a.m. s***’s on fire” situations — immediate performance anomalies and stability issues — while humans focus on higher-level architectural design. By using Agent Boosting techniques to bootstrap training data from previously tuned databases, the time required to optimize a system can be cut from 12 hours to under 15 minutes, Pavlo said.</p>
+
+                <p>In the new AI era, the goal isn’t only to have an AI that writes code, but a system that can reason about its own performance and correctness. Pavlo concludes that the database is the foundation of knowledge for any agent. “If we want autonomous systems, we must first master the unforgiving art of the autonomous database,” he says.</p>
+
+                <div class="case-study-box" style="background: var(--primary); margin-top: 48px;">
+                    <h3>Bypass the Network Tax</h3>
+                    <p>Stop paying legacy platform fees. Retrieve security telemetry surgically with Rover's S3-native search layer. Reach out to <a href="mailto:contactus@roverhq.ai" style="text-decoration: underline;">contactus@roverhq.ai</a> to explore our early bird deployment programs.</p>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="shell footer-inner">
+            <div>&copy; 2026 Rover HQ Inc.</div>
+            <div>contactus@roverhq.ai</div>
+        </div>
+    </footer>
+
+</body>
+</html>
