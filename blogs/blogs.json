@@ -1,0 +1,14 @@
+[
+{
+"id": "blog-02",
+"url": "the-agentic-database-wall.html",
+"counter": "Blog #02 (Newest)",
+"title": "The Agentic Database Wall"
+},
+{
+"id": "blog-01",
+"url": "indexing-tax-s3-analytics.html",
+"counter": "Blog #01",
+"title": "The Indexing Tax & S3 Analytics"
+}
+]
