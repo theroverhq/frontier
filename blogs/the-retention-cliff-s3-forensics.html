@@ -1,78 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+---
+layout: blog
+title: "The Retention Cliff: Why Short-Term SIEM Ingestion Limits Forensics | Rover"
+description: "Traditional hot-storage tiers force security teams to dump critical telemetry after 30 days. Discover how decoupling SIEM alerting from S3-native search preserves historical logs."
+og_image: "https://roverhq.ai/og-image-retention.png"
+---
 
-    <!-- ADVANCED SEO META FIELDS -->
-    <title>The Retention Cliff: Why Short-Term SIEM Ingestion Limits Forensics | Rover</title>
-    <meta name="description" content="Traditional hot-storage tiers force security teams to dump critical telemetry after 30 days. Discover how decoupling SIEM alerting from S3-native search preserves historical logs.">
-    <meta name="keywords" content="SIEM retention cliff, Splunk cold storage, security log retention policy, S3 forensic log archive, long term security telemetry, security data lake cost">
-    <link rel="canonical" href="https://roverhq.ai/blogs/the-retention-cliff-s3-forensics.html">
-
-    <!-- Open Graph (Facebook / LinkedIn) -->
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://roverhq.ai/blogs/the-retention-cliff-s3-forensics.html">
-    <meta property="og:title" content="The Retention Cliff: Why Short-Term SIEM Ingestion Limits Forensics">
-    <meta property="og:description" content="Credential theft and advanced persistent threats lie dormant for months. Learn why legacy SIEM 30-day retention limits destroy investigations.">
-    <meta property="og:image" content="https://roverhq.ai/og-image-retention.png">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://roverhq.ai/blogs/the-retention-cliff-s3-forensics.html">
-    <meta name="twitter:title" content="The Retention Cliff: Why Short-Term SIEM Ingestion Limits Forensics">
-    <meta name="twitter:description" content="Attack found today. Logs expired yesterday. Learn how S3 decoupled architecture solves the security retention cliff.">
-    <meta name="twitter:image" content="https://roverhq.ai/og-image-retention.png">
-
-    <!-- JSON-LD Structured Data Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "The Retention Cliff: Why Short-Term SIEM Ingestion Limits Forensics",
-      "description": "An architectural deep-dive into resolving the trade-offs of legacy hot-storage index scaling through direct, cost-efficient security data lakes.",
-      "inLanguage": "en",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://roverhq.ai/blogs/the-retention-cliff-s3-forensics.html"
-      },
-      "datePublished": "2026-04-12T12:00:00+00:00",
-      "dateModified": "2026-04-12T12:00:00+00:00",
-      "author": {
-        "@type": "Organization",
-        "name": "Rover Engineering",
-        "logo": "https://roverhq.ai/brand-logo.png"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Rover HQ",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://roverhq.ai/brand-logo.png"
-        }
-      }
-    }
-    </script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="../layout.css">
-</head>
-<body>
-
-    <nav class="nav">
-        <div class="shell nav-inner">
-            <a href="../index.html" class="brand">
-                <span class="brand-mark">R</span>
-                <span>Rover</span>
-            </a>
-            <a href="../index.html" class="mono" style="font-size: 12px; font-weight: 700; text-transform: uppercase;">← Back to Home</a>
-        </div>
-    </nav>
-
-    <div class="shell layout">
+<div class="shell layout">
         <aside class="sidebar">
             <div class="sidebar-title mono">Latest Insights</div>
             <div class="blog-list" id="dynamic-blog-list">
@@ -111,14 +44,7 @@
         </main>
     </div>
 
-    <footer class="footer">
-        <div class="shell footer-inner">
-            <div>&copy; 2026 Rover HQ Inc.</div>
-            <div>contactus@roverhq.ai</div>
-        </div>
-    </footer>
-
-    <script>
+<script>
         async function loadBlogs() {
             try {
                 const response = await fetch('blogs.json');
@@ -140,6 +66,3 @@
         }
         window.addEventListener('DOMContentLoaded', loadBlogs);
     </script>
-    <script src="../site.js"></script>
-</body>
-</html>

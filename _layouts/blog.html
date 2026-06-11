@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ page.title }}</title>
+    <meta name="description" content="{{ page.description }}">
+    <meta name="keywords" content="Splunk ingestion tax, Snowflake vs Rover, log indexing tax, S3 analytics engine, zero-copy querying, cloud object data lakes, elasticsearch alternatives, cheap log retention, security data lake architecture">
+    <link rel="canonical" href="https://roverhq.ai{{ page.url }}">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://roverhq.ai{{ page.url }}">
+    <meta property="og:title" content="{{ page.title }}">
+    <meta property="og:description" content="{{ page.description }}">
+    <meta property="og:image" content="{{ page.og_image }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://roverhq.ai{{ page.url }}">
+    <meta name="twitter:title" content="{{ page.title }}">
+    <meta name="twitter:description" content="{{ page.description }}">
+    <meta name="twitter:image" content="{{ page.og_image }}">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "{{ page.title }}",
+      "description": "{{ page.description }}",
+      "inLanguage": "en",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://roverhq.ai{{ page.url }}"
+      },
+      "datePublished": "2026-05-20T12:00:00+00:00",
+      "dateModified": "2026-05-20T12:00:00+00:00",
+      "author": {
+        "@type": "Organization",
+        "name": "Rover Engineering",
+        "logo": "https://roverhq.ai/brand-logo.png"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Rover HQ",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://roverhq.ai/brand-logo.png"
+        }
+      }
+    }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Absolute path for layout.css from root -->
+    <link rel="stylesheet" href="/layout.css">
+
+    <!-- Favicon Links -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon/site.webmanifest">
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="shell nav-inner">
+            <a href="/" class="brand">
+                <span class="brand-mark">R</span>
+                <span>Rover</span>
+            </a>
+            <a href="/" class="mono" style="font-size: 12px; font-weight: 700; text-transform: uppercase;">← Back to Home</a>
+        </div>
+    </nav>
+
+    {{ content }}
+
+    <footer class="footer">
+        <div class="shell footer-inner">
+            <div>&copy; 2026 Rover HQ Inc.</div>
+            <div>contactus@roverhq.ai</div>
+        </div>
+    </footer>
+
+    <!-- Absolute path for site.js from root -->
+    <script src="/site.js"></script>
+</body>
+</html>

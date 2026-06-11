@@ -1,78 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+---
+layout: blog
+title: "The Compliance Tax: How Automated Audits Leverage Object Lakes | Rover"
+description: "Manual compliance audits turn log discovery into complex fire drills. Learn how governed S3-native data lakes offer automated compliance evidence."
+og_image: "https://roverhq.ai/og-image-compliance.png"
+---
 
-    <!-- ADVANCED SEO META FIELDS -->
-    <title>The Compliance Tax: How Automated Audits Leverage Object Lakes | Rover</title>
-    <meta name="description" content="Manual compliance audits turn log discovery into complex fire drills. Learn how governed S3-native data lakes offer automated compliance evidence.">
-    <meta name="keywords" content="SOC 2 log compliance, security data lake evidence, persistent audit logging, S3 immutability logs, security pipeline compliance">
-    <link rel="canonical" href="https://roverhq.ai/blogs/the-compliance-tax-automated-audit-evidence.html">
-
-    <!-- Open Graph (Facebook / LinkedIn) -->
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://roverhq.ai/blogs/the-compliance-tax-automated-audit-evidence.html">
-    <meta property="og:title" content="The Compliance Tax: How Automated Audits Leverage Object Lakes">
-    <meta property="og:description" content="Stop spending weeks stitching CSVs and screenshots. Learn how Rover converts S3 data into an automated evidence ledger.">
-    <meta property="og:image" content="https://roverhq.ai/og-image-compliance.png">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://roverhq.ai/blogs/the-compliance-tax-automated-audit-evidence.html">
-    <meta name="twitter:title" content="The Compliance Tax: How Automated Audits Leverage Object Lakes">
-    <meta name="twitter:description" content="Compliance shouldn't be a fire drill. Learn how a single governed security lake makes audits automatic.">
-    <meta name="twitter:image" content="https://roverhq.ai/og-image-compliance.png">
-
-    <!-- JSON-LD Structured Data Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "The Compliance Tax: How Automated Audits Leverage Object Lakes",
-      "description": "Exposing the organizational inefficiency of manual evidence collection during regulatory compliance cycles, proposing a centralized security lake house.",
-      "inLanguage": "en",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://roverhq.ai/blogs/the-compliance-tax-automated-audit-evidence.html"
-      },
-      "datePublished": "2026-02-14T12:00:00+00:00",
-      "dateModified": "2026-02-14T12:00:00+00:00",
-      "author": {
-        "@type": "Organization",
-        "name": "Rover Engineering",
-        "logo": "https://roverhq.ai/brand-logo.png"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Rover HQ",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://roverhq.ai/brand-logo.png"
-        }
-      }
-    }
-    </script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="../layout.css">
-</head>
-<body>
-
-    <nav class="nav">
-        <div class="shell nav-inner">
-            <a href="../index.html" class="brand">
-                <span class="brand-mark">R</span>
-                <span>Rover</span>
-            </a>
-            <a href="../index.html" class="mono" style="font-size: 12px; font-weight: 700; text-transform: uppercase;">← Back to Home</a>
-        </div>
-    </nav>
-
-    <div class="shell layout">
+<div class="shell layout">
         <aside class="sidebar">
             <div class="sidebar-title mono">Latest Insights</div>
             <div class="blog-list" id="dynamic-blog-list">
@@ -113,14 +46,7 @@
         </main>
     </div>
 
-    <footer class="footer">
-        <div class="shell footer-inner">
-            <div>&copy; 2026 Rover HQ Inc.</div>
-            <div>contactus@roverhq.ai</div>
-        </div>
-    </footer>
-
-    <script>
+<script>
         async function loadBlogs() {
             try {
                 const response = await fetch('blogs.json');
@@ -142,6 +68,3 @@
         }
         window.addEventListener('DOMContentLoaded', loadBlogs);
     </script>
-    <script src="../site.js"></script>
-</body>
-</html>

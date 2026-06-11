@@ -1,78 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+---
+layout: blog
+title: "The Search Tax: Why High Query Latency Paralyses Threat Hunting | Rover"
+description: "Why waiting for a query is not incident response, and how partitioned object storage structures query latency under 2 seconds."
+og_image: "https://roverhq.ai/og-image-search.png"
+---
 
-    <!-- ADVANCED SEO META FIELDS -->
-    <title>The Search Tax: Why High Query Latency Paralyses Threat Hunting | Rover</title>
-    <meta name="description" content="Why waiting for a query is not incident response, and how partitioned object storage structures query latency under 2 seconds.">
-    <meta name="keywords" content="SIEM search tax, slow logs query, Athena query performance, SOC threat hunting latency, fast log analytics">
-    <link rel="canonical" href="https://roverhq.ai/blogs/the-search-tax-stopping-the-soc-waiting-game.html">
-
-    <!-- Open Graph (Facebook / LinkedIn) -->
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://roverhq.ai/blogs/the-search-tax-stopping-the-soc-waiting-game.html">
-    <meta property="og:title" content="The Search Tax: Why High Query Latency Paralyses Threat Hunting">
-    <meta property="og:description" content="Analysts should hunt, not wait. Learn how Rover bypasses index search latency with surgical byte-range scans.">
-    <meta property="og:image" content="https://roverhq.ai/og-image-search.png">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://roverhq.ai/blogs/the-search-tax-stopping-the-soc-waiting-game.html">
-    <meta name="twitter:title" content="The Search Tax: Why High Query Latency Paralyses Threat Hunting">
-    <meta name="twitter:description" content="Query wait loops are a liability. Explore Rover's direct partitioning for fast security analysis.">
-    <meta name="twitter:image" content="https://roverhq.ai/og-image-search.png">
-
-    <!-- JSON-LD Structured Data Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "The Search Tax: Why High Query Latency Paralyses Threat Hunting",
-      "description": "Exposing the latency issues in traditional log queries and explaining how physical design partitions optimize search times during incidents.",
-      "inLanguage": "en",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://roverhq.ai/blogs/the-search-tax-stopping-the-soc-waiting-game.html"
-      },
-      "datePublished": "2026-01-20T12:00:00+00:00",
-      "dateModified": "2026-01-20T12:00:00+00:00",
-      "author": {
-        "@type": "Organization",
-        "name": "Rover Engineering",
-        "logo": "https://roverhq.ai/brand-logo.png"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Rover HQ",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://roverhq.ai/brand-logo.png"
-        }
-      }
-    }
-    </script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="../layout.css">
-</head>
-<body>
-
-    <nav class="nav">
-        <div class="shell nav-inner">
-            <a href="../index.html" class="brand">
-                <span class="brand-mark">R</span>
-                <span>Rover</span>
-            </a>
-            <a href="../index.html" class="mono" style="font-size: 12px; font-weight: 700; text-transform: uppercase;">← Back to Home</a>
-        </div>
-    </nav>
-
-    <div class="shell layout">
+<div class="shell layout">
         <aside class="sidebar">
             <div class="sidebar-title mono">Latest Insights</div>
             <div class="blog-list" id="dynamic-blog-list">
@@ -119,14 +52,7 @@
         </main>
     </div>
 
-    <footer class="footer">
-        <div class="shell footer-inner">
-            <div>&copy; 2026 Rover HQ Inc.</div>
-            <div>contactus@roverhq.ai</div>
-        </div>
-    </footer>
-
-    <script>
+<script>
         async function loadBlogs() {
             try {
                 const response = await fetch('blogs.json');
@@ -148,6 +74,3 @@
         }
         window.addEventListener('DOMContentLoaded', loadBlogs);
     </script>
-    <script src="../site.js"></script>
-</body>
-</html>

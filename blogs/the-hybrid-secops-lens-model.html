@@ -1,78 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+---
+layout: blog
+title: "The Hybrid SecOps Lens Model: Balancing Alerting and Data Lakes | Rover"
+description: "Security data lakes provide cheap storage, but miss real-time detections. Discover how the Hybrid Lens Model combines SIEM alerting with S3 query performance."
+og_image: "https://roverhq.ai/og-image-hybrid.png"
+---
 
-    <!-- ADVANCED SEO META FIELDS -->
-    <title>The Hybrid SecOps Lens Model: Balancing Alerting and Data Lakes | Rover</title>
-    <meta name="description" content="Security data lakes provide cheap storage, but miss real-time detections. Discover how the Hybrid Lens Model combines SIEM alerting with S3 query performance.">
-    <meta name="keywords" content="hybrid SecOps model, security data lake vs SIEM, real time alert routing, Cribl pipeline lake architecture, Athena log search">
-    <link rel="canonical" href="https://roverhq.ai/blogs/the-hybrid-secops-lens-model.html">
-
-    <!-- Open Graph (Facebook / LinkedIn) -->
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://roverhq.ai/blogs/the-hybrid-secops-lens-model.html">
-    <meta property="og:title" content="The Hybrid SecOps Lens Model: Balancing Alerting and Data Lakes">
-    <meta property="og:description" content="Real-time alerts need stream engines; massive investigations need scalable lakes. Discover how Rover integrates SIEM and object stores.">
-    <meta property="og:image" content="https://roverhq.ai/og-image-hybrid.png">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://roverhq.ai/blogs/the-hybrid-secops-lens-model.html">
-    <meta name="twitter:title" content="The Hybrid SecOps Lens Model: Balancing Alerting and Data Lakes">
-    <meta name="twitter:description" content="SIEM should be a lens, not a warehouse. Learn how to architecture modern hybrid data lakes.">
-    <meta name="twitter:image" content="https://roverhq.ai/og-image-hybrid.png">
-
-    <!-- JSON-LD Structured Data Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "The Hybrid SecOps Lens Model: Balancing Alerting and Data Lakes",
-      "description": "An architectural framework separating operational real-time correlation from historical analytical data lake houses.",
-      "inLanguage": "en",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://roverhq.ai/blogs/the-hybrid-secops-lens-model.html"
-      },
-      "datePublished": "2026-01-02T12:00:00+00:00",
-      "dateModified": "2026-01-02T12:00:00+00:00",
-      "author": {
-        "@type": "Organization",
-        "name": "Rover Engineering",
-        "logo": "https://roverhq.ai/brand-logo.png"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Rover HQ",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://roverhq.ai/brand-logo.png"
-        }
-      }
-    }
-    </script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="../layout.css">
-</head>
-<body>
-
-    <nav class="nav">
-        <div class="shell nav-inner">
-            <a href="../index.html" class="brand">
-                <span class="brand-mark">R</span>
-                <span>Rover</span>
-            </a>
-            <a href="../index.html" class="mono" style="font-size: 12px; font-weight: 700; text-transform: uppercase;">← Back to Home</a>
-        </div>
-    </nav>
-
-    <div class="shell layout">
+<div class="shell layout">
         <aside class="sidebar">
             <div class="sidebar-title mono">Latest Insights</div>
             <div class="blog-list" id="dynamic-blog-list">
@@ -115,14 +48,7 @@
         </main>
     </div>
 
-    <footer class="footer">
-        <div class="shell footer-inner">
-            <div>&copy; 2026 Rover HQ Inc.</div>
-            <div>contactus@roverhq.ai</div>
-        </div>
-    </footer>
-
-    <script>
+<script>
         async function loadBlogs() {
             try {
                 const response = await fetch('blogs.json');
@@ -144,6 +70,3 @@
         }
         window.addEventListener('DOMContentLoaded', loadBlogs);
     </script>
-    <script src="../site.js"></script>
-</body>
-</html>

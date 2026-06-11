@@ -1,78 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+---
+layout: blog
+title: "The Indexing Tax: Why Legacy Aggregations Obsolete Telemetry Storage | Rover"
+description: "Legacy SIEM hot-storage indexing tiers degrade search performance and create critical cost trade-offs. Discover how direct, zero-copy querying keeps security budgets predictable."
+og_image: "https://roverhq.ai/og-image-indexing.png"
+---
 
-    <!-- ADVANCED SEO META FIELDS -->
-    <title>The Indexing Tax: Why Legacy Aggregations Obsolete Telemetry Storage | Rover</title>
-    <meta name="description" content="Legacy SIEM hot-storage indexing tiers degrade search performance and create critical cost trade-offs. Discover how direct, zero-copy querying keeps security budgets predictable.">
-    <meta name="keywords" content="Splunk ingestion tax, Snowflake vs Rover, log indexing tax, S3 analytics engine, zero-copy querying, cloud object data lakes, elasticsearch alternatives, cheap log retention, security data lake architecture">
-    <link rel="canonical" href="https://roverhq.ai/blogs/indexing-tax-s3-analytics.html">
-
-    <!-- Open Graph (Facebook / LinkedIn) -->
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://roverhq.ai/blogs/indexing-tax-s3-analytics.html">
-    <meta property="og:title" content="The Indexing Tax: Why Legacy Aggregations Obsolete Telemetry Storage">
-    <meta property="og:description" content="Forced to choose between logging visibility and storage budgets? Learn why direct object lake querying avoids legacy platform pricing traps.">
-    <meta property="og:image" content="https://roverhq.ai/og-image-indexing.png">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://roverhq.ai/blogs/indexing-tax-s3-analytics.html">
-    <meta name="twitter:title" content="The Indexing Tax: Why Legacy Aggregations Obsolete Telemetry Storage">
-    <meta name="twitter:description" content="Ingesting and indexing every string of data in SSD-backed clusters is obsolete. Bypassing legacy databases saves up to 90% in cloud cost.">
-    <meta name="twitter:image" content="https://roverhq.ai/og-image-indexing.png">
-
-    <!-- JSON-LD Structured Data Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "The Indexing Tax: Why Legacy Aggregations Are Obsoleting Telemetry Storage",
-      "description": "An analysis of the engineering inefficiencies behind traditional hot-tier indexing systems and why query-in-place mechanisms over object storage offer structural economic advantages.",
-      "inLanguage": "en",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://roverhq.ai/blogs/indexing-tax-s3-analytics.html"
-      },
-      "datePublished": "2026-05-20T12:00:00+00:00",
-      "dateModified": "2026-05-20T12:00:00+00:00",
-      "author": {
-        "@type": "Organization",
-        "name": "Rover Engineering",
-        "logo": "https://roverhq.ai/brand-logo.png"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Rover HQ",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://roverhq.ai/brand-logo.png"
-        }
-      }
-    }
-    </script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="../layout.css">
-</head>
-<body>
-
-    <nav class="nav">
-        <div class="shell nav-inner">
-            <a href="../index.html" class="brand">
-                <span class="brand-mark">R</span>
-                <span>Rover</span>
-            </a>
-            <a href="../index.html" class="mono" style="font-size: 12px; font-weight: 700; text-transform: uppercase;">← Back to Home</a>
-        </div>
-    </nav>
-
-    <div class="shell layout">
+<div class="shell layout">
         <!-- Left Sticky Panel: Dynamically Loaded Directory -->
         <aside class="sidebar">
             <div class="sidebar-title mono">Latest Insights</div>
@@ -113,14 +46,7 @@
         </main>
     </div>
 
-    <footer class="footer">
-        <div class="shell footer-inner">
-            <div>&copy; 2026 Rover HQ Inc.</div>
-            <div>contactus@roverhq.ai</div>
-        </div>
-    </footer>
-
-    <script>
+<script>
         async function loadBlogs() {
             try {
                 const response = await fetch('blogs.json');
@@ -146,6 +72,3 @@
 
         window.addEventListener('DOMContentLoaded', loadBlogs);
     </script>
-    <script src="../site.js"></script>
-</body>
-</html>

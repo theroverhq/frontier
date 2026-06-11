@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>The Retention Cliff: Why Short-Term SIEM Ingestion Limits Forensics | Rover</title>
+    <meta name="description" content="Traditional hot-storage tiers force security teams to dump critical telemetry after 30 days. Discover how decoupling SIEM alerting from S3-native search preserves historical logs.">
+    <meta name="keywords" content="Splunk ingestion tax, Snowflake vs Rover, log indexing tax, S3 analytics engine, zero-copy querying, cloud object data lakes, elasticsearch alternatives, cheap log retention, security data lake architecture">
+    <link rel="canonical" href="https://roverhq.ai/blogs/the-retention-cliff-s3-forensics.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://roverhq.ai/blogs/the-retention-cliff-s3-forensics.html">
+    <meta property="og:title" content="The Retention Cliff: Why Short-Term SIEM Ingestion Limits Forensics | Rover">
+    <meta property="og:description" content="Traditional hot-storage tiers force security teams to dump critical telemetry after 30 days. Discover how decoupling SIEM alerting from S3-native search preserves historical logs.">
+    <meta property="og:image" content="https://roverhq.ai/og-image-retention.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://roverhq.ai/blogs/the-retention-cliff-s3-forensics.html">
+    <meta name="twitter:title" content="The Retention Cliff: Why Short-Term SIEM Ingestion Limits Forensics | Rover">
+    <meta name="twitter:description" content="Traditional hot-storage tiers force security teams to dump critical telemetry after 30 days. Discover how decoupling SIEM alerting from S3-native search preserves historical logs.">
+    <meta name="twitter:image" content="https://roverhq.ai/og-image-retention.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "The Retention Cliff: Why Short-Term SIEM Ingestion Limits Forensics | Rover",
+      "description": "Traditional hot-storage tiers force security teams to dump critical telemetry after 30 days. Discover how decoupling SIEM alerting from S3-native search preserves historical logs.",
+      "inLanguage": "en",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://roverhq.ai/blogs/the-retention-cliff-s3-forensics.html"
+      },
+      "datePublished": "2026-05-20T12:00:00+00:00",
+      "dateModified": "2026-05-20T12:00:00+00:00",
+      "author": {
+        "@type": "Organization",
+        "name": "Rover Engineering",
+        "logo": "https://roverhq.ai/brand-logo.png"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Rover HQ",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://roverhq.ai/brand-logo.png"
+        }
+      }
+    }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Absolute path for layout.css from root -->
+    <link rel="stylesheet" href="/layout.css">
+
+    <!-- Favicon Links -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon/site.webmanifest">
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="shell nav-inner">
+            <a href="/" class="brand">
+                <span class="brand-mark">R</span>
+                <span>Rover</span>
+            </a>
+            <a href="/" class="mono" style="font-size: 12px; font-weight: 700; text-transform: uppercase;">← Back to Home</a>
+        </div>
+    </nav>
+
+    <div class="shell layout">
+        <aside class="sidebar">
+            <div class="sidebar-title mono">Latest Insights</div>
+            <div class="blog-list" id="dynamic-blog-list">
+                <div class="mono" style="font-size:12px; color:var(--muted-foreground)">Loading index...</div>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="eyebrow mono">Storage & Retention</div>
+            <h1>The Retention Cliff: Why Short-Term SIEM Ingestion Destroys Incident Timelines</h1>
+            
+            <div class="meta mono">
+                <span>Published: April 12, 2026</span>
+                <span>By: Rover Engineering</span>
+            </div>
+
+            <article class="article">
+                <p>There is a classic, terrifying scenario in cloud security operations: <strong>"Attack found today. Logs expired yesterday."</strong></p>
+
+                <p>When credential theft, API compromises, or advanced persistent threats occur, attackers do not act immediately. According to industry metrics, the average dwell time before discovery is over 180 days. Yet, due to legacy hot-indexing costs, standard SIEM ingestion architectures only maintain 30 to 90 days of searchable history.</p>
+
+                <div class="quote-block">
+                    “Without old logs, the incident response team is functionally blind. You cannot reconstruct a timeline, identify the initial vector, or prove compliance.”
+                </div>
+
+                <h2>The Architectural Inversion</h2>
+                <p>Why is long-term retention so difficult? Because legacy platforms tightly couple storage and compute on SSD-backed index rings. Storing historical logs means running expensive replication clusters, forcing security engineers to dump raw archives into unsearchable cold "zip" buckets.</p>
+
+                <p>The security team is forced to make a dangerous compromise: drop high-volume telemetry paths (like VPC flow logs, cloud audit trails, and process creation events) just to stay within the ingestion budget. You are trading forensic safety for storage license fees.</p>
+
+                <h2>Decoupled S3-Native Memory</h2>
+                <p>Rover resolves the retention cliff by decoupling storage from active query compute. Telemetry is saved directly into standard, low-cost cloud object stores (like AWS S3) in optimized open schemas. There is no continuous hot-indexing tax. When an alert triggers, Rover launches surgical query actions over years of historical data in seconds.</p>
+
+                <p>To learn more about bridging storage tiers for pennies, email us at <a href="mailto:contactus@roverhq.ai" style="text-decoration: underline;">contactus@roverhq.ai</a>.</p>
+            </article>
+        </main>
+    </div>
+
+<script>
+        async function loadBlogs() {
+            try {
+                const response = await fetch('blogs.json');
+                const blogs = await response.json();
+                const listContainer = document.getElementById('dynamic-blog-list');
+                const currentFile = window.location.pathname.split('/').pop() || 'the-retention-cliff-s3-forensics.html';
+                listContainer.innerHTML = blogs.map(blog => {
+                    const isActive = currentFile === blog.url;
+                    return `
+                        <a href="${blog.url}" class="blog-item ${isActive ? 'active' : ''}">
+                            <div class="blog-item-counter mono">${blog.counter}</div>
+                            <div class="blog-item-title">${blog.title}</div>
+                        </a>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error("Error loading centralized blog directory:", error);
+            }
+        }
+        window.addEventListener('DOMContentLoaded', loadBlogs);
+    </script>
+
+
+    <footer class="footer">
+        <div class="shell footer-inner">
+            <div>&copy; 2026 Rover HQ Inc.</div>
+            <div>contactus@roverhq.ai</div>
+        </div>
+    </footer>
+
+    <!-- Absolute path for site.js from root -->
+    <script src="/site.js"></script>
+</body>
+</html>

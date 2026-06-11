@@ -1,78 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+---
+layout: blog
+title: "Solving the Format Tax: Standardizing Telemetry Without Data Janitors | Rover"
+description: "Why security engineers spend hours parsing log fields instead of finding threats, and how schema-on-read query layers resolve legacy SIEM format taxes."
+og_image: "https://roverhq.ai/og-image-format.png"
+---
 
-    <!-- ADVANCED SEO META FIELDS -->
-    <title>Solving the Format Tax: Standardizing Telemetry Without Data Janitors | Rover</title>
-    <meta name="description" content="Why security engineers spend hours parsing log fields instead of finding threats, and how schema-on-read query layers resolve legacy SIEM format taxes.">
-    <meta name="keywords" content="log parsing tax, OCSF schema normalization, schema on read querying, Elastic regex alternative, unified security logging schema">
-    <link rel="canonical" href="https://roverhq.ai/blogs/solving-the-format-tax-schema-on-read.html">
-
-    <!-- Open Graph (Facebook / LinkedIn) -->
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://roverhq.ai/blogs/solving-the-format-tax-schema-on-read.html">
-    <meta property="og:title" content="Solving the Format Tax: Standardizing Telemetry Without Data Janitors">
-    <meta property="og:description" content="AWS uses eventName, firewalls use src=, application logs use user. Learn how direct schema-on-read queries solve translation bottlenecks.">
-    <meta property="og:image" content="https://roverhq.ai/og-image-format.png">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://roverhq.ai/blogs/solving-the-format-tax-schema-on-read.html">
-    <meta name="twitter:title" content="Solving the Format Tax: Standardizing Telemetry Without Data Janitors">
-    <meta name="twitter:description" content="Stop spending years writing custom SIEM log parsers. Store raw, query with direct schemas-on-read.">
-    <meta name="twitter:image" content="https://roverhq.ai/og-image-format.png">
-
-    <!-- JSON-LD Structured Data Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "Solving the Format Tax: Standardizing Telemetry Without Data Janitors",
-      "description": "An investigation of data pipeline bottlenecks caused by index-time log normalization and why schema-on-read strategies improve analyst efficiency.",
-      "inLanguage": "en",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://roverhq.ai/blogs/solving-the-format-tax-schema-on-read.html"
-      },
-      "datePublished": "2026-03-08T12:00:00+00:00",
-      "dateModified": "2026-03-08T12:00:00+00:00",
-      "author": {
-        "@type": "Organization",
-        "name": "Rover Engineering",
-        "logo": "https://roverhq.ai/brand-logo.png"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Rover HQ",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://roverhq.ai/brand-logo.png"
-        }
-      }
-    }
-    </script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="../layout.css">
-</head>
-<body>
-
-    <nav class="nav">
-        <div class="shell nav-inner">
-            <a href="../index.html" class="brand">
-                <span class="brand-mark">R</span>
-                <span>Rover</span>
-            </a>
-            <a href="../index.html" class="mono" style="font-size: 12px; font-weight: 700; text-transform: uppercase;">← Back to Home</a>
-        </div>
-    </nav>
-
-    <div class="shell layout">
+<div class="shell layout">
         <aside class="sidebar">
             <div class="sidebar-title mono">Latest Insights</div>
             <div class="blog-list" id="dynamic-blog-list">
@@ -115,14 +48,7 @@
         </main>
     </div>
 
-    <footer class="footer">
-        <div class="shell footer-inner">
-            <div>&copy; 2026 Rover HQ Inc.</div>
-            <div>contactus@roverhq.ai</div>
-        </div>
-    </footer>
-
-    <script>
+<script>
         async function loadBlogs() {
             try {
                 const response = await fetch('blogs.json');
@@ -144,6 +70,3 @@
         }
         window.addEventListener('DOMContentLoaded', loadBlogs);
     </script>
-    <script src="../site.js"></script>
-</body>
-</html>
