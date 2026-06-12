@@ -1410,6 +1410,15 @@
     font-weight: 500;
 }
 
+.article-hero-image {
+    display: block;
+    width: min(100%, 760px);
+    height: auto;
+    border: 2px solid var(--border);
+    box-shadow: 6px 6px 0 var(--border);
+    margin: 0 auto 32px;
+}
+
 .quote-block {
     border-left: 6px solid var(--secondary);
     background: var(--card);
