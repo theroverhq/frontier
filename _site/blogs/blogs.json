@@ -1,8 +1,14 @@
 [
     {
+    "id": "blog-08",
+    "url": "why-ai-agents-fail-without-an-agentic-siem-architecture.html",
+    "counter": "Blog #08 (Newest)",
+    "title": "Why AI Agents Fail Without an Agentic SIEM"
+    },
+    {
     "id": "blog-07",
     "url": "the-agentic-database-wall.html",
-    "counter": "Blog #07 (Newest)",
+    "counter": "Blog #07",
     "title": "The Agentic Database Wall"
     },
     {
