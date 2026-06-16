@@ -1,0 +1,121 @@
+---
+layout: default
+title: "Rover Blog | Agentic SIEM, SecOps, and S3 Search"
+description: "Read Rover research and engineering notes on agentic SIEM architecture, security data lakes, S3-native search, and AI-assisted SecOps."
+og_image: "https://roverhq.ai/og-image.png"
+---
+
+{% assign blogs = site.pages | where: "layout", "blog" | sort: "blog_number" | reverse %}
+
+<main class="blog-index-page">
+    <section class="blog-index-hero">
+        <div class="shell">
+            <div class="eyebrow mono">Rover Blog</div>
+            <div class="blog-index-head">
+                <h1>Insights for agentic security teams.</h1>
+                <p>Architecture notes on Agentic SIEM, S3-native search, retained telemetry, and the operational tradeoffs shaping modern SecOps.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog-index-section" aria-labelledby="blog-index-title">
+        <div class="shell">
+            <div class="blog-index-toolbar">
+                <h2 id="blog-index-title" tabindex="-1">Latest Articles</h2>
+                <div class="blog-index-count mono">{{ blogs | size }} posts</div>
+            </div>
+
+            <div class="blog-card-grid" id="blog-card-grid">
+                {% for blog in blogs %}
+                    <article class="blog-card" data-blog-card>
+                        <div class="blog-card-top">
+                            <span class="blog-card-number mono">{{ blog.blog_counter }}{% if forloop.first %} / Newest{% endif %}</span>
+                            <span class="blog-card-category">{{ blog.category }}</span>
+                        </div>
+                        <h3><a href="{{ blog.url }}">{{ blog.card_title | default: blog.title | remove: " | Rover" }}</a></h3>
+                        <p>{{ blog.description }}</p>
+                        <div class="blog-card-meta mono">
+                            <span>{{ blog.published_label }}</span>
+                            <span>{{ blog.read_time }}</span>
+                        </div>
+                        <a class="blog-card-link mono" href="{{ blog.url }}">Read article</a>
+                    </article>
+                {% endfor %}
+            </div>
+
+            <nav class="blog-pagination" id="blog-pagination" aria-label="Blog pagination" data-page-size="6"></nav>
+        </div>
+    </section>
+</main>
+
+<script>
+    (function () {
+        var cards = Array.prototype.slice.call(document.querySelectorAll("[data-blog-card]"));
+        var pagination = document.getElementById("blog-pagination");
+        if (!pagination || cards.length === 0) return;
+
+        var pageSize = Number(pagination.dataset.pageSize) || 6;
+        var totalPages = Math.ceil(cards.length / pageSize);
+        if (totalPages <= 1) {
+            pagination.hidden = true;
+            return;
+        }
+
+        var params = new URLSearchParams(window.location.search);
+        var requestedPage = Number(params.get("page")) || 1;
+        var currentPage = Math.min(Math.max(requestedPage, 1), totalPages);
+
+        function pageUrl(page) {
+            var nextParams = new URLSearchParams(window.location.search);
+            if (page <= 1) {
+                nextParams.delete("page");
+            } else {
+                nextParams.set("page", page);
+            }
+            var query = nextParams.toString();
+            return window.location.pathname + (query ? "?" + query : "");
+        }
+
+        function renderPage(page) {
+            currentPage = Math.min(Math.max(page, 1), totalPages);
+            cards.forEach(function (card, index) {
+                var first = (currentPage - 1) * pageSize;
+                card.hidden = index < first || index >= first + pageSize;
+            });
+
+            var controls = [];
+            controls.push('<a class="blog-page-control mono" href="' + pageUrl(currentPage - 1) + '" data-page="' + (currentPage - 1) + '"' + (currentPage === 1 ? ' aria-disabled="true"' : "") + ">Previous</a>");
+            for (var page = 1; page <= totalPages; page += 1) {
+                controls.push('<a class="blog-page-number mono" href="' + pageUrl(page) + '" data-page="' + page + '"' + (page === currentPage ? ' aria-current="page"' : "") + ">" + page + "</a>");
+            }
+            controls.push('<a class="blog-page-control mono" href="' + pageUrl(currentPage + 1) + '" data-page="' + (currentPage + 1) + '"' + (currentPage === totalPages ? ' aria-disabled="true"' : "") + ">Next</a>");
+            pagination.innerHTML = controls.join("");
+
+            if (Number(params.get("page")) !== currentPage && !(currentPage === 1 && !params.has("page"))) {
+                window.history.replaceState({}, "", pageUrl(currentPage));
+            }
+        }
+
+        pagination.addEventListener("click", function (event) {
+            var link = event.target.closest("a[data-page]");
+            if (!link) return;
+            var page = Number(link.dataset.page);
+            if (link.getAttribute("aria-disabled") === "true" || page < 1 || page > totalPages) {
+                event.preventDefault();
+                return;
+            }
+            event.preventDefault();
+            renderPage(page);
+            window.history.pushState({}, "", pageUrl(page));
+            document.getElementById("blog-index-title").focus({ preventScroll: true });
+            window.scrollTo({ top: document.querySelector(".blog-index-section").offsetTop - 82, behavior: "smooth" });
+        });
+
+        window.addEventListener("popstate", function () {
+            params = new URLSearchParams(window.location.search);
+            renderPage(Number(params.get("page")) || 1);
+        });
+
+        renderPage(currentPage);
+    })();
+</script>

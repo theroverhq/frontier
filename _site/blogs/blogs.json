@@ -1,50 +1,83 @@
 [
+
+    
+    
+    
     {
-    "id": "blog-08",
-    "url": "why-ai-agents-fail-without-an-agentic-siem-architecture.html",
-    "counter": "Blog #08 (Newest)",
-    "title": "Why AI Agents Fail Without an Agentic SIEM"
+        "id": "blog-08",
+        "url": "why-ai-agents-fail-without-an-agentic-siem-architecture.html",
+        "counter": "Blog #08 (Newest)",
+        "title": "Why AI Agents Fail Without an Agentic SIEM"
     },
+
+    
+    
+    
     {
-    "id": "blog-07",
-    "url": "the-agentic-database-wall.html",
-    "counter": "Blog #07",
-    "title": "The Agentic Database Wall"
+        "id": "blog-07",
+        "url": "the-agentic-database-wall.html",
+        "counter": "Blog #07",
+        "title": "The Agentic Database Wall"
     },
+
+    
+    
+    
     {
-    "id": "blog-06",
-    "url": "indexing-tax-s3-analytics.html",
-    "counter": "Blog #06",
-    "title": "The Indexing Tax & S3 Analytics"
+        "id": "blog-06",
+        "url": "indexing-tax-s3-analytics.html",
+        "counter": "Blog #06",
+        "title": "The Indexing Tax & S3 Analytics"
     },
+
+    
+    
+    
     {
-    "id": "blog-05",
-    "url": "the-retention-cliff-s3-forensics.html",
-    "counter": "Blog #05",
-    "title": "The Retention Cliff & S3 Forensics"
+        "id": "blog-05",
+        "url": "the-retention-cliff-s3-forensics.html",
+        "counter": "Blog #05",
+        "title": "The Retention Cliff & S3 Forensics"
     },
+
+    
+    
+    
     {
-    "id": "blog-04",
-    "url": "solving-the-format-tax-schema-on-read.html",
-    "counter": "Blog #04",
-    "title": "Solving the Format Tax via Schema-On-Read"
+        "id": "blog-04",
+        "url": "solving-the-format-tax-schema-on-read.html",
+        "counter": "Blog #04",
+        "title": "Solving the Format Tax via Schema-On-Read"
     },
+
+    
+    
+    
     {
-    "id": "blog-03",
-    "url": "the-compliance-tax-automated-audit-evidence.html",
-    "counter": "Blog #03",
-    "title": "The Compliance Tax & Automated Audits"
+        "id": "blog-03",
+        "url": "the-compliance-tax-automated-audit-evidence.html",
+        "counter": "Blog #03",
+        "title": "The Compliance Tax & Automated Audits"
     },
+
+    
+    
+    
     {
-    "id": "blog-02",
-    "url": "the-search-tax-stopping-the-soc-waiting-game.html",
-    "counter": "Blog #02",
-    "title": "The Search Tax & SOC Latency"
+        "id": "blog-02",
+        "url": "the-search-tax-stopping-the-soc-waiting-game.html",
+        "counter": "Blog #02",
+        "title": "The Search Tax & SOC Latency"
     },
+
+    
+    
+    
     {
-    "id": "blog-01",
-    "url": "the-hybrid-secops-lens-model.html",
-    "counter": "Blog #01",
-    "title": "The Hybrid SecOps Lens Model"
+        "id": "blog-01",
+        "url": "the-hybrid-secops-lens-model.html",
+        "counter": "Blog #01",
+        "title": "The Hybrid SecOps Lens Model"
     }
-    ]
+
+]

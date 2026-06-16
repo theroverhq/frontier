@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rover Blog | Agentic SIEM, SecOps, and S3 Search</title>
+    <meta name="description" content="Read Rover research and engineering notes on agentic SIEM architecture, security data lakes, S3-native search, and AI-assisted SecOps.">
+    <meta name="keywords" content="Agentic SIEM, Agentic SecOps, Rover SIEM, S3 SIEM, S3 indices, adaptive detections, signals to cases, security search, SIEM cost reduction, autonomous triage, detection engineering, threat hunting">
+    <link rel="canonical" href="https://roverhq.ai/blogs/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://roverhq.ai/blogs/">
+    <meta property="og:title" content="Rover Blog | Agentic SIEM, SecOps, and S3 Search">
+    <meta property="og:description" content="Read Rover research and engineering notes on agentic SIEM architecture, security data lakes, S3-native search, and AI-assisted SecOps.">
+    <meta property="og:image" content="https://roverhq.ai/og-image.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://roverhq.ai/blogs/">
+    <meta name="twitter:title" content="Rover Blog | Agentic SIEM, SecOps, and S3 Search">
+    <meta name="twitter:description" content="Read Rover research and engineering notes on agentic SIEM architecture, security data lakes, S3-native search, and AI-assisted SecOps.">
+    <meta name="twitter:image" content="https://roverhq.ai/og-image.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Rover",
+        "operatingSystem": "Cloud-native",
+        "applicationCategory": "SecurityApplication",
+        "description": "Agentic SIEM with adaptive detections, signals-to-cases investigation, agent-assisted SecOps, S3-native search, S3-hosted indices, autonomous triage, and incident response readiness.",
+        "offers": {
+            "@type": "Offer",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/PreOrder"
+        }
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Absolute path for layout.css from root -->
+    <link rel="stylesheet" href="/layout.css">
+
+    <!-- Favicon Links -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon/site.webmanifest">
+</head>
+<body>
+    <nav class="nav" aria-label="Main navigation">
+        <div class="shell nav-inner">
+            <a href="/" class="brand" aria-label="Rover home">
+                <span class="brand-mark">R</span>
+                <span>Rover</span>
+            </a>
+
+            <div class="nav-links" aria-label="Page sections">
+                <a href="/#siem">Agentic SIEM</a>
+                <a href="/#agents">Agentic SecOps</a>
+                <a href="/#architecture">S3 Search</a>
+                <a href="/#outcomes">Outcomes</a>
+                <a href="/blogs/">Blogs</a>
+            </div>
+
+            <div class="nav-actions">
+                <a class="button secondary" href="/#architecture">See Search</a>
+                <a class="button primary" href="/#early-access">Get Access</a>
+            </div>
+        </div>
+    </nav>
+
+    
+
+<main class="blog-index-page">
+    <section class="blog-index-hero">
+        <div class="shell">
+            <div class="eyebrow mono">Rover Blog</div>
+            <div class="blog-index-head">
+                <h1>Insights for agentic security teams.</h1>
+                <p>Architecture notes on Agentic SIEM, S3-native search, retained telemetry, and the operational tradeoffs shaping modern SecOps.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog-index-section" aria-labelledby="blog-index-title">
+        <div class="shell">
+            <div class="blog-index-toolbar">
+                <h2 id="blog-index-title" tabindex="-1">Latest Articles</h2>
+                <div class="blog-index-count mono">8 posts</div>
+            </div>
+
+            <div class="blog-card-grid" id="blog-card-grid">
+                
+                    <article class="blog-card" data-blog-card>
+                        <div class="blog-card-top">
+                            <span class="blog-card-number mono">Blog #08 / Newest</span>
+                            <span class="blog-card-category">Agentic SIEM</span>
+                        </div>
+                        <h3><a href="/blogs/why-ai-agents-fail-without-an-agentic-siem-architecture.html">Why AI Agents Fail Without an Agentic SIEM</a></h3>
+                        <p>Why autonomous SecOps agents stall on fragmented SIEM and data lake architectures, and how an agentic SIEM gives them the structured historical context needed to investigate attacks.</p>
+                        <div class="blog-card-meta mono">
+                            <span>June 12, 2026</span>
+                            <span>5 min read</span>
+                        </div>
+                        <a class="blog-card-link mono" href="/blogs/why-ai-agents-fail-without-an-agentic-siem-architecture.html">Read article</a>
+                    </article>
+                
+                    <article class="blog-card" data-blog-card>
+                        <div class="blog-card-top">
+                            <span class="blog-card-number mono">Blog #07</span>
+                            <span class="blog-card-category">Threat Intelligence</span>
+                        </div>
+                        <h3><a href="/blogs/the-agentic-database-wall.html">The Agentic Database Wall</a></h3>
+                        <p>Why autonomous AI diagnostic agents are quietly doubling your cloud SIEM indexing taxes, causing query performance degradation, and how S3-native architectures provide a cost-effective safety boundary.</p>
+                        <div class="blog-card-meta mono">
+                            <span>June 8, 2026</span>
+                            <span>5 min read</span>
+                        </div>
+                        <a class="blog-card-link mono" href="/blogs/the-agentic-database-wall.html">Read article</a>
+                    </article>
+                
+                    <article class="blog-card" data-blog-card>
+                        <div class="blog-card-top">
+                            <span class="blog-card-number mono">Blog #06</span>
+                            <span class="blog-card-category">Economics & Systems</span>
+                        </div>
+                        <h3><a href="/blogs/indexing-tax-s3-analytics.html">The Indexing Tax & S3 Analytics</a></h3>
+                        <p>Legacy SIEM hot-storage indexing tiers degrade search performance and create critical cost trade-offs. Discover how direct, zero-copy querying keeps security budgets predictable.</p>
+                        <div class="blog-card-meta mono">
+                            <span>May 20, 2026</span>
+                            <span>3 min read</span>
+                        </div>
+                        <a class="blog-card-link mono" href="/blogs/indexing-tax-s3-analytics.html">Read article</a>
+                    </article>
+                
+                    <article class="blog-card" data-blog-card>
+                        <div class="blog-card-top">
+                            <span class="blog-card-number mono">Blog #05</span>
+                            <span class="blog-card-category">Storage & Retention</span>
+                        </div>
+                        <h3><a href="/blogs/the-retention-cliff-s3-forensics.html">The Retention Cliff & S3 Forensics</a></h3>
+                        <p>Traditional hot-storage tiers force security teams to dump critical telemetry after 30 days. Discover how decoupling SIEM alerting from S3-native search preserves historical logs.</p>
+                        <div class="blog-card-meta mono">
+                            <span>April 12, 2026</span>
+                            <span>3 min read</span>
+                        </div>
+                        <a class="blog-card-link mono" href="/blogs/the-retention-cliff-s3-forensics.html">Read article</a>
+                    </article>
+                
+                    <article class="blog-card" data-blog-card>
+                        <div class="blog-card-top">
+                            <span class="blog-card-number mono">Blog #04</span>
+                            <span class="blog-card-category">Data Engineering</span>
+                        </div>
+                        <h3><a href="/blogs/solving-the-format-tax-schema-on-read.html">Solving the Format Tax via Schema-On-Read</a></h3>
+                        <p>Why security engineers spend hours parsing log fields instead of finding threats, and how schema-on-read query layers resolve legacy SIEM format taxes.</p>
+                        <div class="blog-card-meta mono">
+                            <span>March 8, 2026</span>
+                            <span>3 min read</span>
+                        </div>
+                        <a class="blog-card-link mono" href="/blogs/solving-the-format-tax-schema-on-read.html">Read article</a>
+                    </article>
+                
+                    <article class="blog-card" data-blog-card>
+                        <div class="blog-card-top">
+                            <span class="blog-card-number mono">Blog #03</span>
+                            <span class="blog-card-category">Auditing & Security</span>
+                        </div>
+                        <h3><a href="/blogs/the-compliance-tax-automated-audit-evidence.html">The Compliance Tax & Automated Audits</a></h3>
+                        <p>Manual compliance audits turn log discovery into complex fire drills. Learn how governed S3-native data lakes offer automated compliance evidence.</p>
+                        <div class="blog-card-meta mono">
+                            <span>February 14, 2026</span>
+                            <span>3 min read</span>
+                        </div>
+                        <a class="blog-card-link mono" href="/blogs/the-compliance-tax-automated-audit-evidence.html">Read article</a>
+                    </article>
+                
+                    <article class="blog-card" data-blog-card>
+                        <div class="blog-card-top">
+                            <span class="blog-card-number mono">Blog #02</span>
+                            <span class="blog-card-category">Threat Hunting</span>
+                        </div>
+                        <h3><a href="/blogs/the-search-tax-stopping-the-soc-waiting-game.html">The Search Tax & SOC Latency</a></h3>
+                        <p>Why waiting for a query is not incident response, and how partitioned object storage structures query latency under 2 seconds.</p>
+                        <div class="blog-card-meta mono">
+                            <span>January 20, 2026</span>
+                            <span>3 min read</span>
+                        </div>
+                        <a class="blog-card-link mono" href="/blogs/the-search-tax-stopping-the-soc-waiting-game.html">Read article</a>
+                    </article>
+                
+                    <article class="blog-card" data-blog-card>
+                        <div class="blog-card-top">
+                            <span class="blog-card-number mono">Blog #01</span>
+                            <span class="blog-card-category">SecOps Architecture</span>
+                        </div>
+                        <h3><a href="/blogs/the-hybrid-secops-lens-model.html">The Hybrid SecOps Lens Model</a></h3>
+                        <p>Security data lakes provide cheap storage, but miss real-time detections. Discover how the Hybrid Lens Model combines SIEM alerting with S3 query performance.</p>
+                        <div class="blog-card-meta mono">
+                            <span>January 2, 2026</span>
+                            <span>3 min read</span>
+                        </div>
+                        <a class="blog-card-link mono" href="/blogs/the-hybrid-secops-lens-model.html">Read article</a>
+                    </article>
+                
+            </div>
+
+            <nav class="blog-pagination" id="blog-pagination" aria-label="Blog pagination" data-page-size="6"></nav>
+        </div>
+    </section>
+</main>
+
+<script>
+    (function () {
+        var cards = Array.prototype.slice.call(document.querySelectorAll("[data-blog-card]"));
+        var pagination = document.getElementById("blog-pagination");
+        if (!pagination || cards.length === 0) return;
+
+        var pageSize = Number(pagination.dataset.pageSize) || 6;
+        var totalPages = Math.ceil(cards.length / pageSize);
+        if (totalPages <= 1) {
+            pagination.hidden = true;
+            return;
+        }
+
+        var params = new URLSearchParams(window.location.search);
+        var requestedPage = Number(params.get("page")) || 1;
+        var currentPage = Math.min(Math.max(requestedPage, 1), totalPages);
+
+        function pageUrl(page) {
+            var nextParams = new URLSearchParams(window.location.search);
+            if (page <= 1) {
+                nextParams.delete("page");
+            } else {
+                nextParams.set("page", page);
+            }
+            var query = nextParams.toString();
+            return window.location.pathname + (query ? "?" + query : "");
+        }
+
+        function renderPage(page) {
+            currentPage = Math.min(Math.max(page, 1), totalPages);
+            cards.forEach(function (card, index) {
+                var first = (currentPage - 1) * pageSize;
+                card.hidden = index < first || index >= first + pageSize;
+            });
+
+            var controls = [];
+            controls.push('<a class="blog-page-control mono" href="' + pageUrl(currentPage - 1) + '" data-page="' + (currentPage - 1) + '"' + (currentPage === 1 ? ' aria-disabled="true"' : "") + ">Previous</a>");
+            for (var page = 1; page <= totalPages; page += 1) {
+                controls.push('<a class="blog-page-number mono" href="' + pageUrl(page) + '" data-page="' + page + '"' + (page === currentPage ? ' aria-current="page"' : "") + ">" + page + "</a>");
+            }
+            controls.push('<a class="blog-page-control mono" href="' + pageUrl(currentPage + 1) + '" data-page="' + (currentPage + 1) + '"' + (currentPage === totalPages ? ' aria-disabled="true"' : "") + ">Next</a>");
+            pagination.innerHTML = controls.join("");
+
+            if (Number(params.get("page")) !== currentPage && !(currentPage === 1 && !params.has("page"))) {
+                window.history.replaceState({}, "", pageUrl(currentPage));
+            }
+        }
+
+        pagination.addEventListener("click", function (event) {
+            var link = event.target.closest("a[data-page]");
+            if (!link) return;
+            var page = Number(link.dataset.page);
+            if (link.getAttribute("aria-disabled") === "true" || page < 1 || page > totalPages) {
+                event.preventDefault();
+                return;
+            }
+            event.preventDefault();
+            renderPage(page);
+            window.history.pushState({}, "", pageUrl(page));
+            document.getElementById("blog-index-title").focus({ preventScroll: true });
+            window.scrollTo({ top: document.querySelector(".blog-index-section").offsetTop - 82, behavior: "smooth" });
+        });
+
+        window.addEventListener("popstate", function () {
+            params = new URLSearchParams(window.location.search);
+            renderPage(Number(params.get("page")) || 1);
+        });
+
+        renderPage(currentPage);
+    })();
+</script>
+
+
+    <footer class="footer">
+        <div class="shell footer-inner">
+            <div>&copy; 2026 Rover HQ Inc.</div>
+            <div class="footer-links">
+                <a href="mailto:contactus@roverhq.ai">contactus@roverhq.ai</a>
+                <a href="https://www.linkedin.com/company/rover-hq-ai/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="/blogs/">Blogs</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Absolute path for site.js from root -->
+    <script src="/site.js"></script>
+</body>
+</html>
