@@ -4,9 +4,19 @@
     
     
     {
+        "id": "blog-09",
+        "url": "bridging-endpoint-detection-cloud-security.html",
+        "counter": "Blog #09 (Newest)",
+        "title": "Bridging Endpoint Detection and Cloud Security"
+    },
+
+    
+    
+    
+    {
         "id": "blog-08",
         "url": "why-ai-agents-fail-without-an-agentic-siem-architecture.html",
-        "counter": "Blog #08 (Newest)",
+        "counter": "Blog #08",
         "title": "Why AI Agents Fail Without an Agentic SIEM"
     },
 
