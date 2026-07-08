@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Starting Jekyll via Docker..."
 docker run --rm \
+  --network host \
   --volume="$PWD:/srv/jekyll" \
-  -p 4000:4000 \
   jekyll/jekyll \
-  jekyll serve --livereload
+  sh -c "bundle install && bundle exec jekyll serve --livereload"
