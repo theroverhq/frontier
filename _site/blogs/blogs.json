@@ -4,9 +4,19 @@
     
     
     {
+        "id": "blog-10",
+        "url": "indexing-the-90-percent-of-security-data.html",
+        "counter": "Blog #10 (Newest)",
+        "title": "Indexing the 90% of Security Data"
+    },
+
+    
+    
+    
+    {
         "id": "blog-09",
         "url": "bridging-endpoint-detection-cloud-security.html",
-        "counter": "Blog #09 (Newest)",
+        "counter": "Blog #09",
         "title": "Bridging Endpoint Detection and Cloud Security"
     },
 
