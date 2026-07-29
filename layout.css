@@ -249,8 +249,18 @@
             color: var(--foreground);
         }
 
-        /* Blind Spot Widget */
-        .hero-blindspot-widget {
+        /* Dilemma Section (Dashboard) */
+        .dilemma-section {
+            padding: 60px 0;
+            background: var(--dark);
+        }
+
+        .dilemma-split {
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .dilemma-dashboard {
             border: 2px solid var(--dark-line);
             background: var(--dark-panel);
             color: var(--background);
@@ -258,35 +268,50 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            height: 100%;
-            min-height: 380px;
+            border-radius: 4px;
         }
 
-        .widget-header {
+        .dashboard-panes {
+            display: grid;
+            grid-template-columns: 1fr 1fr 2fr;
+            gap: 2px;
+            background: var(--dark-line);
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-panes {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pane {
+            background: var(--dark-panel);
+            padding: 24px;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--dark);
-            padding: 12px 16px;
-            border-bottom: 2px solid var(--dark-line);
-            position: relative;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .widget-title {
+        .pane-label {
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            color: var(--primary);
+            color: color-mix(in oklch, var(--background) 75%, transparent);
             letter-spacing: 0.5px;
         }
 
+        .pane-content {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--background);
+        }
+
         .widget-progress {
-            position: absolute;
-            bottom: -2px;
-            left: 0;
             width: 100%;
             height: 2px;
-            background: transparent;
+            background: var(--dark-panel);
+            position: relative;
         }
 
         .progress-bar {
@@ -295,46 +320,14 @@
             width: 0%;
         }
 
-        .widget-selectors {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1px;
-            background: var(--dark-line);
-            border-bottom: 2px solid var(--dark-line);
-        }
-
-        .selector-col {
-            background: var(--dark-panel);
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .selector-label {
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: color-mix(in oklch, var(--background) 50%, transparent);
-        }
-
-        .selector-box {
-            font-family: "JetBrains Mono", monospace;
-            font-size: 13px;
-            line-height: 1.4;
-            color: var(--background);
-            min-height: 40px;
-        }
-
-        .widget-result.dramatic-mode {
-            padding: 24px 20px;
+        .pane-result.dramatic-mode {
+            padding: 24px;
             flex-grow: 1;
             transition: opacity 0.2s ease, transform 0.2s ease;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             background: linear-gradient(135deg, var(--dark-panel) 0%, oklch(0.12 0.02 20) 100%);
-            border-top: 1px solid var(--dark-line);
         }
 
         .result-kicker.glitch-text {
@@ -402,7 +395,7 @@
             font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
-            color: color-mix(in oklch, var(--background) 50%, transparent);
+            color: color-mix(in oklch, var(--background) 75%, transparent);
             letter-spacing: 0.5px;
         }
 
@@ -410,7 +403,7 @@
             margin: 0;
             font-size: 14px;
             line-height: 1.5;
-            color: color-mix(in oklch, var(--background) 80%, transparent);
+            color: color-mix(in oklch, var(--background) 95%, transparent);
         }
 
         .danger-box p {

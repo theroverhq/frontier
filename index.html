@@ -21,26 +21,108 @@ og_image: "https://roverhq.ai/og-image.jpg"
                         </div>
                     </div>
 
-                    <div class="hero-blindspot-widget" id="blindspot-widget" aria-label="Interactive Data Routing Widget">
-                        <div class="widget-header">
-                            <div class="widget-title mono">The SIEM Routing Dilemma</div>
-                            <div class="widget-progress">
-                                <div class="progress-bar" id="widget-progress-bar"></div>
+                    <div class="hero-values-stack" aria-label="Rover Core Values and Live Demos">
+                        <!-- Card 1 -->
+                        <div class="value-card">
+                            <div class="value-text">
+                                <span class="value-num mono">01</span>
+                                <div class="value-title-desc">
+                                    <h3>Limitless Threat Hunting</h3>
+                                    <p>Hunt across months or years of retained identity, endpoint, cloud, and application events.</p>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="widget-selectors">
-                            <div class="selector-col">
-                                <span class="selector-label">Analyzed by Legacy SIEM</span>
-                                <div class="selector-box" id="selector-have">EDR detections & alerts</div>
-                            </div>
-                            <div class="selector-col">
-                                <span class="selector-label">Priced Out to Data Lake</span>
-                                <div class="selector-box" id="selector-lack">DNS & proxy history</div>
+                            <div class="value-visual">
+                                <svg viewBox="0 0 160 80" class="mini-svg hunt-mini">
+                                    <!-- Timeline track -->
+                                    <rect x="10" y="36" width="140" height="6" class="mini-track" rx="3" />
+                                    <!-- Year markers -->
+                                    <text x="15" y="56" class="mini-tick mono">2024</text>
+                                    <text x="80" y="56" class="mini-tick mono">2025</text>
+                                    <text x="145" y="56" class="mini-tick mono">2026</text>
+                                    <!-- Laser scanner -->
+                                    <line x1="10" y1="28" x2="10" y2="50" class="mini-laser" />
+                                    <!-- Pulsing detection node -->
+                                    <circle cx="80" cy="39" r="4.5" class="mini-pulse-node" />
+                                </svg>
                             </div>
                         </div>
 
-                        <div class="widget-result dramatic-mode">
+                        <!-- Card 2 -->
+                        <div class="value-card">
+                            <div class="value-text">
+                                <span class="value-num mono">02</span>
+                                <div class="value-title-desc">
+                                    <h3>Complete Investigative Context</h3>
+                                    <p>Rebuild the attack path from first access to final alert with source-level evidence.</p>
+                                </div>
+                            </div>
+                            <div class="value-visual">
+                                <svg viewBox="0 0 160 80" class="mini-svg context-mini">
+                                    <!-- Nodes linking -->
+                                    <line x1="30" y1="40" x2="80" y2="40" class="mini-link" />
+                                    <line x1="80" y1="40" x2="130" y2="40" class="mini-link" />
+                                    <!-- Path tracer sweep -->
+                                    <path d="M 30 40 L 80 40 L 130 40" class="mini-path-tracer" />
+                                    <!-- Circular Nodes -->
+                                    <circle cx="30" cy="40" r="8" class="mini-node mn-1" />
+                                    <circle cx="80" cy="40" r="8" class="mini-node mn-2" />
+                                    <circle cx="130" cy="40" r="8" class="mini-node mn-3" />
+                                    <!-- Node numbers -->
+                                    <text x="30" y="43" class="mn-num mono">1</text>
+                                    <text x="80" y="43" class="mn-num mono">2</text>
+                                    <text x="130" y="43" class="mn-num mono">3</text>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="value-card">
+                            <div class="value-text">
+                                <span class="value-num mono">03</span>
+                                <div class="value-title-desc">
+                                    <h3>Cost-Effective Data Centralization</h3>
+                                    <p>Keep events searchable without forcing every byte into hot-tier SIEM storage.</p>
+                                </div>
+                            </div>
+                            <div class="value-visual">
+                                <svg viewBox="0 0 160 80" class="mini-svg cost-mini">
+                                    <!-- S3 Cylinder stacks -->
+                                    <ellipse cx="80" cy="38" rx="20" ry="5" class="mini-disc m-bottom" />
+                                    <ellipse cx="80" cy="43" rx="20" ry="5" class="mini-disc m-middle" />
+                                    <ellipse cx="80" cy="48" rx="20" ry="5" class="mini-disc m-top" />
+                                    <text x="80" y="52" class="m-s3-txt mono">S3</text>
+                                    <!-- Falling data particles -->
+                                    <circle cx="68" cy="15" r="2.5" class="mini-drop md-1" />
+                                    <circle cx="80" cy="12" r="2.5" class="mini-drop md-2" />
+                                    <circle cx="92" cy="18" r="2.5" class="mini-drop md-3" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section id="dilemma" class="section dark dilemma-section">
+            <div class="shell">
+                <div class="section-head">
+                    <h2>The Cost of Compromised Visibility</h2>
+                    <p>Legacy SIEM economics force security teams to choose which telemetry they can afford to investigate. Critical data is routed to cold storage, creating predictable blind spots where modern adversaries operate unseen.</p>
+                </div>
+                
+                <div class="dilemma-dashboard">
+                    <div class="dashboard-panes">
+                        <div class="pane pane-have">
+                            <span class="pane-label mono">Analyzed by Legacy SIEM (Hot Tier)</span>
+                            <div class="pane-content" id="selector-have">EDR detections & alerts</div>
+                        </div>
+                        
+                        <div class="pane pane-lack">
+                            <span class="pane-label mono">Priced Out to Data Lake (Cold Tier)</span>
+                            <div class="pane-content" id="selector-lack">DNS & proxy history</div>
+                        </div>
+
+                        <div class="pane pane-result dramatic-mode widget-result">
                             <div class="result-kicker glitch-text">
                                 <span class="pulse-warning"></span>
                                 CRITICAL BLIND SPOT
@@ -49,8 +131,7 @@ og_image: "https://roverhq.ai/og-image.jpg"
                             
                             <div class="threat-details">
                                 <div class="detail-box">
-                                    <span class="detail-label mono">The Narrative</span>
-                                    <p id="result-reason">Victim-specific DNS beaconing and CNAME redirection. Endpoint alerts alone fail to provide retrospective network scoping.</p>
+                                    <p id="result-reason">Your team sees an isolated endpoint alert, but without network history, they can't tell if the attacker has already established backdoor access and is exfiltrating data.</p>
                                 </div>
                                 <div class="detail-box danger-box">
                                     <span class="detail-label mono">Lost Evidence (Data Lake)</span>
@@ -58,21 +139,25 @@ og_image: "https://roverhq.ai/og-image.jpg"
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="widget-controls" id="widget-controls">
-                            <button class="ctrl-btn active" data-index="0" aria-label="Scenario 1"></button>
-                            <button class="ctrl-btn" data-index="1" aria-label="Scenario 2"></button>
-                            <button class="ctrl-btn" data-index="2" aria-label="Scenario 3"></button>
-                            <button class="ctrl-btn" data-index="3" aria-label="Scenario 4"></button>
-                            <button class="ctrl-btn" data-index="4" aria-label="Scenario 5"></button>
-                            <button class="ctrl-btn" data-index="5" aria-label="Scenario 6"></button>
-                            <button class="ctrl-btn" data-index="6" aria-label="Scenario 7"></button>
-                            <button class="ctrl-btn" data-index="7" aria-label="Scenario 8"></button>
-                        </div>
+                    </div>
+
+                    <div class="widget-progress">
+                        <div class="progress-bar" id="widget-progress-bar"></div>
+                    </div>
+
+                    <div class="widget-controls" id="widget-controls">
+                        <button class="ctrl-btn active" data-index="0" aria-label="Scenario 1"></button>
+                        <button class="ctrl-btn" data-index="1" aria-label="Scenario 2"></button>
+                        <button class="ctrl-btn" data-index="2" aria-label="Scenario 3"></button>
+                        <button class="ctrl-btn" data-index="3" aria-label="Scenario 4"></button>
+                        <button class="ctrl-btn" data-index="4" aria-label="Scenario 5"></button>
+                        <button class="ctrl-btn" data-index="5" aria-label="Scenario 6"></button>
+                        <button class="ctrl-btn" data-index="6" aria-label="Scenario 7"></button>
+                        <button class="ctrl-btn" data-index="7" aria-label="Scenario 8"></button>
                     </div>
                 </div>
             </div>
-        </header>
+        </section>
 
         <section id="siem" class="section">
             <div class="shell">
@@ -389,7 +474,7 @@ og_image: "https://roverhq.ai/og-image.jpg"
         let remainingTime = cycleDelay;
         let isPaused = false;
         
-        const widgetContainer = document.querySelector('.hero-blindspot-widget');
+        const widgetContainer = document.querySelector('.dilemma-dashboard');
         const haveEl = document.getElementById('selector-have');
         const lackEl = document.getElementById('selector-lack');
         const advEl = document.getElementById('result-adversary');
