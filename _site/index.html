@@ -399,64 +399,68 @@
                 have: "EDR detections & alerts",
                 lack: "DNS & proxy history",
                 adversary: "APT29 / SUNBURST",
-                reason: "Victim-specific DNS beaconing and CNAME redirection. Endpoint alerts alone fail to provide retrospective network scoping.",
+                reason: "Your team sees an isolated endpoint alert, but without network history, they can't tell if the attacker has already established backdoor access and is exfiltrating data.",
                 evidence: "Client IP, FQDN, query type, response, CNAME chain, SNI"
             },
             {
                 have: "Auth & VPN logs",
                 lack: "NetFlow & VPC Flow",
                 adversary: "Volt Typhoon",
-                reason: "Internal reconnaissance, SMB/RDP movement, and unusual egress following an apparently valid login.",
+                reason: "An attacker logs in with stolen but valid credentials. Without network flow data, your team cannot see them moving laterally into critical infrastructure or OT networks.",
                 evidence: "Source/destination, ports, bytes, duration, TCP flags, east-west traffic"
             },
             {
                 have: "Firewall & IDS alerts",
                 lack: "Endpoint process telemetry",
                 adversary: "Scattered Spider",
-                reason: "Valid VPN access followed by PowerShell, WMI, and native discovery tools may not trigger perimeter signatures.",
+                reason: "Attackers bypass the perimeter using valid VPN access and use built-in IT tools to move quietly. Without endpoint process logs, the breach goes completely undetected.",
                 evidence: "Windows 4688, Sysmon 1, PowerShell 4104, WMI activity, RMM installation"
             },
             {
                 have: "WAF & Access logs",
                 lack: "Database & file audit logs",
                 adversary: "CL0P MOVEit",
-                reason: "The web shell’s access to underlying data and the actual files stolen may not be visible from HTTP logs alone.",
+                reason: "Your firewall logs show standard web traffic, masking a massive data breach. Without database audit logs, you have no idea what customer data was actually stolen.",
                 evidence: "SQL queries, bulk reads, file IDs, download events, service-account activity"
             },
             {
                 have: "SSO & Identity logs",
                 lack: "SaaS API & query logs",
                 adversary: "UNC6040 (Salesforce)",
-                reason: "The user may appear to have legitimately authorized a connected app. Only API logs expose bulk queries and large exports.",
+                reason: "A compromised identity authorizes a rogue app. Without SaaS API logs, you can't see the attacker quietly downloading your entire customer database.",
                 evidence: "Connected-app authorization, OAuth scopes, Bulk API calls, query volume, object types"
             },
             {
                 have: "Enterprise EDR",
                 lack: "vCenter & ESXi logs",
                 adversary: "UNC3944 Hypervisor Operations",
-                reason: "Offline virtual-disk attachment, Domain Controller disk theft, and VM encryption can occur beneath guest EDR visibility.",
+                reason: "Attackers bypass standard endpoint security by attacking the hypervisor directly. They can steal or encrypt entire servers while your EDR tools report everything is fine.",
                 evidence: "VmReconfiguredEvent, disk backing path, power events, ESXi SSH, datastore changes"
             },
             {
                 have: "Secure Email Gateway",
                 lack: "OAuth & Mailbox audit",
                 adversary: "Midnight Blizzard",
-                reason: "The operation may not require malicious inbound email. Compromised OAuth apps authenticate directly to Exchange to collect data.",
+                reason: "Your email gateway blocks phishing, but attackers use stolen application tokens to read executive emails directly. Without cloud audit logs, the espionage is invisible.",
                 evidence: "App registration, credential addition, consent grants, OAuth scopes, mailbox reads"
             },
             {
                 have: "Enterprise IT & EDR",
                 lack: "PLC & SCADA telemetry",
                 adversary: "ICS/OT Campaign",
-                reason: "Manipulation of PLC project files and HMI displays can cause operational disruption without producing meaningful IT-domain evidence.",
+                reason: "Attackers sabotage physical operations and manufacturing lines. Because traditional IT tools don't speak industrial protocols, physical damage occurs without warning.",
                 evidence: "Controller downloads, logic changes, project-file hashes, HMI tag and alarm changes"
             }
         ];
 
         let currentScenario = 0;
-        let cycleInterval;
         const cycleDelay = 12000;
+        let cycleTimeout;
+        let startTime;
+        let remainingTime = cycleDelay;
+        let isPaused = false;
         
+        const widgetContainer = document.querySelector('.hero-blindspot-widget');
         const haveEl = document.getElementById('selector-have');
         const lackEl = document.getElementById('selector-lack');
         const advEl = document.getElementById('result-adversary');
@@ -491,44 +495,74 @@
             });
             
             resetProgress();
+            if (!isPaused) {
+                startCycle();
+            }
         }
 
         function resetProgress() {
+            clearTimeout(cycleTimeout);
             progressBar.style.transition = 'none';
             progressBar.style.width = '0%';
             // force reflow
             void progressBar.offsetWidth;
-            progressBar.style.transition = `width ${cycleDelay}ms linear`;
-            progressBar.style.width = '100%';
+            remainingTime = cycleDelay;
         }
 
         function startCycle() {
-            resetProgress();
-            cycleInterval = setInterval(() => {
+            if (isPaused) return;
+            
+            progressBar.style.transition = `width ${remainingTime}ms linear`;
+            progressBar.style.width = '100%';
+            
+            startTime = Date.now();
+            cycleTimeout = setTimeout(() => {
                 let next = (currentScenario + 1) % scenarios.length;
                 updateWidget(next);
-            }, cycleDelay);
+            }, remainingTime);
         }
 
-        function stopCycle() {
-            clearInterval(cycleInterval);
+        function pauseCycle() {
+            if (isPaused) return;
+            isPaused = true;
+            clearTimeout(cycleTimeout);
+            
+            // compute remaining time
+            let elapsed = Date.now() - startTime;
+            remainingTime = Math.max(0, remainingTime - elapsed);
+            
+            // freeze progress bar by computing its current width
+            let computedWidth = window.getComputedStyle(progressBar).width;
             progressBar.style.transition = 'none';
-            progressBar.style.width = '0%';
+            progressBar.style.width = computedWidth;
         }
+
+        function resumeCycle() {
+            if (!isPaused) return;
+            isPaused = false;
+            startCycle();
+        }
+
+        // Event listeners for pausing
+        widgetContainer.addEventListener('mouseenter', pauseCycle);
+        widgetContainer.addEventListener('mouseleave', resumeCycle);
+        widgetContainer.addEventListener('mousedown', pauseCycle);
+        widgetContainer.addEventListener('mouseup', resumeCycle);
+        widgetContainer.addEventListener('touchstart', pauseCycle, {passive: true});
+        widgetContainer.addEventListener('touchend', resumeCycle);
 
         btns.forEach((btn, index) => {
-            btn.addEventListener('click', () => {
-                stopCycle();
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Manually trigger the new scenario
+                // The mouse is currently inside the container, so it isPaused = true
                 updateWidget(index);
-                // restart cycle after manual interaction
-                setTimeout(startCycle, 2000);
             });
         });
 
         // Initialize
         setTimeout(() => {
             updateWidget(0);
-            startCycle();
         }, 500);
 
     </script>
