@@ -21,82 +21,53 @@ og_image: "https://roverhq.ai/og-image.jpg"
                         </div>
                     </div>
 
-                    <div class="hero-values-stack" aria-label="Rover Core Values and Live Demos">
-                        <!-- Card 1 -->
-                        <div class="value-card">
-                            <div class="value-text">
-                                <span class="value-num mono">01</span>
-                                <div class="value-title-desc">
-                                    <h3>Limitless Threat Hunting</h3>
-                                    <p>Hunt across months or years of retained identity, endpoint, cloud, and application events.</p>
-                                </div>
+                    <div class="hero-blindspot-widget" id="blindspot-widget" aria-label="Interactive Data Routing Widget">
+                        <div class="widget-header">
+                            <div class="widget-title mono">The SIEM Routing Dilemma</div>
+                            <div class="widget-progress">
+                                <div class="progress-bar" id="widget-progress-bar"></div>
                             </div>
-                            <div class="value-visual">
-                                <svg viewBox="0 0 160 80" class="mini-svg hunt-mini">
-                                    <!-- Timeline track -->
-                                    <rect x="10" y="36" width="140" height="6" class="mini-track" rx="3" />
-                                    <!-- Year markers -->
-                                    <text x="15" y="56" class="mini-tick mono">2024</text>
-                                    <text x="80" y="56" class="mini-tick mono">2025</text>
-                                    <text x="145" y="56" class="mini-tick mono">2026</text>
-                                    <!-- Laser scanner -->
-                                    <line x1="10" y1="28" x2="10" y2="50" class="mini-laser" />
-                                    <!-- Pulsing detection node -->
-                                    <circle cx="80" cy="39" r="4.5" class="mini-pulse-node" />
-                                </svg>
+                        </div>
+                        
+                        <div class="widget-selectors">
+                            <div class="selector-col">
+                                <span class="selector-label">Analyzed by Legacy SIEM</span>
+                                <div class="selector-box" id="selector-have">EDR detections & alerts</div>
+                            </div>
+                            <div class="selector-col">
+                                <span class="selector-label">Priced Out to Data Lake</span>
+                                <div class="selector-box" id="selector-lack">DNS & proxy history</div>
                             </div>
                         </div>
 
-                        <!-- Card 2 -->
-                        <div class="value-card">
-                            <div class="value-text">
-                                <span class="value-num mono">02</span>
-                                <div class="value-title-desc">
-                                    <h3>Complete Investigative Context</h3>
-                                    <p>Rebuild the attack path from first access to final alert with source-level evidence.</p>
-                                </div>
+                        <div class="widget-result dramatic-mode">
+                            <div class="result-kicker glitch-text">
+                                <span class="pulse-warning"></span>
+                                CRITICAL BLIND SPOT
                             </div>
-                            <div class="value-visual">
-                                <svg viewBox="0 0 160 80" class="mini-svg context-mini">
-                                    <!-- Nodes linking -->
-                                    <line x1="30" y1="40" x2="80" y2="40" class="mini-link" />
-                                    <line x1="80" y1="40" x2="130" y2="40" class="mini-link" />
-                                    <!-- Path tracer sweep -->
-                                    <path d="M 30 40 L 80 40 L 130 40" class="mini-path-tracer" />
-                                    <!-- Circular Nodes -->
-                                    <circle cx="30" cy="40" r="8" class="mini-node mn-1" />
-                                    <circle cx="80" cy="40" r="8" class="mini-node mn-2" />
-                                    <circle cx="130" cy="40" r="8" class="mini-node mn-3" />
-                                    <!-- Node numbers -->
-                                    <text x="30" y="43" class="mn-num mono">1</text>
-                                    <text x="80" y="43" class="mn-num mono">2</text>
-                                    <text x="130" y="43" class="mn-num mono">3</text>
-                                </svg>
+                            <h3 id="result-adversary" class="threat-name mono">APT29 / SUNBURST</h3>
+                            
+                            <div class="threat-details">
+                                <div class="detail-box">
+                                    <span class="detail-label mono">The Narrative</span>
+                                    <p id="result-reason">Victim-specific DNS beaconing and CNAME redirection. Endpoint alerts alone fail to provide retrospective network scoping.</p>
+                                </div>
+                                <div class="detail-box danger-box">
+                                    <span class="detail-label mono">Lost Evidence (Data Lake)</span>
+                                    <p id="result-evidence" class="mono">Client IP, FQDN, query type, response, CNAME chain, SNI</p>
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Card 3 -->
-                        <div class="value-card">
-                            <div class="value-text">
-                                <span class="value-num mono">03</span>
-                                <div class="value-title-desc">
-                                    <h3>Cost-Effective Data Centralization</h3>
-                                    <p>Keep events searchable without forcing every byte into hot-tier SIEM storage.</p>
-                                </div>
-                            </div>
-                            <div class="value-visual">
-                                <svg viewBox="0 0 160 80" class="mini-svg cost-mini">
-                                    <!-- S3 Cylinder stacks -->
-                                    <ellipse cx="80" cy="38" rx="20" ry="5" class="mini-disc m-bottom" />
-                                    <ellipse cx="80" cy="43" rx="20" ry="5" class="mini-disc m-middle" />
-                                    <ellipse cx="80" cy="48" rx="20" ry="5" class="mini-disc m-top" />
-                                    <text x="80" y="52" class="m-s3-txt mono">S3</text>
-                                    <!-- Falling data particles -->
-                                    <circle cx="68" cy="15" r="2.5" class="mini-drop md-1" />
-                                    <circle cx="80" cy="12" r="2.5" class="mini-drop md-2" />
-                                    <circle cx="92" cy="18" r="2.5" class="mini-drop md-3" />
-                                </svg>
-                            </div>
+                        
+                        <div class="widget-controls" id="widget-controls">
+                            <button class="ctrl-btn active" data-index="0" aria-label="Scenario 1"></button>
+                            <button class="ctrl-btn" data-index="1" aria-label="Scenario 2"></button>
+                            <button class="ctrl-btn" data-index="2" aria-label="Scenario 3"></button>
+                            <button class="ctrl-btn" data-index="3" aria-label="Scenario 4"></button>
+                            <button class="ctrl-btn" data-index="4" aria-label="Scenario 5"></button>
+                            <button class="ctrl-btn" data-index="5" aria-label="Scenario 6"></button>
+                            <button class="ctrl-btn" data-index="6" aria-label="Scenario 7"></button>
+                            <button class="ctrl-btn" data-index="7" aria-label="Scenario 8"></button>
                         </div>
                     </div>
                 </div>
@@ -351,5 +322,142 @@ og_image: "https://roverhq.ai/og-image.jpg"
             }, 1800);
         });
 
+        // Blind-spot Widget Logic
+        const scenarios = [
+            {
+                have: "EDR detections & alerts",
+                lack: "DNS & proxy history",
+                adversary: "APT29 / SUNBURST",
+                reason: "Victim-specific DNS beaconing and CNAME redirection. Endpoint alerts alone fail to provide retrospective network scoping.",
+                evidence: "Client IP, FQDN, query type, response, CNAME chain, SNI"
+            },
+            {
+                have: "Auth & VPN logs",
+                lack: "NetFlow & VPC Flow",
+                adversary: "Volt Typhoon",
+                reason: "Internal reconnaissance, SMB/RDP movement, and unusual egress following an apparently valid login.",
+                evidence: "Source/destination, ports, bytes, duration, TCP flags, east-west traffic"
+            },
+            {
+                have: "Firewall & IDS alerts",
+                lack: "Endpoint process telemetry",
+                adversary: "Scattered Spider",
+                reason: "Valid VPN access followed by PowerShell, WMI, and native discovery tools may not trigger perimeter signatures.",
+                evidence: "Windows 4688, Sysmon 1, PowerShell 4104, WMI activity, RMM installation"
+            },
+            {
+                have: "WAF & Access logs",
+                lack: "Database & file audit logs",
+                adversary: "CL0P MOVEit",
+                reason: "The web shell’s access to underlying data and the actual files stolen may not be visible from HTTP logs alone.",
+                evidence: "SQL queries, bulk reads, file IDs, download events, service-account activity"
+            },
+            {
+                have: "SSO & Identity logs",
+                lack: "SaaS API & query logs",
+                adversary: "UNC6040 (Salesforce)",
+                reason: "The user may appear to have legitimately authorized a connected app. Only API logs expose bulk queries and large exports.",
+                evidence: "Connected-app authorization, OAuth scopes, Bulk API calls, query volume, object types"
+            },
+            {
+                have: "Enterprise EDR",
+                lack: "vCenter & ESXi logs",
+                adversary: "UNC3944 Hypervisor Operations",
+                reason: "Offline virtual-disk attachment, Domain Controller disk theft, and VM encryption can occur beneath guest EDR visibility.",
+                evidence: "VmReconfiguredEvent, disk backing path, power events, ESXi SSH, datastore changes"
+            },
+            {
+                have: "Secure Email Gateway",
+                lack: "OAuth & Mailbox audit",
+                adversary: "Midnight Blizzard",
+                reason: "The operation may not require malicious inbound email. Compromised OAuth apps authenticate directly to Exchange to collect data.",
+                evidence: "App registration, credential addition, consent grants, OAuth scopes, mailbox reads"
+            },
+            {
+                have: "Enterprise IT & EDR",
+                lack: "PLC & SCADA telemetry",
+                adversary: "ICS/OT Campaign",
+                reason: "Manipulation of PLC project files and HMI displays can cause operational disruption without producing meaningful IT-domain evidence.",
+                evidence: "Controller downloads, logic changes, project-file hashes, HMI tag and alarm changes"
+            }
+        ];
+
+        let currentScenario = 0;
+        let cycleInterval;
+        const cycleDelay = 12000;
+        
+        const haveEl = document.getElementById('selector-have');
+        const lackEl = document.getElementById('selector-lack');
+        const advEl = document.getElementById('result-adversary');
+        const reasonEl = document.getElementById('result-reason');
+        const evidenceEl = document.getElementById('result-evidence');
+        const btns = document.querySelectorAll('.ctrl-btn');
+        const progressBar = document.getElementById('widget-progress-bar');
+
+        function updateWidget(index) {
+            currentScenario = index;
+            const s = scenarios[index];
+            
+            // Add fade out
+            const resultBox = document.querySelector('.widget-result');
+            resultBox.style.opacity = 0;
+            resultBox.style.transform = 'translateY(5px)';
+            
+            setTimeout(() => {
+                haveEl.textContent = s.have;
+                lackEl.textContent = s.lack;
+                advEl.textContent = s.adversary;
+                reasonEl.textContent = s.reason;
+                evidenceEl.textContent = s.evidence;
+                
+                // Fade in
+                resultBox.style.opacity = 1;
+                resultBox.style.transform = 'translateY(0)';
+            }, 200);
+
+            btns.forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+            
+            resetProgress();
+        }
+
+        function resetProgress() {
+            progressBar.style.transition = 'none';
+            progressBar.style.width = '0%';
+            // force reflow
+            void progressBar.offsetWidth;
+            progressBar.style.transition = `width ${cycleDelay}ms linear`;
+            progressBar.style.width = '100%';
+        }
+
+        function startCycle() {
+            resetProgress();
+            cycleInterval = setInterval(() => {
+                let next = (currentScenario + 1) % scenarios.length;
+                updateWidget(next);
+            }, cycleDelay);
+        }
+
+        function stopCycle() {
+            clearInterval(cycleInterval);
+            progressBar.style.transition = 'none';
+            progressBar.style.width = '0%';
+        }
+
+        btns.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                stopCycle();
+                updateWidget(index);
+                // restart cycle after manual interaction
+                setTimeout(startCycle, 2000);
+            });
+        });
+
+        // Initialize
+        setTimeout(() => {
+            updateWidget(0);
+            startCycle();
+        }, 500);
 
     </script>

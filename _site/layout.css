@@ -249,6 +249,201 @@
             color: var(--foreground);
         }
 
+        /* Blind Spot Widget */
+        .hero-blindspot-widget {
+            border: 2px solid var(--dark-line);
+            background: var(--dark-panel);
+            color: var(--background);
+            box-shadow: 8px 8px 0 var(--dark-line);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            height: 100%;
+            min-height: 380px;
+        }
+
+        .widget-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--dark);
+            padding: 12px 16px;
+            border-bottom: 2px solid var(--dark-line);
+            position: relative;
+        }
+
+        .widget-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .widget-progress {
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: transparent;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--secondary);
+            width: 0%;
+        }
+
+        .widget-selectors {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--dark-line);
+            border-bottom: 2px solid var(--dark-line);
+        }
+
+        .selector-col {
+            background: var(--dark-panel);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .selector-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: color-mix(in oklch, var(--background) 50%, transparent);
+        }
+
+        .selector-box {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 13px;
+            line-height: 1.4;
+            color: var(--background);
+            min-height: 40px;
+        }
+
+        .widget-result.dramatic-mode {
+            padding: 24px 20px;
+            flex-grow: 1;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background: linear-gradient(135deg, var(--dark-panel) 0%, oklch(0.12 0.02 20) 100%);
+            border-top: 1px solid var(--dark-line);
+        }
+
+        .result-kicker.glitch-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--danger);
+            margin-bottom: 16px;
+            border: 1px solid var(--danger);
+            padding: 4px 8px;
+            width: fit-content;
+            background: rgba(153, 51, 6, 0.1);
+            animation: glitch-anim 3s infinite;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 1px) }
+            40% { transform: translate(-1px, -1px) }
+            60% { transform: translate(2px, 1px) }
+            80% { transform: translate(1px, -1px) }
+            100% { transform: translate(0) }
+        }
+
+        .pulse-warning {
+            width: 8px;
+            height: 8px;
+            background: var(--danger);
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(153, 51, 6, 0.7);
+            animation: pulse-danger 1s infinite;
+        }
+
+        @keyframes pulse-danger {
+            0% { box-shadow: 0 0 0 0 rgba(153, 51, 6, 0.8); }
+            70% { box-shadow: 0 0 0 8px rgba(153, 51, 6, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(153, 51, 6, 0); }
+        }
+
+        .threat-name {
+            margin: 0 0 20px 0;
+            font-size: 26px;
+            color: var(--danger);
+            text-shadow: 0 0 10px rgba(153, 51, 6, 0.4);
+            letter-spacing: -0.5px;
+        }
+
+        .threat-details {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .detail-box {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .detail-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: color-mix(in oklch, var(--background) 50%, transparent);
+            letter-spacing: 0.5px;
+        }
+
+        .detail-box p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+            color: color-mix(in oklch, var(--background) 80%, transparent);
+        }
+
+        .danger-box p {
+            color: var(--warning);
+            font-size: 13px;
+        }
+
+        .widget-controls {
+            display: flex;
+            gap: 8px;
+            padding: 12px 20px;
+            background: var(--dark);
+            border-top: 1px solid var(--dark-line);
+        }
+
+        .ctrl-btn {
+            width: 32px;
+            height: 4px;
+            background: var(--dark-line);
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: background 0.2s;
+        }
+
+        .ctrl-btn:hover {
+            background: color-mix(in oklch, var(--dark-line) 50%, white);
+        }
+
+        .ctrl-btn.active {
+            background: var(--primary);
+        }
+
         .hero-actions {
             display: flex;
             flex-wrap: wrap;
