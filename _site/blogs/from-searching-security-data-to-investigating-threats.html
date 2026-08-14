@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>From Searching Security Data to Investigating Threats: The Three Layers of Rover | Rover</title>
+    <meta name="description" content="Explore how Rover AI connects Smart Search, Security Context, and Agentic Investigation to turn raw security telemetry into evidence-cited cases.">
+    <meta name="keywords" content="Splunk ingestion tax, Snowflake vs Rover, log indexing tax, S3 analytics engine, zero-copy querying, cloud object data lakes, elasticsearch alternatives, cheap log retention, security data lake architecture">
+    <link rel="canonical" href="https://roverhq.ai/blogs/from-searching-security-data-to-investigating-threats.html">
+    
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://roverhq.ai/blogs/from-searching-security-data-to-investigating-threats.html">
+    <meta property="og:title" content="From Searching Security Data to Investigating Threats: The Three Layers of Rover | Rover">
+    <meta property="og:description" content="Explore how Rover AI connects Smart Search, Security Context, and Agentic Investigation to turn raw security telemetry into evidence-cited cases.">
+    <meta property="og:image" content="https://roverhq.ai/og-image.jpg">
+    <meta property="og:image:secure_url" content="https://roverhq.ai/og-image.jpg">
+    <meta property="og:image:type" content="image/png">
+    
+    
+    
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://roverhq.ai/blogs/from-searching-security-data-to-investigating-threats.html">
+    <meta name="twitter:title" content="From Searching Security Data to Investigating Threats: The Three Layers of Rover | Rover">
+    <meta name="twitter:description" content="Explore how Rover AI connects Smart Search, Security Context, and Agentic Investigation to turn raw security telemetry into evidence-cited cases.">
+    <meta name="twitter:image" content="https://roverhq.ai/og-image.jpg">
+    
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "From Searching Security Data to Investigating Threats: The Three Layers of Rover | Rover",
+      "description": "Explore how Rover AI connects Smart Search, Security Context, and Agentic Investigation to turn raw security telemetry into evidence-cited cases.",
+      "image": "https://roverhq.ai/og-image.jpg",
+      "inLanguage": "en",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://roverhq.ai/blogs/from-searching-security-data-to-investigating-threats.html"
+      },
+      "datePublished": "2026-05-20T12:00:00+00:00",
+      "dateModified": "2026-05-20T12:00:00+00:00",
+      "author": {
+        "@type": "Organization",
+        "name": "Rover Engineering",
+        "logo": "https://roverhq.ai/brand-logo.png"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Rover HQ",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://roverhq.ai/brand-logo.png"
+        }
+      }
+    }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Absolute path for layout.css from root -->
+    <link rel="stylesheet" href="/layout.css">
+
+    <!-- Favicon Links -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon/site.webmanifest">
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="shell nav-inner">
+            <a href="/" class="brand">
+                <span class="brand-mark">R</span>
+                <span>Rover</span>
+            </a>
+            <a href="/blogs/" class="mono" style="font-size: 12px; font-weight: 700; text-transform: uppercase;">All Blogs</a>
+        </div>
+    </nav>
+
+    <style>
+    .content {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .diagram-box {
+        background: var(--card, #f9f9f9);
+        border: 2px solid var(--border);
+        padding: 20px;
+        margin: 28px 0;
+        box-shadow: 4px 4px 0 var(--border);
+        overflow-x: auto;
+        max-width: 100%;
+    }
+
+    .diagram-box pre {
+        font-family: var(--mono, "JetBrains Mono", monospace);
+        font-size: 13px;
+        line-height: 1.4;
+        color: var(--foreground);
+        margin: 0;
+        white-space: pre;
+    }
+
+    .article code {
+        font-family: var(--mono, "JetBrains Mono", monospace);
+        background: var(--card, #f9f9f9);
+        border: 1px solid var(--border);
+        padding: 2px 6px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .article ul {
+        margin-bottom: 24px;
+        padding-left: 24px;
+    }
+
+    .article li {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+</style>
+
+<div class="shell layout">
+    <!-- Left Sticky Panel: Dynamically Loaded Directory -->
+    <aside class="sidebar">
+        <div class="sidebar-title mono">Latest Insights</div>
+        <div class="blog-list" id="dynamic-blog-list">
+            <div class="mono" style="font-size:12px; color:var(--muted-foreground)">Loading index...</div>
+        </div>
+    </aside>
+
+    <!-- Right Content Panel -->
+    <main class="content">
+        <div class="eyebrow mono">Agentic SIEM</div>
+        <h1>From Searching Security Data to Investigating Threats: The Three Layers of Rover</h1>
+
+        <div class="meta mono">
+            <span>Published: August 2026</span>
+            <span>By: Rover Engineering</span>
+        </div>
+
+        <article class="article">
+            <p>
+                Modern organizations are generating an enormous amount of security telemetry—identity events, endpoint
+                logs, cloud activity, network data, application logs and audit trails. The challenge is no longer simply
+                storing this data. The real challenge is being able to quickly answer:
+            </p>
+            <div class="quote-block">
+                “What happened, where did it start, what entities were involved, what evidence proves it, how did it
+                progress, and what should I investigate next?”
+            </div>
+
+            <p>
+                This is where <strong>Rover</strong> takes a different approach. Rather than treating a SIEM as only a
+                search and alerting system, Rover can be understood as a platform built around three connected layers:
+                <strong>Smart Search</strong>, <strong>Security Context</strong>, and <strong>Agentic
+                    Investigation</strong>.
+            </p>
+
+            <div class="diagram-box">
+                <pre>
+                 ROVER
+                    │
+        ┌───────────┼───────────┐
+        │           │           │
+        ▼           ▼           ▼
+   SMART SEARCH  SECURITY     AGENTIC
+                CONTEXT      INVESTIGATION
+        │           │           │
+        ▼           ▼           ▼
+   Find relevant  Understand  Build attack
+   evidence       entities    narrative
+        │           │           │
+        └───────────┼───────────┘
+                    ▼
+             EVIDENCE-CITED
+                  CASE
+                    │
+                    ▼
+                RESPONSE
+</pre>
+            </div>
+
+            <h2>1. Smart Search — Find the relevant evidence</h2>
+            <p>
+                The first layer is about <strong>speed and efficiency</strong>.
+            </p>
+            <p>
+                Security data can remain in low-cost object storage such as S3 instead of forcing organizations to move
+                everything into expensive hot storage. The challenge then becomes: how do we find the right information
+                quickly across massive historical datasets?
+            </p>
+            <p>
+                Rover's search layer is designed to make that historical data searchable and help identify the relevant
+                evidence without requiring analysts to manually search through enormous volumes of telemetry.
+            </p>
+
+            <p>The goal isn't simply:</p>
+            <p><code>“Search my logs.”</code></p>
+            <p>It is:</p>
+            <p><strong><code>“Find the small amount of data that matters to this investigation.”</code></strong></p>
+            <p>
+                This becomes increasingly important as organizations retain months or years of security telemetry.
+            </p>
+
+            <h2>2. Security Context — Understand what the data means</h2>
+            <p>
+                Finding an event is only the beginning. A single event rarely tells the complete story.
+            </p>
+            <p>Consider:</p>
+
+            <div class="diagram-box">
+                <pre>
+User
+  │
+  ├── Device
+  │
+  ├── IP Address
+  │
+  ├── Application
+  │
+  ├── Cloud Account
+  │
+  └── Resources
+</pre>
+            </div>
+
+            <p>
+                Security context connects these entities and their activities across different sources. Instead of
+                seeing:
+            </p>
+            <p><em>“User X logged in from IP Y.”</em></p>
+            <p>the investigation can ask:</p>
+
+            <ul>
+                <li>Is this normal for the user?</li>
+                <li>Which device was involved?</li>
+                <li>What happened immediately before the login?</li>
+                <li>What cloud resources were accessed afterward?</li>
+                <li>Has this IP appeared elsewhere?</li>
+                <li>Did the user's behavior change?</li>
+                <li>What other identities or systems are connected to the activity?</li>
+            </ul>
+
+            <p>
+                This transforms isolated log records into security context. The result is a much richer understanding of
+                who, what, where and when.
+            </p>
+
+            <h2>3. Agentic Investigation — Build the story</h2>
+            <p>
+                This is where Rover can move beyond traditional SIEM workflows. Instead of requiring an analyst to
+                manually execute dozens of searches and pivots, an AI agent can drive the investigation.
+            </p>
+            <p>A simplified workflow looks like:</p>
+
+            <div class="diagram-box">
+                <pre>
+Signal
+  ↓
+Investigation hypothesis
+  ↓
+Search
+  ↓
+Entity correlation
+  ↓
+Historical investigation
+  ↓
+Evidence collection
+  ↓
+Timeline construction
+  ↓
+Hypothesis validation
+  ↓
+Case
+</pre>
+            </div>
+
+            <p>
+                The agent doesn't simply produce an AI-generated summary. The important principle is
+                <strong>evidence-backed investigation</strong>. The agent should be able to explain:
+            </p>
+
+            <ul>
+                <li>What happened</li>
+                <li>When it happened</li>
+                <li>Where it started</li>
+                <li>Which entities were involved</li>
+                <li>Which events support the conclusion</li>
+                <li>How the activity progressed</li>
+                <li>What remains uncertain</li>
+                <li>What should be investigated next</li>
+            </ul>
+
+            <p>
+                This turns AI from a chat interface over a SIEM into an investigation engine.
+            </p>
+
+            <h2>From Events to Evidence-Cited Cases</h2>
+            <p>The three layers work together:</p>
+
+            <div class="diagram-box">
+                <pre>
+SMART SEARCH
+     │
+     │ finds relevant evidence
+     ▼
+SECURITY CONTEXT
+     │
+     │ connects entities and activity
+     ▼
+AGENTIC INVESTIGATION
+     │
+     │ reasons over the evidence
+     ▼
+EVIDENCE-CITED CASE
+     │
+     │
+     ▼
+RESPONSE
+</pre>
+            </div>
+
+            <p>
+                The key difference is that Rover isn't just trying to return more search results. It is trying to reduce
+                the distance between:
+            </p>
+            <div class="quote-block">
+                raw telemetry → relevant evidence → understanding → investigation → action.
+            </div>
+
+            <h2>The Shift in SIEM</h2>
+            <p>Traditional SIEM workflows often look like:</p>
+
+            <div class="diagram-box">
+                <pre>
+Alert ➔ Analyst searches ➔ Search again
+      ➔ Pivot to another source ➔ Search again
+      ➔ Correlate manually ➔ Build timeline
+      ➔ Write investigation summary
+</pre>
+            </div>
+
+            <p>Rover's vision is:</p>
+
+            <div class="diagram-box">
+                <pre>
+Signal
+  ↓
+Rover
+  ├── Search
+  ├── Correlate
+  ├── Investigate
+  ├── Gather evidence
+  └── Build timeline
+        ↓
+   Evidence-Cited Case
+        ↓
+      Response
+</pre>
+            </div>
+
+            <div class="quote-block">
+                That is the fundamental shift: From a SIEM that helps analysts search data to an Agentic SIEM that helps
+                analysts investigate what the data means.
+            </div>
+
+            <h2>The Rover Philosophy</h2>
+            <p>The three layers can ultimately be summarized in three questions:</p>
+            <p><strong>Smart Search:</strong> <em>Where is the evidence?</em></p>
+            <p><strong>Security Context:</strong> <em>What does the evidence mean?</em></p>
+            <p><strong>Agentic Investigation:</strong> <em>What happened, why does it matter, and what should we do
+                    next?</em></p>
+
+            <p style="margin-top: 2rem; font-weight: 700;">And that leads to the central Rover proposition:</p>
+
+            <div class="case-study-box" style="background: var(--primary); margin-top: 32px;">
+                <h3>Don't just search security data. Understand it. Investigate it. Act on it.</h3>
+                <p style="margin-bottom: 16px;">
+                    This is where Rover builds its identity as an Agentic SIEM rather than simply another security data
+                    lake or search engine.
+                </p>
+                <p><a href="mailto:contactus@roverhq.ai" style="text-decoration: underline; font-weight: 700;">Learn
+                        More - reach out to contactus@roverhq.ai</a></p>
+            </div>
+        </article>
+    </main>
+</div>
+
+<script>
+    async function loadBlogs() {
+        try {
+            const response = await fetch('blogs.json');
+            const blogs = await response.json();
+            const listContainer = document.getElementById('dynamic-blog-list');
+            const currentFile = window.location.pathname.split('/').pop() || 'from-searching-security-data-to-investigating-threats.html';
+            listContainer.innerHTML = blogs.map(blog => {
+                const isActive = currentFile === blog.url;
+                return `
+                        <a href="${blog.url}" class="blog-item ${isActive ? 'active' : ''}">
+                            <div class="blog-item-counter mono">${blog.counter}</div>
+                            <div class="blog-item-title">${blog.title}</div>
+                        </a>
+                    `;
+            }).join('');
+        } catch (error) {
+            console.error("Error loading centralized blog directory:", error);
+        }
+    }
+    window.addEventListener('DOMContentLoaded', loadBlogs);
+</script>
+
+    <footer class="footer">
+        <div class="shell footer-inner">
+            <div>&copy; 2026 Rover HQ Inc.</div>
+            <div>contactus@roverhq.ai</div>
+        </div>
+    </footer>
+
+    <!-- Absolute path for site.js from root -->
+    <script src="/site.js"></script>
+</body>
+</html>
