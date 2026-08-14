@@ -4,9 +4,19 @@
     
     
     {
+        "id": "blog-11",
+        "url": "from-searching-security-data-to-investigating-threats.html",
+        "counter": "Blog #11 (Newest)",
+        "title": "From Searching Security Data to Investigating Threats: The Three Layers of Rover"
+    },
+
+    
+    
+    
+    {
         "id": "blog-10",
         "url": "indexing-the-90-percent-of-security-data.html",
-        "counter": "Blog #10 (Newest)",
+        "counter": "Blog #10",
         "title": "Indexing the 90% of Security Data"
     },
 
