@@ -7,43 +7,42 @@ og_image: "https://roverhq.ai/og-image.jpg"
 
 {% assign blogs = site.pages | where: "layout", "blog" | sort: "blog_number" | reverse %}
 
-<main class="blog-index-page">
-    <section class="blog-index-hero">
-        <div class="shell">
-            <div class="eyebrow mono">Rover Blog</div>
-            <div class="blog-index-head">
-                <h1>Insights for agentic security teams.</h1>
-                <p>Architecture notes on Agentic SIEM, S3-native search, retained telemetry, and the operational tradeoffs shaping modern SecOps.</p>
-            </div>
+<main>
+    <section class="py-16 bg-surface-0 border-b border-border/60">
+        <div class="shell max-w-3xl">
+            <div class="eyebrow-badge"><span class="eyebrow-dot"></span>Rover Blog</div>
+            <h1 class="text-h1 font-medium tracking-tight mt-5">Insights for agentic security teams.</h1>
+            <p class="text-subhead mt-3">Architecture notes on Agentic SIEM, S3-native search, retained telemetry, and the operational tradeoffs shaping modern SecOps.</p>
         </div>
     </section>
 
-    <section class="blog-index-section" aria-labelledby="blog-index-title">
+    <section class="py-16 border-b border-border/60" aria-labelledby="blog-index-title">
         <div class="shell">
-            <div class="blog-index-toolbar">
-                <h2 id="blog-index-title" tabindex="-1">Latest Articles</h2>
-                <div class="blog-index-count mono">{{ blogs | size }} posts</div>
+            <div class="flex items-center justify-between gap-4 mb-8 border-b border-border/60 pb-4">
+                <h2 id="blog-index-title" tabindex="-1" class="text-h2 font-medium tracking-tight">Latest Articles</h2>
+                <div class="font-mono text-xs font-semibold uppercase text-primary px-2.5 py-1 rounded bg-primary/10 border border-primary/20">{{ blogs | size }} posts</div>
             </div>
 
-            <div class="blog-card-grid" id="blog-card-grid">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="blog-card-grid">
                 {% for blog in blogs %}
-                    <article class="blog-card" data-blog-card>
-                        <div class="blog-card-top">
-                            <span class="blog-card-number mono">{{ blog.blog_counter }}{% if forloop.first %} / Newest{% endif %}</span>
-                            <span class="blog-card-category">{{ blog.category }}</span>
+                    <article class="q-card q-card-hover p-6 flex flex-col justify-between min-h-[300px]" data-blog-card>
+                        <div>
+                            <div class="flex items-center justify-between text-xs font-mono font-semibold uppercase mb-4">
+                                <span class="text-primary">{{ blog.blog_counter }}{% if forloop.first %} / Newest{% endif %}</span>
+                                <span class="text-muted-foreground px-2 py-0.5 rounded bg-surface-2">{{ blog.category }}</span>
+                            </div>
+                            <h3 class="text-h3 text-xl"><a href="{{ blog.url }}" class="transition-colors hover:text-primary">{{ blog.card_title | default: blog.title | remove: " | Rover" }}</a></h3>
+                            <p class="text-body-sm mt-3 text-muted-foreground line-clamp-3">{{ blog.description }}</p>
                         </div>
-                        <h3><a href="{{ blog.url }}">{{ blog.card_title | default: blog.title | remove: " | Rover" }}</a></h3>
-                        <p>{{ blog.description }}</p>
-                        <div class="blog-card-meta mono">
+                        <div class="mt-6 border-t border-border/40 pt-4 flex items-center justify-between text-xs font-mono text-muted-foreground">
                             <span>{{ blog.published_label }}</span>
-                            <span>{{ blog.read_time }}</span>
+                            <a class="text-primary font-semibold transition-colors hover:underline" href="{{ blog.url }}">Read article →</a>
                         </div>
-                        <a class="blog-card-link mono" href="{{ blog.url }}">Read article</a>
                     </article>
                 {% endfor %}
             </div>
 
-            <nav class="blog-pagination" id="blog-pagination" aria-label="Blog pagination" data-page-size="6"></nav>
+            <nav class="flex items-center justify-center gap-2 mt-12 font-mono text-sm" id="blog-pagination" aria-label="Blog pagination" data-page-size="6"></nav>
         </div>
     </section>
 </main>
@@ -84,11 +83,11 @@ og_image: "https://roverhq.ai/og-image.jpg"
             });
 
             var controls = [];
-            controls.push('<a class="blog-page-control mono" href="' + pageUrl(currentPage - 1) + '" data-page="' + (currentPage - 1) + '"' + (currentPage === 1 ? ' aria-disabled="true"' : "") + ">Previous</a>");
+            controls.push('<a class="px-3 py-1.5 rounded border border-border bg-surface-1 text-xs font-mono text-foreground transition-colors hover:bg-surface-2 aria-disabled:opacity-40 aria-disabled:pointer-events-none" href="' + pageUrl(currentPage - 1) + '" data-page="' + (currentPage - 1) + '"' + (currentPage === 1 ? ' aria-disabled="true"' : "") + ">Previous</a>");
             for (var page = 1; page <= totalPages; page += 1) {
-                controls.push('<a class="blog-page-number mono" href="' + pageUrl(page) + '" data-page="' + page + '"' + (page === currentPage ? ' aria-current="page"' : "") + ">" + page + "</a>");
+                controls.push('<a class="w-8 h-8 flex items-center justify-center rounded border border-border bg-surface-1 text-xs font-mono text-foreground transition-colors hover:bg-surface-2 aria-[current=page]:bg-primary aria-[current=page]:text-primary-foreground aria-[current=page]:border-primary" href="' + pageUrl(page) + '" data-page="' + page + '"' + (page === currentPage ? ' aria-current="page"' : "") + ">" + page + "</a>");
             }
-            controls.push('<a class="blog-page-control mono" href="' + pageUrl(currentPage + 1) + '" data-page="' + (currentPage + 1) + '"' + (currentPage === totalPages ? ' aria-disabled="true"' : "") + ">Next</a>");
+            controls.push('<a class="px-3 py-1.5 rounded border border-border bg-surface-1 text-xs font-mono text-foreground transition-colors hover:bg-surface-2 aria-disabled:opacity-40 aria-disabled:pointer-events-none" href="' + pageUrl(currentPage + 1) + '" data-page="' + (currentPage + 1) + '"' + (currentPage === totalPages ? ' aria-disabled="true"' : "") + ">Next</a>");
             pagination.innerHTML = controls.join("");
 
             if (Number(params.get("page")) !== currentPage && !(currentPage === 1 && !params.has("page"))) {

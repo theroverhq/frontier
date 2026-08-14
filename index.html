@@ -6,18 +6,18 @@ og_image: "https://roverhq.ai/og-image.jpg"
 ---
 
 <main>
-        <header class="hero">
+        <header class="py-16 border-b border-border/60 bg-surface-0">
             <div class="shell">
-                <div class="hero-content">
-                    <div class="hero-main">
-                        <div class="eyebrow mono">AI-native SIEM</div>
-                        <h1 class="hero-title">Threats hide for months. Your SIEM shouldn't forget in weeks.</h1>
-                        <p class="hero-copy">
+                <div class="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-12 items-center">
+                    <div>
+                        <div class="eyebrow-badge"><span class="eyebrow-dot"></span>AI-native SIEM</div>
+                        <h1 class="text-h1 font-medium tracking-tight mt-5">Threats hide for months. Your SIEM shouldn't forget in weeks.</h1>
+                        <p class="text-subhead mt-5">
                             Rover keeps years of security events searchable where the data already lives, so analysts and AI agents can hunt long-running threats, reconstruct incidents with full context, and centralize telemetry without legacy indexing walls.
                         </p>
-                        <div class="hero-actions">
-                            <a class="button primary" href="#early-access">Request Access</a>
-                            <a class="button secondary" href="#siem">See How It Works</a>
+                        <div class="mt-8 flex flex-wrap gap-3">
+                            <a class="btn btn-primary" href="#early-access">Request Access</a>
+                            <a class="btn btn-secondary" href="#siem">See How It Works</a>
                         </div>
                     </div>
 
@@ -103,11 +103,11 @@ og_image: "https://roverhq.ai/og-image.jpg"
             </div>
         </header>
 
-        <section id="dilemma" class="section dark dilemma-section">
+        <section id="dilemma" class="py-20 bg-surface-1 border-b border-border/60">
             <div class="shell">
-                <div class="section-head">
-                    <h2>The Cost of Compromised Visibility</h2>
-                    <p>Legacy SIEM economics force security teams to choose which telemetry they can afford to investigate. Critical data is routed to cold storage, creating predictable blind spots where modern adversaries operate unseen.</p>
+                <div class="mb-10 max-w-3xl">
+                    <h2 class="text-h2 font-medium tracking-tight">The Cost of Compromised Visibility</h2>
+                    <p class="text-subhead mt-3">Legacy SIEM economics force security teams to choose which telemetry they can afford to investigate. Critical data is routed to cold storage, creating predictable blind spots where modern adversaries operate unseen.</p>
                 </div>
                 
                 <div class="dilemma-dashboard">
@@ -159,48 +159,73 @@ og_image: "https://roverhq.ai/og-image.jpg"
             </div>
         </section>
 
-        <section id="siem" class="section">
+        <section id="siem" class="py-20 border-b border-border/60">
             <div class="shell">
-                <div class="section-head">
-                    <h2>Agentic SIEM for attacks that move at machine speed.</h2>
-                    <p>Rover keeps the SIEM jobs: detection, investigation, audit, and response. The change is architectural: detections produce signals, agents assemble cases, and searchable S3 memory gives every conclusion evidence.</p>
+                <div class="mb-12 max-w-3xl">
+                    <h2 class="text-h2 font-medium tracking-tight">Agentic SIEM for attacks that move at machine speed.</h2>
+                    <p class="text-subhead mt-3">Rover keeps the SIEM jobs: detection, investigation, audit, and response. The change is architectural: detections produce signals, agents assemble cases, and searchable S3 memory gives every conclusion evidence.</p>
                 </div>
 
-                <div class="cards">
-                    <article class="card featured">
-                        <div class="card-kicker"><span>SIEM</span><span class="card-index mono">01</span></div>
-                        <h3>Reason about attack narratives</h3>
-                        <p>Rover correlates activity across identity, cloud, endpoint, application, and audit sources so multi-step attacks are treated as stories, not isolated alerts.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <article class="q-card primary-subtle p-6 flex flex-col justify-between min-h-[260px]">
+                        <div class="flex items-center justify-between text-xs font-mono font-semibold uppercase">
+                            <span>SIEM</span><span class="px-2 py-0.5 rounded bg-primary/20 text-primary">01</span>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-h3">Reason about attack narratives</h3>
+                            <p class="text-body-sm mt-3 opacity-90">Rover correlates activity across identity, cloud, endpoint, application, and audit sources so multi-step attacks are treated as stories, not isolated alerts.</p>
+                        </div>
                     </article>
-                    <article class="card">
-                        <div class="card-kicker"><span>Cases</span><span class="card-index mono">02</span></div>
-                        <h3>Turn signals into cases</h3>
-                        <p>Agents group related signals, build timelines, cite source events, score severity, and produce a case an analyst can accept or challenge.</p>
+                    <article class="q-card q-card-hover p-6 flex flex-col justify-between min-h-[260px]">
+                        <div class="flex items-center justify-between text-xs font-mono font-semibold uppercase text-muted-foreground">
+                            <span>Cases</span><span class="px-2 py-0.5 rounded bg-surface-2 text-foreground">02</span>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-h3">Turn signals into cases</h3>
+                            <p class="text-body-sm mt-3 text-muted-foreground">Agents group related signals, build timelines, cite source events, score severity, and produce a case an analyst can accept or challenge.</p>
+                        </div>
                     </article>
-                    <article class="card">
-                        <div class="card-kicker"><span>Detection</span><span class="card-index mono">03</span></div>
-                        <h3>Adapt detections to your environment</h3>
-                        <p>Generic rules are only the starting point. Rover learns entities, baselines, assets, and source coverage so detections reflect your operating reality.</p>
+                    <article class="q-card q-card-hover p-6 flex flex-col justify-between min-h-[260px]">
+                        <div class="flex items-center justify-between text-xs font-mono font-semibold uppercase text-muted-foreground">
+                            <span>Detection</span><span class="px-2 py-0.5 rounded bg-surface-2 text-foreground">03</span>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-h3">Adapt detections to your environment</h3>
+                            <p class="text-body-sm mt-3 text-muted-foreground">Generic rules are only the starting point. Rover learns entities, baselines, assets, and source coverage so detections reflect your operating reality.</p>
+                        </div>
                     </article>
-                    <article class="card">
-                        <div class="card-kicker"><span>S3 Search</span><span class="card-index mono">04</span></div>
-                        <h3>Keep searchable memory in S3</h3>
-                        <p>Searchable indices live in S3, so agents can validate cases against retained telemetry without forcing every byte into the SIEM hot tier.</p>
+                    <article class="q-card q-card-hover p-6 flex flex-col justify-between min-h-[260px]">
+                        <div class="flex items-center justify-between text-xs font-mono font-semibold uppercase text-muted-foreground">
+                            <span>S3 Search</span><span class="px-2 py-0.5 rounded bg-surface-2 text-foreground">04</span>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-h3">Keep searchable memory in S3</h3>
+                            <p class="text-body-sm mt-3 text-muted-foreground">Searchable indices live in S3, so agents can validate cases against retained telemetry without forcing every byte into the SIEM hot tier.</p>
+                        </div>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section id="agents" class="section">
-            <div class="shell split">
-                <div class="analytics-copy">
-                    <div class="eyebrow mono">Agentic SecOps</div>
-                    <h2>From signals to evidence-cited cases.</h2>
-                    <p>Rover agents do the repetitive work after detections fire: collect evidence, join sources, test hypotheses, explain confidence, suggest next pivots, and preserve the trail.</p>
-                    <div class="analytics-list mono">
-                        <div><span>Input</span><strong>Signals + detections</strong></div>
-                        <div><span>Search</span><strong>S3 indices + raw events</strong></div>
-                        <div><span>Output</span><strong>Cases, gaps, actions</strong></div>
+        <section id="agents" class="py-20 border-b border-border/60 bg-surface-0">
+            <div class="shell grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-10 items-center">
+                <div class="flex flex-col gap-4">
+                    <div class="eyebrow-badge"><span class="eyebrow-dot"></span>Agentic SecOps</div>
+                    <h2 class="text-h2 font-medium tracking-tight">From signals to evidence-cited cases.</h2>
+                    <p class="text-subhead">Rover agents do the repetitive work after detections fire: collect evidence, join sources, test hypotheses, explain confidence, suggest next pivots, and preserve the trail.</p>
+                    <div class="mt-6 flex flex-col gap-3 font-mono text-sm border-t border-border/60 pt-5">
+                        <div class="flex justify-between items-center py-1">
+                            <span class="text-muted-foreground">Input</span>
+                            <strong class="text-foreground">Signals + detections</strong>
+                        </div>
+                        <div class="flex justify-between items-center py-1 border-t border-border/40">
+                            <span class="text-muted-foreground">Search</span>
+                            <strong class="text-foreground">S3 indices + raw events</strong>
+                        </div>
+                        <div class="flex justify-between items-center py-1 border-t border-border/40">
+                            <span class="text-muted-foreground">Output</span>
+                            <strong class="text-foreground">Cases, gaps, actions</strong>
+                        </div>
                     </div>
                 </div>
 
@@ -217,7 +242,7 @@ og_image: "https://roverhq.ai/og-image.jpg"
                             <span class="keyword">guardrail</span> cite source events before action
                         </div>
                         <div class="runner-actions">
-                            <button id="run-agent" class="button primary" type="button">Run Agent</button>
+                            <button id="run-agent" class="btn btn-primary" type="button">Run Agent</button>
                             <span class="mono runner-status">sample workflow</span>
                         </div>
                         <div class="timeline">
@@ -247,63 +272,73 @@ og_image: "https://roverhq.ai/og-image.jpg"
             </div>
         </section>
 
-        <section id="architecture" class="section">
+        <section id="architecture" class="py-20 border-b border-border/60">
             <div class="shell">
-                <div class="section-head">
-                    <h2>Three detection layers on S3-native search.</h2>
-                    <p>Rover combines core detections, adaptive environment-specific detections, and behavioral baselines with S3-hosted indices that make retained telemetry searchable for agents and analysts.</p>
+                <div class="mb-12 max-w-3xl">
+                    <h2 class="text-h2 font-medium tracking-tight">Three detection layers on S3-native search.</h2>
+                    <p class="text-subhead mt-3">Rover combines core detections, adaptive environment-specific detections, and behavioral baselines with S3-hosted indices that make retained telemetry searchable for agents and analysts.</p>
                 </div>
 
-                <div class="loop">
-                    <article class="loop-step">
-                        <span class="mono">01 / Core</span>
-                        <h3>Baseline coverage</h3>
-                        <p>Start with core detections for common attack behaviors across identity, cloud, endpoint, application, SaaS, and audit sources.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <article class="q-card q-card-hover p-5 flex flex-col justify-between min-h-[220px]">
+                        <span class="font-mono text-xs text-primary font-semibold">01 / Core</span>
+                        <div class="mt-4">
+                            <h3 class="text-h3 text-lg">Baseline coverage</h3>
+                            <p class="text-body-sm mt-2 text-muted-foreground">Start with core detections for common attack behaviors across identity, cloud, endpoint, application, SaaS, and audit sources.</p>
+                        </div>
                     </article>
-                    <article class="loop-step">
-                        <span class="mono">02 / Adaptive</span>
-                        <h3>Environment logic</h3>
-                        <p>Generate and tune detections around your assets, business units, normal access paths, cloud accounts, and operational patterns.</p>
+                    <article class="q-card q-card-hover p-5 flex flex-col justify-between min-h-[220px]">
+                        <span class="font-mono text-xs text-primary font-semibold">02 / Adaptive</span>
+                        <div class="mt-4">
+                            <h3 class="text-h3 text-lg">Environment logic</h3>
+                            <p class="text-body-sm mt-2 text-muted-foreground">Generate and tune detections around your assets, business units, normal access paths, cloud accounts, and operational patterns.</p>
+                        </div>
                     </article>
-                    <article class="loop-step">
-                        <span class="mono">03 / Behavior</span>
-                        <h3>Learn baselines</h3>
-                        <p>Model expected behavior for users, hosts, services, and workloads so agents can reason about activity that does not belong.</p>
+                    <article class="q-card q-card-hover p-5 flex flex-col justify-between min-h-[220px]">
+                        <span class="font-mono text-xs text-primary font-semibold">03 / Behavior</span>
+                        <div class="mt-4">
+                            <h3 class="text-h3 text-lg">Learn baselines</h3>
+                            <p class="text-body-sm mt-2 text-muted-foreground">Model expected behavior for users, hosts, services, and workloads so agents can reason about activity that does not belong.</p>
+                        </div>
                     </article>
-                    <article class="loop-step">
-                        <span class="mono">04 / Search</span>
-                        <h3>Index in S3</h3>
-                        <p>Build searchable indices in S3 for entities, time ranges, source metadata, and raw-event pointers across retained telemetry.</p>
+                    <article class="q-card q-card-hover p-5 flex flex-col justify-between min-h-[220px]">
+                        <span class="font-mono text-xs text-primary font-semibold">04 / Search</span>
+                        <div class="mt-4">
+                            <h3 class="text-h3 text-lg">Index in S3</h3>
+                            <p class="text-body-sm mt-2 text-muted-foreground">Build searchable indices in S3 for entities, time ranges, source metadata, and raw-event pointers across retained telemetry.</p>
+                        </div>
                     </article>
-                    <article class="loop-step">
-                        <span class="mono">05 / Case</span>
-                        <h3>Reason with agents</h3>
-                        <p>Agents assemble signals into evidence-cited cases, surface gaps, and feed improvements back into detection coverage.</p>
+                    <article class="q-card q-card-hover p-5 flex flex-col justify-between min-h-[220px]">
+                        <span class="font-mono text-xs text-primary font-semibold">05 / Case</span>
+                        <div class="mt-4">
+                            <h3 class="text-h3 text-lg">Reason with agents</h3>
+                            <p class="text-body-sm mt-2 text-muted-foreground">Agents assemble signals into evidence-cited cases, surface gaps, and feed improvements back into detection coverage.</p>
+                        </div>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section class="section dark">
+        <section class="py-20 bg-surface-1 border-b border-border/60">
             <div class="shell">
-                <div class="section-head">
-                    <h2>Security coverage should not be priced out of the SIEM.</h2>
-                    <p>Legacy SIEM economics force teams to choose which telemetry they can afford to investigate. Rover keeps the SIEM experience while moving searchable memory and indices to S3.</p>
+                <div class="mb-12 max-w-3xl">
+                    <h2 class="text-h2 font-medium tracking-tight">Security coverage should not be priced out of the SIEM.</h2>
+                    <p class="text-subhead mt-3">Legacy SIEM economics force teams to choose which telemetry they can afford to investigate. Rover keeps the SIEM experience while moving searchable memory and indices to S3.</p>
                 </div>
 
-                <div class="compare">
-                    <div class="compare-col">
-                        <h3>Legacy SIEM pressure</h3>
-                        <ul>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="q-card p-8 border-destructive/20 bg-surface-0">
+                        <h3 class="text-h3 text-destructive">Legacy SIEM pressure</h3>
+                        <ul class="mt-6 flex flex-col gap-3 text-body-sm text-muted-foreground list-disc pl-5">
                             <li>Hot-tier storage makes long retention expensive.</li>
                             <li>Teams drop or sample telemetry that agents need for investigation.</li>
                             <li>Static rules create alert volume faster than analysts can investigate.</li>
                             <li>AI summaries sit on top of alerts but cannot cheaply validate enough history.</li>
                         </ul>
                     </div>
-                    <div class="compare-col">
-                        <h3>Rover Agentic SIEM</h3>
-                        <ul>
+                    <div class="q-card p-8 border-primary/30 primary-subtle">
+                        <h3 class="text-h3 text-primary">Rover Agentic SIEM</h3>
+                        <ul class="mt-6 flex flex-col gap-3 text-body-sm text-foreground list-disc pl-5">
                             <li>Agents and analysts search S3-hosted indices with source-level evidence.</li>
                             <li>Telemetry stays retained in S3, keeping cost low while preserving investigation depth.</li>
                             <li>Adaptive detections and behavioral baselines reduce noise before cases reach analysts.</li>
@@ -314,58 +349,58 @@ og_image: "https://roverhq.ai/og-image.jpg"
             </div>
         </section>
 
-        <section id="outcomes" class="section">
+        <section id="outcomes" class="py-20 border-b border-border/60">
             <div class="shell">
-                <div class="section-head">
-                    <h2>The Rover difference.</h2>
-                    <p>Rover borrows the right lesson from the new detection era: the system has to reason. Rover applies that through an Agentic SIEM with S3-backed search and cost-aware retained telemetry.</p>
+                <div class="mb-12 max-w-3xl">
+                    <h2 class="text-h2 font-medium tracking-tight">The Rover difference.</h2>
+                    <p class="text-subhead mt-3">Rover borrows the right lesson from the new detection era: the system has to reason. Rover applies that through an Agentic SIEM with S3-backed search and cost-aware retained telemetry.</p>
                 </div>
 
-                <div class="use-cases">
-                    <article class="use-case">
-                        <span class="mono">01 Agentic SIEM</span>
-                        <h3>Signals become cases</h3>
-                        <p>Rover treats alert triage as a SIEM-native workflow that turns related signals into evidence-cited cases.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <article class="q-card q-card-hover p-6">
+                        <span class="font-mono text-xs text-primary font-semibold">01 Agentic SIEM</span>
+                        <h3 class="text-h3 text-xl mt-3">Signals become cases</h3>
+                        <p class="text-body-sm mt-3 text-muted-foreground">Rover treats alert triage as a SIEM-native workflow that turns related signals into evidence-cited cases.</p>
                     </article>
-                    <article class="use-case">
-                        <span class="mono">02 Agentic SecOps</span>
-                        <h3>Analyst-agent workflow</h3>
-                        <p>Agents gather evidence and propose decisions; analysts approve response, document cases, and improve detections.</p>
+                    <article class="q-card q-card-hover p-6">
+                        <span class="font-mono text-xs text-primary font-semibold">02 Agentic SecOps</span>
+                        <h3 class="text-h3 text-xl mt-3">Analyst-agent workflow</h3>
+                        <p class="text-body-sm mt-3 text-muted-foreground">Agents gather evidence and propose decisions; analysts approve response, document cases, and improve detections.</p>
                     </article>
-                    <article class="use-case">
-                        <span class="mono">03 Search</span>
-                        <h3>S3-backed investigation</h3>
-                        <p>Search runs over S3-hosted indices so older and lower-frequency telemetry remains useful during incidents.</p>
+                    <article class="q-card q-card-hover p-6">
+                        <span class="font-mono text-xs text-primary font-semibold">03 Search</span>
+                        <h3 class="text-h3 text-xl mt-3">S3-backed investigation</h3>
+                        <p class="text-body-sm mt-3 text-muted-foreground">Search runs over S3-hosted indices so older and lower-frequency telemetry remains useful during incidents.</p>
                     </article>
-                    <article class="use-case">
-                        <span class="mono">04 Detection</span>
-                        <h3>Adaptive coverage</h3>
-                        <p>Rover tunes detection logic around your environment so generic rules become operating-context-aware signals.</p>
+                    <article class="q-card q-card-hover p-6">
+                        <span class="font-mono text-xs text-primary font-semibold">04 Detection</span>
+                        <h3 class="text-h3 text-xl mt-3">Adaptive coverage</h3>
+                        <p class="text-body-sm mt-3 text-muted-foreground">Rover tunes detection logic around your environment so generic rules become operating-context-aware signals.</p>
                     </article>
-                    <article class="use-case">
-                        <span class="mono">05 Cost</span>
-                        <h3>Reduce SIEM pressure</h3>
-                        <p>Move index and retention economics to S3 while keeping the SIEM experience for alerts and response.</p>
+                    <article class="q-card q-card-hover p-6">
+                        <span class="font-mono text-xs text-primary font-semibold">05 Cost</span>
+                        <h3 class="text-h3 text-xl mt-3">Reduce SIEM pressure</h3>
+                        <p class="text-body-sm mt-3 text-muted-foreground">Move index and retention economics to S3 while keeping the SIEM experience for alerts and response.</p>
                     </article>
-                    <article class="use-case">
-                        <span class="mono">06 Response</span>
-                        <h3>Preserve the story</h3>
-                        <p>Keep alerts, searches, agent findings, entity pivots, notes, timelines, and exports together.</p>
+                    <article class="q-card q-card-hover p-6">
+                        <span class="font-mono text-xs text-primary font-semibold">06 Response</span>
+                        <h3 class="text-h3 text-xl mt-3">Preserve the story</h3>
+                        <p class="text-body-sm mt-3 text-muted-foreground">Keep alerts, searches, agent findings, entity pivots, notes, timelines, and exports together.</p>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section id="early-access" class="cta">
-            <div class="shell cta-box">
-                <div>
-                    <div class="eyebrow mono">Early access</div>
-                    <h2>Make Rover your Agentic SIEM with S3-native search.</h2>
+        <section id="early-access" class="py-20 bg-surface-0">
+            <div class="shell q-card p-10 flex flex-col lg:flex-row items-center justify-between gap-8 bg-surface-1">
+                <div class="max-w-xl">
+                    <div class="eyebrow-badge"><span class="eyebrow-dot"></span>Early access</div>
+                    <h2 class="text-h2 font-medium tracking-tight mt-4">Make Rover your Agentic SIEM with S3-native search.</h2>
                 </div>
-                <div class="signup">
-                    <form action="https://formspree.io/f/xgopbprl" method="POST">
-                        <input type="email" name="email" placeholder="security@company.com" aria-label="Email address" required>
-                        <button class="button primary" type="submit">Request Access</button>
+                <div class="w-full lg:w-auto">
+                    <form action="https://formspree.io/f/xgopbprl" method="POST" class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" name="email" placeholder="security@company.com" aria-label="Email address" required class="bg-surface-0 border border-input rounded-md px-4 py-2.5 text-foreground outline-none focus:border-ring w-full sm:w-72">
+                        <button class="btn btn-primary" type="submit">Request Access</button>
                     </form>
                 </div>
             </div>
