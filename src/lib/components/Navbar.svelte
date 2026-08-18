@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
+	import '@fontsource/mitr/400.css';
 </script>
 
 <nav class="dark bg-background text-foreground sticky top-0 z-50" aria-label="Main navigation">
@@ -11,8 +12,11 @@
 			class="text-foreground flex items-center gap-2.5 font-bold tracking-tight transition-opacity hover:opacity-90"
 			aria-label="Rover home"
 		>
-			<img src="/rover-logo.png" alt="Rover Logo" class="h-9 w-auto" />
-			<span class="text-foreground text-3xl font-semibold tracking-tight">Rover</span>
+			<img src="/rover-logo.png" alt="Rover Logo" class="h-10 w-auto" />
+			<span
+				class="text-foreground pt-1 text-4xl leading-none tracking-tight"
+				style="font-family: 'Mitr', sans-serif;">Rover</span
+			>
 		</a>
 
 		<div
