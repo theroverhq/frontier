@@ -2,8 +2,8 @@
   import { Card } from "$lib/components/ui/card";
 </script>
 
-<section id="convergence" class="py-20 bg-background">
-  <div class="container mx-auto max-w-6xl px-4 sm:px-6">
+<section id="convergence" class="dark py-20 bg-background text-foreground">
+  <div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
     <div class="max-w-3xl mb-12">
       <div class="flex items-center gap-2 mb-3">
         <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>

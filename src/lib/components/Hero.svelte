@@ -3,8 +3,8 @@
   import { Badge } from "$lib/components/ui/badge";
 </script>
 
-<header class="py-16 md:py-24 bg-background text-foreground rounded-b-3xl border-b border-border shadow-2xl">
-  <div class="container mx-auto max-w-6xl px-4 sm:px-6">
+<header class="dark py-16 md:py-24 bg-background text-foreground">
+  <div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_520px] gap-12 items-center">
       <div>
         <div class="flex flex-wrap items-center gap-2 mb-6">

@@ -3,8 +3,8 @@
   import { Badge } from "$lib/components/ui/badge";
 </script>
 
-<section id="big-idea" class="py-20 bg-muted/30 rounded-3xl my-8 border border-border shadow-sm">
-  <div class="container mx-auto max-w-6xl px-4 sm:px-6">
+<section id="big-idea" class="dark py-20 bg-background text-foreground">
+  <div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
     <div class="max-w-3xl mb-12">
       <h2 class="text-4xl md:text-5xl font-medium tracking-tight text-foreground">
         Your security data shouldn't have a hot tier and a forgotten tier.

@@ -4,8 +4,8 @@
   import { Separator } from "$lib/components/ui/separator";
 </script>
 
-<section id="ai-soc" class="py-20 bg-background text-foreground rounded-3xl my-8 shadow-2xl border border-border">
-  <div class="container mx-auto max-w-6xl px-4 sm:px-6">
+<section id="ai-soc" class="py-20 bg-background text-foreground">
+  <div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12 items-center">
       <div>
         <Badge variant="secondary" class="mb-4 gap-1.5 font-mono">

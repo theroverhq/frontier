@@ -4,8 +4,8 @@
   import { Badge } from "$lib/components/ui/badge";
 </script>
 
-<section id="early-access" class="py-16 bg-background">
-  <div class="container mx-auto max-w-6xl px-4 sm:px-6">
+<section id="early-access" class="dark py-16 bg-background text-foreground">
+  <div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
     <div class="p-10 sm:p-14 flex flex-col lg:flex-row items-center justify-between gap-8 bg-card text-card-foreground rounded-3xl border border-border shadow-2xl">
       <div class="max-w-xl">
         <Badge variant="secondary" class="mb-3 font-mono gap-1.5">

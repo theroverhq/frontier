@@ -2,8 +2,8 @@
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "$lib/components/ui/table";
 </script>
 
-<section id="economics" class="py-20 bg-muted/30 rounded-3xl my-8 border border-border shadow-sm">
-  <div class="container mx-auto max-w-6xl px-4 sm:px-6">
+<section id="economics" class="dark py-20 bg-background text-foreground">
+  <div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
     <div class="max-w-3xl mb-12">
       <div class="flex items-center gap-2 mb-3">
         <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
