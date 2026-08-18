@@ -1,0 +1,69 @@
+<div class="shell layout">
+        <aside class="sidebar">
+            <div class="sidebar-title mono">Latest Insights</div>
+            <div class="blog-list" id="dynamic-blog-list">
+                <div class="mono" style="font-size:12px; color:var(--muted-foreground)">Loading index...</div>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="eyebrow mono">Threat Hunting</div>
+            <h1>The Search Tax: Stopping the SOC Query Waiting Game During Incidents</h1>
+            
+            <div class="meta mono">
+                <span>Published: January 20, 2026</span>
+                <span>By: Rover Engineering</span>
+            </div>
+
+            <article class="article">
+                <p>Waiting for a query is not incident response.</p>
+
+                <p>When an active compromise is suspected, every minute matters. Yet, in legacy enterprise databases, threat hunters are forced to run broad historical searches that crawl along over minutes or hours. Analysts fall into a painful operational loop: </p>
+                
+                <p style="text-align: center; font-weight: 700;">
+                    $\text{Search} \rightarrow \text{Wait} \rightarrow \text{Refine} \rightarrow \text{Wait} \rightarrow \text{Export} \rightarrow \text{Pivot} \rightarrow \text{Wait Again}$
+                </p>
+
+                <p>This is the **"Search Tax"**—the tax paid in time during a critical triage run. It forces investigators to limit the scope of their questions simply to avoid hitting database timeout walls.</p>
+
+                <div class="quote-block">
+                    “If threat hunters are afraid to run broad queries over raw security tables because it breaks the storage cluster, they will systematically miss rare processes.”
+                </div>
+
+                <h2>The Index Crawl Problem</h2>
+                <p>Why do standard searches crawl? Because traditional SIEM indexing layers construct heavy, monolithic search indexes that must load entirely into active RAM before executing. When queries touch older logs, they trigger massive, unpartitioned input/output scans over cold disks.</p>
+
+                <p>To avoid this latency, traditional platforms restrict analyst search filters, forcing you to hunt only across recently indexed data while skipping historical context entirely.</p>
+
+                <h2>Surgical Byte-Range Retrievability</h2>
+                <p>Rover eliminates search latency by bypassing full index loading completely. Operating directly over columnar formats (such as Parquet) in AWS S3, Rover implements advanced physical partitioning.</p>
+
+                <p>By scanning only relevant byte ranges containing specific timestamps or entities, Rover prunes 99% of raw log files before they are read. The outcome is sub-second query performance over petabyte-scale security lakes for a small fraction of the cost footprint.</p>
+
+                <p>To experience real-time forensics without query limits, email us at <a href="mailto:contactus@roverhq.ai" style="text-decoration: underline;">contactus@roverhq.ai</a>.</p>
+            </article>
+        </main>
+    </div>
+
+<script>
+        async function loadBlogs() {
+            try {
+                const response = await fetch('blogs.json');
+                const blogs = await response.json();
+                const listContainer = document.getElementById('dynamic-blog-list');
+                const currentFile = window.location.pathname.split('/').pop() || 'the-search-tax-stopping-the-soc-waiting-game.html';
+                listContainer.innerHTML = blogs.map(blog => {
+                    const isActive = currentFile === blog.url;
+                    return `
+                        <a href="${blog.url}" class="blog-item ${isActive ? 'active' : ''}">
+                            <div class="blog-item-counter mono">${blog.counter}</div>
+                            <div class="blog-item-title">${blog.title}</div>
+                        </a>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error("Error loading centralized blog directory:", error);
+            }
+        }
+        window.addEventListener('DOMContentLoaded', loadBlogs);
+    </script>

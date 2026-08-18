@@ -1,0 +1,772 @@
+<main class="bg-background text-foreground">
+    <!-- ==========================================================
+         SECTION 1: HERO — QOUNT MINIMALIST MONOCHROME HEADER BLOCK
+         (SURGICAL 1% GREEN ACCENT ON PRIMARY CTA & ACTIVE DOT ONLY)
+         ========================================================== -->
+    <header
+        class="py-16 md:py-24 bg-background text-foreground rounded-b-3xl border-b border-border shadow-2xl">
+        <div class="shell">
+            <div class="grid grid-cols-1 lg:grid-cols-[1fr_520px] gap-12 items-center">
+                <div>
+                    <!-- Category Tag Strip -->
+                    <div
+                        class="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-2 border border-border text-xs font-mono text-foreground mb-6">
+                        <span class="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                        <span>Search</span>
+                        <span class="text-muted-foreground">•</span>
+                        <span>Analytics</span>
+                        <span class="text-muted-foreground">•</span>
+                        <span>SIEM</span>
+                        <span class="text-muted-foreground">•</span>
+                        <span>Detections</span>
+                        <span class="text-muted-foreground">•</span>
+                        <span class="text-foreground font-medium">AI SOC</span>
+                    </div>
+
+                    <!-- Clean 100% White Headline (Matching Qount.io) -->
+                    <h1 class="text-display font-medium tracking-tight text-foreground">
+                        Cold Storage. <br class="hidden sm:inline" />
+                        <span class="text-foreground">Hot Intelligence.</span>
+                    </h1>
+
+                    <p class="text-h3 font-normal text-foreground mt-4 leading-snug">
+                        The search, analytics, and AI platform for your security data lake.
+                    </p>
+
+                    <p class="text-body-lg mt-5 text-muted-foreground max-w-2xl leading-relaxed">
+                        Keep every security event in object storage. Search and analyze years of data in seconds. Run
+                        detections across the full dataset and give analysts and AI agents the context to investigate
+                        anything—without search clusters.
+                    </p>
+
+                    <div class="mt-8 flex flex-wrap items-center gap-4">
+                        <!-- Primary 1% Surgical Accent CTA -->
+                        <a class="px-5 py-3 text-sm font-semibold rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-colors shadow-sm"
+                            href="#early-access">Book a Demo</a>
+                        <a class="px-5 py-3 text-sm font-semibold rounded-md border border-border bg-surface-1 text-foreground hover:bg-surface-2 transition-colors shadow-sm"
+                            href="#hero-preview">See Rover in Action</a>
+                    </div>
+
+                    <!-- Trust Strip (Clean Muted Dots) -->
+                    <div class="mt-8 trust-strip text-muted-foreground">
+                        <div class="trust-item text-foreground"><span class="dot bg-muted-foreground"></span>Your object storage
+                        </div>
+                        <span class="opacity-30">•</span>
+                        <div class="trust-item text-foreground"><span class="dot bg-muted-foreground"></span>Full-fidelity
+                            retention</div>
+                        <span class="opacity-30">•</span>
+                        <div class="trust-item text-foreground"><span class="dot bg-muted-foreground"></span>Serverless compute
+                        </div>
+                        <span class="opacity-30">•</span>
+                        <div class="trust-item text-foreground"><span class="dot bg-muted-foreground"></span>No search clusters
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Rover Cold Storage Query Engine Visual -->
+                <div id="hero-preview" class="rover-ui-preview relative w-full h-[460px] bg-surface-0 border border-border rounded-2xl overflow-hidden shadow-2xl flex flex-col font-sans" aria-label="Rover Architecture Visualization">
+                    <!-- Top Bar -->
+                    <div class="h-10 border-b border-border bg-surface-1 px-4 flex items-center justify-between z-10">
+                        <div class="flex items-center gap-3 text-xs font-bold text-muted-foreground uppercase tracking-widest">
+                            <span class="text-foreground">How It Works</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-border"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-border"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-border"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Visual Canvas -->
+                    <div class="relative flex-1 p-6 flex flex-col justify-between overflow-hidden">
+                        <!-- Background Grid -->
+                        <div class="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:24px_24px] opacity-20 pointer-events-none"></div>
+
+                        <!-- Glowing Connecting Line -->
+                        <div class="absolute left-[40px] top-12 bottom-12 w-0.5 bg-gradient-to-b from-transparent via-primary to-transparent opacity-60"></div>
+
+                        <!-- Step 1: Storage -->
+                        <div class="relative z-10 flex items-center gap-5">
+                            <div class="w-10 h-10 rounded-full bg-surface-1 border border-border flex items-center justify-center text-muted-foreground shadow-lg shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+                            </div>
+                            <div class="bg-surface-1 border border-border p-4 rounded-xl flex-1 shadow-lg">
+                                <div class="text-xs font-bold text-muted-foreground mb-1.5 uppercase tracking-widest">1. Keep Everything</div>
+                                <div class="text-foreground text-xs font-semibold mb-2.5">100% Data in Object Storage</div>
+                                <div class="flex gap-2">
+                                    <span class="px-2 py-0.5 bg-surface-0 border border-border rounded text-xs font-mono text-muted-foreground">Amazon S3 / GCS</span>
+                                    <span class="px-2 py-0.5 bg-primary/10 border border-primary/30 rounded text-xs font-mono text-primary font-bold">~ $0.02 / GB</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Compute -->
+                        <div class="relative z-10 flex items-center gap-5">
+                            <div class="w-10 h-10 rounded-full bg-surface-0 border border-primary flex items-center justify-center text-primary shadow-[0_0_15px_var(--primary)] shrink-0 opacity-80">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            </div>
+                            <div class="bg-surface-0/60 border border-primary/30 p-4 rounded-xl flex-1 backdrop-blur-sm shadow-sm">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div>
+                                        <div class="text-xs font-bold text-primary uppercase tracking-widest mb-1.5">2. Serverless Engine</div>
+                                        <div class="text-foreground text-xs font-semibold">Parallel Inverted Index Scan</div>
+                                    </div>
+                                    <div class="text-xs text-muted-foreground font-mono font-bold bg-surface-1 px-2 py-1 rounded">1,024 Workers</div>
+                                </div>
+                                <div class="flex gap-1.5 mt-3 opacity-80">
+                                    <div class="h-1.5 flex-1 bg-primary/90 rounded-full animate-pulse"></div>
+                                    <div class="h-1.5 w-6 bg-primary/30 rounded-full"></div>
+                                    <div class="h-1.5 flex-[2] bg-primary/70 rounded-full animate-[pulse_1.5s_infinite]"></div>
+                                    <div class="h-1.5 flex-[1.5] bg-primary rounded-full animate-pulse shadow-[0_0_8px_var(--primary)]"></div>
+                                    <div class="h-1.5 w-4 bg-border rounded-full"></div>
+                                    <div class="h-1.5 flex-1 bg-primary/50 rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Result -->
+                        <div class="relative z-10 flex items-center gap-5">
+                            <div class="w-10 h-10 rounded-full bg-surface-1 border border-border flex items-center justify-center text-muted-foreground shadow-lg shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            </div>
+                            <div class="bg-surface-1 border border-border p-4 rounded-xl flex-1 flex items-center justify-between shadow-lg">
+                                <div>
+                                    <div class="text-xs font-bold text-muted-foreground mb-1.5 uppercase tracking-widest">3. Instant Answers</div>
+                                    <div class="text-foreground text-xs font-semibold">Search 2.4 Petabytes of Data</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-3xl font-bold text-primary font-mono leading-none mb-1">0.42s</div>
+                                    <div class="text-xs text-muted-foreground uppercase tracking-widest font-bold">Latency</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ==========================================================
+         SECTION 2: IMMEDIATELY EXPLAIN THE BIG IDEA (60% WARM CANVAS)
+         ========================================================== -->
+    <section id="big-idea"
+        class="py-20 bg-surface-1 rounded-3xl my-8 border border-border shadow-sm">
+        <div class="shell">
+            <div class="max-w-3xl mb-12">
+                <h2 class="text-h2 font-medium tracking-tight text-foreground">
+                    Your security data shouldn't have a hot tier and a forgotten tier.
+                </h2>
+                <p class="text-subhead mt-3 text-muted-foreground">
+                    Legacy SIEM economics force security teams to choose which telemetry they can afford to index.
+                    Critical data is truncated into cold storage, creating predictable blind spots where modern
+                    adversaries operate unseen.
+                </p>
+            </div>
+
+            <!-- Comparison Flow Grid (Clean Monochrome Cards) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Traditional SIEM -->
+                <div class="lifecycle-card traditional bg-surface-0 rounded-3xl border border-border p-8 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="font-mono text-xs uppercase font-semibold text-foreground">Legacy SIEM
+                            Lifecycle</span>
+                        <span
+                            class="px-2.5 py-0.5 rounded-full bg-surface-2 text-foreground text-xs font-mono font-semibold">Retention
+                            Walls</span>
+                    </div>
+
+                    <div class="flow-steps my-4">
+                        <span class="flow-pill bad">Data</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-pill bad">Expensive Hot Index</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-pill bad">Retention Limits (30d)</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-pill bad">Archive</span>
+                    </div>
+
+                    <ul class="text-body-sm text-muted-foreground flex flex-col gap-2.5 list-disc pl-5">
+                        <li>High cost forces sampling and dropping of network & cloud audit logs.</li>
+                        <li>Historical threat hunting requires slow, painful archive rehydration.</li>
+                        <li>AI SOC agents cannot query past 30 days to build context.</li>
+                    </ul>
+                </div>
+
+                <!-- Rover -->
+                <div class="lifecycle-card rover bg-surface-0 rounded-3xl border border-border p-8 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="font-mono text-xs uppercase font-semibold text-foreground">Rover Object-Native
+                            Lifecycle</span>
+                        <span
+                            class="px-2.5 py-0.5 rounded-full bg-surface-2 text-foreground text-xs font-mono font-semibold">Infinite
+                            Retention</span>
+                    </div>
+
+                    <div class="flow-steps my-4">
+                        <span class="flow-pill good">Data + Index</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-pill good">Object Storage (S3/GCS/Azure)</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-pill good">Search · Analytics · AI</span>
+                    </div>
+
+                    <ul class="text-body-sm text-foreground flex flex-col gap-2.5 list-disc pl-5">
+                        <li>Keep 100% full-fidelity security telemetry retained in low-cost object storage.</li>
+                        <li>Search and run analytics directly over years of data without moving it.</li>
+                        <li>AI agents and human analysts share multi-year searchable security memory.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="mt-10 p-6 rounded-3xl bg-surface-0 border border-border text-center max-w-4xl mx-auto shadow-sm">
+                <p class="text-body-lg text-foreground font-medium">
+                    "Keep years of full-fidelity security telemetry in object storage while Rover makes it immediately
+                    useful for investigations, detections, analytics, and AI."
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==========================================================
+         SECTION 3: SHOW THE FOUR THINGS ROVER TURNS THE LAKE INTO
+         ========================================================== -->
+    <section id="capabilities" class="py-20 bg-background">
+        <div class="shell">
+            <div class="max-w-3xl mb-12">
+                <div class="eyebrow-badge mb-3"><span class="eyebrow-dot"></span>Four Core Pillars</div>
+                <h2 class="text-h2 font-medium tracking-tight text-foreground">
+                    Four things Rover turns your security lake into.
+                </h2>
+                <p class="text-subhead mt-3 text-muted-foreground">
+                    Instead of dozens of disconnected features, Rover provides four unified capabilities on top of your
+                    underlying object storage.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- PANEL 1: SEARCH -->
+                <article id="search"
+                    class="q-card p-8 flex flex-col justify-between min-h-[320px] bg-surface-1 border border-border rounded-3xl hover:border-border transition-all shadow-sm">
+                    <div class="flex items-center justify-between font-mono text-xs font-semibold uppercase">
+                        <span class="text-foreground font-bold">01 / SEARCH</span>
+                        <span class="px-3 py-1 rounded-full bg-surface-2 text-foreground font-bold">Years of Data</span>
+                    </div>
+                    <div class="mt-6">
+                        <h3 class="text-h2 text-2xl font-semibold text-foreground">Find the needle across
+                            years of data.</h3>
+                        <p class="text-body mt-3 text-muted-foreground leading-relaxed">
+                            Full-text search, filters, ranges, regex, fields, and historical investigation across
+                            massive datasets without waiting for indexing pipelines.
+                        </p>
+                    </div>
+                    <div
+                        class="mt-6 pt-4 border-t border-border font-mono text-xs text-muted-foreground flex items-center gap-3">
+                        <span class="text-foreground font-bold">Query syntax:</span>
+                        <code
+                            class="bg-surface-0 px-2.5 py-1 rounded border border-border text-foreground">fulltext:"unauthorized_access" AND retention > 365d</code>
+                    </div>
+                </article>
+
+                <!-- PANEL 2: ANALYTICS -->
+                <article id="analytics"
+                    class="q-card p-8 flex flex-col justify-between min-h-[320px] bg-surface-1 border border-border rounded-3xl hover:border-border transition-all shadow-sm">
+                    <div class="flex items-center justify-between font-mono text-xs font-semibold uppercase">
+                        <span class="text-foreground font-bold">02 / ANALYTICS</span>
+                        <span class="px-3 py-1 rounded-full bg-surface-2 text-foreground font-bold">In-Place
+                            Analytics</span>
+                    </div>
+                    <div class="mt-6">
+                        <h3 class="text-h2 text-2xl font-semibold text-foreground">Ask more than “where is
+                            it?”</h3>
+                        <p class="text-body mt-3 text-muted-foreground leading-relaxed">
+                            Count, group, correlate, calculate, visualize, and analyze the results directly without
+                            moving them into another analytics engine or warehouse.
+                        </p>
+                    </div>
+                    <div
+                        class="mt-6 pt-4 border-t border-border font-mono text-xs text-muted-foreground flex items-center gap-3">
+                        <span class="text-foreground font-bold">Analytics engine:</span>
+                        <code
+                            class="bg-surface-0 px-2.5 py-1 rounded border border-border text-foreground">stats count() by src_ip, user | calc entropy()</code>
+                    </div>
+                </article>
+
+                <!-- PANEL 3: SECURITY -->
+                <article id="security"
+                    class="q-card p-8 flex flex-col justify-between min-h-[320px] bg-surface-1 border border-border rounded-3xl hover:border-border transition-all shadow-sm">
+                    <div class="flex items-center justify-between font-mono text-xs font-semibold uppercase">
+                        <span class="text-foreground font-bold">03 / SECURITY</span>
+                        <span class="px-3 py-1 rounded-full bg-surface-2 text-foreground font-bold">Full-Lake
+                            Detections</span>
+                    </div>
+                    <div class="mt-6">
+                        <h3 class="text-h2 text-2xl font-semibold text-foreground">Detect on everything you
+                            keep.</h3>
+                        <p class="text-body mt-3 text-muted-foreground leading-relaxed">
+                            SIEM, continuous detections, threat hunting, dashboards, investigations, and long-term
+                            forensic analysis across your entire telemetry dataset.
+                        </p>
+                    </div>
+                    <div
+                        class="mt-6 pt-4 border-t border-border font-mono text-xs text-muted-foreground flex items-center gap-3">
+                        <span class="text-foreground font-bold">Security rules:</span>
+                        <code
+                            class="bg-surface-0 px-2.5 py-1 rounded border border-border text-foreground">Sigma Rules • MITRE ATT&CK • Baselines</code>
+                    </div>
+                </article>
+
+                <!-- PANEL 4: AI -->
+                <article id="ai"
+                    class="q-card p-8 flex flex-col justify-between min-h-[320px] bg-surface-1 border border-border rounded-3xl hover:border-border transition-all shadow-sm">
+                    <div class="flex items-center justify-between font-mono text-xs font-semibold uppercase">
+                        <span class="text-foreground font-bold">04 / AI</span>
+                        <span class="px-3 py-1 rounded-full bg-surface-2 text-foreground font-bold">Multi-Year
+                            Context</span>
+                    </div>
+                    <div class="mt-6">
+                        <h3 class="text-h2 text-2xl font-semibold text-foreground">Give your SOC a memory.
+                        </h3>
+                        <p class="text-body mt-3 text-muted-foreground leading-relaxed">
+                            Let analysts and agents investigate against years of searchable security context rather than
+                            only today's hot data.
+                        </p>
+                    </div>
+                    <div
+                        class="mt-6 pt-4 border-t border-border font-mono text-xs text-muted-foreground flex items-center gap-3">
+                        <span class="text-foreground font-bold">AI advantage:</span>
+                        <code
+                            class="bg-surface-0 px-2.5 py-1 rounded border border-border text-foreground">Agentic Triage • 12-Month Baseline</code>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==========================================================
+         SECTION 4: ARCHITECTURE PROOF
+         ========================================================== -->
+    <section id="architecture"
+        class="py-20 bg-surface-1 rounded-3xl my-8 border border-border shadow-sm">
+        <div class="shell">
+            <div class="max-w-3xl mb-12">
+                <div class="eyebrow-badge mb-3"><span class="eyebrow-dot"></span>Architecture Proof</div>
+                <h2 class="text-h1 font-medium tracking-tight text-foreground">
+                    No search cluster. By design.
+                </h2>
+                <p class="text-subhead mt-3 text-muted-foreground">
+                    Rover separates index storage from query execution, utilizing serverless ephemeral workers that fan
+                    out on demand directly against object storage.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 items-center">
+                <!-- Architecture Diagram Visual -->
+                <div class="arch-pipeline bg-surface-0 rounded-3xl border border-border p-8 shadow-sm">
+                    <div class="text-xs font-mono text-muted-foreground font-semibold uppercase tracking-wider">Telemetry
+                        Ingestion & Indexing</div>
+
+                    <div class="arch-nodes-row">
+                        <span
+                            class="arch-node bg-surface-2 border-border text-foreground">CloudTrail</span>
+                        <span class="arch-node bg-surface-2 border-border text-foreground">EDR</span>
+                        <span class="arch-node bg-surface-2 border-border text-foreground">Okta</span>
+                        <span class="arch-node bg-surface-2 border-border text-foreground">Network</span>
+                        <span class="arch-node bg-surface-2 border-border text-foreground">Apps</span>
+                    </div>
+
+                    <div class="text-muted-foreground text-xl font-bold font-mono">↓</div>
+
+                    <div class="arch-storage-box bg-surface-2 border-border">
+                        <span class="font-mono text-xs font-bold text-foreground uppercase">OBJECT STORAGE</span>
+                        <span class="text-foreground font-semibold text-lg">Raw Data + Rover Index</span>
+                        <span class="text-xs text-muted-foreground font-mono">AWS S3 • Google Cloud Storage • Azure Blob</span>
+                    </div>
+
+                    <div class="text-muted-foreground text-xl font-bold font-mono">↓</div>
+
+                    <div class="text-xs font-mono text-muted-foreground font-semibold uppercase tracking-wider">Ephemeral
+                        Compute Layer</div>
+                    <div class="arch-lambda-row">
+                        <div class="lambda-chip bg-surface-0 border-border text-muted-foreground" title="Serverless Worker">λ
+                        </div>
+                        <div class="lambda-chip bg-surface-0 border-border text-muted-foreground" title="Serverless Worker">λ
+                        </div>
+                        <div class="lambda-chip bg-surface-0 border-border text-muted-foreground" title="Serverless Worker">λ
+                        </div>
+                        <div class="lambda-chip bg-surface-0 border-border text-muted-foreground" title="Serverless Worker">λ
+                        </div>
+                        <div class="lambda-chip bg-surface-0 border-border text-muted-foreground" title="Serverless Worker">λ
+                        </div>
+                    </div>
+
+                    <div class="text-muted-foreground text-xl font-bold font-mono">↓</div>
+
+                    <div class="arch-nodes-row">
+                        <span class="arch-node text-foreground border-border bg-surface-2">Search</span>
+                        <span class="arch-node text-foreground border-border bg-surface-2">Analytics</span>
+                        <span class="arch-node text-foreground border-border bg-surface-2">Detections</span>
+                        <span class="arch-node text-foreground border-border bg-surface-2">AI</span>
+                    </div>
+                </div>
+
+                <!-- 4 Architecture Pillars -->
+                <div class="flex flex-col gap-5">
+                    <div class="bg-surface-0 rounded-3xl border border-border p-6 shadow-sm">
+                        <h3 class="text-h3 text-xl font-semibold text-foreground">Object-native</h3>
+                        <p class="text-body-sm mt-2 text-muted-foreground">
+                            Data and indexes live in low-cost object storage, eliminating mandatory search cluster
+                            storage taxes.
+                        </p>
+                    </div>
+
+                    <div class="bg-surface-0 rounded-3xl border border-border p-6 shadow-sm">
+                        <h3 class="text-h3 text-xl font-semibold text-foreground">Serverless</h3>
+                        <p class="text-body-sm mt-2 text-muted-foreground">
+                            Query compute appears when work arrives instead of requiring an always-running,
+                            over-provisioned search fleet.
+                        </p>
+                    </div>
+
+                    <div class="bg-surface-0 rounded-3xl border border-border p-6 shadow-sm">
+                        <h3 class="text-h3 text-xl font-semibold text-foreground">Massively parallel</h3>
+                        <p class="text-body-sm mt-2 text-muted-foreground">
+                            Large investigations across years of telemetry fan out instantaneously across thousands of
+                            ephemeral workers.
+                        </p>
+                    </div>
+
+                    <div class="bg-surface-0 rounded-3xl border border-border p-6 shadow-sm">
+                        <h3 class="text-h3 text-xl font-semibold text-foreground">Built for retention</h3>
+                        <p class="text-body-sm mt-2 text-muted-foreground">
+                            Historical data remains part of the working active dataset rather than becoming an
+                            inaccessible cold zip archive.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==========================================================
+         SECTION 5: PLATFORM CONVERGENCE
+         ========================================================== -->
+    <section id="convergence" class="py-20 bg-background">
+        <div class="shell">
+            <div class="max-w-3xl mb-12">
+                <div class="eyebrow-badge mb-3"><span class="eyebrow-dot"></span>Platform Convergence</div>
+                <h2 class="text-h1 font-medium tracking-tight text-foreground">
+                    One lake. More than SIEM.
+                </h2>
+                <p class="text-subhead mt-3 text-muted-foreground">
+                    Start with SIEM. Expand into security analytics, threat hunting, compliance, AI investigations, and
+                    machine-data search—all on the same underlying data.
+                </p>
+            </div>
+
+            <!-- Convergence Diagram Card -->
+            <div
+                class="q-card p-10 flex flex-col items-center justify-center text-center bg-surface-1 border border-border rounded-3xl shadow-sm">
+                <div class="font-mono text-sm font-bold text-muted-foreground tracking-widest uppercase mb-8">
+                    ROVER PLATFORM ARCHITECTURE
+                </div>
+
+                <!-- Top Row -->
+                <div class="flex flex-wrap justify-center gap-8 font-mono text-sm font-semibold mb-6">
+                    <span
+                        class="px-4 py-2 rounded-lg bg-surface-0 border border-border text-foreground shadow-sm">Search</span>
+                    <span
+                        class="px-4 py-2 rounded-lg bg-surface-0 border border-border text-foreground shadow-sm">Analytics</span>
+                    <span
+                        class="px-4 py-2 rounded-lg bg-surface-0 border border-border text-foreground shadow-sm">AI</span>
+                </div>
+
+                <div class="text-muted-foreground text-sm font-mono mb-4">\ &nbsp; &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
+                    &nbsp; /</div>
+
+                <!-- Core Layer -->
+                <div
+                    class="px-8 py-3 rounded-xl bg-surface-2 border border-border font-mono text-base font-bold text-foreground mb-4 shadow-sm">
+                    ───── SECURITY CORE ─────
+                </div>
+
+                <div class="text-muted-foreground text-sm font-mono mb-4">/ &nbsp; &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
+                    &nbsp; \</div>
+
+                <!-- Security Jobs -->
+                <div class="flex flex-wrap justify-center gap-8 font-mono text-sm font-semibold mb-8">
+                    <span
+                        class="px-4 py-2 rounded-lg bg-surface-0 border border-border text-foreground shadow-sm">SIEM</span>
+                    <span
+                        class="px-4 py-2 rounded-lg bg-surface-0 border border-border text-foreground shadow-sm">Detections</span>
+                    <span
+                        class="px-4 py-2 rounded-lg bg-surface-0 border border-border text-foreground shadow-sm">Threat
+                        Hunting</span>
+                </div>
+
+                <div class="w-full max-w-md h-px bg-border my-2"></div>
+
+                <!-- Bottom Lake -->
+                <div
+                    class="mt-4 px-10 py-3 rounded-xl bg-surface-0 border border-border font-mono text-sm font-semibold text-foreground shadow-sm">
+                    Unified Security Data Lake (Object Storage)
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==========================================================
+         SECTION 6: ECONOMIC REALITY TABLE (MONOCHROME HIGH-TRUST)
+         ========================================================== -->
+    <section id="economics"
+        class="py-20 bg-surface-1 rounded-3xl my-8 border border-border shadow-sm">
+        <div class="shell">
+            <div class="max-w-3xl mb-12">
+                <div class="eyebrow-badge mb-3"><span class="eyebrow-dot"></span>Economic Reality</div>
+                <h2 class="text-h1 font-medium tracking-tight text-foreground">
+                    Stop paying to keep data searchable.
+                </h2>
+                <p class="text-subhead mt-3 text-muted-foreground">
+                    Legacy SIEM vendors profit on index tax and ingest limits. Rover aligns cost with cloud object
+                    storage economics and serverless execution.
+                </p>
+            </div>
+
+            <!-- Side-by-Side High Contrast Table -->
+            <div class="overflow-x-auto">
+                <table
+                    class="comp-table bg-surface-0 rounded-3xl border border-border overflow-hidden shadow-sm"
+                    aria-label="Traditional SIEM versus Rover comparison table">
+                    <thead>
+                        <tr>
+                            <th class="w-1/3 text-foreground font-bold">Capability / Dimension</th>
+                            <th class="w-1/3 text-foreground font-bold">Traditional SIEM</th>
+                            <th class="w-1/3 text-foreground font-bold">Rover</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-medium text-foreground">Storage Architecture</td>
+                            <td class="legacy-col">Hot SSD / expensive database clusters</td>
+                            <td class="rover-col">Low-cost native object storage</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-foreground">Query Compute</td>
+                            <td class="legacy-col">Always-on, over-provisioned fleets</td>
+                            <td class="rover-col">Serverless ephemeral workers on-demand</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-foreground">Telemetry Ingestion</td>
+                            <td class="legacy-col">Ingest caps force log truncation & drop</td>
+                            <td class="rover-col">Keep 100% full-fidelity event data</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-foreground">Active Retention</td>
+                            <td class="legacy-col">Short (30-90 days max before archive)</td>
+                            <td class="rover-col">Years of active, searchable retention</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-foreground">Historical Investigation</td>
+                            <td class="legacy-col">Slow, manual archive rehydration</td>
+                            <td class="rover-col">Direct search across multi-year telemetry</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-foreground">Platform Scope</td>
+                            <td class="legacy-col">Separate tools for search & analytics</td>
+                            <td class="rover-col">Search + Analytics + SIEM in one lake</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==========================================================
+         SECTION 7: AI SOC MEMORY FEATURE BLOCK (DARK SLATE OKLCH)
+         ========================================================== -->
+    <section id="ai-soc"
+        class="py-20 bg-background text-foreground rounded-3xl my-8 shadow-2xl border border-border">
+        <div class="shell grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12 items-center">
+            <div>
+                <div
+                    class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-2 border border-border text-xs font-mono text-foreground mb-4">
+                    <span class="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                    <span class="text-foreground font-medium">AI SOC Memory</span>
+                </div>
+                <h2 class="text-h1 font-medium tracking-tight text-foreground">
+                    Give your AI SOC a memory.
+                </h2>
+                <p class="text-body-lg mt-4 text-muted-foreground leading-relaxed">
+                    AI is only as useful as the security context it can reach. Rover gives agents searchable access to
+                    years of alerts, logs, identities, network events, cloud activity, and historical investigations.
+                </p>
+                <div class="mt-8 flex flex-col gap-3 font-mono text-sm border-t border-border pt-6 text-muted-foreground">
+                    <div class="flex justify-between items-center py-1">
+                        <span>Context Horizon:</span>
+                        <strong class="text-foreground">12-36 Months Active</strong>
+                    </div>
+                    <div class="flex justify-between items-center py-1 border-t border-border/60">
+                        <span>Query Execution:</span>
+                        <strong class="text-foreground">Direct S3 Serverless Search</strong>
+                    </div>
+                    <div class="flex justify-between items-center py-1 border-t border-border/60">
+                        <span>Evidence Standard:</span>
+                        <strong class="text-foreground">Source-Level Event Pointers</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive AI Investigation Runner (Dark Terminal Window) -->
+            <div class="investigation-card shadow-2xl" aria-label="Interactive AI SOC Investigation Preview">
+                <div class="investigation-prompt-box">
+                    <div class="flex justify-between items-center text-xs text-muted-foreground mb-2">
+                        <span>ANALYST REQUEST</span>
+                        <span class="text-foreground font-bold">ROVER AI ENGINE</span>
+                    </div>
+                    <div class="text-foreground font-semibold">
+                        "Investigate unusual access by user <span
+                            class="text-foreground underline">john@example.com</span>."
+                    </div>
+                </div>
+
+                <div class="investigation-steps-list">
+                    <div class="step-item active" id="ai-step-1">
+                        <span class="step-icon">├─</span>
+                        <div>
+                            <strong class="text-foreground">Searches 12 months of authentication data</strong>
+                            <div class="text-xs text-muted-foreground mt-0.5">Scanned 3.4B events in 0.38s across S3 indices
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-item active" id="ai-step-2">
+                        <span class="step-icon">├─</span>
+                        <div>
+                            <strong class="text-foreground">Identifies first-seen IP address</strong>
+                            <div class="text-xs text-foreground font-mono mt-0.5">198.51.100.42 (Zero historical hits
+                                prior to today)</div>
+                        </div>
+                    </div>
+
+                    <div class="step-item active" id="ai-step-3">
+                        <span class="step-icon">├─</span>
+                        <div>
+                            <strong class="text-foreground">Correlates AWS CloudTrail activity</strong>
+                            <div class="text-xs text-muted-foreground mt-0.5">AssumeRoleWithSAML → IAM Admin privilege
+                                escalation</div>
+                        </div>
+                    </div>
+
+                    <div class="step-item active" id="ai-step-4">
+                        <span class="step-icon">├─</span>
+                        <div>
+                            <strong class="text-foreground">Groups affected cloud resources</strong>
+                            <div class="text-xs text-muted-foreground mt-0.5">prod-db-cluster-01, S3 audit logs export</div>
+                        </div>
+                    </div>
+
+                    <div class="step-item active" id="ai-step-5">
+                        <span class="step-icon">├─</span>
+                        <div>
+                            <strong class="text-foreground">Finds similar historical behavior</strong>
+                            <div class="text-xs text-muted-foreground mt-0.5">Matches TTP patterns with APT29 credential theft
+                                vector</div>
+                        </div>
+                    </div>
+
+                    <div class="step-item active" id="ai-step-6">
+                        <span class="step-icon text-primary">└─</span>
+                        <div>
+                            <strong class="text-foreground font-bold">Produces complete investigation timeline & evidence
+                                case</strong>
+                            <div class="text-xs text-foreground mt-0.5">Case #4812 created with 142 source event citations
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==========================================================
+         SECTION 8: DATA PLATFORM CEILING
+         ========================================================== -->
+    <section id="platform-ceiling" class="py-20 bg-background">
+        <div class="shell text-center max-w-4xl mx-auto">
+            <div class="eyebrow-badge mb-4 mx-auto"><span class="eyebrow-dot"></span>Data Platform Ceiling</div>
+            <h2 class="text-h1 font-medium tracking-tight text-foreground">
+                Built for security. Engineered for machine data.
+            </h2>
+            <p class="text-subhead mt-4 text-muted-foreground leading-relaxed">
+                Rover's serverless search and analytics engine is designed for high-volume event data—security telemetry
+                today, with the architecture to power logs, audit data, infrastructure events, and other machine-data
+                workloads.
+            </p>
+
+            <div
+                class="mt-8 flex flex-wrap justify-center items-center gap-3 font-mono text-xs uppercase font-semibold text-muted-foreground">
+                <span
+                    class="px-4 py-2 rounded-full bg-surface-1 border border-border text-foreground">Security</span>
+                <span class="text-muted-foreground">•</span>
+                <span
+                    class="px-4 py-2 rounded-full bg-surface-1 border border-border text-foreground">Logs</span>
+                <span class="text-muted-foreground">•</span>
+                <span
+                    class="px-4 py-2 rounded-full bg-surface-1 border border-border text-foreground">Audit</span>
+                <span class="text-muted-foreground">•</span>
+                <span
+                    class="px-4 py-2 rounded-full bg-surface-1 border border-border text-foreground">Infrastructure</span>
+                <span class="text-muted-foreground">•</span>
+                <span
+                    class="px-4 py-2 rounded-full bg-surface-1 border border-border text-foreground">Machine
+                    Data</span>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==========================================================
+         SECTION 9: LEAD CAPTURE FORM / EARLY ACCESS (1% ACCENT ON CTA)
+         ========================================================== -->
+    <section id="early-access" class="py-16 bg-background">
+        <div class="shell">
+            <div
+                class="p-10 sm:p-14 flex flex-col lg:flex-row items-center justify-between gap-8 bg-background text-foreground rounded-3xl border border-border shadow-2xl">
+                <div class="max-w-xl">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-2 border border-border text-xs font-mono text-foreground mb-3">
+                        <span class="w-2 h-2 rounded-full bg-primary"></span>
+                        <span>Request Demo</span>
+                    </div>
+                    <h2 class="text-h2 font-medium tracking-tight text-foreground mt-2">
+                        See Rover on your security data lake.
+                    </h2>
+                    <p class="text-subhead mt-2 text-muted-foreground">
+                        Schedule a demonstration to test serverless search, analytics, and AI investigations directly
+                        against your object storage.
+                    </p>
+                </div>
+                <div class="w-full lg:w-auto">
+                    <form action="https://formspree.io/f/xgopbprl" method="POST"
+                        class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" name="email" placeholder="security@company.com" aria-label="Email address"
+                            required
+                            class="bg-surface-1 border border-border rounded-md px-4 py-3 text-foreground placeholder-muted-foreground outline-none focus:border-primary w-full sm:w-72">
+                        <button
+                            class="px-6 py-3 text-sm font-semibold rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-colors shadow-sm whitespace-nowrap"
+                            type="submit">Book a Demo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

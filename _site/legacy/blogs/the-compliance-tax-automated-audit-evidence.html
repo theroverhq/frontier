@@ -1,0 +1,63 @@
+<div class="shell layout">
+        <aside class="sidebar">
+            <div class="sidebar-title mono">Latest Insights</div>
+            <div class="blog-list" id="dynamic-blog-list">
+                <div class="mono" style="font-size:12px; color:var(--muted-foreground)">Loading index...</div>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="eyebrow mono">Auditing & Security</div>
+            <h1>The Compliance Tax: How Decentralized Telemetry Destroys Automated Audits</h1>
+            
+            <div class="meta mono">
+                <span>Published: February 14, 2026</span>
+                <span>By: Rover Engineering</span>
+            </div>
+
+            <article class="article">
+                <p>Compliance shouldn't be a quarterly fire drill.</p>
+
+                <p>When SOC 2 or ISO auditors arrive demanding proof of continuous user authentication, firewall patterns, and API tokens, security teams often descend into manual chaos. Because telemetry is split across legacy SIEMs, archived cold zip buckets, SaaS identity panels, and cloud trails, analysts are forced to stitch together spreadsheets by hand.</p>
+
+                <p>This is the **"Compliance Tax"**—the operational overhead of proof generation. It pulls critical security engineers away from active response workflows to act as data compilation specialists.</p>
+
+                <div class="quote-block">
+                    “The best compliance strategy is not a thicker folder of screenshots. It is a single, continuously governed data architecture.”
+                </div>
+
+                <h2>The Evidentiary Fragment Nightmare</h2>
+                <p>Manual audit stitching is both slow and prone to human error. If an auditor asks to see proof of network flow controls over 180 days ago, and your SIEM has purged that telemetry to save on active ingest licenses, you have to initiate cold storage restoration runs. This process takes days and adds massive infrastructure compute fees.</p>
+
+                <h2>Automated, Immutable Evidence Lakes</h2>
+                <p>Rover handles compliance as a continuous, background byproduct of security data logging. By keeping all telemetry permanently searchable on low-cost object lakes, Rover maintains an uninterrupted, immutable evidence timeline.</p>
+
+                <p>Instead of copying CSV fields manually, Rover supports automated, repeatable queries directly over Amazon S3. Auditors get immediate, governed access to raw, cryptographic proof arrays, cutting audit preparation times by up to 90% while improving security posture.</p>
+
+                <p>To automate your next compliance reporting cycle, reach out at <a href="mailto:contactus@roverhq.ai" style="text-decoration: underline;">contactus@roverhq.ai</a>.</p>
+            </article>
+        </main>
+    </div>
+
+<script>
+        async function loadBlogs() {
+            try {
+                const response = await fetch('blogs.json');
+                const blogs = await response.json();
+                const listContainer = document.getElementById('dynamic-blog-list');
+                const currentFile = window.location.pathname.split('/').pop() || 'the-compliance-tax-automated-audit-evidence.html';
+                listContainer.innerHTML = blogs.map(blog => {
+                    const isActive = currentFile === blog.url;
+                    return `
+                        <a href="${blog.url}" class="blog-item ${isActive ? 'active' : ''}">
+                            <div class="blog-item-counter mono">${blog.counter}</div>
+                            <div class="blog-item-title">${blog.title}</div>
+                        </a>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error("Error loading centralized blog directory:", error);
+            }
+        }
+        window.addEventListener('DOMContentLoaded', loadBlogs);
+    </script>
