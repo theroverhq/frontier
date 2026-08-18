@@ -12,10 +12,10 @@
 			class="text-foreground flex items-center gap-2.5 font-bold tracking-tight transition-opacity hover:opacity-90"
 			aria-label="Rover home"
 		>
-			<img src="/rover-logo.png" alt="Rover Logo" class="h-10 w-auto" />
+			<img src="/rover-logo.png" alt="Rover Logo" class="h-5 w-auto" />
 			<span
-				class="text-foreground pt-1 text-4xl leading-none tracking-tight"
-				style="font-family: 'Mitr', sans-serif;">Rover</span
+				class="text-foreground text-2xl leading-none tracking-widest"
+				style="font-family: 'Mitr', sans-serif; ">Rover</span
 			>
 		</a>
 
