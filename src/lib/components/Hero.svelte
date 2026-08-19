@@ -115,8 +115,8 @@
 						</div>
 
 						<!-- Generations of Data -->
-						<div class="mb-2 flex w-full max-w-[200px] flex-col gap-2">
-							{#each [2026, 2025, 2024, 2023, 2022, 2021, 'gap', 2016] as item, yIdx}
+						<div class="mb-4 flex w-full max-w-[200px] flex-col gap-2">
+							{#each [2026, 2025, 2024, 2023, 2022, 'gap', 2017, 2016] as item, yIdx}
 								{#if item === 'gap'}
 									<div class="flex items-center gap-3 py-0.5">
 										<div class="flex w-8 flex-col items-center gap-[3px]">
@@ -127,7 +127,7 @@
 									</div>
 								{:else}
 									<div class="flex items-center gap-3">
-										<span class="text-muted-foreground/80 w-8 font-mono text-[10px] lg:text-[11px]"
+										<span class="text-foreground/75 w-8 font-mono text-[10px] lg:text-[11px]"
 											>{item}</span
 										>
 										<div class="flex flex-1 gap-[2px]">
