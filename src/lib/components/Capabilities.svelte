@@ -4,7 +4,7 @@
 
 <section id="capabilities" class="bg-background overflow-hidden py-24 text-zinc-900 sm:py-32">
 	<div class="relative z-10 container mx-auto max-w-screen-xl px-4 sm:px-6">
-		<div class="mb-20 max-w-3xl">
+		<div class="mb-15 max-w-3xl">
 			<div class="mb-6 flex items-center gap-3">
 				<span class="bg-primary h-2 w-2 rounded-full shadow-sm"></span>
 				<span class="text-xs font-bold tracking-[0.2em] text-zinc-500 uppercase">
