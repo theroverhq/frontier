@@ -47,7 +47,7 @@
 						<span class="bg-muted-foreground h-1.5 w-1.5 rounded-full"></span> Object-storage economis
 					</div>
 					<div class="text-foreground flex items-center gap-2">
-						<span class="bg-muted-foreground h-1.5 w-1.5 rounded-full"></span> Bring any schema
+						<span class="bg-muted-foreground h-1.5 w-1.5 rounded-full"></span> No schema engineering
 					</div>
 					<div class="text-foreground flex items-center gap-2">
 						<span class="bg-muted-foreground h-1.5 w-1.5 rounded-full"></span> Go live in hours
@@ -110,7 +110,7 @@
 						<div
 							class="text-primary mb-5 flex items-center gap-2 text-xs font-bold tracking-[0.1em]"
 						>
-							ROVER INDEX
+							ROVER
 						</div>
 
 						<!-- Generations of Data -->
@@ -143,7 +143,9 @@
 						</div>
 
 						<div class="text-center">
-							<div class="text-foreground mb-1.5 text-xs font-medium">Full-fidelity data</div>
+							<div class="text-foreground mb-1.5 text-xs font-medium">
+								Full-fidelity data + Rover Index
+							</div>
 							<div class="text-foreground/70 text-[11px]">Object Storage</div>
 						</div>
 					</div>
