@@ -3,7 +3,7 @@
 </script>
 
 <section id="capabilities" class="bg-background overflow-hidden pt-16 pb-38 text-zinc-900">
-	<div class="relative z-10 container mx-auto max-w-screen-xl px-4 sm:px-6">
+	<div class="relative z-10 container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div class="mb-15 text-center">
 			<Badge variant="default" class="mb-6 border-none font-mono text-xs tracking-widest uppercase"
 				>WHAT YOUR SIEM CAN’T AFFORD TO KEEP</Badge

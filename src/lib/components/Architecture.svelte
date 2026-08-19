@@ -3,7 +3,7 @@
 </script>
 
 <section id="architecture" class="bg-background overflow-hidden pt-8 pb-38 text-zinc-900">
-	<div class="relative z-10 container mx-auto max-w-screen-xl px-4 sm:px-6">
+	<div class="relative z-10 container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<!-- Header Section -->
 		<div class="mb-16 text-center">
 			<Badge variant="default" class="mb-6 border-none font-mono text-xs tracking-widest uppercase">

@@ -9,7 +9,7 @@
     { id: 'siem', name: 'SIEM', role: 'Hot index', dot: 'bg-red-500', borderHover: 'hover:border-red-500/50', bgHover: 'hover:bg-red-500/10' },
     { id: 'search', name: 'Search', role: 'Search cluster', dot: 'bg-orange-500', borderHover: 'hover:border-orange-500/50', bgHover: 'hover:bg-orange-500/10' },
     { id: 'analytics', name: 'Analytics', role: 'Analytics store', dot: 'bg-amber-500', borderHover: 'hover:border-amber-500/50', bgHover: 'hover:bg-amber-500/10' },
-    { id: 'lake', name: 'Data Lake', role: 'Cold archive', dot: 'bg-blue-500', borderHover: 'hover:border-blue-500/50', bgHover: 'hover:bg-blue-500/10' },
+    { id: 'lake', name: 'Archive / Data Lake', role: 'Separate historical store', dot: 'bg-blue-500', borderHover: 'hover:border-blue-500/50', bgHover: 'hover:bg-blue-500/10' },
     { id: 'ai', name: 'AI SOC', role: 'Limited context', dot: 'bg-purple-500', borderHover: 'hover:border-purple-500/50', bgHover: 'hover:bg-purple-500/10' }
   ];
 
@@ -17,9 +17,6 @@
 </script>
 
 <section id="convergence" class="dark bg-background text-foreground relative overflow-hidden pt-24 pb-32">
-  <!-- Subtle background glow -->
-  <div class="bg-primary/5 pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"></div>
-
   <div class="relative z-10 container mx-auto max-w-screen-2xl px-4 sm:px-6">
     
     <!-- Header -->
@@ -63,7 +60,7 @@
                 <span class="text-foreground font-semibold">{sys.name}</span>
               </div>
               <div class="text-muted-foreground flex items-center gap-3">
-                <div class="bg-border/50 hidden h-px w-8 sm:w-16 sm:block"></div>
+                <div class="bg-border/50 hidden h-px w-4 sm:w-8 sm:block"></div>
                 <span class="text-right">{sys.role}</span>
               </div>
             </div>
@@ -71,7 +68,7 @@
         </div>
 
         <div class="border-border/50 border-t border-dashed mt-8 pt-6 text-center relative z-10">
-          <p class="text-muted-foreground font-mono text-[11px] sm:text-xs tracking-widest uppercase leading-loose">
+          <p class="text-muted-foreground font-mono text-xs tracking-widest uppercase leading-loose sm:text-xs">
             Copy · Move · Normalize<br/>
             Rehydrate · Retain Differently
           </p>
@@ -87,16 +84,16 @@
             WITH ROVER
           </span>
           <h3 class="text-foreground text-2xl font-medium">
-            One history. Every security workflow.
+            Every workflow runs on the same history.
           </h3>
         </div>
 
         <div class="flex flex-col items-center justify-between flex-grow relative z-10 w-full mt-4">
           <!-- Workflows -->
-          <div class="grid grid-cols-5 gap-1 w-full font-mono text-[9px] font-semibold sm:text-[11px] lg:text-xs">
+          <div class="grid grid-cols-5 gap-1 w-full font-mono text-xs font-semibold sm:text-sm lg:text-sm">
             {#each roverWorkflows as workflow}
               <div 
-                class="flex items-center justify-center rounded border px-0.5 py-2.5 text-center transition-all duration-300 cursor-default {hoveredRover === workflow ? 'border-primary bg-primary/10 text-primary scale-[1.03] shadow-[0_0_10px_rgba(var(--primary-rgb),0.1)] z-10' : 'border-border/50 bg-muted/30 text-foreground z-0'}"
+                class="flex items-center justify-center rounded border px-1 py-2 text-center transition-all duration-300 cursor-default {hoveredRover === workflow ? 'border-primary bg-primary/10 text-primary scale-105 shadow-md shadow-primary/20 z-10' : 'border-border/50 bg-muted/30 text-foreground z-0'}"
                 on:mouseenter={() => hoveredRover = workflow}
                 on:mouseleave={() => hoveredRover = null}
               >
@@ -110,7 +107,7 @@
             <svg class="w-full h-full overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none">
               <!-- Static background bus lines -->
               <path d="M10,0 L10,50 L90,50 L90,0 M30,0 L30,50 M50,0 L50,100 M70,0 L70,50" 
-                    fill="none" stroke="currentColor" class="text-border/50" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+                    fill="none" stroke="currentColor" class="text-border" vector-effect="non-scaling-stroke" stroke-width="2" />
             
               <!-- Animated hover line -->
               {#if hoveredRover}
@@ -123,8 +120,8 @@
                 />
               {/if}
             </svg>
-            <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 text-primary transition-all duration-300 {hoveredRover ? 'opacity-100 translate-y-1 scale-110' : 'opacity-50'}">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bg-card">
+            <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 text-primary transition-all duration-300 {hoveredRover ? 'opacity-100 translate-y-1 scale-110' : 'opacity-80'}">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="bg-card">
                 <path d="m6 9 6 6 6-6"/>
               </svg>
             </div>
@@ -145,9 +142,9 @@
                   Full-fidelity security history
                 </h4>
                 <div class="text-muted-foreground flex flex-wrap items-center justify-center gap-x-3 gap-y-2 font-mono text-xs">
-                  <span>+ Rover Index</span>
+                  <span>Rover Index</span>
                   <span class="bg-primary/50 hidden h-1 w-1 rounded-full sm:block"></span>
-                  <span>+ Security context</span>
+                  <span>Security context</span>
                 </div>
               </div>
             </div>
