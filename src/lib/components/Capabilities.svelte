@@ -1,22 +1,20 @@
 <script lang="ts">
-	// Capabilities Section
+	import { Badge } from '$lib/components/ui/badge';
 </script>
 
-<section id="capabilities" class="bg-background overflow-hidden py-24 text-zinc-900 sm:py-32">
+<section id="capabilities" class="bg-background overflow-hidden pt-16 pb-38 text-zinc-900">
 	<div class="relative z-10 container mx-auto max-w-screen-xl px-4 sm:px-6">
-		<div class="mb-15 max-w-3xl">
-			<div class="mb-6 flex items-center gap-3">
-				<span class="bg-primary h-2 w-2 rounded-full shadow-sm"></span>
-				<span class="text-xs font-bold tracking-[0.2em] text-zinc-500 uppercase">
-					THE DATA YOU USED TO DROP
-				</span>
-			</div>
+		<div class="mb-15 text-center">
+			<Badge variant="default" class="mb-6 border-none font-mono text-xs tracking-widest uppercase"
+				>WHAT YOUR SIEM CAN’T AFFORD TO KEEP</Badge
+			>
+
 			<h2
-				class="mb-6 text-4xl leading-[1.1] font-medium tracking-tight text-zinc-950 md:text-5xl lg:text-6xl"
+				class="mb-6 text-3xl leading-[1.1] font-medium tracking-tight text-zinc-950 md:text-4xl lg:text-5xl"
 			>
 				Search it. Analyze it.<br />Detect on it.
 			</h2>
-			<p class="max-w-2xl text-xl leading-relaxed text-zinc-600">
+			<p class="mx-auto max-w-4xl text-xl leading-relaxed text-zinc-600">
 				Rover makes high-volume security telemetry economically searchable and usable—from network
 				flows and DNS to raw endpoint and cloud activity.
 			</p>

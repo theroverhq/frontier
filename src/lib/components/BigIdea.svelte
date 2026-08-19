@@ -12,13 +12,16 @@
 	></div>
 
 	<div class="relative z-10 container mx-auto max-w-screen-2xl px-4 sm:px-6">
-		<div class="mb-16 flex flex-col gap-8 md:flex-row md:items-start lg:gap-16">
-			<h2
-				class="text-foreground flex-1 text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl"
+		<div class="mb-24 text-center">
+			<Badge
+				variant="outline"
+				class="text-primary border-primary/30 mb-6 font-mono text-xs tracking-widest uppercase"
+				>Search Everything</Badge
 			>
+			<h2 class="text-foreground text-3xl font-medium tracking-tight md:text-4xl lg:text-5xl">
 				Years of data. Answers in seconds.
 			</h2>
-			<p class="text-foreground/50 flex-1 pt-2 text-lg md:text-xl">
+			<p class="md:text-2x text-foreground/70 mx-auto mt-6 max-w-4xl text-xl leading-relaxed">
 				Search and analyze your full security history as if it were hot—without rehydration, moving
 				data, or managing search clusters.
 			</p>
@@ -29,11 +32,6 @@
 			<!-- Left: Copy (approx 35% -> col-span-4 out of 12 = 33%) -->
 			<div class="flex flex-col space-y-8 lg:col-span-4">
 				<div>
-					<Badge
-						variant="outline"
-						class="text-primary border-primary/30 mb-6 font-mono text-xs tracking-widest uppercase"
-						>Search Everything</Badge
-					>
 					<h3 class="text-foreground mb-4 text-2xl font-medium">Years of history. One query.</h3>
 					<p class="text-muted-foreground text-base leading-relaxed">
 						Search across cloud, identity, endpoint, network, SaaS, and application telemetry with
