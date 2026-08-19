@@ -92,12 +92,12 @@
 					</div>
 
 					<div class="mt-6 text-center">
-						<div class="text-muted-foreground text-[11px] italic lg:text-xs">Keep everything.</div>
+						<div class="text-foreground/70 text-[11px] italic lg:text-xs">Keep everything.</div>
 					</div>
 				</div>
 
-				<!-- Center: Cold Storage & Compute -->
-				<div class="relative flex h-full w-[50%] flex-col items-center justify-center px-4 lg:px-8">
+				<!-- Center 1: Cold Storage -->
+				<div class="relative flex h-full w-[35%] flex-col items-center justify-center px-2 lg:px-4">
 					<div class="text-foreground mb-5 text-sm font-bold tracking-widest uppercase">
 						Cold Storage
 					</div>
@@ -127,7 +127,7 @@
 									</div>
 								{:else}
 									<div class="flex items-center gap-3">
-										<span class="text-foreground/75 w-8 font-mono text-[10px] lg:text-[11px]"
+										<span class="text-foreground/90 w-8 font-mono text-[10px] lg:text-[11px]"
 											>{item}</span
 										>
 										<div class="flex flex-1 gap-[2px]">
@@ -147,38 +147,47 @@
 							<div class="text-foreground mb-1.5 text-xs font-medium">
 								Full-fidelity data + Rover Index
 							</div>
-							<div class="text-muted-foreground text-[11px]">Object Storage</div>
+							<div class="text-foreground/70 text-[11px]">Object Storage</div>
 						</div>
 
-						<!-- Connector lines -->
+						<!-- Connector line IN -->
 						<div
-							class="bg-border/50 pulse-line-in absolute top-1/2 left-[-32px] h-[1px] w-8 -translate-y-1/2"
+							class="bg-border/50 pulse-line-in absolute top-1/2 left-[-20px] h-[1px] w-5 -translate-y-1/2 lg:left-[-32px] lg:w-8"
 						></div>
+						<!-- Connector line OUT (to Compute) -->
 						<div
-							class="bg-border/50 pulse-line-out absolute top-1/2 right-[-32px] h-[1px] w-8 -translate-y-1/2"
-						></div>
-						<div
-							class="bg-border/50 absolute bottom-[-32px] left-1/2 h-8 w-[1px] -translate-x-1/2"
+							class="bg-border/50 pulse-line-out absolute top-1/2 right-[-20px] h-[1px] w-5 -translate-y-1/2 lg:right-[-32px] lg:w-8"
 						></div>
 					</div>
+				</div>
 
-					<!-- On Demand Compute -->
-					<div class="relative z-10 mt-8 flex w-full flex-col items-center text-center">
-						<div class="mb-3 flex h-5 gap-2.5">
-							{#each Array(7) as _, i}
+				<!-- Center 2: Compute -->
+				<div class="relative flex h-full w-[15%] flex-col items-center justify-center px-1">
+					<div
+						class="text-foreground mb-5 text-center text-[11px] font-bold tracking-widest uppercase lg:text-xs"
+					>
+						On <br />Demand Compute
+					</div>
+					<div class="relative z-10 flex w-full flex-col items-center text-center">
+						<div class="mb-4 grid grid-cols-2 gap-2 lg:gap-3">
+							{#each Array(6) as _, i}
 								<div
-									class="text-primary/50 compute-lambda font-mono text-base leading-none font-bold"
-									style="animation-delay: {i * 100}ms;"
+									class="text-primary/70 compute-lambda font-mono text-lg leading-none font-bold lg:text-xl"
+									style="animation-delay: {200 + i * 100}ms;"
 								>
 									&lambda;
 								</div>
 							{/each}
 						</div>
-						<div class="text-foreground text-xs font-bold tracking-widest uppercase">On Demand</div>
-						<div class="text-muted-foreground mt-1.5 text-[10px] lg:text-[11px]">
-							Compute when needed.<br />No search clusters.
+						<div class="text-foreground/70 mt-2 text-[9px] leading-tight lg:text-[10px]">
+							Zero search clusters
 						</div>
 					</div>
+					<!-- Connector line OUT (from Compute to Hot Intelligence) -->
+					<div
+						class="bg-border/50 pulse-line-out absolute top-1/2 right-[-16px] h-[1px] w-4 -translate-y-1/2 lg:right-[-24px] lg:w-6"
+						style="animation-delay: 400ms;"
+					></div>
 				</div>
 
 				<!-- Right: Hot Intelligence -->
@@ -186,7 +195,7 @@
 					<div class="text-foreground mb-2 text-center text-sm font-bold tracking-widest uppercase">
 						Hot Intelligence
 					</div>
-					<div class="text-muted-foreground mb-5 text-center text-[10px] italic lg:text-[11px]">
+					<div class="text-foreground/70 mb-5 text-center text-[10px] italic lg:text-[11px]">
 						Years of context.<br />Answers in seconds.
 					</div>
 
@@ -295,10 +304,9 @@
 		}
 		32%,
 		45% {
-			opacity: 0.7;
+			opacity: 0.8;
 			transform: translateY(0) scale(1.2);
 			color: var(--primary);
-			text-shadow: 0 0 8px var(--primary);
 		}
 		50%,
 		100% {
