@@ -115,8 +115,8 @@
 						</div>
 
 						<!-- Generations of Data -->
-						<div class="mb-6 flex w-full max-w-[200px] flex-col gap-2">
-							{#each [2026, 2025, 2024, 'gap', 2016] as item, yIdx}
+						<div class="mb-2 flex w-full max-w-[200px] flex-col gap-2">
+							{#each [2026, 2025, 2024, 2023, 2022, 2021, 'gap', 2016] as item, yIdx}
 								{#if item === 'gap'}
 									<div class="flex items-center gap-3 py-0.5">
 										<div class="flex w-8 flex-col items-center gap-[3px]">
@@ -127,7 +127,7 @@
 									</div>
 								{:else}
 									<div class="flex items-center gap-3">
-										<span class="text-muted-foreground/50 w-8 font-mono text-[10px] lg:text-[11px]"
+										<span class="text-muted-foreground/80 w-8 font-mono text-[10px] lg:text-[11px]"
 											>{item}</span
 										>
 										<div class="flex flex-1 gap-[2px]">
@@ -147,7 +147,7 @@
 							<div class="text-foreground mb-1.5 text-xs font-medium">
 								Full-fidelity data + Rover Index
 							</div>
-							<div class="text-muted-foreground/60 text-[11px]">Object Storage</div>
+							<div class="text-muted-foreground text-[11px]">Object Storage</div>
 						</div>
 
 						<!-- Connector lines -->
@@ -167,7 +167,7 @@
 						<div class="mb-3 flex h-5 gap-2.5">
 							{#each Array(7) as _, i}
 								<div
-									class="text-primary/80 compute-lambda font-mono text-base leading-none font-bold"
+									class="text-primary/50 compute-lambda font-mono text-base leading-none font-bold"
 									style="animation-delay: {i * 100}ms;"
 								>
 									&lambda;
@@ -175,7 +175,7 @@
 							{/each}
 						</div>
 						<div class="text-foreground text-xs font-bold tracking-widest uppercase">On Demand</div>
-						<div class="text-muted-foreground/70 mt-1.5 text-[10px] lg:text-[11px]">
+						<div class="text-muted-foreground mt-1.5 text-[10px] lg:text-[11px]">
 							Compute when needed.<br />No search clusters.
 						</div>
 					</div>
@@ -196,16 +196,18 @@
 							class="border-border/50 absolute top-[20px] bottom-[20px] left-[-16px] w-4 rounded-l-md border-y border-l"
 						></div>
 
-						{#each [{ label: 'Instant Search', delay: 0 }, { label: 'Live Analytics', delay: 100 }, { label: 'Continuous Detections', delay: 200 }, { label: 'SIEM', delay: 300 }, { label: 'AI SOC', delay: 400 }] as item}
+						{#each [{ label: 'Instant Search', delay: 0, color: '#4DE3D0' }, { label: 'Live Analytics', delay: 100, color: '#65A7FF' }, { label: 'Continuous Detections', delay: 200, color: '#FF645F' }, { label: 'SIEM', delay: 300, color: '#FFB84A' }, { label: 'AI SOC', delay: 400, color: '#9B87FF' }] as item}
 							<div
-								class="bg-foreground text-background border-border/40 result-item flex items-center rounded-md border px-4 py-2.5 shadow-sm transition-all duration-500"
-								style="animation-delay: {item.delay}ms;"
+								class="bg-card/40 border-border/40 result-item flex items-center rounded-md border px-4 py-2.5 shadow-sm transition-all duration-500"
+								style="animation-delay: {item.delay}ms; --item-color: {item.color};"
 							>
-								<span class="bg-background/20 result-dot mr-2.5 h-1.5 w-1.5 shrink-0 rounded-full"
+								<span
+									class="result-dot mr-2.5 h-1.5 w-1.5 shrink-0 rounded-full"
+									style="animation-delay: {item.delay}ms;"
 								></span>
 								<span
-									class="text-background text-[11px] leading-tight font-medium tracking-tight lg:text-xs"
-									>{item.label}</span
+									class="result-text text-[11px] leading-tight font-medium tracking-tight lg:text-xs"
+									style="animation-delay: {item.delay}ms;">{item.label}</span
 								>
 							</div>
 						{/each}
@@ -270,8 +272,7 @@
 		25%,
 		35% {
 			background-color: var(--primary);
-			opacity: 1;
-			box-shadow: 0 0 6px var(--primary);
+			opacity: 0.7;
 		}
 		40%,
 		100% {
@@ -294,10 +295,10 @@
 		}
 		32%,
 		45% {
-			opacity: 1;
+			opacity: 0.7;
 			transform: translateY(0) scale(1.2);
 			color: var(--primary);
-			text-shadow: 0 0 12px var(--primary);
+			text-shadow: 0 0 8px var(--primary);
 		}
 		50%,
 		100% {
@@ -313,17 +314,14 @@
 	@keyframes resultHighlight {
 		0%,
 		45% {
-			box-shadow: none;
 			transform: translateX(0);
 		}
 		48%,
 		62% {
-			box-shadow: 0 4px 15px rgba(200, 241, 53, 0.3);
 			transform: translateX(4px);
 		}
 		65%,
 		100% {
-			box-shadow: none;
 			transform: translateX(0);
 		}
 	}
@@ -334,21 +332,40 @@
 	@keyframes dotGlow {
 		0%,
 		45% {
-			background-color: rgba(26, 26, 26, 0.2);
+			background-color: rgba(255, 255, 255, 0.1);
 			box-shadow: none;
 		}
 		48%,
 		62% {
-			background-color: var(--primary);
-			box-shadow: 0 0 8px var(--primary);
+			background-color: var(--item-color);
+			box-shadow: 0 0 8px var(--item-color);
 		}
 		65%,
 		100% {
-			background-color: rgba(26, 26, 26, 0.2);
+			background-color: rgba(255, 255, 255, 0.1);
 			box-shadow: none;
 		}
 	}
 	.result-dot {
 		animation: dotGlow 8s infinite;
+	}
+
+	@keyframes textGlow {
+		0%,
+		45% {
+			color: var(--foreground);
+		}
+		48%,
+		62% {
+			color: var(--item-color);
+		}
+		65%,
+		100% {
+			color: var(--foreground);
+		}
+	}
+	.result-text {
+		color: var(--foreground);
+		animation: textGlow 8s infinite;
 	}
 </style>
