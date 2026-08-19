@@ -84,7 +84,7 @@
 								{#if i === 0 || i === 2 || i === 4}
 									<!-- Direct connector line to Data Lake (in the gap) -->
 									<div
-										class="bg-border/50 pulse-line-in absolute right-[-15px] bottom-[-6px] h-[1px] w-[15px] lg:right-[-32px] lg:w-[32px]"
+										class="bg-border/50 pulse-line-in absolute right-[-10px] bottom-[-6px] h-[1px] w-[8px] lg:right-[-14px] lg:w-[12px]"
 									></div>
 								{/if}
 							</div>
@@ -97,7 +97,7 @@
 				</div>
 
 				<!-- Center 1: Cold Storage -->
-				<div class="relative flex h-full w-[35%] flex-col items-center justify-center px-2 lg:px-4">
+				<div class="relative flex h-full w-[35%] flex-col items-center justify-center">
 					<div class="text-foreground mb-5 text-center text-sm font-bold tracking-widest uppercase">
 						Cold Storage
 					</div>
@@ -152,13 +152,13 @@
 
 				<!-- Center 2: Execution Paths -->
 				<div
-					class="relative flex h-full w-[15%] flex-col items-center justify-center gap-10 px-1 lg:gap-12"
+					class="relative flex h-full w-[15%] flex-col items-center justify-center gap-10 lg:gap-12"
 				>
 					<!-- Top: Serverless Query Compute -->
 					<div class="relative flex w-full flex-col items-center text-center">
 						<!-- Direct line IN from Cold Storage -->
 						<div
-							class="bg-border/50 pulse-line-mid absolute top-1/2 left-[-24px] h-[1px] w-[24px] -translate-y-1/2 lg:left-[-36px] lg:w-[36px]"
+							class="bg-border/50 pulse-line-mid absolute top-1/2 left-[-10px] h-[1px] w-[8px] -translate-y-1/2 lg:left-[-14px] lg:w-[12px]"
 							style="animation-delay: 100ms;"
 						></div>
 
@@ -181,7 +181,7 @@
 						</div>
 						<!-- Connector line OUT (to ON-DEMAND) -->
 						<div
-							class="bg-border/50 pulse-line-out absolute top-1/2 right-[-16px] h-[1px] w-4 -translate-y-1/2 lg:right-[-24px] lg:w-6"
+							class="bg-border/50 pulse-line-out absolute top-1/2 right-[-10px] h-[1px] w-[8px] -translate-y-1/2 lg:right-[-14px] lg:w-[12px]"
 							style="animation-delay: 300ms;"
 						></div>
 					</div>
@@ -190,7 +190,7 @@
 					<div class="relative flex w-full flex-col items-center text-center">
 						<!-- Direct line IN from Cold Storage -->
 						<div
-							class="bg-border/50 pulse-line-mid absolute top-1/2 left-[-24px] h-[1px] w-[24px] -translate-y-1/2 lg:left-[-36px] lg:w-[36px]"
+							class="bg-border/50 pulse-line-mid absolute top-1/2 left-[-10px] h-[1px] w-[8px] -translate-y-1/2 lg:left-[-14px] lg:w-[12px]"
 							style="animation-delay: 200ms;"
 						></div>
 
@@ -201,7 +201,7 @@
 						</div>
 						<!-- Connector line OUT (to SECURITY) -->
 						<div
-							class="bg-border/50 pulse-line-out absolute top-1/2 right-[-16px] h-[1px] w-4 -translate-y-1/2 lg:right-[-24px] lg:w-6"
+							class="bg-border/50 pulse-line-out absolute top-1/2 right-[-10px] h-[1px] w-[8px] -translate-y-1/2 lg:right-[-14px] lg:w-[12px]"
 							style="animation-delay: 500ms;"
 						></div>
 					</div>
@@ -221,7 +221,7 @@
 						<div class="relative flex flex-col gap-2">
 							{#each [{ label: 'Instant Search', delay: 0, color: '#4DE3D0' }, { label: 'Live Analytics', delay: 100, color: '#65A7FF' }] as item}
 								<div
-									class="bg-card/40 border-border/40 result-item flex items-center rounded-md border px-3 py-2 shadow-sm transition-all duration-500"
+									class="bg-card/50 border-border/50 result-item flex items-center rounded-md border px-3 py-2 shadow-sm transition-all duration-500"
 									style="animation-delay: {item.delay}ms; --item-color: {item.color};"
 								>
 									<span
@@ -240,7 +240,7 @@
 						<div class="relative flex flex-col gap-2">
 							{#each [{ label: 'Continuous Detections', delay: 200, color: '#FF645F' }, { label: 'SIEM', delay: 300, color: '#FFB84A' }, { label: 'AI SOC', delay: 400, color: '#9B87FF' }] as item}
 								<div
-									class="bg-card/40 border-border/40 result-item flex items-center rounded-md border px-3 py-2 shadow-sm transition-all duration-500"
+									class="bg-card/50 border-border/50 result-item flex items-center rounded-md border px-3 py-2 shadow-sm transition-all duration-500"
 									style="animation-delay: {item.delay}ms; --item-color: {item.color};"
 								>
 									<span
