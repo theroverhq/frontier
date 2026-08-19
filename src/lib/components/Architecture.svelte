@@ -2,14 +2,14 @@
 	import { Badge } from '$lib/components/ui/badge';
 </script>
 
-<section id="architecture" class="bg-background overflow-hidden pt-16 pb-38 text-zinc-900">
+<section id="architecture" class="bg-background overflow-hidden pt-8 pb-38 text-zinc-900">
 	<div class="relative z-10 container mx-auto max-w-screen-xl px-4 sm:px-6">
 		<!-- Header Section -->
 		<div class="mb-16 text-center">
 			<Badge variant="default" class="mb-6 border-none font-mono text-xs tracking-widest uppercase">
 				ARCHITECTURE
 			</Badge>
-			<div class="text-primary mb-6 font-mono text-xs font-bold tracking-widest uppercase">
+			<div class="mb-6 font-mono text-xs font-bold tracking-widest uppercase">
 				Persistent data. Stateful detections. Ephemeral queries.
 			</div>
 			<h2
@@ -20,13 +20,8 @@
 			<div class="mx-auto max-w-4xl space-y-4 text-lg leading-relaxed text-zinc-600 md:text-xl">
 				<p>
 					Rover accepts security telemetry through HTTP pull, HTTP push, or direct S3 drop. It
-					writes the Rover Index beside the data in customer-owned S3 and updates Signal Mesh—a
-					state machine designed for continuous detection queries.
-				</p>
-				<p>
-					Search and analytics fan out across ephemeral serverless functions that read only the
-					relevant index and data regions. Continuous detections run independently through Signal
-					Mesh.
+					writes the Rover Index beside the data in customer-owned Object Storage and updates Signal
+					Mesh—a state machine designed for continuous detection queries.
 				</p>
 			</div>
 		</div>
