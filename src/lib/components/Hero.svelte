@@ -73,20 +73,20 @@
 					</div>
 
 					<div class="relative flex flex-col gap-3">
-						<!-- Connection bracket -->
-						<div
-							class="border-border/50 absolute top-[16px] right-[-16px] bottom-[16px] w-4 rounded-r-md border-y border-r"
-						></div>
-						<div
-							class="bg-border/50 pulse-line-in absolute top-1/2 right-[-32px] h-[1px] w-4 -translate-y-1/2"
-						></div>
-
 						<!-- Data Sources -->
-						{#each ['Cloud', 'Identity', 'Endpoint', 'Network', 'SaaS', 'Logs'] as source}
-							<div
-								class="bg-card/50 border-border/50 text-foreground flex items-center justify-center rounded-md border px-4 py-2 text-[11px] shadow-sm lg:text-xs"
-							>
-								{source}
+						{#each ['Cloud', 'Identity', 'Endpoint', 'Network', 'SaaS', 'Logs'] as source, i}
+							<div class="relative w-full">
+								<div
+									class="bg-card/50 border-border/50 text-foreground relative z-10 flex w-full items-center justify-center rounded-md border px-4 py-2 text-[11px] shadow-sm lg:text-xs"
+								>
+									{source}
+								</div>
+								{#if i === 0 || i === 2 || i === 4}
+									<!-- Direct connector line to Data Lake (in the gap) -->
+									<div
+										class="bg-border/50 pulse-line-in absolute right-[-15px] bottom-[-6px] h-[1px] w-[15px] lg:right-[-32px] lg:w-[32px]"
+									></div>
+								{/if}
 							</div>
 						{/each}
 					</div>
@@ -98,7 +98,7 @@
 
 				<!-- Center 1: Cold Storage -->
 				<div class="relative flex h-full w-[35%] flex-col items-center justify-center px-2 lg:px-4">
-					<div class="text-foreground mb-5 text-sm font-bold tracking-widest uppercase">
+					<div class="text-foreground mb-5 text-center text-sm font-bold tracking-widest uppercase">
 						Cold Storage
 					</div>
 
@@ -109,9 +109,7 @@
 						<div
 							class="text-primary mb-5 flex items-center gap-2 text-xs font-bold tracking-[0.2em]"
 						>
-							<span class="bg-primary h-1.5 w-1.5 rotate-45 rounded-[1px]"></span>
-							ROVER DATA LAKE
-							<span class="bg-primary h-1.5 w-1.5 rotate-45 rounded-[1px]"></span>
+							ROVER
 						</div>
 
 						<!-- Generations of Data -->
@@ -149,45 +147,64 @@
 							</div>
 							<div class="text-foreground/70 text-[11px]">Object Storage</div>
 						</div>
-
-						<!-- Connector line IN -->
-						<div
-							class="bg-border/50 pulse-line-in absolute top-1/2 left-[-20px] h-[1px] w-5 -translate-y-1/2 lg:left-[-32px] lg:w-8"
-						></div>
-						<!-- Connector line OUT (to Compute) -->
-						<div
-							class="bg-border/50 pulse-line-out absolute top-1/2 right-[-20px] h-[1px] w-5 -translate-y-1/2 lg:right-[-32px] lg:w-8"
-						></div>
 					</div>
 				</div>
 
-				<!-- Center 2: Compute -->
-				<div class="relative flex h-full w-[15%] flex-col items-center justify-center px-1">
-					<div
-						class="text-foreground mb-5 text-center text-[11px] font-bold tracking-widest uppercase lg:text-xs"
-					>
-						On <br />Demand Compute
-					</div>
-					<div class="relative z-10 flex w-full flex-col items-center text-center">
-						<div class="mb-4 grid grid-cols-2 gap-2 lg:gap-3">
-							{#each Array(6) as _, i}
-								<div
-									class="text-primary/70 compute-lambda font-mono text-lg leading-none font-bold lg:text-xl"
-									style="animation-delay: {200 + i * 100}ms;"
-								>
-									&lambda;
-								</div>
-							{/each}
+				<!-- Center 2: Execution Paths -->
+				<div
+					class="relative flex h-full w-[15%] flex-col items-center justify-center gap-10 px-1 lg:gap-12"
+				>
+					<!-- Top: Serverless Query Compute -->
+					<div class="relative flex w-full flex-col items-center text-center">
+						<!-- Direct line IN from Cold Storage -->
+						<div
+							class="bg-border/50 pulse-line-mid absolute top-1/2 left-[-24px] h-[1px] w-[24px] -translate-y-1/2 lg:left-[-36px] lg:w-[36px]"
+							style="animation-delay: 100ms;"
+						></div>
+
+						<div
+							class="text-foreground mb-3 text-center text-[10px] leading-tight font-bold tracking-widest uppercase lg:text-[11px]"
+						>
+							On<br />Demand Compute
 						</div>
-						<div class="text-foreground/70 mt-2 text-[9px] leading-tight lg:text-[10px]">
-							Zero search clusters
+						<div class="relative z-10 flex w-full flex-col items-center text-center">
+							<div class="grid grid-cols-2 gap-2 lg:gap-3">
+								{#each Array(4) as _, i}
+									<div
+										class="text-primary/70 compute-lambda font-mono text-lg leading-none font-bold lg:text-xl"
+										style="animation-delay: {200 + i * 100}ms;"
+									>
+										&lambda;
+									</div>
+								{/each}
+							</div>
 						</div>
+						<!-- Connector line OUT (to ON-DEMAND) -->
+						<div
+							class="bg-border/50 pulse-line-out absolute top-1/2 right-[-16px] h-[1px] w-4 -translate-y-1/2 lg:right-[-24px] lg:w-6"
+							style="animation-delay: 300ms;"
+						></div>
 					</div>
-					<!-- Connector line OUT (from Compute to Hot Intelligence) -->
-					<div
-						class="bg-border/50 pulse-line-out absolute top-1/2 right-[-16px] h-[1px] w-4 -translate-y-1/2 lg:right-[-24px] lg:w-6"
-						style="animation-delay: 400ms;"
-					></div>
+
+					<!-- Bottom: Security Platform -->
+					<div class="relative flex w-full flex-col items-center text-center">
+						<!-- Direct line IN from Cold Storage -->
+						<div
+							class="bg-border/50 pulse-line-mid absolute top-1/2 left-[-24px] h-[1px] w-[24px] -translate-y-1/2 lg:left-[-36px] lg:w-[36px]"
+							style="animation-delay: 200ms;"
+						></div>
+
+						<div
+							class="text-foreground mb-2 text-center text-[10px] leading-tight font-bold tracking-widest uppercase lg:text-[11px]"
+						>
+							Security<br />Platform
+						</div>
+						<!-- Connector line OUT (to SECURITY) -->
+						<div
+							class="bg-border/50 pulse-line-out absolute top-1/2 right-[-16px] h-[1px] w-4 -translate-y-1/2 lg:right-[-24px] lg:w-6"
+							style="animation-delay: 500ms;"
+						></div>
+					</div>
 				</div>
 
 				<!-- Right: Hot Intelligence -->
@@ -199,27 +216,44 @@
 						Years of context.<br />Answers in seconds.
 					</div>
 
-					<div class="relative flex w-full flex-col gap-3">
-						<!-- Connection bracket -->
-						<div
-							class="border-border/50 absolute top-[20px] bottom-[20px] left-[-16px] w-4 rounded-l-md border-y border-l"
-						></div>
-
-						{#each [{ label: 'Instant Search', delay: 0, color: '#4DE3D0' }, { label: 'Live Analytics', delay: 100, color: '#65A7FF' }, { label: 'Continuous Detections', delay: 200, color: '#FF645F' }, { label: 'SIEM', delay: 300, color: '#FFB84A' }, { label: 'AI SOC', delay: 400, color: '#9B87FF' }] as item}
-							<div
-								class="bg-card/40 border-border/40 result-item flex items-center rounded-md border px-4 py-2.5 shadow-sm transition-all duration-500"
-								style="animation-delay: {item.delay}ms; --item-color: {item.color};"
-							>
-								<span
-									class="result-dot mr-2.5 h-1.5 w-1.5 shrink-0 rounded-full"
-									style="animation-delay: {item.delay}ms;"
-								></span>
-								<span
-									class="result-text text-[11px] leading-tight font-medium tracking-tight lg:text-xs"
-									style="animation-delay: {item.delay}ms;">{item.label}</span
+					<div class="relative flex w-full flex-col gap-10">
+						<!-- Group 1: ON-DEMAND -->
+						<div class="relative flex flex-col gap-2">
+							{#each [{ label: 'Instant Search', delay: 0, color: '#4DE3D0' }, { label: 'Live Analytics', delay: 100, color: '#65A7FF' }] as item}
+								<div
+									class="bg-card/40 border-border/40 result-item flex items-center rounded-md border px-3 py-2 shadow-sm transition-all duration-500"
+									style="animation-delay: {item.delay}ms; --item-color: {item.color};"
 								>
-							</div>
-						{/each}
+									<span
+										class="result-dot mr-2 h-1.5 w-1.5 shrink-0 rounded-full"
+										style="animation-delay: {item.delay}ms;"
+									></span>
+									<span
+										class="result-text text-[10px] leading-tight font-medium tracking-tight lg:text-[11px]"
+										style="animation-delay: {item.delay}ms;">{item.label}</span
+									>
+								</div>
+							{/each}
+						</div>
+
+						<!-- Group 2: SECURITY -->
+						<div class="relative flex flex-col gap-2">
+							{#each [{ label: 'Continuous Detections', delay: 200, color: '#FF645F' }, { label: 'SIEM', delay: 300, color: '#FFB84A' }, { label: 'AI SOC', delay: 400, color: '#9B87FF' }] as item}
+								<div
+									class="bg-card/40 border-border/40 result-item flex items-center rounded-md border px-3 py-2 shadow-sm transition-all duration-500"
+									style="animation-delay: {item.delay}ms; --item-color: {item.color};"
+								>
+									<span
+										class="result-dot mr-2 h-1.5 w-1.5 shrink-0 rounded-full"
+										style="animation-delay: {item.delay}ms;"
+									></span>
+									<span
+										class="result-text text-[10px] leading-tight font-medium tracking-tight lg:text-[11px]"
+										style="animation-delay: {item.delay}ms;">{item.label}</span
+									>
+								</div>
+							{/each}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -248,6 +282,27 @@
 	}
 	.pulse-line-in {
 		animation: linePulse 8s infinite;
+	}
+
+	@keyframes linePulseMid {
+		0%,
+		23% {
+			background-color: rgba(255, 255, 255, 0.05);
+			box-shadow: none;
+		}
+		28%,
+		38% {
+			background-color: var(--primary);
+			box-shadow: 0 0 10px var(--primary);
+		}
+		43%,
+		100% {
+			background-color: rgba(255, 255, 255, 0.05);
+			box-shadow: none;
+		}
+	}
+	.pulse-line-mid {
+		animation: linePulseMid 8s infinite;
 	}
 
 	@keyframes linePulseOut {
