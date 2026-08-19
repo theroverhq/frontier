@@ -8,24 +8,24 @@
 
 :root {
     --background: #FFFFFF; /* White */
-    --foreground: #12120F; /* Base */
+    --foreground: #1A1A1A; /* Base */
     --card: #F5F7F2; /* Signal White */
-    --card-foreground: #12120F;
+    --card-foreground: #1A1A1A;
     --popover: #FFFFFF;
-    --popover-foreground: #12120F;
+    --popover-foreground: #1A1A1A;
     --primary: #C8F135; /* Signal Lime */
-    --primary-foreground: #12120F;
+    --primary-foreground: #1A1A1A;
     --secondary: #F5F7F2;
-    --secondary-foreground: #12120F;
+    --secondary-foreground: #1A1A1A;
     --muted: #F5F7F2;
     --muted-foreground: #A3AAA5; /* Body Grey */
     --accent: #F5F7F2;
-    --accent-foreground: #12120F;
+    --accent-foreground: #1A1A1A;
     --destructive: #FF645F; /* Critical */
     --destructive-foreground: #FFFFFF;
     --border: rgba(18, 18, 15, 0.1);
     --input: rgba(18, 18, 15, 0.15);
-    --ring: #12120F;
+    --ring: #1A1A1A;
     --chart-1: #4ED08A;
     --chart-2: #FFB84A;
     --chart-3: #65A7FF;
@@ -33,24 +33,24 @@
     --chart-5: #4DE3D0;
     --radius: 0.5rem;
     --sidebar: #F5F7F2;
-    --sidebar-foreground: #12120F;
-    --sidebar-primary: #12120F;
+    --sidebar-foreground: #1A1A1A;
+    --sidebar-primary: #1A1A1A;
     --sidebar-primary-foreground: #FFFFFF;
     --sidebar-accent: #FFFFFF;
-    --sidebar-accent-foreground: #12120F;
+    --sidebar-accent-foreground: #1A1A1A;
     --sidebar-border: rgba(18, 18, 15, 0.1);
-    --sidebar-ring: #12120F;
+    --sidebar-ring: #1A1A1A;
 }
 
 .dark {
-    --background: #12120F; /* Base */
+    --background: #1A1A1A; /* Base */
     --foreground: #F5F7F2; /* Signal White */
     --card: #1B1B1A; /* Rover Black */
     --card-foreground: #F5F7F2;
     --popover: #1B1B1A;
     --popover-foreground: #F5F7F2;
     --primary: #C8F135; /* Signal Lime */
-    --primary-foreground: #12120F;
+    --primary-foreground: #1A1A1A;
     --secondary: #1B1B1A;
     --secondary-foreground: #F5F7F2;
     --muted: #1B1B1A;
@@ -67,10 +67,10 @@
     --chart-3: #65A7FF;
     --chart-4: #9B87FF;
     --chart-5: #4DE3D0;
-    --sidebar: #12120F;
+    --sidebar: #1A1A1A;
     --sidebar-foreground: #F5F7F2;
     --sidebar-primary: #C8F135;
-    --sidebar-primary-foreground: #12120F;
+    --sidebar-primary-foreground: #1A1A1A;
     --sidebar-accent: #1B1B1A;
     --sidebar-accent-foreground: #F5F7F2;
     --sidebar-border: rgba(245, 247, 242, 0.1);
