@@ -205,7 +205,7 @@
 							class="text-foreground bg-primary/20 border-primary/30 flex items-center gap-2 rounded border px-2.5 py-1 font-semibold"
 						>
 							<span class="bg-primary h-1.5 w-1.5 animate-pulse rounded-full"></span>
-							8.4B events &middot; 2.3 sec
+							3.8 TB bytes &middot; 4.3M events &middot; 5.12 sec
 						</span>
 					</div>
 
