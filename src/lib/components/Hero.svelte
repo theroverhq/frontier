@@ -115,7 +115,7 @@
 						</div>
 
 						<!-- Generations of Data -->
-						<div class="mb-4 flex w-full max-w-[200px] flex-col gap-2">
+						<div class="mb-8 flex w-full max-w-[200px] flex-col gap-2">
 							{#each [2026, 2025, 2024, 2023, 2022, 'gap', 2017, 2016] as item, yIdx}
 								{#if item === 'gap'}
 									<div class="flex items-center gap-3 py-0.5">
