@@ -17,7 +17,7 @@
 			>
 				Security is where Rover starts.
 			</h2>
-			<p class="mx-auto max-w-3xl text-xl leading-relaxed text-zinc-600">
+			<p class="mx-auto max-w-4xl text-xl leading-relaxed text-zinc-600">
 				Rover is powered by a serverless search and analytics engine built for massive event
 				streams. The same object-native architecture that makes years of security data searchable
 				can extend to observability, audit, and other high-volume machine-data workloads.
@@ -50,51 +50,51 @@
 
 				<!-- OBSERVABILITY -->
 				<div
-					class="flex flex-col justify-between rounded-xl border border-dashed border-zinc-300 bg-zinc-50/50 p-6 opacity-80 transition-all hover:opacity-100"
+					class="flex flex-col justify-between rounded-xl border border-dashed border-zinc-300 bg-zinc-50/50 p-6 opacity-100 transition-all hover:bg-zinc-100/50"
 				>
 					<div>
 						<div class="mt-1 mb-4 flex items-center gap-2">
 							<span class="h-2 w-2 rounded-full bg-zinc-300"></span>
-							<h3 class="font-mono text-[10px] font-bold tracking-widest text-zinc-500 uppercase">
+							<h3 class="font-mono text-[10px] font-bold tracking-widest text-zinc-600 uppercase">
 								Observability
 							</h3>
 						</div>
 					</div>
-					<div class="text-sm leading-relaxed font-medium text-zinc-500">
+					<div class="text-sm leading-relaxed font-medium text-zinc-700">
 						Logs &middot; Infrastructure &middot; Troubleshooting
 					</div>
 				</div>
 
 				<!-- AUDIT + COMPLIANCE -->
 				<div
-					class="flex flex-col justify-between rounded-xl border border-dashed border-zinc-300 bg-zinc-50/50 p-6 opacity-80 transition-all hover:opacity-100"
+					class="flex flex-col justify-between rounded-xl border border-dashed border-zinc-300 bg-zinc-50/50 p-6 opacity-100 transition-all hover:bg-zinc-100/50"
 				>
 					<div>
 						<div class="mt-1 mb-4 flex items-center gap-2">
 							<span class="h-2 w-2 rounded-full bg-zinc-300"></span>
-							<h3 class="font-mono text-[10px] font-bold tracking-widest text-zinc-500 uppercase">
+							<h3 class="font-mono text-[10px] font-bold tracking-widest text-zinc-600 uppercase">
 								Audit + Compliance
 							</h3>
 						</div>
 					</div>
-					<div class="text-sm leading-relaxed font-medium text-zinc-500">
+					<div class="text-sm leading-relaxed font-medium text-zinc-700">
 						Audit Trails &middot; Forensics &middot; Long-term Evidence
 					</div>
 				</div>
 
 				<!-- MACHINE DATA -->
 				<div
-					class="flex flex-col justify-between rounded-xl border border-dashed border-zinc-300 bg-zinc-50/50 p-6 opacity-80 transition-all hover:opacity-100"
+					class="flex flex-col justify-between rounded-xl border border-dashed border-zinc-300 bg-zinc-50/50 p-6 opacity-100 transition-all hover:bg-zinc-100/50"
 				>
 					<div>
 						<div class="mt-1 mb-4 flex items-center gap-2">
 							<span class="h-2 w-2 rounded-full bg-zinc-300"></span>
-							<h3 class="font-mono text-[10px] font-bold tracking-widest text-zinc-500 uppercase">
+							<h3 class="font-mono text-[10px] font-bold tracking-widest text-zinc-600 uppercase">
 								Machine Data
 							</h3>
 						</div>
 					</div>
-					<div class="text-sm leading-relaxed font-medium text-zinc-500">
+					<div class="text-sm leading-relaxed font-medium text-zinc-700">
 						Events &middot; Telemetry &middot; Operational Analytics
 					</div>
 				</div>
@@ -146,7 +146,7 @@
 					class="flex flex-col gap-2 text-4xl leading-tight font-medium tracking-tight md:text-5xl lg:text-6xl"
 				>
 					<span class="text-zinc-900">Built for security.</span>
-					<span class="text-zinc-400">Engineered for machine data.</span>
+					<span class="text-zinc-600">Engineered for <strong class="font-semibold text-primary">machine data.</strong></span>
 				</h2>
 			</div>
 		</div>
