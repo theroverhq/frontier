@@ -9,20 +9,20 @@
 :root {
     --background: #FFFFFF; /* White */
     --foreground: #1A1A1A; /* Base */
-    --card: #F5F7F2; /* Signal White */
+    --card: #E5E5E5; /* Signal White */
     --card-foreground: #1A1A1A;
     --popover: #FFFFFF;
     --popover-foreground: #1A1A1A;
     --primary: #C8F135; /* Signal Lime */
     --primary-foreground: #1A1A1A;
-    --secondary: #F5F7F2;
+    --secondary: #E5E5E5;
     --secondary-foreground: #1A1A1A;
-    --muted: #F5F7F2;
-    --muted-foreground: #A3AAA5; /* Body Grey */
-    --accent: #F5F7F2;
+    --muted: #E5E5E5;
+    --muted-foreground: #606067; /* Body Grey */
+    --accent: #E5E5E5;
     --accent-foreground: #1A1A1A;
-    --destructive: #FF645F; /* Critical */
-    --destructive-foreground: #FFFFFF;
+    --destructive: #EF4444; /* Critical */
+    --destructive-foreground: #1A1A1A;
     --border: rgba(18, 18, 15, 0.1);
     --input: rgba(18, 18, 15, 0.15);
     --ring: #1A1A1A;
@@ -32,7 +32,7 @@
     --chart-4: #9B87FF;
     --chart-5: #4DE3D0;
     --radius: 0.5rem;
-    --sidebar: #F5F7F2;
+    --sidebar: #E5E5E5;
     --sidebar-foreground: #1A1A1A;
     --sidebar-primary: #1A1A1A;
     --sidebar-primary-foreground: #FFFFFF;
@@ -44,20 +44,20 @@
 
 .dark {
     --background: #1A1A1A; /* Base */
-    --foreground: #F5F7F2; /* Signal White */
+    --foreground: #E5E5E5; /* Signal White */
     --card: #1B1B1A; /* Rover Black */
-    --card-foreground: #F5F7F2;
+    --card-foreground: #E5E5E5;
     --popover: #1B1B1A;
-    --popover-foreground: #F5F7F2;
+    --popover-foreground: #E5E5E5;
     --primary: #C8F135; /* Signal Lime */
     --primary-foreground: #1A1A1A;
     --secondary: #1B1B1A;
-    --secondary-foreground: #F5F7F2;
+    --secondary-foreground: #E5E5E5;
     --muted: #1B1B1A;
-    --muted-foreground: #A3AAA5; /* Body Grey */
+    --muted-foreground: #606067; /* Body Grey */
     --accent: #1B1B1A;
-    --accent-foreground: #F5F7F2;
-    --destructive: #FF645F; /* Critical */
+    --accent-foreground: #E5E5E5;
+    --destructive: #EF4444; /* Critical */
     --destructive-foreground: #FFFFFF;
     --border: rgba(245, 247, 242, 0.1);
     --input: rgba(245, 247, 242, 0.15);
@@ -68,11 +68,11 @@
     --chart-4: #9B87FF;
     --chart-5: #4DE3D0;
     --sidebar: #1A1A1A;
-    --sidebar-foreground: #F5F7F2;
+    --sidebar-foreground: #E5E5E5;
     --sidebar-primary: #C8F135;
     --sidebar-primary-foreground: #1A1A1A;
     --sidebar-accent: #1B1B1A;
-    --sidebar-accent-foreground: #F5F7F2;
+    --sidebar-accent-foreground: #E5E5E5;
     --sidebar-border: rgba(245, 247, 242, 0.1);
     --sidebar-ring: #C8F135;
 }
