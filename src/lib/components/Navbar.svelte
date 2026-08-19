@@ -15,7 +15,7 @@
 	aria-label="Main navigation"
 >
 	<div
-		class="container mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 transition-all duration-300 {scrollY >
+		class="container mx-auto max-w-screen-2xl flex items-center justify-between gap-4 px-4 sm:px-6 transition-all duration-300 {scrollY >
 		20
 			? 'h-16'
 			: 'h-20'}"
