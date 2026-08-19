@@ -28,10 +28,11 @@
 					Cold Storage. Hot Intelligence.
 				</p>
 
-				<p class="text-muted-foreground mt-5 max-w-2xl text-lg leading-relaxed">
+				<p class="text-foreground/70 mt-5 max-w-2xl text-lg leading-relaxed">
 					Rover keeps every security event in low-cost object storage and makes years of data
-					searchable in seconds. Run detections and analytics across everything you retain, and give
-					analysts and AI agents years of context for every investigation—without search clusters.
+					searchable in seconds. Search and analyze everything you retain, run continuous detections
+					on incoming security data, and give analysts and AI agents years of context for every
+					investigation—without search clusters.
 				</p>
 
 				<div class="mt-8 flex flex-wrap items-center gap-4">
@@ -45,15 +46,15 @@
 					<div class="text-foreground flex items-center gap-2">
 						<span class="bg-muted-foreground h-1.5 w-1.5 rounded-full"></span> Object-storage economis
 					</div>
-					<span class="opacity-30">•</span>
 					<div class="text-foreground flex items-center gap-2">
-						<span class="bg-muted-foreground h-1.5 w-1.5 rounded-full"></span> Full-fidelity retention
+						<span class="bg-muted-foreground h-1.5 w-1.5 rounded-full"></span> Bring any schema
 					</div>
-					<span class="opacity-30">•</span>
 					<div class="text-foreground flex items-center gap-2">
-						<span class="bg-muted-foreground h-1.5 w-1.5 rounded-full"></span> Serverless compute
+						<span class="bg-muted-foreground h-1.5 w-1.5 rounded-full"></span> Go live in hours
 					</div>
-					<span class="opacity-30">•</span>
+					<div class="text-foreground flex items-center gap-2">
+						<span class="bg-muted-foreground h-1.5 w-1.5 rounded-full"></span> Serverless query compute
+					</div>
 					<div class="text-foreground flex items-center gap-2">
 						<span class="bg-muted-foreground h-1.5 w-1.5 rounded-full"></span> No search clusters
 					</div>
@@ -107,9 +108,9 @@
 						class="border-border/60 relative flex w-full flex-col items-center rounded-2xl border bg-[#161616] p-6 shadow-2xl"
 					>
 						<div
-							class="text-primary mb-5 flex items-center gap-2 text-xs font-bold tracking-[0.2em]"
+							class="text-primary mb-5 flex items-center gap-2 text-xs font-bold tracking-[0.1em]"
 						>
-							ROVER
+							ROVER INDEX
 						</div>
 
 						<!-- Generations of Data -->
@@ -142,9 +143,7 @@
 						</div>
 
 						<div class="text-center">
-							<div class="text-foreground mb-1.5 text-xs font-medium">
-								Full-fidelity data + Rover Index
-							</div>
+							<div class="text-foreground mb-1.5 text-xs font-medium">Full-fidelity data</div>
 							<div class="text-foreground/70 text-[11px]">Object Storage</div>
 						</div>
 					</div>
@@ -165,7 +164,7 @@
 						<div
 							class="text-foreground mb-3 text-center text-[10px] leading-tight font-bold tracking-widest uppercase lg:text-[11px]"
 						>
-							On<br />Demand Compute
+							Serverless<br />Query Compute
 						</div>
 						<div class="relative z-10 flex w-full flex-col items-center text-center">
 							<div class="grid grid-cols-2 gap-2 lg:gap-3">
@@ -178,6 +177,9 @@
 									</div>
 								{/each}
 							</div>
+						</div>
+						<div class="text-foreground/70 mt-2 text-[9px] leading-tight lg:text-[10px]">
+							No search clusters.
 						</div>
 						<!-- Connector line OUT (to ON-DEMAND) -->
 						<div
