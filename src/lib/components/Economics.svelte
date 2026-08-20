@@ -11,11 +11,13 @@
 		<div class="mb-24 text-center">
 			<Badge
 				variant="outline"
-				class="text-primary border-primary/30 mb-6 font-mono text-xs tracking-widest uppercase"
+				class="text-primary border-primary/30 mb-6 text-xs tracking-widest uppercase"
 			>
 				Built for retention economics
 			</Badge>
-			<h2 class="text-foreground text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl">
+			<h2
+				class="text-foreground text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl"
+			>
 				Keep years of data. Not years of infrastructure.
 			</h2>
 			<p class="text-foreground/70 mx-auto mt-6 max-w-4xl text-xl leading-relaxed">
@@ -30,20 +32,20 @@
 		>
 			<!-- Main Visual -->
 			<div
-				class="bg-background text-foreground border-border relative w-full overflow-hidden rounded-xl border font-mono shadow-2xl"
+				class="bg-background text-foreground border-border relative w-full overflow-hidden rounded-xl border shadow-2xl"
 				style="--background: #FFFFFF; --foreground: #1A1A1A; --muted: #F3F4F6; --muted-foreground: #606067; --border: rgba(18, 18, 15, 0.15);"
 			>
 				<div class="relative z-10 flex flex-col items-center p-8 lg:p-12">
 					<!-- Top Legend -->
 					<div class="mb-12 flex flex-col items-center gap-2">
 						<div
-							class="text-muted-foreground mb-4 flex flex-col items-center gap-1.5 font-mono text-[10px] tracking-widest uppercase"
+							class="text-muted-foreground mb-4 flex flex-col items-center gap-1.5 text-[10px] tracking-widest uppercase"
 						>
 							<span>Relative Infrastructure Cost</span>
 							<span class="text-[9px] opacity-60">Illustrative architecture-based comparison</span>
 						</div>
 						<div
-							class="flex flex-col items-center gap-4 font-mono text-[10px] font-semibold lg:flex-row lg:gap-6 lg:text-xs"
+							class="flex flex-col items-center gap-4 text-[10px] font-semibold lg:flex-row lg:gap-6 lg:text-xs"
 						>
 							<div class="text-muted-foreground flex items-center gap-2 text-center">
 								<span class="bg-muted-foreground/70 h-2.5 w-2.5 shrink-0 rounded-sm"></span>
@@ -123,7 +125,7 @@
 								</div>
 
 								<div
-									class="text-muted-foreground absolute bottom-0 font-mono text-[8px] tracking-widest whitespace-nowrap uppercase md:text-[10px] lg:text-xs"
+									class="text-muted-foreground absolute bottom-0 text-[8px] tracking-widest whitespace-nowrap uppercase md:text-[10px] lg:text-xs"
 								>
 									{item.label}
 								</div>
@@ -137,7 +139,7 @@
 			<div class="flex flex-col gap-10 lg:gap-14">
 				<!-- 01 Storage -->
 				<div class="flex flex-col space-y-3">
-					<div class="text-muted-foreground font-mono text-xs tracking-widest uppercase">
+					<div class="text-muted-foreground text-xs tracking-widest uppercase">
 						01 &mdash; STORAGE
 					</div>
 					<h3 class="text-foreground mb-1 text-xl font-medium md:text-2xl">
@@ -151,7 +153,7 @@
 
 				<!-- 02 Compute -->
 				<div class="flex flex-col space-y-3">
-					<div class="text-muted-foreground font-mono text-xs tracking-widest uppercase">
+					<div class="text-muted-foreground text-xs tracking-widest uppercase">
 						02 &mdash; COMPUTE
 					</div>
 					<h3 class="text-foreground mb-1 text-xl font-medium md:text-2xl">
@@ -164,7 +166,7 @@
 
 				<!-- 03 Retention -->
 				<div class="flex flex-col space-y-3">
-					<div class="text-muted-foreground font-mono text-xs tracking-widest uppercase">
+					<div class="text-muted-foreground text-xs tracking-widest uppercase">
 						03 &mdash; RETENTION
 					</div>
 					<h3 class="text-foreground mb-1 text-xl font-medium md:text-2xl">
@@ -180,7 +182,7 @@
 
 		<!-- Proof strip -->
 		<div
-			class="border-border/50 text-foreground flex flex-wrap items-center justify-center gap-4 border-t pt-10 pb-20 font-mono text-sm font-bold tracking-widest uppercase"
+			class="border-border/50 text-foreground flex flex-wrap items-center justify-center gap-4 border-t pt-10 pb-20 text-sm font-bold tracking-widest uppercase"
 		>
 			<span>No hot index tier</span>
 			<span class="text-primary/50">&middot;</span>
@@ -191,7 +193,9 @@
 
 		<!-- Closing Line -->
 		<div class="pt-16 text-center">
-			<h2 class="flex flex-col gap-2 text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl">
+			<h2
+				class="flex flex-col gap-2 text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl"
+			>
 				<span class="text-foreground">Retention grows.</span>
 				<span class="text-primary">Search infrastructure doesn't.</span>
 			</h2>

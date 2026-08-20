@@ -2,22 +2,24 @@
 	import { Badge } from '$lib/components/ui/badge';
 </script>
 
-<section id="architecture" class="bg-background overflow-hidden text-foreground pt-24 pb-32">
+<section id="architecture" class="bg-background text-foreground overflow-hidden pt-24 pb-32">
 	<div class="relative z-10 container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<!-- Header Section -->
 		<div class="mb-16 text-center">
-			<Badge variant="default" class="mb-6 border-none font-mono text-xs tracking-widest uppercase">
+			<Badge variant="default" class="mb-6 border-none text-xs tracking-widest uppercase">
 				ARCHITECTURE
 			</Badge>
-			<div class="mb-6 font-mono text-xs font-bold tracking-widest uppercase">
+			<div class="mb-6 text-xs font-bold tracking-widest uppercase">
 				Persistent data. Stateful detections. Ephemeral queries.
 			</div>
 			<h2
-				class="mb-6 ] text-foreground text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl"
+				class="] text-foreground mb-6 text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl"
 			>
 				Search is bursty. Detection is continuous.<br class="hidden md:block" /> Rover is built for both.
 			</h2>
-			<div class="mx-auto max-w-4xl space-y-4 text-lg leading-relaxed text-muted-foreground md:text-xl">
+			<div
+				class="text-muted-foreground mx-auto max-w-4xl space-y-4 text-lg leading-relaxed md:text-xl"
+			>
 				<p>
 					Rover accepts security telemetry through HTTP pull, HTTP push, or direct S3 drop. It
 					writes the Rover Index beside the data in customer-owned Object Storage and updates Signal
@@ -28,12 +30,12 @@
 
 		<!-- Four Horizontal Architecture Lanes -->
 		<div
-			class="dark bg-background text-foreground relative mb-16 overflow-hidden rounded-[2rem] border border-border/80 p-6 shadow-2xl md:p-10"
+			class="dark bg-background text-foreground border-border/80 relative mb-16 overflow-hidden rounded-[2rem] border p-6 shadow-2xl md:p-10"
 		>
 			<!-- 01 · INGEST -->
-			<div class="relative mb-5 rounded-2xl border border-border/80 bg-background/40 p-5 md:p-8">
+			<div class="border-border/80 bg-background/40 relative mb-5 rounded-2xl border p-5 md:p-8">
 				<div
-					class="bg-background absolute top-0 left-6 -translate-y-1/2 px-2 font-mono text-[10px] font-bold tracking-widest text-muted-foreground uppercase md:left-8 md:text-xs"
+					class="bg-background text-muted-foreground absolute top-0 left-6 -translate-y-1/2 px-2 text-[10px] font-bold tracking-widest uppercase md:left-8 md:text-xs"
 				>
 					01 · Ingest
 				</div>
@@ -41,79 +43,83 @@
 				<div class="mb-6 grid grid-cols-1 gap-5 md:grid-cols-3">
 					<!-- HTTP Pull -->
 					<div
-						class="flex flex-col items-center rounded-xl border border-border bg-card/50 p-5 text-center shadow-sm"
+						class="border-border bg-card/50 flex flex-col items-center rounded-xl border p-5 text-center shadow-sm"
 					>
-						<div class="mb-2 text-lg font-bold text-foreground">HTTP Pull</div>
-						<div class="text-xs text-muted-foreground">Rover retrieves telemetry</div>
+						<div class="text-foreground mb-2 text-lg font-bold">HTTP Pull</div>
+						<div class="text-muted-foreground text-xs">Rover retrieves telemetry</div>
 					</div>
 					<!-- HTTP Push -->
 					<div
-						class="flex flex-col items-center rounded-xl border border-border bg-card/50 p-5 text-center shadow-sm"
+						class="border-border bg-card/50 flex flex-col items-center rounded-xl border p-5 text-center shadow-sm"
 					>
-						<div class="mb-2 text-lg font-bold text-foreground">HTTP Push</div>
-						<div class="text-xs text-muted-foreground">Sources stream or batch telemetry to Rover</div>
+						<div class="text-foreground mb-2 text-lg font-bold">HTTP Push</div>
+						<div class="text-muted-foreground text-xs">
+							Sources stream or batch telemetry to Rover
+						</div>
 					</div>
 					<!-- S3 Drop -->
 					<div
-						class="relative flex flex-col items-center rounded-xl border border-border bg-card/50 p-5 text-center shadow-sm"
+						class="border-border bg-card/50 relative flex flex-col items-center rounded-xl border p-5 text-center shadow-sm"
 					>
 						<div
 							class="bg-primary/20 border-primary/30 text-primary absolute -top-3 right-4 rounded border px-2 py-0.5 text-[9px] font-bold tracking-wider uppercase shadow-sm"
 						>
 							No Pipeline Change
 						</div>
-						<div class="mb-2 text-lg font-bold text-foreground">S3 Drop</div>
-						<div class="text-xs text-muted-foreground">Data already lands in customer object storage</div>
+						<div class="text-foreground mb-2 text-lg font-bold">S3 Drop</div>
+						<div class="text-muted-foreground text-xs">
+							Data already lands in customer object storage
+						</div>
 					</div>
 				</div>
 
 				<div class="flex flex-col items-center">
 					<div class="relative mb-3 hidden h-10 w-full justify-center md:flex">
 						<div
-							class="absolute top-0 left-[16%] h-12 w-px origin-top -rotate-[55deg] bg-border"
+							class="bg-border absolute top-0 left-[16%] h-12 w-px origin-top -rotate-[55deg]"
 						></div>
-						<div class="absolute top-0 left-1/2 h-10 w-px -translate-x-1/2 bg-border">
+						<div class="bg-border absolute top-0 left-1/2 h-10 w-px -translate-x-1/2">
 							<div
-								class="absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b border-border"
+								class="border-border absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b"
 							></div>
 						</div>
 						<div
-							class="absolute top-0 right-[16%] h-12 w-px origin-top rotate-[55deg] bg-border"
+							class="bg-border absolute top-0 right-[16%] h-12 w-px origin-top rotate-[55deg]"
 						></div>
 					</div>
 					<div
-						class="relative z-10 mb-2 bg-background/40 px-2 font-mono text-[9px] text-muted-foreground uppercase"
+						class="bg-background/40 text-muted-foreground relative z-10 mb-2 px-2 text-[9px] uppercase"
 					>
 						Read / Receive
 					</div>
 
 					<div
-						class="w-full max-w-lg rounded-xl border border-border bg-card p-6 text-center shadow-lg"
+						class="border-border bg-card w-full max-w-lg rounded-xl border p-6 text-center shadow-lg"
 					>
-						<div class="mb-1 text-xl font-bold text-foreground">Rover Reader + Indexer</div>
+						<div class="text-foreground mb-1 text-xl font-bold">Rover Reader + Indexer</div>
 						<div class="text-primary mb-1 text-sm font-semibold">Schema-on-read</div>
-						<div class="text-xs text-muted-foreground">No upfront schema engineering</div>
-						<div class="mt-2 text-[10px] text-muted-foreground">Go live in hours, not weeks</div>
+						<div class="text-muted-foreground text-xs">No upfront schema engineering</div>
+						<div class="text-muted-foreground mt-2 text-[10px]">Go live in hours, not weeks</div>
 					</div>
 
 					<!-- 3 Split Arrows and Text -->
 					<div class="mt-3 flex w-full flex-col items-center">
-						<div class="h-6 w-px bg-border"></div>
+						<div class="bg-border h-6 w-px"></div>
 
 						<div class="relative w-full">
 							<!-- Horizontal Bar connecting centers of cols -->
-							<div class="absolute top-0 right-[16.66%] left-[16.66%] h-px bg-border"></div>
+							<div class="bg-border absolute top-0 right-[16.66%] left-[16.66%] h-px"></div>
 
 							<div class="relative grid w-full grid-cols-3">
 								<!-- Left Column -->
 								<div class="flex flex-col items-center">
-									<div class="relative h-6 w-px bg-border"></div>
+									<div class="bg-border relative h-6 w-px"></div>
 									<div
-										class="relative z-10 -mt-3 flex flex-col items-center bg-background/40 px-2 text-center font-mono text-[9px] font-bold tracking-widest text-muted-foreground uppercase md:text-[10px]"
+										class="bg-background/40 text-muted-foreground relative z-10 -mt-3 flex flex-col items-center px-2 text-center text-[9px] font-bold tracking-widest uppercase md:text-[10px]"
 									>
 										<span>Persist Data</span>
 										<span
-											class="mt-1 text-[8px] font-normal tracking-normal text-muted-foreground normal-case"
+											class="text-muted-foreground mt-1 text-[8px] font-normal tracking-normal normal-case"
 											>when required</span
 										>
 									</div>
@@ -121,13 +127,13 @@
 
 								<!-- Center Column -->
 								<div class="flex flex-col items-center">
-									<div class="relative h-6 w-px bg-border">
+									<div class="bg-border relative h-6 w-px">
 										<div
-											class="absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b border-border"
+											class="border-border absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b"
 										></div>
 									</div>
 									<div
-										class="relative z-10 -mt-3 bg-background/40 px-2 pt-1 text-center font-mono text-[9px] font-bold tracking-widest text-muted-foreground uppercase md:text-[10px]"
+										class="bg-background/40 text-muted-foreground relative z-10 -mt-3 px-2 pt-1 text-center text-[9px] font-bold tracking-widest uppercase md:text-[10px]"
 									>
 										Write Index In Place
 									</div>
@@ -135,13 +141,13 @@
 
 								<!-- Right Column -->
 								<div class="flex flex-col items-center">
-									<div class="relative h-6 w-px bg-border">
+									<div class="bg-border relative h-6 w-px">
 										<div
-											class="absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b border-border"
+											class="border-border absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b"
 										></div>
 									</div>
 									<div
-										class="relative z-10 -mt-3 bg-background/40 px-2 pt-1 text-center font-mono text-[9px] font-bold tracking-widest text-muted-foreground uppercase md:text-[10px]"
+										class="bg-background/40 text-muted-foreground relative z-10 -mt-3 px-2 pt-1 text-center text-[9px] font-bold tracking-widest uppercase md:text-[10px]"
 									>
 										Update Signal Mesh
 									</div>
@@ -153,46 +159,46 @@
 			</div>
 
 			<!-- 02 · INDEX IN PLACE -->
-			<div class="relative mb-5 rounded-2xl border border-border/80 bg-background/40 p-5 md:p-8">
+			<div class="border-border/80 bg-background/40 relative mb-5 rounded-2xl border p-5 md:p-8">
 				<div
-					class="bg-background absolute top-0 left-6 -translate-y-1/2 px-2 font-mono text-[10px] font-bold tracking-widest text-muted-foreground uppercase md:left-8 md:text-xs"
+					class="bg-background text-muted-foreground absolute top-0 left-6 -translate-y-1/2 px-2 text-[10px] font-bold tracking-widest uppercase md:left-8 md:text-xs"
 				>
 					02 · Index In Place
 				</div>
 
 				<div class="mx-auto flex w-full max-w-3xl flex-col items-center text-center">
-					<div class="relative -mt-5 mb-5 h-6 w-px bg-border">
+					<div class="bg-border relative -mt-5 mb-5 h-6 w-px">
 						<div
-							class="absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b border-border"
+							class="border-border absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b"
 						></div>
 					</div>
 
-					<h3 class="mb-4 text-2xl font-medium tracking-tight text-foreground md:text-3xl">
+					<h3 class="text-foreground mb-4 text-2xl font-medium tracking-tight md:text-3xl">
 						Index where the data lives.
 					</h3>
 
-					<p class="mb-8 max-w-lg text-sm text-muted-foreground">
+					<p class="text-muted-foreground mb-8 max-w-lg text-sm">
 						Rover writes its inverted indexes directly alongside security data in customer-owned
 						object storage.
 					</p>
 
-					<div class="mb-3 font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
+					<div class="text-muted-foreground mb-3 text-[10px] tracking-widest uppercase">
 						CUSTOMER-OWNED OBJECT STORAGE
 					</div>
 					<div
-						class="relative w-full rounded-[1.5rem] border border-border bg-card p-6 shadow-xl md:p-10"
+						class="border-border bg-card relative w-full rounded-[1.5rem] border p-6 shadow-xl md:p-10"
 					>
 						<div class="grid grid-cols-1 items-center gap-6 md:grid-cols-7">
 							<!-- Security Data -->
 							<div
-								class="col-span-1 h-full rounded-xl border border-border bg-background p-6 text-left shadow-inner md:col-span-3"
+								class="border-border bg-background col-span-1 h-full rounded-xl border p-6 text-left shadow-inner md:col-span-3"
 							>
 								<div
-									class="mb-6 font-mono text-[10px] font-bold tracking-widest text-muted-foreground uppercase"
+									class="text-muted-foreground mb-6 text-[10px] font-bold tracking-widest uppercase"
 								>
 									Security Data
 								</div>
-								<div class="flex flex-col gap-3 font-mono text-xs text-muted-foreground">
+								<div class="text-muted-foreground flex flex-col gap-3 text-xs">
 									<div class="flex items-center gap-3">
 										<div class="h-1.5 w-1.5 rounded-full bg-zinc-600"></div>
 										Cloud Logs
@@ -217,26 +223,24 @@
 							</div>
 
 							<!-- Plus -->
-							<div
-								class="col-span-1 flex justify-center font-mono text-2xl font-bold text-muted-foreground"
-							>
+							<div class="text-muted-foreground col-span-1 flex justify-center text-2xl font-bold">
 								+
 							</div>
 
 							<!-- Rover Index LSM -->
 							<div
-								class="relative col-span-1 flex h-full flex-col justify-center overflow-hidden rounded-xl border border-border bg-background p-6 text-left shadow-inner md:col-span-3"
+								class="border-border bg-background relative col-span-1 flex h-full flex-col justify-center overflow-hidden rounded-xl border p-6 text-left shadow-inner md:col-span-3"
 							>
 								<div
-									class="mb-6 font-mono text-[10px] font-bold tracking-widest text-muted-foreground uppercase"
+									class="text-muted-foreground mb-6 text-[10px] font-bold tracking-widest uppercase"
 								>
 									Rover Index
 								</div>
 
-								<div class="relative z-10 flex flex-col gap-4 font-mono text-xs text-muted-foreground">
+								<div class="text-muted-foreground relative z-10 flex flex-col gap-4 text-xs">
 									<!-- L0 -->
 									<div class="flex items-center gap-4">
-										<span class="w-4 font-bold text-muted-foreground">L0</span>
+										<span class="text-muted-foreground w-4 font-bold">L0</span>
 										<div class="flex gap-1.5">
 											<div
 												class="bg-primary/40 h-2 w-4 rounded-sm shadow-[0_0_8px_rgba(163,230,53,0.2)]"
@@ -253,15 +257,15 @@
 										</div>
 									</div>
 
-									<div class="relative -my-2 ml-[44px] h-3 w-px bg-border">
+									<div class="bg-border relative -my-2 ml-[44px] h-3 w-px">
 										<div
-											class="absolute bottom-0 left-1/2 h-1 w-1 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b border-border"
+											class="border-border absolute bottom-0 left-1/2 h-1 w-1 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b"
 										></div>
 									</div>
 
 									<!-- L1 -->
 									<div class="flex items-center gap-4">
-										<span class="w-4 font-bold text-muted-foreground">L1</span>
+										<span class="text-muted-foreground w-4 font-bold">L1</span>
 										<div class="flex gap-1.5">
 											<div
 												class="bg-primary/70 h-2 w-12 rounded-sm shadow-[0_0_12px_rgba(163,230,53,0.3)]"
@@ -272,15 +276,15 @@
 										</div>
 									</div>
 
-									<div class="relative -my-2 ml-[44px] h-3 w-px bg-border">
+									<div class="bg-border relative -my-2 ml-[44px] h-3 w-px">
 										<div
-											class="absolute bottom-0 left-1/2 h-1 w-1 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b border-border"
+											class="border-border absolute bottom-0 left-1/2 h-1 w-1 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b"
 										></div>
 									</div>
 
 									<!-- L2 -->
 									<div class="flex items-center gap-4">
-										<span class="w-4 font-bold text-muted-foreground">L2</span>
+										<span class="text-muted-foreground w-4 font-bold">L2</span>
 										<div class="flex gap-1.5">
 											<div
 												class="bg-primary h-2.5 w-[102px] rounded-sm shadow-[0_0_16px_rgba(163,230,53,0.5)]"
@@ -290,7 +294,7 @@
 								</div>
 
 								<div
-									class="mt-6 font-mono text-[9px] font-bold tracking-widest text-muted-foreground uppercase"
+									class="text-muted-foreground mt-6 text-[9px] font-bold tracking-widest uppercase"
 								>
 									Object-storage-native LSM
 								</div>
@@ -298,47 +302,47 @@
 						</div>
 					</div>
 
-					<div class="text-primary mt-8 font-mono text-[11px] font-bold tracking-widest uppercase">
+					<div class="text-primary mt-8 text-[11px] font-bold tracking-widest uppercase">
 						NO HOT INDEX TIER · NO SEARCH CLUSTER
 					</div>
 				</div>
 			</div>
 
 			<!-- 03 · SIGNAL MESH -->
-			<div class="relative mb-5 rounded-2xl border border-border/80 bg-background/40 p-5 md:p-8">
+			<div class="border-border/80 bg-background/40 relative mb-5 rounded-2xl border p-5 md:p-8">
 				<div
-					class="bg-background absolute top-0 left-6 -translate-y-1/2 px-2 font-mono text-[10px] font-bold tracking-widest text-muted-foreground uppercase md:left-8 md:text-xs"
+					class="bg-background text-muted-foreground absolute top-0 left-6 -translate-y-1/2 px-2 text-[10px] font-bold tracking-widest uppercase md:left-8 md:text-xs"
 				>
 					03 · Signal Mesh
 				</div>
 
 				<div class="mx-auto flex w-full max-w-md flex-col items-center text-center">
-					<div class="mb-2 font-mono text-[10px] tracking-widest text-muted-foreground">
+					<div class="text-muted-foreground mb-2 text-[10px] tracking-widest">
 						DETECTION QUERY / RULE
 					</div>
-					<div class="relative mb-2 h-4 w-px bg-border">
+					<div class="bg-border relative mb-2 h-4 w-px">
 						<div
-							class="absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b border-border"
+							class="border-border absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b"
 						></div>
 					</div>
 
 					<div class="text-primary mb-2 text-[9px] font-bold tracking-widest uppercase">
 						Stateful · Continuous
 					</div>
-					<div class="w-full rounded-xl border border-border bg-card p-6 shadow-lg">
-						<div class="text-primary mb-3 text-2xl font-bold text-foreground">Signal Mesh</div>
-						<div class="flex flex-col gap-1.5 text-sm text-muted-foreground">
+					<div class="border-border bg-card w-full rounded-xl border p-6 shadow-lg">
+						<div class="text-primary text-foreground mb-3 text-2xl font-bold">Signal Mesh</div>
+						<div class="text-muted-foreground flex flex-col gap-1.5 text-sm">
 							<span>Detection state machine</span>
 						</div>
 					</div>
 
-					<div class="relative mt-3 h-6 w-px bg-border">
+					<div class="bg-border relative mt-3 h-6 w-px">
 						<div
-							class="absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b border-border"
+							class="border-border absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b"
 						></div>
 					</div>
 					<div
-						class="relative z-10 -mt-5 mb-4 bg-background/40 px-2 font-mono text-[9px] text-muted-foreground uppercase"
+						class="bg-background/40 text-muted-foreground relative z-10 -mt-5 mb-4 px-2 text-[9px] uppercase"
 					>
 						Evaluate Continuously
 					</div>
@@ -352,9 +356,9 @@
 			</div>
 
 			<!-- 04 · SERVERLESS QUERY ENGINE -->
-			<div class="relative rounded-2xl border border-border/80 bg-background/40 p-5 md:p-8">
+			<div class="border-border/80 bg-background/40 relative rounded-2xl border p-5 md:p-8">
 				<div
-					class="bg-background absolute top-0 left-6 -translate-y-1/2 px-2 font-mono text-[10px] font-bold tracking-widest text-muted-foreground uppercase md:left-8 md:text-xs"
+					class="bg-background text-muted-foreground absolute top-0 left-6 -translate-y-1/2 px-2 text-[10px] font-bold tracking-widest uppercase md:left-8 md:text-xs"
 				>
 					04 · Serverless Query Engine
 				</div>
@@ -362,14 +366,14 @@
 				<div class="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-3">
 					<!-- Query Planner Col -->
 					<div class="col-span-1 flex flex-col items-center">
-						<div class="mb-2 font-mono text-[10px] tracking-widest text-muted-foreground">SEARCH QUERY</div>
-						<div class="relative mb-2 h-4 w-px bg-border">
+						<div class="text-muted-foreground mb-2 text-[10px] tracking-widest">SEARCH QUERY</div>
+						<div class="bg-border relative mb-2 h-4 w-px">
 							<div
-								class="absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b border-border"
+								class="border-border absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b"
 							></div>
 						</div>
 						<div
-							class="w-full rounded-lg border border-border bg-card px-6 py-4 text-center font-semibold text-foreground shadow-md"
+							class="border-border bg-card text-foreground w-full rounded-lg border px-6 py-4 text-center font-semibold shadow-md"
 						>
 							Query Planner
 						</div>
@@ -378,17 +382,15 @@
 					<!-- Fan Out Arrows Col -->
 					<div class="col-span-1 hidden flex-col items-center justify-center lg:flex">
 						<div class="flex w-full items-center justify-center gap-2">
-							<div class="relative h-px w-16 bg-border">
+							<div class="bg-border relative h-px w-16">
 								<div
-									class="absolute top-1/2 right-0 h-1.5 w-1.5 translate-x-1/2 -translate-y-1/2 rotate-45 transform border-t border-r border-border"
+									class="border-border absolute top-1/2 right-0 h-1.5 w-1.5 translate-x-1/2 -translate-y-1/2 rotate-45 transform border-t border-r"
 								></div>
 							</div>
-							<div class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-								Fan Out
-							</div>
-							<div class="relative h-px w-16 bg-border">
+							<div class="text-muted-foreground text-[10px] tracking-widest uppercase">Fan Out</div>
+							<div class="bg-border relative h-px w-16">
 								<div
-									class="absolute top-1/2 right-0 h-1.5 w-1.5 translate-x-1/2 -translate-y-1/2 rotate-45 transform border-t border-r border-border"
+									class="border-border absolute top-1/2 right-0 h-1.5 w-1.5 translate-x-1/2 -translate-y-1/2 rotate-45 transform border-t border-r"
 								></div>
 							</div>
 						</div>
@@ -396,9 +398,9 @@
 
 					<!-- Mobile Fan Out -->
 					<div class="col-span-1 flex justify-center py-1 lg:hidden">
-						<div class="relative h-6 w-px bg-border">
+						<div class="bg-border relative h-6 w-px">
 							<div
-								class="absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b border-border"
+								class="border-border absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b"
 							></div>
 						</div>
 					</div>
@@ -407,25 +409,27 @@
 					<div class="col-span-1 flex w-full flex-col items-center">
 						<!-- Storage Block (Top) -->
 						<div class="flex w-full flex-col items-center">
-							<div class="mb-3 text-[9px] font-bold tracking-widest text-muted-foreground uppercase">
+							<div
+								class="text-muted-foreground mb-3 text-[9px] font-bold tracking-widest uppercase"
+							>
 								Persistent · Customer-Owned
 							</div>
 							<div
-								class="w-full rounded-xl border border-border bg-background p-6 text-center shadow-inner"
+								class="border-border bg-background w-full rounded-xl border p-6 text-center shadow-inner"
 							>
-								<div class="mb-1 text-lg font-bold text-foreground">Customer Object Storage</div>
-								<div class="text-xs text-muted-foreground">Rover Index</div>
+								<div class="text-foreground mb-1 text-lg font-bold">Customer Object Storage</div>
+								<div class="text-muted-foreground text-xs">Rover Index</div>
 							</div>
 						</div>
 
 						<!-- Arrow UP from Lambdas to Storage -->
-						<div class="relative mt-3 h-6 w-px bg-border">
+						<div class="bg-border relative mt-3 h-6 w-px">
 							<div
-								class="absolute top-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 -rotate-45 transform border-t border-l border-border"
+								class="border-border absolute top-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 -rotate-45 transform border-t border-l"
 							></div>
 						</div>
 						<div
-							class="relative z-10 -mt-5 mb-4 bg-background/40 px-2 font-mono text-[9px] text-muted-foreground uppercase"
+							class="bg-background/40 text-muted-foreground relative z-10 -mt-5 mb-4 px-2 text-[9px] uppercase"
 						>
 							Read On Demand
 						</div>
@@ -437,7 +441,10 @@
 						<div class="flex gap-2.5">
 							{#each Array(5) as _, i}
 								<div
-									class="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card font-mono text-xs text-muted-foreground shadow-sm {i === 0 || i === 4 ? 'scale-90 opacity-50' : ''}"
+									class="border-border bg-card text-muted-foreground flex h-8 w-8 items-center justify-center rounded-full border text-xs shadow-sm {i ===
+										0 || i === 4
+										? 'scale-90 opacity-50'
+										: ''}"
 								>
 									λ
 								</div>
@@ -445,20 +452,20 @@
 						</div>
 
 						<!-- Arrow DOWN from Lambdas to Merge -->
-						<div class="relative mt-3 h-6 w-px bg-border">
+						<div class="bg-border relative mt-3 h-6 w-px">
 							<div
-								class="absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b border-border"
+								class="border-border absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b"
 							></div>
 						</div>
 						<div
-							class="relative z-10 -mt-5 mb-4 max-w-[120px] bg-background/40 px-2 text-center font-mono text-[9px] text-muted-foreground uppercase"
+							class="bg-background/40 text-muted-foreground relative z-10 -mt-5 mb-4 max-w-[120px] px-2 text-center text-[9px] uppercase"
 						>
 							Merge partial results
 						</div>
 
 						<!-- Final Output -->
 						<div
-							class="w-full rounded-lg border border-border bg-card px-6 py-3 text-center font-semibold text-foreground shadow-md"
+							class="border-border bg-card text-foreground w-full rounded-lg border px-6 py-3 text-center font-semibold shadow-md"
 						>
 							Search + Analytics
 						</div>
@@ -471,25 +478,25 @@
 				<div class="flex w-full flex-col items-center">
 					<div class="mb-3 flex w-full max-w-2xl justify-between px-12 md:px-24">
 						<div class="flex flex-1 flex-col items-center">
-							<div class="relative h-6 w-px bg-border">
+							<div class="bg-border relative h-6 w-px">
 								<div
-									class="absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b border-border"
+									class="border-border absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b"
 								></div>
 							</div>
 							<div
-								class="mt-2 text-center font-mono text-[9px] tracking-widest text-muted-foreground uppercase"
+								class="text-muted-foreground mt-2 text-center text-[9px] tracking-widest uppercase"
 							>
 								Detection<br />Signals
 							</div>
 						</div>
 						<div class="flex flex-1 flex-col items-center">
-							<div class="relative h-6 w-px bg-border">
+							<div class="bg-border relative h-6 w-px">
 								<div
-									class="absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b border-border"
+									class="border-border absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-r border-b"
 								></div>
 							</div>
 							<div
-								class="mt-2 text-center font-mono text-[9px] tracking-widest text-muted-foreground uppercase"
+								class="text-muted-foreground mt-2 text-center text-[9px] tracking-widest uppercase"
 							>
 								Search + Analytics<br />Results
 							</div>
@@ -502,7 +509,7 @@
 						<div class="text-primary mb-2 text-[10px] font-bold tracking-widest uppercase">
 							Rover Security Platform
 						</div>
-						<div class="text-xl font-bold tracking-tight text-foreground">SIEM · AI SOC</div>
+						<div class="text-foreground text-xl font-bold tracking-tight">SIEM · AI SOC</div>
 					</div>
 				</div>
 			</div>
@@ -512,17 +519,17 @@
 		<div class="mb-24 grid grid-cols-1 gap-8 md:grid-cols-3">
 			<!-- ROVER INDEX -->
 			<div
-				class="flex flex-col rounded-[2rem] border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-md"
+				class="border-border bg-background flex flex-col rounded-[2rem] border shadow-sm transition-shadow duration-300 hover:shadow-md"
 			>
-				<div class="flex-none border-b border-border p-8 pb-6 lg:p-10 lg:pb-8">
+				<div class="border-border flex-none border-b p-8 pb-6 lg:p-10 lg:pb-8">
 					<div class="text-primary mb-3 text-[10px] font-bold tracking-widest uppercase">
 						Stored in customer object storage
 					</div>
-					<h3 class="text-2xl font-semibold tracking-tight text-foreground xl:text-3xl">
+					<h3 class="text-foreground text-2xl font-semibold tracking-tight xl:text-3xl">
 						Rover Index
 					</h3>
 				</div>
-				<div class="flex flex-1 flex-col justify-center p-8 text-sm text-muted-foreground lg:p-10">
+				<div class="text-muted-foreground flex flex-1 flex-col justify-center p-8 text-sm lg:p-10">
 					<ul class="space-y-4">
 						<li class="flex items-start gap-3">
 							<span class="text-primary mt-0.5 font-bold">✓</span>Historical search + analytics
@@ -544,9 +551,9 @@
 						</li>
 					</ul>
 				</div>
-				<div class="mt-auto rounded-b-[2rem] border-t border-border bg-muted p-6 lg:p-8">
+				<div class="border-border bg-muted mt-auto rounded-b-[2rem] border-t p-6 lg:p-8">
 					<p
-						class="font-mono text-[10px] font-bold tracking-wider text-muted-foreground uppercase xl:text-[11px]"
+						class="text-muted-foreground text-[10px] font-bold tracking-wider uppercase xl:text-[11px]"
 					>
 						Years of data. Read when queried.
 					</p>
@@ -555,17 +562,17 @@
 
 			<!-- SIGNAL MESH -->
 			<div
-				class="flex flex-col rounded-[2rem] border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-md"
+				class="border-border bg-background flex flex-col rounded-[2rem] border shadow-sm transition-shadow duration-300 hover:shadow-md"
 			>
-				<div class="flex-none border-b border-border p-8 pb-6 lg:p-10 lg:pb-8">
+				<div class="border-border flex-none border-b p-8 pb-6 lg:p-10 lg:pb-8">
 					<div class="text-primary mb-3 text-[10px] font-bold tracking-widest uppercase">
 						Continuous detection state
 					</div>
-					<h3 class="text-2xl font-semibold tracking-tight text-foreground xl:text-3xl">
+					<h3 class="text-foreground text-2xl font-semibold tracking-tight xl:text-3xl">
 						Signal Mesh
 					</h3>
 				</div>
-				<div class="flex flex-1 flex-col justify-center p-8 text-sm text-muted-foreground lg:p-10">
+				<div class="text-muted-foreground flex flex-1 flex-col justify-center p-8 text-sm lg:p-10">
 					<ul class="space-y-4">
 						<li class="flex items-start gap-3">
 							<span class="text-primary mt-0.5 font-bold">✓</span>Continuous detections
@@ -582,9 +589,9 @@
 						</li>
 					</ul>
 				</div>
-				<div class="mt-auto rounded-b-[2rem] border-t border-border bg-muted p-6 lg:p-8">
+				<div class="border-border bg-muted mt-auto rounded-b-[2rem] border-t p-6 lg:p-8">
 					<p
-						class="font-mono text-[10px] font-bold tracking-wider text-muted-foreground uppercase xl:text-[11px]"
+						class="text-muted-foreground text-[10px] font-bold tracking-wider uppercase xl:text-[11px]"
 					>
 						Continuous state. Evaluated as data arrives.
 					</p>
@@ -593,17 +600,17 @@
 
 			<!-- SERVERLESS QUERY ENGINE -->
 			<div
-				class="flex flex-col rounded-[2rem] border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-md"
+				class="border-border bg-background flex flex-col rounded-[2rem] border shadow-sm transition-shadow duration-300 hover:shadow-md"
 			>
-				<div class="flex-none border-b border-border p-8 pb-6 lg:p-10 lg:pb-8">
+				<div class="border-border flex-none border-b p-8 pb-6 lg:p-10 lg:pb-8">
 					<div class="text-primary mb-3 text-[10px] font-bold tracking-widest uppercase">
 						Ephemeral · Per Query
 					</div>
-					<h3 class="text-2xl font-semibold tracking-tight text-foreground xl:text-[26px]">
+					<h3 class="text-foreground text-2xl font-semibold tracking-tight xl:text-[26px]">
 						Serverless Query Engine
 					</h3>
 				</div>
-				<div class="flex flex-1 flex-col justify-center p-8 text-sm text-muted-foreground lg:p-10">
+				<div class="text-muted-foreground flex flex-1 flex-col justify-center p-8 text-sm lg:p-10">
 					<ul class="space-y-4">
 						<li class="flex items-start gap-3">
 							<span class="text-primary mt-0.5 font-bold">✓</span>Search + analytics execution
@@ -623,9 +630,9 @@
 						</li>
 					</ul>
 				</div>
-				<div class="mt-auto rounded-b-[2rem] border-t border-border bg-muted p-6 lg:p-8">
+				<div class="border-border bg-muted mt-auto rounded-b-[2rem] border-t p-6 lg:p-8">
 					<p
-						class="font-mono text-[10px] font-bold tracking-wider text-muted-foreground uppercase xl:text-[11px]"
+						class="text-muted-foreground text-[10px] font-bold tracking-wider uppercase xl:text-[11px]"
 					>
 						Compute on demand. No search cluster.
 					</p>
@@ -635,12 +642,12 @@
 
 		<!-- Bottom summary -->
 		<div class="mb-10 text-center">
-			<h2 class="mb-6 text-foreground text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl">
+			<h2
+				class="text-foreground mb-6 text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl"
+			>
 				Index the history. Track the present. Query on demand.
 			</h2>
-			<div
-				class="font-mono text-[10px] font-bold tracking-widest text-muted-foreground uppercase md:text-xs"
-			>
+			<div class="text-muted-foreground text-[10px] font-bold tracking-widest uppercase md:text-xs">
 				Persistent index · Continuous detection state · Ephemeral query compute
 			</div>
 		</div>

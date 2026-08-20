@@ -14,13 +14,15 @@
 			<div class="mb-8 flex justify-center">
 				<Badge
 					variant="outline"
-					class="text-primary border-primary/30 mb-6 font-mono text-xs tracking-widest uppercase"
+					class="text-primary border-primary/30 mb-6 text-xs tracking-widest uppercase"
 					>Rover Early Access</Badge
 				>
 			</div>
 
 			<!-- Headline -->
-			<h2 class="text-foreground mb-8 text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl">
+			<h2
+				class="text-foreground mb-8 text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl"
+			>
 				Bring the data your SIEM<br class="hidden sm:block" />
 				<span class="text-primary font-bold">can't afford to keep.</span>
 			</h2>
@@ -53,7 +55,7 @@
 		<!-- Compact Proof Rail -->
 		<div class="border-border mx-auto mb-16 max-w-4xl border-y py-8">
 			<div
-				class="text-foreground/60 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 font-mono text-[10px] font-bold tracking-widest uppercase sm:text-xs"
+				class="text-foreground/60 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 text-[10px] font-bold tracking-widest uppercase sm:text-xs"
 			>
 				<span class="text-foreground">Go live in hours</span>
 				<span>&bull;</span>
@@ -67,15 +69,13 @@
 
 		<!-- Qualification Block -->
 		<div class="mx-auto mb-16 max-w-4xl text-center">
-			<p class="text-foreground/80 mb-5 font-mono text-[10px] font-bold tracking-widest uppercase">
+			<p class="text-foreground/80 mb-5 text-[10px] font-bold tracking-widest uppercase">
 				A good fit if you:
 			</p>
 			<div
-				class="text-foreground/90 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 font-mono text-[9px] font-bold tracking-widest uppercase sm:text-[10px]"
+				class="text-foreground/90 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-[9px] font-bold tracking-widest uppercase sm:text-[10px]"
 			>
-				<span class="bg-muted border-border rounded-lg border px-3 py-2"
-					>Generate TBs/day</span
-				>
+				<span class="bg-muted border-border rounded-lg border px-3 py-2">Generate TBs/day</span>
 				<span class="bg-muted border-border rounded-lg border px-3 py-2"
 					>Need multi-year retention</span
 				>

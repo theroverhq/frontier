@@ -8,7 +8,7 @@
 			<!-- Brand Column -->
 			<div class="flex flex-col">
 				<div class="text-foreground mb-2 text-2xl font-bold tracking-tight">ROVER</div>
-				<div class="text-primary mb-6 font-mono text-[10px] font-bold tracking-widest uppercase">
+				<div class="text-primary mb-6 text-[10px] font-bold tracking-widest uppercase">
 					Cold Storage. Hot Intelligence.
 				</div>
 				<a
@@ -21,26 +21,38 @@
 
 			<!-- Product Column -->
 			<div class="flex flex-col gap-4">
-				<h4 class="text-foreground/50 font-mono text-[10px] font-bold tracking-widest uppercase">
-					Product
-				</h4>
+				<h4 class="text-foreground/50 text-[10px] font-bold tracking-widest uppercase">Product</h4>
 				<ul class="text-foreground/70 flex flex-col gap-3 text-sm">
-					<li><a href="{$page.url.pathname === '/' ? '' : '/'}#big-idea" class="hover:text-foreground transition-colors">Search</a></li>
 					<li>
-						<a href="{$page.url.pathname === '/' ? '' : '/'}#capabilities" class="hover:text-foreground transition-colors">Analytics</a>
+						<a
+							href="{$page.url.pathname === '/' ? '' : '/'}#big-idea"
+							class="hover:text-foreground transition-colors">Search</a
+						>
 					</li>
 					<li>
-						<a href="{$page.url.pathname === '/' ? '' : '/'}#architecture" class="hover:text-foreground transition-colors">Architecture</a>
+						<a
+							href="{$page.url.pathname === '/' ? '' : '/'}#capabilities"
+							class="hover:text-foreground transition-colors">Analytics</a
+						>
 					</li>
-					<li><a href="{$page.url.pathname === '/' ? '' : '/'}#ai-soc" class="hover:text-foreground transition-colors">AI SOC</a></li>
+					<li>
+						<a
+							href="{$page.url.pathname === '/' ? '' : '/'}#architecture"
+							class="hover:text-foreground transition-colors">Architecture</a
+						>
+					</li>
+					<li>
+						<a
+							href="{$page.url.pathname === '/' ? '' : '/'}#ai-soc"
+							class="hover:text-foreground transition-colors">AI SOC</a
+						>
+					</li>
 				</ul>
 			</div>
 
 			<!-- Company Column -->
 			<div class="flex flex-col gap-4">
-				<h4 class="text-foreground/50 font-mono text-[10px] font-bold tracking-widest uppercase">
-					Company
-				</h4>
+				<h4 class="text-foreground/50 text-[10px] font-bold tracking-widest uppercase">Company</h4>
 				<ul class="text-foreground/70 flex flex-col gap-3 text-sm">
 					<li><a href="/blogs/" class="hover:text-foreground transition-colors">Blogs</a></li>
 					<li>
@@ -61,9 +73,7 @@
 
 			<!-- Legal Column -->
 			<div class="flex flex-col gap-4">
-				<h4 class="text-foreground/50 font-mono text-[10px] font-bold tracking-widest uppercase">
-					Legal
-				</h4>
+				<h4 class="text-foreground/50 text-[10px] font-bold tracking-widest uppercase">Legal</h4>
 				<ul class="text-foreground/70 flex flex-col gap-3 text-sm">
 					<li><a href="#" class="hover:text-foreground transition-colors">Privacy</a></li>
 					<li><a href="#" class="hover:text-foreground transition-colors">Terms</a></li>

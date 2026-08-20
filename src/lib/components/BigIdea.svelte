@@ -15,13 +15,15 @@
 		<div class="mb-24 text-center">
 			<Badge
 				variant="outline"
-				class="text-primary border-primary/30 mb-6 font-mono text-xs tracking-widest uppercase"
+				class="text-primary border-primary/30 mb-6 text-xs tracking-widest uppercase"
 				>Search Everything</Badge
 			>
-			<h2 class="text-foreground text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl">
+			<h2
+				class="text-foreground text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl"
+			>
 				Years of data. Answers in seconds.
 			</h2>
-			<p class="md:text-2xl text-foreground/70 mx-auto mt-6 max-w-4xl text-xl leading-relaxed">
+			<p class="text-foreground/70 mx-auto mt-6 max-w-4xl text-xl leading-relaxed md:text-2xl">
 				Search and analyze your full security history as if it were hot—without rehydration, moving
 				data, or managing search clusters.
 			</p>
@@ -112,7 +114,7 @@
 			<div class="flex w-full flex-col items-center lg:col-span-8">
 				<!-- Mock UI Window (Light Theme) -->
 				<div
-					class="bg-background text-foreground border-border relative flex w-full flex-col overflow-hidden rounded-xl border font-mono shadow-2xl"
+					class="bg-background text-foreground border-border relative flex w-full flex-col overflow-hidden rounded-xl border shadow-2xl"
 					style="--background: #FFFFFF; --foreground: #1A1A1A; --muted: #F3F4F6; --muted-foreground: #606067; --border: rgba(18, 18, 15, 0.15);"
 				>
 					<!-- Subtle glow in UI -->
@@ -145,7 +147,7 @@
 						<div class="flex items-center gap-2">
 							<Badge
 								variant="outline"
-								class="bg-background text-foreground border-border hover:bg-muted flex cursor-pointer items-center gap-1 px-2 py-1 font-mono text-xs transition-colors"
+								class="bg-background text-foreground border-border hover:bg-muted flex cursor-pointer items-center gap-1 px-2 py-1 text-xs transition-colors"
 							>
 								Time: Last 10 years
 								<svg

@@ -2,22 +2,19 @@
 	import { Badge } from '$lib/components/ui/badge';
 </script>
 
-<section id="platform-ceiling" class="bg-background overflow-hidden text-foreground pt-24 pb-32">
+<section id="platform-ceiling" class="bg-background text-foreground overflow-hidden pt-24 pb-32">
 	<div class="relative z-10 container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<!-- Header -->
 		<div class="mx-auto mb-24 max-w-4xl text-center">
-			<Badge
-				variant="default"
-				class="border-primary/30 mb-8 font-mono text-xs tracking-widest uppercase"
-			>
+			<Badge variant="default" class="border-primary/30 mb-8 text-xs tracking-widest uppercase">
 				BEYOND SIEM
 			</Badge>
 			<h2
-				class="mb-8 text-foreground text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl"
+				class="text-foreground mb-8 text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl"
 			>
 				Security is where Rover starts.
 			</h2>
-			<p class="mx-auto max-w-4xl text-xl leading-relaxed text-muted-foreground">
+			<p class="text-muted-foreground mx-auto max-w-4xl text-xl leading-relaxed">
 				Rover is powered by a serverless search and analytics engine built for massive event
 				streams. The same object-native architecture that makes years of security data searchable
 				can extend to observability, audit, and other high-volume machine-data workloads.
@@ -30,7 +27,7 @@
 			<div class="grid grid-cols-1 gap-6 md:grid-cols-4">
 				<!-- SECURITY -->
 				<div
-					class="relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-background p-6 shadow-sm ring-1 ring-border transition-all hover:shadow-md"
+					class="border-border bg-background ring-border relative flex flex-col justify-between overflow-hidden rounded-xl border p-6 shadow-sm ring-1 transition-all hover:shadow-md"
 				>
 					<div class="bg-primary absolute top-0 left-0 h-1 w-full"></div>
 					<div>
@@ -38,63 +35,63 @@
 							<span
 								class="bg-primary h-2 w-2 animate-pulse rounded-full shadow-[0_0_8px_rgba(204,255,0,0.8)]"
 							></span>
-							<h3 class="font-mono text-[10px] font-bold tracking-widest text-foreground uppercase">
+							<h3 class="text-foreground text-[10px] font-bold tracking-widest uppercase">
 								Security
 							</h3>
 						</div>
 					</div>
-					<div class="text-sm leading-relaxed font-medium text-foreground">
+					<div class="text-foreground text-sm leading-relaxed font-medium">
 						SIEM &middot; AI SOC &middot; Detections &middot; Threat Hunting
 					</div>
 				</div>
 
 				<!-- OBSERVABILITY -->
 				<div
-					class="flex flex-col justify-between rounded-xl border border-dashed border-border bg-muted/50 p-6 opacity-100 transition-all hover:bg-muted/80/50"
+					class="border-border bg-muted/50 hover:bg-muted/80/50 flex flex-col justify-between rounded-xl border border-dashed p-6 opacity-100 transition-all"
 				>
 					<div>
 						<div class="mt-1 mb-4 flex items-center gap-2">
-							<span class="h-2 w-2 rounded-full bg-border"></span>
-							<h3 class="font-mono text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
+							<span class="bg-border h-2 w-2 rounded-full"></span>
+							<h3 class="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
 								Observability
 							</h3>
 						</div>
 					</div>
-					<div class="text-sm leading-relaxed font-medium text-muted-foreground">
+					<div class="text-muted-foreground text-sm leading-relaxed font-medium">
 						Logs &middot; Infrastructure &middot; Troubleshooting
 					</div>
 				</div>
 
 				<!-- AUDIT + COMPLIANCE -->
 				<div
-					class="flex flex-col justify-between rounded-xl border border-dashed border-border bg-muted/50 p-6 opacity-100 transition-all hover:bg-muted/80/50"
+					class="border-border bg-muted/50 hover:bg-muted/80/50 flex flex-col justify-between rounded-xl border border-dashed p-6 opacity-100 transition-all"
 				>
 					<div>
 						<div class="mt-1 mb-4 flex items-center gap-2">
-							<span class="h-2 w-2 rounded-full bg-border"></span>
-							<h3 class="font-mono text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
+							<span class="bg-border h-2 w-2 rounded-full"></span>
+							<h3 class="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
 								Audit + Compliance
 							</h3>
 						</div>
 					</div>
-					<div class="text-sm leading-relaxed font-medium text-muted-foreground">
+					<div class="text-muted-foreground text-sm leading-relaxed font-medium">
 						Audit Trails &middot; Forensics &middot; Long-term Evidence
 					</div>
 				</div>
 
 				<!-- MACHINE DATA -->
 				<div
-					class="flex flex-col justify-between rounded-xl border border-dashed border-border bg-muted/50 p-6 opacity-100 transition-all hover:bg-muted/80/50"
+					class="border-border bg-muted/50 hover:bg-muted/80/50 flex flex-col justify-between rounded-xl border border-dashed p-6 opacity-100 transition-all"
 				>
 					<div>
 						<div class="mt-1 mb-4 flex items-center gap-2">
-							<span class="h-2 w-2 rounded-full bg-border"></span>
-							<h3 class="font-mono text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
+							<span class="bg-border h-2 w-2 rounded-full"></span>
+							<h3 class="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
 								Machine Data
 							</h3>
 						</div>
 					</div>
-					<div class="text-sm leading-relaxed font-medium text-muted-foreground">
+					<div class="text-muted-foreground text-sm leading-relaxed font-medium">
 						Events &middot; Telemetry &middot; Operational Analytics
 					</div>
 				</div>
@@ -103,16 +100,16 @@
 			<!-- Connection diagram lines (Desktop only) -->
 			<div class="relative mt-2 mb-2 hidden h-12 flex-col items-center justify-center md:flex">
 				<!-- Horizontal bus line in the middle -->
-				<div class="absolute top-1/2 h-px w-[75%] bg-border"></div>
+				<div class="bg-border absolute top-1/2 h-px w-[75%]"></div>
 				<!-- Drop down lines from each column to the bus -->
 				<div class="absolute top-0 flex w-full justify-around px-8">
-					<div class="h-6 w-px bg-border"></div>
-					<div class="h-6 w-px bg-border"></div>
-					<div class="h-6 w-px bg-border"></div>
-					<div class="h-6 w-px bg-border"></div>
+					<div class="bg-border h-6 w-px"></div>
+					<div class="bg-border h-6 w-px"></div>
+					<div class="bg-border h-6 w-px"></div>
+					<div class="bg-border h-6 w-px"></div>
 				</div>
 				<!-- Central trunk line from bus to engine -->
-				<div class="absolute top-1/2 h-6 w-px bg-border"></div>
+				<div class="bg-border absolute top-1/2 h-6 w-px"></div>
 			</div>
 
 			<!-- Spacer for Mobile -->
@@ -120,15 +117,13 @@
 
 			<!-- ROVER ENGINE -->
 			<div
-				class="mx-auto max-w-4xl rounded-[2rem] border border-border/80 dark bg-background p-10 text-center shadow-2xl"
+				class="border-border/80 dark bg-background mx-auto max-w-4xl rounded-[2rem] border p-10 text-center shadow-2xl"
 			>
-				<h3
-					class="mb-6 font-mono text-xs font-bold tracking-widest text-foreground uppercase md:text-sm"
-				>
+				<h3 class="text-foreground mb-6 text-xs font-bold tracking-widest uppercase md:text-sm">
 					Rover Engine
 				</h3>
 				<div
-					class="flex flex-wrap items-center justify-center gap-4 font-mono text-[10px] font-bold tracking-widest text-muted-foreground uppercase sm:text-[11px]"
+					class="text-muted-foreground flex flex-wrap items-center justify-center gap-4 text-[10px] font-bold tracking-widest uppercase sm:text-[11px]"
 				>
 					<span class="text-foreground">Object-native search</span>
 					<span class="text-muted-foreground">&bull;</span>
@@ -141,12 +136,14 @@
 			</div>
 
 			<!-- Closing Statement -->
-			<div class="mt-32 border-t border-border pt-24 text-center">
+			<div class="border-border mt-32 border-t pt-24 text-center">
 				<h2
 					class="flex flex-col gap-2 text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl"
 				>
 					<span class="text-foreground">Built for security.</span>
-					<span class="text-muted-foreground">Engineered for <strong class="font-semibold text-primary">machine data.</strong></span>
+					<span class="text-muted-foreground"
+						>Engineered for <strong class="text-primary font-semibold">machine data.</strong></span
+					>
 				</h2>
 			</div>
 		</div>

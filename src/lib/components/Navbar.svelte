@@ -9,13 +9,13 @@
 <svelte:window bind:scrollY />
 
 <nav
-	class="dark sticky top-0 z-50 w-full transition-all duration-300 border-b {scrollY > 20
-		? 'bg-background/85 backdrop-blur-md border-white/10 shadow-sm'
+	class="dark sticky top-0 z-50 w-full border-b transition-all duration-300 {scrollY > 20
+		? 'bg-background/85 border-white/10 shadow-sm backdrop-blur-md'
 		: 'bg-background border-transparent'}"
 	aria-label="Main navigation"
 >
 	<div
-		class="container mx-auto max-w-screen-2xl flex items-center justify-between gap-4 px-4 sm:px-6 transition-all duration-300 {scrollY >
+		class="container mx-auto flex max-w-screen-2xl items-center justify-between gap-4 px-4 transition-all duration-300 sm:px-6 {scrollY >
 		20
 			? 'h-16'
 			: 'h-20'}"
@@ -35,38 +35,41 @@
 		</a>
 
 		<div
-			class="hidden lg:flex items-center gap-8 font-mono text-[11px] font-bold tracking-widest uppercase text-zinc-300"
+			class="hidden items-center gap-8 text-[11px] font-bold tracking-widest text-zinc-300 uppercase lg:flex"
 			aria-label="Page sections"
 		>
 			<a
 				href="{$page.url.pathname === '/' ? '' : '/'}#hero-preview"
-				class="border-b border-transparent transition-all hover:text-primary hover:border-primary pb-0.5"
+				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
 				>SIEM</a
 			>
 			<a
 				href="{$page.url.pathname === '/' ? '' : '/'}#big-idea"
-				class="border-b border-transparent transition-all hover:text-primary hover:border-primary pb-0.5"
+				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
 				>Search</a
 			>
 			<a
 				href="{$page.url.pathname === '/' ? '' : '/'}#capabilities"
-				class="border-b border-transparent transition-all hover:text-primary hover:border-primary pb-0.5"
+				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
 				>Analytics</a
 			>
 			<a
 				href="{$page.url.pathname === '/' ? '' : '/'}#ai-soc"
-				class="border-b border-transparent transition-all hover:text-primary hover:border-primary pb-0.5"
+				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
 				>AI SOC</a
 			>
 			<a
 				href="{$page.url.pathname === '/' ? '' : '/'}#architecture"
-				class="border-b border-transparent transition-all hover:text-primary hover:border-primary pb-0.5"
+				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
 				>Architecture</a
 			>
 			<a
 				href="/blogs/"
-				class="border-b transition-all hover:text-primary hover:border-primary pb-0.5 {$page.url.pathname.startsWith('/blogs') ? 'text-primary border-primary' : 'border-transparent'}"
-				>Blogs</a
+				class="hover:text-primary hover:border-primary border-b pb-0.5 transition-all {$page.url.pathname.startsWith(
+					'/blogs'
+				)
+					? 'text-primary border-primary'
+					: 'border-transparent'}">Blogs</a
 			>
 		</div>
 
@@ -75,14 +78,14 @@
 				variant="ghost"
 				size="sm"
 				href="{$page.url.pathname === '/' ? '' : '/'}#hero-preview"
-				class="hidden md:flex text-xs font-semibold text-zinc-300 hover:text-white hover:bg-zinc-800"
+				class="hidden text-xs font-semibold text-zinc-300 hover:bg-zinc-800 hover:text-white md:flex"
 			>
 				See Rover in Action
 			</Button>
 			<Button
 				size="sm"
 				href="{$page.url.pathname === '/' ? '' : '/'}#early-access"
-				class="bg-primary text-zinc-950 hover:bg-primary/90 text-[11px] font-bold tracking-wide rounded-full px-5 uppercase font-mono"
+				class="bg-primary hover:bg-primary/90 rounded-full px-5 font-sans text-[11px] font-bold tracking-wide text-zinc-950 uppercase"
 			>
 				Book a Demo
 			</Button>

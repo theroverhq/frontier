@@ -8,7 +8,7 @@
 		<div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 xl:grid-cols-[42%_58%]">
 			<div>
 				<div class="mb-6 flex flex-wrap items-center gap-2">
-					<Badge variant="secondary" class="gap-1.5 px-3 py-1 font-mono">
+					<Badge variant="secondary" class="gap-1.5 px-3 py-1 font-sans">
 						<span class="bg-primary inline-block h-2 w-2 animate-pulse rounded-full"></span>
 						SIEM <span class="text-muted-foreground opacity-50">•</span>
 						Search <span class="text-muted-foreground opacity-50">•</span>
@@ -126,9 +126,7 @@
 									</div>
 								{:else}
 									<div class="flex items-center gap-3">
-										<span class="text-foreground/90 w-8 font-mono text-[10px] lg:text-[11px]"
-											>{item}</span
-										>
+										<span class="text-foreground/90 w-8 text-[10px] lg:text-[11px]">{item}</span>
 										<div class="flex flex-1 gap-[2px]">
 											{#each Array(14) as _, bIdx}
 												<div
@@ -172,7 +170,7 @@
 							<div class="grid grid-cols-2 gap-2 lg:gap-3">
 								{#each Array(4) as _, i}
 									<div
-										class="text-primary/70 compute-lambda font-mono text-lg leading-none font-bold lg:text-xl"
+										class="text-primary/70 compute-lambda text-lg leading-none font-bold lg:text-xl"
 										style="animation-delay: {200 + i * 100}ms;"
 									>
 										&lambda;
