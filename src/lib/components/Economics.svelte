@@ -4,7 +4,7 @@
 
 <section
 	id="economics"
-	class="dark bg-background text-foreground relative overflow-hidden pt-24 pb-38"
+	class="dark bg-background text-foreground relative overflow-hidden pt-24 pb-32"
 >
 	<div class="relative z-10 container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<!-- Header -->
@@ -15,7 +15,7 @@
 			>
 				Built for retention economics
 			</Badge>
-			<h2 class="text-foreground text-3xl font-medium tracking-tight md:text-4xl lg:text-5xl">
+			<h2 class="text-foreground text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl">
 				Keep years of data. Not years of infrastructure.
 			</h2>
 			<p class="text-foreground/70 mx-auto mt-6 max-w-4xl text-xl leading-relaxed">
@@ -191,7 +191,7 @@
 
 		<!-- Closing Line -->
 		<div class="pt-16 text-center">
-			<h2 class="flex flex-col gap-2 text-5xl font-medium tracking-tight md:text-6xl lg:text-7xl">
+			<h2 class="flex flex-col gap-2 text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl">
 				<span class="text-foreground">Retention grows.</span>
 				<span class="text-primary">Search infrastructure doesn't.</span>
 			</h2>

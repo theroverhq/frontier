@@ -2,7 +2,7 @@
 	import { Badge } from '$lib/components/ui/badge';
 </script>
 
-<section id="capabilities" class="bg-background overflow-hidden pt-16 pb-38 text-zinc-900">
+<section id="capabilities" class="bg-background overflow-hidden text-foreground pt-24 pb-32">
 	<div class="relative z-10 container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div class="mb-15 text-center">
 			<Badge variant="default" class="mb-6 border-none font-mono text-xs tracking-widest uppercase"
@@ -10,11 +10,11 @@
 			>
 
 			<h2
-				class="mb-6 text-3xl leading-[1.1] font-medium tracking-tight text-zinc-950 md:text-4xl lg:text-5xl"
+				class="mb-6 ] text-foreground text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl"
 			>
 				Search it. Analyze it.<br />Detect on it.
 			</h2>
-			<p class="mx-auto max-w-4xl text-xl leading-relaxed text-zinc-600">
+			<p class="mx-auto max-w-4xl text-xl leading-relaxed text-muted-foreground">
 				Rover makes high-volume security telemetry economically searchable and usable—from network
 				flows and DNS to raw endpoint and cloud activity.
 			</p>
@@ -23,18 +23,18 @@
 		<div class="relative z-10 grid grid-cols-1 gap-8 md:grid-cols-2">
 			<!-- 01 SEARCH -->
 			<div
-				class="flex flex-col rounded-[2rem] border border-zinc-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-md"
+				class="flex flex-col rounded-[2rem] border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-md"
 			>
 				<div class="flex-none p-10 pb-4">
 					<div
-						class="mb-5 flex items-center gap-2 text-xs font-bold tracking-widest text-zinc-900 uppercase"
+						class="mb-5 flex items-center gap-2 text-xs font-bold tracking-widest text-foreground uppercase"
 					>
-						<span class="font-mono text-zinc-400">01</span> Search &middot; VPC Flow Logs
+						<span class="font-mono text-muted-foreground">01</span> Search &middot; VPC Flow Logs
 					</div>
-					<h3 class="mb-3 text-2xl font-semibold tracking-tight text-zinc-900">
+					<h3 class="mb-3 text-2xl font-semibold tracking-tight text-foreground">
 						Find the connection everyone else discarded.
 					</h3>
-					<p class="pr-6 text-sm leading-relaxed text-zinc-500">
+					<p class="pr-6 text-sm leading-relaxed text-muted-foreground">
 						Search the telemetry your SIEM made too expensive to keep. Explore massive volumes of
 						full-fidelity network flow logs without sampling or archiving.
 					</p>
@@ -42,19 +42,19 @@
 
 				<div class="flex min-h-[260px] flex-1 flex-col justify-end px-10 pt-4 pb-10">
 					<div
-						class="bg-foreground text-background w-full rounded-2xl border border-zinc-700/50 p-7 font-mono text-[15px] leading-relaxed shadow-2xl shadow-zinc-900/10"
+						class="dark bg-background text-foreground w-full rounded-2xl border border-border/50 p-7 font-mono text-[15px] leading-relaxed shadow-2xl shadow-zinc-900/10"
 					>
 						<div class="mb-2.5">
-							<span class="text-zinc-500">source=</span><span class="text-primary">vpc_flow</span>
+							<span class="text-muted-foreground">source=</span><span class="text-primary">vpc_flow</span>
 						</div>
 						<div class="mb-2.5 pl-4">
-							<span class="text-primary">|</span> <span class="text-zinc-500">where</span> dst_ip="185.220.101.4"
+							<span class="text-primary">|</span> <span class="text-muted-foreground">where</span> dst_ip="185.220.101.4"
 						</div>
 						<div class="mb-6 pl-4">
-							<span class="text-primary">|</span> <span class="text-zinc-500">sort</span> timestamp
+							<span class="text-primary">|</span> <span class="text-muted-foreground">sort</span> timestamp
 						</div>
 						<div
-							class="flex items-center gap-2.5 border-t border-zinc-800/80 pt-5 text-sm text-zinc-500"
+							class="flex items-center gap-2.5 border-t border-border/80 pt-5 text-sm text-muted-foreground"
 						>
 							<span class="bg-primary inline-block h-2.5 w-2.5 rounded-full"></span> 18 months searched
 							&middot; 7.1 sec
@@ -62,8 +62,8 @@
 					</div>
 				</div>
 
-				<div class="mt-auto rounded-b-[2rem] border-t border-zinc-100 bg-zinc-50 px-10 py-5">
-					<p class="font-mono text-[11px] tracking-wider text-zinc-500 uppercase">
+				<div class="mt-auto rounded-b-[2rem] border-t border-border bg-muted px-10 py-5">
+					<p class="font-mono text-[11px] tracking-wider text-muted-foreground uppercase">
 						Full-fidelity network flow data, searchable for years.
 					</p>
 				</div>
@@ -71,18 +71,18 @@
 
 			<!-- 02 ANALYTICS -->
 			<div
-				class="flex flex-col rounded-[2rem] border border-zinc-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-md"
+				class="flex flex-col rounded-[2rem] border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-md"
 			>
 				<div class="flex-none p-10 pb-4">
 					<div
-						class="mb-5 flex items-center gap-2 text-xs font-bold tracking-widest text-zinc-900 uppercase"
+						class="mb-5 flex items-center gap-2 text-xs font-bold tracking-widest text-foreground uppercase"
 					>
-						<span class="font-mono text-zinc-400">02</span> Analytics &middot; DNS Logs
+						<span class="font-mono text-muted-foreground">02</span> Analytics &middot; DNS Logs
 					</div>
-					<h3 class="mb-3 text-2xl font-semibold tracking-tight text-zinc-900">
+					<h3 class="mb-3 text-2xl font-semibold tracking-tight text-foreground">
 						Find the signal buried in billions of DNS queries.
 					</h3>
-					<p class="pr-6 text-sm leading-relaxed text-zinc-500">
+					<p class="pr-6 text-sm leading-relaxed text-muted-foreground">
 						Aggregate and visualize noisy, high-volume telemetry natively. Filter, group, and
 						calculate directly on the data without exporting it.
 					</p>
@@ -90,47 +90,47 @@
 
 				<div class="relative flex min-h-[260px] flex-1 flex-col justify-end px-10 pt-4 pb-10">
 					<div
-						class="bg-foreground text-background mb-8 w-full max-w-[85%] rounded-xl border border-zinc-800/80 p-6 font-mono text-sm shadow-xl"
+						class="dark bg-background text-foreground mb-8 w-full max-w-[85%] rounded-xl border border-border/80 p-6 font-mono text-sm shadow-xl"
 					>
 						<div class="mb-2">
-							<span class="text-zinc-500">source=</span><span class="text-zinc-200">dns</span>
+							<span class="text-muted-foreground">source=</span><span class="text-foreground/90">dns</span>
 						</div>
 						<div class="mb-2 pl-4">
-							<span class="text-primary">|</span> <span class="text-zinc-500">stats</span> count, distinct(src_ip)
+							<span class="text-primary">|</span> <span class="text-muted-foreground">stats</span> count, distinct(src_ip)
 							by query_name
 						</div>
 						<div class="pl-4">
-							<span class="text-primary">|</span> <span class="text-zinc-500">where</span> count &lt;
+							<span class="text-primary">|</span> <span class="text-muted-foreground">where</span> count &lt;
 							10
 						</div>
 					</div>
 
 					<div
-						class="absolute right-10 bottom-8 left-20 z-10 overflow-hidden rounded-xl border border-zinc-200 bg-white font-mono text-sm shadow-xl"
+						class="absolute right-10 bottom-8 left-20 z-10 overflow-hidden rounded-xl border border-border bg-background font-mono text-sm shadow-xl"
 					>
 						<div
-							class="flex justify-between border-b border-zinc-100 bg-zinc-50/80 px-5 py-3 font-sans text-[10px] font-bold tracking-widest text-zinc-400 uppercase"
+							class="flex justify-between border-b border-border bg-muted/80 px-5 py-3 font-sans text-[10px] font-bold tracking-widest text-muted-foreground uppercase"
 						>
 							<span>Query Name</span>
 							<span>Distinct IPs</span>
 						</div>
-						<div class="flex justify-between border-b border-zinc-50 px-5 py-2.5">
-							<span class="font-medium text-zinc-900">wz9x.evil.net</span>
-							<span class="font-bold text-zinc-900">1</span>
+						<div class="flex justify-between border-b border-border px-5 py-2.5">
+							<span class="font-medium text-foreground">wz9x.evil.net</span>
+							<span class="font-bold text-foreground">1</span>
 						</div>
-						<div class="flex justify-between border-b border-zinc-50 px-5 py-2.5">
-							<span class="text-zinc-700">c2.staging.internal</span>
-							<span class="text-zinc-600">2</span>
+						<div class="flex justify-between border-b border-border px-5 py-2.5">
+							<span class="text-muted-foreground">c2.staging.internal</span>
+							<span class="text-muted-foreground">2</span>
 						</div>
-						<div class="flex justify-between px-5 py-2.5 text-zinc-400">
+						<div class="flex justify-between px-5 py-2.5 text-muted-foreground">
 							<span>tunnel-endpoint.xyz</span>
 							<span>1</span>
 						</div>
 					</div>
 				</div>
 
-				<div class="mt-auto rounded-b-[2rem] border-t border-zinc-100 bg-zinc-50 px-10 py-5">
-					<p class="font-mono text-[11px] tracking-wider text-zinc-500 uppercase">
+				<div class="mt-auto rounded-b-[2rem] border-t border-border bg-muted px-10 py-5">
+					<p class="font-mono text-[11px] tracking-wider text-muted-foreground uppercase">
 						Rare domains observed across the last 12 months.
 					</p>
 				</div>
@@ -138,18 +138,18 @@
 
 			<!-- 03 DETECTIONS + SIEM -->
 			<div
-				class="flex flex-col rounded-[2rem] border border-zinc-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-md"
+				class="flex flex-col rounded-[2rem] border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-md"
 			>
 				<div class="flex-none p-10 pb-4">
 					<div
-						class="mb-5 flex items-center gap-2 text-xs font-bold tracking-widest text-zinc-900 uppercase"
+						class="mb-5 flex items-center gap-2 text-xs font-bold tracking-widest text-foreground uppercase"
 					>
-						<span class="font-mono text-zinc-400">03</span> Detect &middot; CloudTrail Data Events
+						<span class="font-mono text-muted-foreground">03</span> Detect &middot; CloudTrail Data Events
 					</div>
-					<h3 class="mb-3 text-2xl font-semibold tracking-tight text-zinc-900">
+					<h3 class="mb-3 text-2xl font-semibold tracking-tight text-foreground">
 						Detect on the data you used to archive.
 					</h3>
-					<p class="pr-6 text-sm leading-relaxed text-zinc-500">
+					<p class="pr-6 text-sm leading-relaxed text-muted-foreground">
 						Keep object-level cloud activity available for detection and historical investigation
 						instead of choosing between coverage and cost.
 					</p>
@@ -157,53 +157,53 @@
 
 				<div class="flex min-h-[260px] flex-1 flex-col justify-end px-10 pt-4 pb-10">
 					<div
-						class="relative mb-6 w-full rounded-xl border border-zinc-200 bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+						class="relative mb-6 w-full rounded-xl border border-border bg-background p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
 					>
 						<div
-							class="absolute -top-3 -right-3 flex items-center gap-2 rounded bg-zinc-900 px-3 py-1.5 text-[10px] font-bold tracking-wider text-white uppercase shadow-md"
+							class="absolute -top-3 -right-3 flex items-center gap-2 rounded bg-background px-3 py-1.5 text-[10px] font-bold tracking-wider text-white uppercase shadow-md"
 						>
 							<span class="h-1.5 w-1.5 rounded-full bg-red-500"></span> High Severity
 						</div>
-						<div class="mb-2 text-[10px] font-bold tracking-widest text-zinc-400 uppercase">
+						<div class="mb-2 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
 							Detection Fired
 						</div>
-						<div class="mb-5 text-xl font-semibold text-zinc-950">S3 Mass Object Retrieval</div>
+						<div class="mb-5 text-xl font-semibold text-foreground">S3 Mass Object Retrieval</div>
 						<div
-							class="grid grid-cols-2 gap-4 rounded-lg border border-zinc-100 bg-zinc-50 p-4 font-mono text-sm"
+							class="grid grid-cols-2 gap-4 rounded-lg border border-border bg-muted p-4 font-mono text-sm"
 						>
 							<div>
 								<div
-									class="mb-1 font-sans text-[10px] font-bold tracking-widest text-zinc-400 uppercase"
+									class="mb-1 font-sans text-[10px] font-bold tracking-widest text-muted-foreground uppercase"
 								>
 									Bucket
 								</div>
-								<div class="truncate font-medium text-zinc-900" title="prod-customer-data">
+								<div class="truncate font-medium text-foreground" title="prod-customer-data">
 									prod-customer-data
 								</div>
 							</div>
 							<div>
 								<div
-									class="mb-1 font-sans text-[10px] font-bold tracking-widest text-zinc-400 uppercase"
+									class="mb-1 font-sans text-[10px] font-bold tracking-widest text-muted-foreground uppercase"
 								>
 									Principal
 								</div>
-								<div class="truncate font-medium text-zinc-900" title="arn:aws:iam::123:user/dev">
+								<div class="truncate font-medium text-foreground" title="arn:aws:iam::123:user/dev">
 									arn:aws:iam...
 								</div>
 							</div>
 						</div>
 					</div>
 					<div
-						class="mx-auto flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-zinc-200 bg-zinc-50 py-3.5 text-xs font-semibold text-zinc-700 transition-colors hover:border-zinc-300"
+						class="mx-auto flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-border bg-muted py-3.5 text-xs font-semibold text-muted-foreground transition-colors hover:border-border"
 					>
-						Investigate &rarr; <span class="font-normal text-zinc-500"
+						Investigate &rarr; <span class="font-normal text-muted-foreground"
 							>View all object-level activity</span
 						>
 					</div>
 				</div>
 
-				<div class="mt-auto rounded-b-[2rem] border-t border-zinc-100 bg-zinc-50 px-10 py-5">
-					<p class="font-mono text-[11px] tracking-wider text-zinc-500 uppercase">
+				<div class="mt-auto rounded-b-[2rem] border-t border-border bg-muted px-10 py-5">
+					<p class="font-mono text-[11px] tracking-wider text-muted-foreground uppercase">
 						High-volume telemetry &middot; S3 Data Events &middot; Unsampled
 					</p>
 				</div>
@@ -211,18 +211,18 @@
 
 			<!-- 04 AI SOC -->
 			<div
-				class="flex flex-col rounded-[2rem] border border-zinc-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-md"
+				class="flex flex-col rounded-[2rem] border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-md"
 			>
 				<div class="flex-none p-10 pb-4">
 					<div
-						class="mb-5 flex items-center gap-2 text-xs font-bold tracking-widest text-zinc-900 uppercase"
+						class="mb-5 flex items-center gap-2 text-xs font-bold tracking-widest text-foreground uppercase"
 					>
-						<span class="font-mono text-zinc-400">04</span> AI SOC &middot; Raw EDR Telemetry
+						<span class="font-mono text-muted-foreground">04</span> AI SOC &middot; Raw EDR Telemetry
 					</div>
-					<h3 class="mb-3 text-2xl font-semibold tracking-tight text-zinc-900">
+					<h3 class="mb-3 text-2xl font-semibold tracking-tight text-foreground">
 						Give your AI SOC years of memory.
 					</h3>
-					<p class="pr-6 text-sm leading-relaxed text-zinc-500">
+					<p class="pr-6 text-sm leading-relaxed text-muted-foreground">
 						The agent can investigate data traditional SIEM economics prevented you from
 						retaining—correlating years of raw EDR telemetry in seconds.
 					</p>
@@ -230,10 +230,10 @@
 
 				<div class="flex min-h-[260px] flex-1 flex-col justify-end px-10 pt-4 pb-10">
 					<div
-						class="bg-foreground text-background w-full rounded-xl border border-zinc-800/80 p-6 text-sm shadow-xl"
+						class="dark bg-background text-foreground w-full rounded-xl border border-border/80 p-6 text-sm shadow-xl"
 					>
 						<div
-							class="mb-5 flex items-center gap-3 border-b border-zinc-800/80 pb-4 font-medium text-zinc-100"
+							class="mb-5 flex items-center gap-3 border-b border-border/80 pb-4 font-medium text-foreground"
 						>
 							<div
 								class="bg-primary/10 text-primary flex h-6 w-6 items-center justify-center rounded"
@@ -260,23 +260,23 @@
 						<div class="mb-6 space-y-4 font-mono text-xs">
 							<div class="flex items-start gap-3">
 								<span class="text-primary mt-0.5">✓</span>
-								<span class="text-zinc-400">Searched 14 months of process telemetry</span>
+								<span class="text-muted-foreground">Searched 14 months of process telemetry</span>
 							</div>
 							<div class="flex items-start gap-3">
 								<span class="text-primary mt-0.5">✓</span>
-								<span class="text-zinc-400">Found the same hash on 7 endpoints</span>
+								<span class="text-muted-foreground">Found the same hash on 7 endpoints</span>
 							</div>
 							<div class="flex items-start gap-3">
 								<span class="text-primary mt-0.5">✓</span>
-								<span class="text-zinc-400">Correlated DNS queries from 3 hosts</span>
+								<span class="text-muted-foreground">Correlated DNS queries from 3 hosts</span>
 							</div>
 							<div class="flex items-start gap-3">
 								<span class="text-primary mt-0.5">✓</span>
-								<span class="text-zinc-400">Found first execution 93 days earlier</span>
+								<span class="text-muted-foreground">Found first execution 93 days earlier</span>
 							</div>
 							<div class="flex items-start gap-3">
 								<span class="text-primary mt-0.5">✓</span>
-								<span class="text-zinc-400">Identified related cloud activity</span>
+								<span class="text-muted-foreground">Identified related cloud activity</span>
 							</div>
 						</div>
 						<div
@@ -287,8 +287,8 @@
 					</div>
 				</div>
 
-				<div class="mt-auto rounded-b-[2rem] border-t border-zinc-100 bg-zinc-50 px-10 py-5">
-					<p class="font-mono text-[11px] tracking-wider text-zinc-500 uppercase">
+				<div class="mt-auto rounded-b-[2rem] border-t border-border bg-muted px-10 py-5">
+					<p class="font-mono text-[11px] tracking-wider text-muted-foreground uppercase">
 						Raw EDR Telemetry &middot; Process Executions &middot; Process Trees
 					</p>
 				</div>
@@ -302,7 +302,7 @@
 				<div class="relative flex w-24 justify-center">
 					<div class="h-full w-px bg-gradient-to-b from-transparent via-zinc-300 to-zinc-300"></div>
 					<div
-						class="bg-background absolute top-1/2 -translate-y-1/2 px-2 text-[10px] font-bold tracking-widest text-zinc-400 uppercase"
+						class="bg-background absolute top-1/2 -translate-y-1/2 px-2 text-[10px] font-bold tracking-widest text-muted-foreground uppercase"
 					>
 						Search
 					</div>
@@ -310,7 +310,7 @@
 				<div class="relative flex w-24 justify-center">
 					<div class="h-full w-px bg-gradient-to-b from-transparent via-zinc-300 to-zinc-300"></div>
 					<div
-						class="bg-background absolute top-1/2 -translate-y-1/2 px-2 text-[10px] font-bold tracking-widest text-zinc-400 uppercase"
+						class="bg-background absolute top-1/2 -translate-y-1/2 px-2 text-[10px] font-bold tracking-widest text-muted-foreground uppercase"
 					>
 						Analytics
 					</div>
@@ -318,7 +318,7 @@
 				<div class="relative flex w-24 justify-center">
 					<div class="h-full w-px bg-gradient-to-b from-transparent via-zinc-300 to-zinc-300"></div>
 					<div
-						class="bg-background absolute top-1/2 -translate-y-1/2 px-2 text-[10px] font-bold tracking-widest text-zinc-400 uppercase"
+						class="bg-background absolute top-1/2 -translate-y-1/2 px-2 text-[10px] font-bold tracking-widest text-muted-foreground uppercase"
 					>
 						Detect
 					</div>
@@ -326,7 +326,7 @@
 				<div class="relative flex w-24 justify-center">
 					<div class="h-full w-px bg-gradient-to-b from-transparent via-zinc-300 to-zinc-300"></div>
 					<div
-						class="bg-background absolute top-1/2 -translate-y-1/2 px-2 text-[10px] font-bold tracking-widest text-zinc-400 uppercase"
+						class="bg-background absolute top-1/2 -translate-y-1/2 px-2 text-[10px] font-bold tracking-widest text-muted-foreground uppercase"
 					>
 						AI SOC
 					</div>
@@ -335,12 +335,12 @@
 
 			<!-- Foundation Block -->
 			<div
-				class="bg-foreground text-background relative mx-auto flex w-[94%] flex-col items-center justify-center rounded-2xl border border-zinc-800/80 p-8 shadow-2xl lg:w-[85%]"
+				class="dark bg-background text-foreground relative mx-auto flex w-[94%] flex-col items-center justify-center rounded-2xl border border-border/80 p-8 shadow-2xl lg:w-[85%]"
 			>
 				<div class="text-primary mb-3 text-sm font-bold tracking-[0.2em] uppercase">
 					One Full-Fidelity Security Dataset
 				</div>
-				<div class="text-sm text-zinc-400">
+				<div class="text-sm text-muted-foreground">
 					Search, analytics, detections, and AI operate on the same full-fidelity security history.
 				</div>
 			</div>
@@ -349,7 +349,7 @@
 			<div
 				class="relative mx-auto flex h-20 w-px bg-gradient-to-b from-zinc-300 to-transparent opacity-80"
 			></div>
-			<div class="-mt-6 flex justify-center text-zinc-500">
+			<div class="-mt-6 flex justify-center text-muted-foreground">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="14"
@@ -364,7 +364,7 @@
 				>
 			</div>
 			<div class="flex justify-center text-center">
-				<span class="text-[10px] font-bold tracking-[0.2em] text-zinc-600 uppercase">
+				<span class="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase">
 					How Rover Makes This Possible
 				</span>
 			</div>
@@ -373,12 +373,12 @@
 		<!-- Mobile Foundation -->
 		<div class="mt-16 flex flex-col items-center text-center md:hidden">
 			<div
-				class="bg-foreground text-background flex w-full flex-col items-center gap-3 rounded-2xl border border-zinc-800/80 px-6 py-8 shadow-xl"
+				class="dark bg-background text-foreground flex w-full flex-col items-center gap-3 rounded-2xl border border-border/80 px-6 py-8 shadow-xl"
 			>
 				<span class="text-primary text-[11px] font-bold tracking-[0.15em] uppercase">
 					One Full-Fidelity Security Dataset
 				</span>
-				<span class="text-xs text-zinc-400">
+				<span class="text-xs text-muted-foreground">
 					Search, analytics, detections, and AI operate on the same full-fidelity security history.
 				</span>
 			</div>
@@ -386,7 +386,7 @@
 			<div
 				class="relative mx-auto mt-6 flex h-16 w-px bg-gradient-to-b from-zinc-300 to-transparent opacity-80"
 			></div>
-			<div class="-mt-6 mt-0 flex justify-center text-zinc-500">
+			<div class="-mt-6 mt-0 flex justify-center text-muted-foreground">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="14"
@@ -401,7 +401,7 @@
 				>
 			</div>
 			<div class="flex justify-center text-center">
-				<span class="text-[10px] font-bold tracking-[0.2em] text-zinc-600 uppercase">
+				<span class="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase">
 					How Rover Makes This Possible
 				</span>
 			</div>

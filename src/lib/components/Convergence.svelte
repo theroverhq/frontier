@@ -25,7 +25,7 @@
         CONVERGED SECURITY
       </Badge>
       
-      <h2 class="text-foreground text-3xl font-medium tracking-tight md:text-4xl lg:text-5xl">
+      <h2 class="text-foreground text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl">
         Search. Analytics. SIEM. AI. <span class="text-primary">One platform.</span>
       </h2>
       

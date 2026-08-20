@@ -3,7 +3,7 @@
 	import { Badge } from '$lib/components/ui/badge';
 </script>
 
-<header class="dark bg-background text-foreground py-16 md:py-24">
+<header class="dark bg-background text-foreground pt-24 pb-32">
 	<div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 xl:grid-cols-[42%_58%]">
 			<div>

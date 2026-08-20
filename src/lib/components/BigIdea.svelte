@@ -4,7 +4,7 @@
 
 <section
 	id="big-idea"
-	class="dark bg-background text-foreground relative overflow-hidden pt-8 pb-38"
+	class="dark bg-background text-foreground relative overflow-hidden pt-24 pb-32"
 >
 	<!-- Subtle background glow -->
 	<div
@@ -18,10 +18,10 @@
 				class="text-primary border-primary/30 mb-6 font-mono text-xs tracking-widest uppercase"
 				>Search Everything</Badge
 			>
-			<h2 class="text-foreground text-3xl font-medium tracking-tight md:text-4xl lg:text-5xl">
+			<h2 class="text-foreground text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl">
 				Years of data. Answers in seconds.
 			</h2>
-			<p class="md:text-2x text-foreground/70 mx-auto mt-6 max-w-4xl text-xl leading-relaxed">
+			<p class="md:text-2xl text-foreground/70 mx-auto mt-6 max-w-4xl text-xl leading-relaxed">
 				Search and analyze your full security history as if it were hot—without rehydration, moving
 				data, or managing search clusters.
 			</p>
