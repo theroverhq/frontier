@@ -188,7 +188,7 @@
 			/* Cylinder body sits at x 15..235 of a 250x400 viewBox. */
 			const cylR = rel(cylSvg);
 			const sx = cylR.w / 250;
-			const sy = cylR.h / 460;
+			const sy = cylR.h / 400;
 			const cylLeft = cylR.x + 15 * sx;
 			const cylRight = cylR.x + 235 * sx;
 			const cylMidY = cylR.y + 210 * sy;
@@ -436,7 +436,7 @@
 							: null;
 				};
 				on(hero, 'pointermove', ((e: PointerEvent) => {
-					const r = dia.getBoundingClientRect();
+					const r = dia.parentElement!.getBoundingClientRect();
 					tx = clamp(((e.clientX - r.left) / r.width - 0.5) * 6, -3, 3);
 					ty = clamp(((e.clientY - r.top) / r.height - 0.5) * 6, -3, 3);
 					if (raf === null) raf = requestAnimationFrame(tick);
@@ -519,13 +519,15 @@
 			</div>
 
 			<!-- Right: cold storage → hot intelligence -->
-			<div
-				bind:this={diagramEl}
-				id="hero-preview"
-				class="hd-diagram border-border bg-card relative min-h-0 overflow-visible rounded-2xl border px-[30px] pt-12 pb-10 shadow-2xl sm:min-h-[460px]"
-				class:is-focus={focused}
-				aria-label="Rover architecture: all security data into cold storage, hot intelligence out"
-			>
+			<div class="bend-persp relative">
+				<div
+					bind:this={diagramEl}
+					id="hero-preview"
+					class="bend hd-diagram border-border bg-card relative min-h-0 overflow-visible rounded-2xl border px-[30px] pt-12 pb-10 sm:min-h-[460px]"
+					style="box-shadow: 0 30px 80px rgba(0,0,0,.4), 0 0 60px rgba(200,241,53,.04);"
+					class:is-focus={focused}
+					aria-label="Rover architecture: all security data into cold storage, hot intelligence out"
+				>
 				<svg
 					bind:this={connSvg}
 					class="pointer-events-none absolute inset-0 z-1 overflow-visible max-sm:hidden"
@@ -562,24 +564,24 @@
 							class="hd-cyl relative mx-auto w-full max-w-[220px]"
 							class:is-lit={cylLit}
 						>
-							<svg viewBox="0 0 250 460" class="h-auto w-full overflow-visible" aria-hidden="true">
+							<svg viewBox="0 0 250 400" class="h-auto w-full overflow-visible" aria-hidden="true">
 								<defs>
 									<radialGradient id="heroCylGlow" cx="50%" cy="45%" r="60%">
 										<stop offset="0%" stop-color="var(--primary)" stop-opacity="0.07" />
 										<stop offset="100%" stop-color="var(--primary)" stop-opacity="0" />
 									</radialGradient>
 								</defs>
-								<path class="fill-background" d="M15 30 v400 a110 26 0 0 0 220 0 v-400 Z" />
+								<path class="fill-background" d="M15 30 v340 a110 26 0 0 0 220 0 v-340 Z" />
 								<rect
 									class="cyl-glow"
 									x="15"
 									y="30"
 									width="220"
-									height="426"
+									height="366"
 									fill="url(#heroCylGlow)"
 								/>
 								<ellipse class="cyl-stroke fill-card" cx="125" cy="30" rx="110" ry="26" />
-								<path class="cyl-stroke" fill="none" d="M15 30 v400 a110 26 0 0 0 220 0 v-400" />
+								<path class="cyl-stroke" fill="none" d="M15 30 v340 a110 26 0 0 0 220 0 v-340" />
 								<ellipse
 									class="cyl-stroke"
 									cx="125"
@@ -609,19 +611,19 @@
 								<text
 									class="fill-foreground text-[16px] font-medium"
 									x="125"
-									y="360"
+									y="348"
 									text-anchor="middle">Full-fidelity data</text
 								>
 								<text
 									class="fill-foreground text-[16px] font-medium"
 									x="125"
-									y="380"
+									y="366"
 									text-anchor="middle">+ Rover Index</text
 								>
 								<text
 									class="fill-muted-foreground text-[15px]"
 									x="125"
-									y="430"
+									y="396"
 									text-anchor="middle"
 									dominant-baseline="middle">Object Storage</text
 								>
@@ -677,6 +679,7 @@
 					Security<br />Platform
 				</div>
 			</div>
+			</div>
 		</div>
 	</div>
 </header>
@@ -684,6 +687,14 @@
 <style>
 	/* Subheading — the fill itself sweeps between the theme's ink and brand
 	   tokens; the glyphs never move. */
+	.bend-persp {
+		perspective: 1200px;
+		perspective-origin: 50% 20%;
+	}
+	.bend {
+		will-change: transform;
+		transform-style: preserve-3d;
+	}
 	.gradient-text {
 		background-image: linear-gradient(
 			100deg,
