@@ -95,7 +95,7 @@
 			>
 				<span class="text-primary">Keep years of data.</span> Not years of infrastructure.
 			</h2>
-			<p class="text-muted-foreground mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
+			<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
 				Traditional SIEM economics compound as searchable retention grows. Rover keeps data and
 				indexes in object storage and pays for compute only when queries run.
 			</p>
@@ -185,12 +185,12 @@
 				{#each items as item (item.k)}
 					<div class="mb-[34px] last:mb-0">
 						<div
-							class="text-muted-foreground text-[11px] font-semibold tracking-[0.11em] uppercase"
+							class=" text-[11px] font-semibold tracking-[0.11em] uppercase"
 						>
 							{item.k}
 						</div>
 						<h4 class="mt-2.5 text-[20px] font-bold tracking-[-0.015em]">{item.title}</h4>
-						<p class="text-muted-foreground mt-2.5 max-w-[400px] text-sm leading-[1.65]">
+						<p class=" mt-2.5 max-w-[400px] text-sm leading-[1.65]">
 							{item.body}
 						</p>
 					</div>
@@ -202,7 +202,7 @@
 			<div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
 				{#each proof as claim, i (claim)}
 					{#if i > 0}
-						<i class="text-muted-foreground/60 not-italic">·</i>
+						<i class="/60 not-italic">·</i>
 					{/if}
 					<span class="text-[13px] font-semibold tracking-[0.08em] uppercase">{claim}</span>
 				{/each}

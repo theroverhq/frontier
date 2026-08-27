@@ -273,7 +273,7 @@
 			>
 				Years of data. <span class="text-primary">Answers in seconds.</span>
 			</h2>
-			<p class="text-muted-foreground mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
+			<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
 				Search and analyze your full security history as if it were hot—without rehydration, moving
 				data, or managing search clusters.
 			</p>
@@ -285,7 +285,7 @@
 			<!-- Left: the claim, then what backs it -->
 			<div>
 				<h3 class="text-[24px] font-bold tracking-[-0.015em]">Years of history. One query.</h3>
-				<p class="text-muted-foreground mt-3.5 text-[15.5px] leading-[1.7]">
+				<p class=" mt-3.5 text-[15.5px] leading-[1.7]">
 					Search across cloud, identity, endpoint, network, SaaS, and application telemetry with no
 					distinction between "hot" and "archived" data.
 				</p>
@@ -304,7 +304,7 @@
 						</div>
 						<div>
 							<h4 class="text-[15.5px] font-semibold">{feature.title}</h4>
-							<p class="text-muted-foreground mt-1 text-[13.8px] leading-[1.6]">{feature.body}</p>
+							<p class=" mt-1 text-[13.8px] leading-[1.6]">{feature.body}</p>
 						</div>
 					</div>
 				{/each}
@@ -325,7 +325,7 @@
 					>
 						<circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" />
 					</svg>
-					<span class="text-muted-foreground text-[13.5px]">Search security data</span>
+					<span class=" text-[13.5px]">Search security data</span>
 					<span
 						class="border-border bg-muted ml-auto flex items-center gap-[7px] rounded-full border px-3 py-[5px] text-[11.5px]"
 					>
@@ -343,7 +343,7 @@
 				<div class="border-border border-b px-[18px] pt-4 pb-3.5 text-[12.5px] leading-[1.85]">
 					{#each codeLines as line, li (li)}
 						<div class="flex gap-3.5">
-							<span class="text-muted-foreground/60 w-2.5 shrink-0 text-right select-none"
+							<span class="/60 w-2.5 shrink-0 text-right select-none"
 								>{li + 1}</span
 							>
 							<span class="whitespace-pre">
@@ -361,7 +361,7 @@
 
 				<!-- Result meta -->
 				<div
-					class="text-muted-foreground border-border flex flex-wrap items-center gap-3 border-b px-[18px] py-3 text-[11.5px]"
+					class=" border-border flex flex-wrap items-center gap-3 border-b px-[18px] py-3 text-[11.5px]"
 				>
 					<span>2016 → 2026</span>
 					<span
@@ -385,7 +385,7 @@
 							Activity over 10 years
 						</span>
 						<span
-							class="text-muted-foreground text-[10.5px] font-semibold tracking-[0.1em] uppercase"
+							class=" text-[10.5px] font-semibold tracking-[0.1em] uppercase"
 							>Log scale</span
 						>
 					</div>
@@ -423,19 +423,19 @@
 									<span
 										class="bg-muted-foreground/70 seg block w-full"
 										style="height: {(h * 100 * 0.58).toFixed(1)}%; transition-delay: {250 +
-											i * 28}ms;"
+											i * 28}ms, 0ms;"
 										class:is-in={barsIn}
 									></span>
 									<span
 										class="bg-primary seg block w-full"
 										style="height: {(h * 100 * 0.27).toFixed(1)}%; transition-delay: {310 +
-											i * 28}ms;"
+											i * 28}ms, 0ms;"
 										class:is-in={barsIn}
 									></span>
 									<span
 										class="bg-chart-4 seg block w-full rounded-t-[1.5px]"
 										style="height: {(h * 100 * 0.15).toFixed(1)}%; transition-delay: {370 +
-											i * 28}ms;"
+											i * 28}ms, 0ms;"
 										class:is-in={barsIn}
 									></span>
 								</button>
@@ -457,21 +457,20 @@
 								style="left: {guideX}px;"
 							></div>
 							<div
-								class="border-primary/25 bg-muted pointer-events-none absolute bottom-[calc(100%+10px)] z-5 -translate-x-1/2 rounded-lg border px-3 py-2.5 text-[10.5px] leading-[1.75] whitespace-nowrap shadow-xl"
+								class="border-primary/25 bg-muted pointer-events-none absolute z-5 -translate-x-1/2 rounded-lg border px-3 py-2 text-[10.5px] leading-[1.6] whitespace-nowrap shadow-xl"
 								style="left: {Math.min(
 									Math.max(guideX, 70),
 									Math.max(70, (plotEl?.clientWidth ?? 0) - 70)
-								)}px;"
+								)}px; bottom: calc({Math.min(heights[hoverIdx] * 100, 52).toFixed(1)}% + 10px);"
 							>
 								<b class="text-primary font-semibold">{tip(hoverIdx).months} months searched</b><br
 								/>
-								{tip(hoverIdx).events}B events<br />
-								{tip(hoverIdx).secs} sec
+								{tip(hoverIdx).events}B events · {tip(hoverIdx).secs} sec
 							</div>
 						{/if}
 					</div>
 
-					<div class="text-muted-foreground flex justify-between px-0.5 pt-2 pb-1 text-[10px]">
+					<div class=" flex justify-between px-0.5 pt-2 pb-1 text-[10px]">
 						{#each [2016, 2018, 2020, 2022, 2024, 2026] as year (year)}<span>{year}</span>{/each}
 					</div>
 				</div>
@@ -479,7 +478,7 @@
 				<!-- Top talkers -->
 				<div class="px-[18px] pt-1.5 pb-4">
 					<div
-						class="text-muted-foreground border-border flex justify-between border-b py-2.5 text-[10px] font-bold tracking-[0.1em] uppercase"
+						class=" border-border flex justify-between border-b py-2.5 text-[10px] font-bold tracking-[0.1em] uppercase"
 					>
 						<span>Source IP</span><span>Count</span>
 					</div>
@@ -492,10 +491,10 @@
 								></span>
 								{row.ip}
 							</span>
-							<span class="text-muted-foreground text-[12.5px]">{fmt(rowCounts[i], 0, true)}</span>
+							<span class=" text-[12.5px]">{fmt(rowCounts[i], 0, true)}</span>
 						</div>
 					{/each}
-					<div class="text-muted-foreground pt-2.5 text-[13px]">…</div>
+					<div class=" pt-2.5 text-[13px]">…</div>
 				</div>
 			</div>
 		</div>
@@ -519,9 +518,8 @@
 			transform 0.7s cubic-bezier(0.22, 0.61, 0.2, 1),
 			filter 0.25s ease;
 	}
-	.bar:hover .seg,
-	.bar.is-hot .seg,
-	.bar.is-hover .seg {
+	.bar.is-hover .seg,
+	.bar.is-hot .seg {
 		filter: brightness(1.35);
 	}
 	/* Everything off the hovered column recedes. */

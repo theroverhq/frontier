@@ -64,7 +64,7 @@
 			Bring the data your SIEM<br /><span class="text-primary">can't afford to keep.</span>
 		</h2>
 
-		<p class="text-muted-foreground mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
+		<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
 			Join Rover Early Access and make high-volume security telemetry searchable for years—not days.
 			Start with DNS, network flows, cloud audit, raw endpoint telemetry, or anything you archive
 			today because it's too expensive to index.
@@ -100,7 +100,7 @@
 					? 0
 					: 20}px); transition-delay: 120ms;"
 			>
-				<div class="text-muted-foreground text-[13px] font-semibold tracking-[0.05em]">
+				<div class=" text-[13px] font-semibold tracking-[0.05em]">
 					A good fit if you:
 				</div>
 				<div class="mt-4 flex flex-wrap justify-center gap-3">

@@ -27,7 +27,7 @@
 		>
 			<img src="/rover-logo.png" alt="Rover Logo" class="h-5 w-auto" />
 			<span
-				class="text-foreground text-2xl leading-none tracking-widest"
+				class="text-foreground text-2xl leading-none tracking-[0px]"
 				style="font-family: 'Mitr', sans-serif;"
 			>
 				ROVER
@@ -74,14 +74,6 @@
 		</div>
 
 		<div class="flex items-center gap-4">
-			<Button
-				variant="ghost"
-				size="sm"
-				href="{$page.url.pathname === '/' ? '' : '/'}#hero-preview"
-				class="hidden text-xs font-semibold text-zinc-300 hover:bg-zinc-800 hover:text-white md:flex"
-			>
-				See Rover in Action
-			</Button>
 			<Button
 				size="sm"
 				href="{$page.url.pathname === '/' ? '' : '/'}#early-access"

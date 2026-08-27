@@ -189,7 +189,7 @@
 			>
 				Search it. Analyze it.<br />Detect on it.
 			</h2>
-			<p class="text-muted-foreground mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
+			<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
 				Rover makes high-volume security telemetry economically searchable and usable—from network
 				flows and DNS to raw endpoint and cloud activity.
 			</p>
@@ -202,12 +202,12 @@
 			>
 				<div class="flex flex-1 flex-col p-[30px] pb-7">
 					<div class="flex gap-2.5 text-[11px] font-bold tracking-[0.1em] uppercase">
-						<b class="text-muted-foreground">01</b> Search · VPC Flow Logs
+						<b class="">01</b> Search · VPC Flow Logs
 					</div>
 					<h3 class="mt-3.5 text-[22.5px] leading-[1.25] font-bold tracking-[-0.02em]">
 						Find the connection everyone else discarded.
 					</h3>
-					<p class="text-muted-foreground mt-3 text-[14.5px] leading-[1.68]">
+					<p class=" mt-3 text-[14.5px] leading-[1.68]">
 						Search the telemetry your SIEM made too expensive to keep. Explore massive volumes of
 						full-fidelity network flow logs without sampling or archiving.
 					</p>
@@ -236,7 +236,7 @@
 							<div class="border-border mt-4 mb-3 border-t"></div>
 
 							<div
-								class="text-muted-foreground flex items-center gap-2.5 text-xs transition-opacity duration-500"
+								class=" flex items-center gap-2.5 text-xs transition-opacity duration-500"
 								style="opacity: {resIn ? 1 : 0};"
 							>
 								<span
@@ -249,7 +249,7 @@
 					</div>
 				</div>
 				<div
-					class="border-border bg-muted/50 text-muted-foreground border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
+					class="border-border bg-muted/50  border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
 				>
 					Full-fidelity network flow data, searchable for years.
 				</div>
@@ -261,12 +261,12 @@
 			>
 				<div class="flex flex-1 flex-col p-[30px] pb-7">
 					<div class="flex gap-2.5 text-[11px] font-bold tracking-[0.1em] uppercase">
-						<b class="text-muted-foreground">02</b> Analytics · DNS Logs
+						<b class="">02</b> Analytics · DNS Logs
 					</div>
 					<h3 class="mt-3.5 text-[22.5px] leading-[1.25] font-bold tracking-[-0.02em]">
 						Find the signal buried in billions of DNS queries.
 					</h3>
-					<p class="text-muted-foreground mt-3 text-[14.5px] leading-[1.68]">
+					<p class=" mt-3 text-[14.5px] leading-[1.68]">
 						Aggregate and visualize noisy, high-volume telemetry natively. Filter, group, and
 						calculate directly on the data without exporting it.
 					</p>
@@ -275,7 +275,7 @@
 						<div class="relative pb-3.5" bind:this={dnsEl}>
 							<!-- Query underneath, results lifted over it -->
 							<div
-								class="dark bg-background text-muted-foreground h-[118px] overflow-hidden rounded-xl px-[22px] py-5 text-[12.5px]"
+								class="dark bg-background  h-[118px] overflow-hidden rounded-xl px-[22px] py-5 text-[12.5px]"
 							>
 								source=<span class="text-primary opacity-60">dns</span> | rare query_name<br />
 								&nbsp;&nbsp;over <span class="text-primary opacity-60">12 months</span>
@@ -286,7 +286,7 @@
 								<div
 									class="border-border flex justify-between border-b px-5 py-3 text-[10.5px] font-bold tracking-[0.1em] uppercase"
 								>
-									<span>Query Name</span><span class="text-muted-foreground">Distinct IPs</span>
+									<span>Query Name</span><span class="">Distinct IPs</span>
 								</div>
 								{#each dnsRows as row, i (row.name)}
 									<div
@@ -307,7 +307,7 @@
 					</div>
 				</div>
 				<div
-					class="border-border bg-muted/50 text-muted-foreground border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
+					class="border-border bg-muted/50  border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
 				>
 					Rare domains observed across the last 12 months.
 				</div>
@@ -319,12 +319,12 @@
 			>
 				<div class="flex flex-1 flex-col p-[30px] pb-7">
 					<div class="flex gap-2.5 text-[11px] font-bold tracking-[0.1em] uppercase">
-						<b class="text-muted-foreground">03</b> Detect · CloudTrail Data Events
+						<b class="">03</b> Detect · CloudTrail Data Events
 					</div>
 					<h3 class="mt-3.5 text-[22.5px] leading-[1.25] font-bold tracking-[-0.02em]">
 						Detect on the data you used to archive.
 					</h3>
-					<p class="text-muted-foreground mt-3 text-[14.5px] leading-[1.68]">
+					<p class=" mt-3 text-[14.5px] leading-[1.68]">
 						Keep object-level cloud activity available for detection and historical investigation
 						instead of choosing between coverage and cost.
 					</p>
@@ -347,7 +347,7 @@
 							>
 								<div>
 									<div
-										class="text-muted-foreground text-[10px] font-bold tracking-[0.1em] uppercase"
+										class=" text-[10px] font-bold tracking-[0.1em] uppercase"
 									>
 										Bucket
 									</div>
@@ -355,7 +355,7 @@
 								</div>
 								<div>
 									<div
-										class="text-muted-foreground text-[10px] font-bold tracking-[0.1em] uppercase"
+										class=" text-[10px] font-bold tracking-[0.1em] uppercase"
 									>
 										Principal
 									</div>
@@ -364,7 +364,7 @@
 							</div>
 						</div>
 						<div
-							class="border-border text-muted-foreground group-hover:border-foreground/20 mt-3.5 flex items-center justify-center gap-2.5 rounded-[10px] border px-[18px] py-3.5 text-[12.5px] transition-all duration-300 group-hover:shadow-[0_8px_22px_-10px_rgba(0,0,0,0.15)]"
+							class="border-border  group-hover:border-foreground/20 mt-3.5 flex items-center justify-center gap-2.5 rounded-[10px] border px-[18px] py-3.5 text-[12.5px] transition-all duration-300 group-hover:shadow-[0_8px_22px_-10px_rgba(0,0,0,0.15)]"
 						>
 							<b class="text-foreground text-[11.5px] font-bold tracking-[0.09em] uppercase"
 								>Investigate</b
@@ -375,7 +375,7 @@
 					</div>
 				</div>
 				<div
-					class="border-border bg-muted/50 text-muted-foreground border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
+					class="border-border bg-muted/50  border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
 				>
 					High-volume telemetry · S3 data events · Unsampled
 				</div>
@@ -387,12 +387,12 @@
 			>
 				<div class="flex flex-1 flex-col p-[30px] pb-7">
 					<div class="flex gap-2.5 text-[11px] font-bold tracking-[0.1em] uppercase">
-						<b class="text-muted-foreground">04</b> AI SOC · Raw EDR Telemetry
+						<b class="">04</b> AI SOC · Raw EDR Telemetry
 					</div>
 					<h3 class="mt-3.5 text-[22.5px] leading-[1.25] font-bold tracking-[-0.02em]">
 						Give your AI SOC years of memory.
 					</h3>
-					<p class="text-muted-foreground mt-3 text-[14.5px] leading-[1.68]">
+					<p class=" mt-3 text-[14.5px] leading-[1.68]">
 						The agent can investigate data traditional SIEM economics prevented you from
 						retaining—correlating years of raw EDR telemetry in seconds.
 					</p>
@@ -422,7 +422,7 @@
 							<div class="pt-2">
 								{#each aiSteps as step, i (step)}
 									<div
-										class="text-muted-foreground flex items-center gap-3 py-[7.5px] text-[12.8px] transition-all duration-500"
+										class=" flex items-center gap-3 py-[7.5px] text-[12.8px] transition-all duration-500"
 										style="opacity: {stepsIn ? 1 : 0}; transform: translateX({stepsIn
 											? 0
 											: -8}px); transition-delay: {i * 280}ms;"
@@ -453,7 +453,7 @@
 					</div>
 				</div>
 				<div
-					class="border-border bg-muted/50 text-muted-foreground border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
+					class="border-border bg-muted/50  border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
 				>
 					Raw EDR telemetry · Process executions · Process trees
 				</div>
@@ -483,7 +483,7 @@
 				<h4 class="text-primary text-sm font-bold tracking-[0.09em] uppercase">
 					One Full-Fidelity Security Dataset
 				</h4>
-				<p class="text-muted-foreground mt-2 text-[11px] font-medium tracking-[0.09em] uppercase">
+				<p class=" mt-2 text-[11px] font-medium tracking-[0.09em] uppercase">
 					Search, analytics, detections, and AI operate on the same full-fidelity security history.
 				</p>
 			</div>

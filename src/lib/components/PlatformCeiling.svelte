@@ -122,7 +122,7 @@
 			>
 				Security is where Rover starts.
 			</h2>
-			<p class="text-muted-foreground mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
+			<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
 				Rover is powered by a serverless search and analytics engine built for massive event
 				streams. The same object-native architecture that makes years of security data searchable
 				can extend to observability, audit, and other high-volume machine-data workloads.
@@ -149,7 +149,7 @@
 						></i>
 						{domain.title}
 					</h4>
-					<p class="text-muted-foreground mt-3 text-[13.5px] leading-[1.65]">{domain.body}</p>
+					<p class=" mt-3 text-[13.5px] leading-[1.65]">{domain.body}</p>
 				</article>
 			{/each}
 		</div>
@@ -192,11 +192,11 @@
 		>
 			<h3 class="text-[19.5px] font-bold tracking-[-0.01em]">Rover Engine</h3>
 			<p
-				class="text-muted-foreground mt-3 flex flex-wrap justify-center gap-x-3 gap-y-1 text-[13.5px]"
+				class=" mt-3 flex flex-wrap justify-center gap-x-3 gap-y-1 text-[13.5px]"
 			>
 				{#each engineTraits as trait, i (trait)}
 					{#if i > 0}
-						<i class="text-muted-foreground/60 not-italic">•</i>
+						<i class="/60 not-italic">•</i>
 					{/if}
 					<span>{trait}</span>
 				{/each}

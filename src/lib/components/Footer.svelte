@@ -36,7 +36,7 @@
 						style="font-family: 'Mitr', sans-serif;">ROVER</span
 					>
 				</a>
-				<div class="text-muted-foreground mt-3.5 text-[13.5px]">
+				<div class=" mt-3.5 text-[13.5px]">
 					Cold Storage. <span class="text-primary">Hot Intelligence.</span>
 				</div>
 				<a
@@ -56,7 +56,7 @@
 			</div>
 
 			<div>
-				<h5 class="text-muted-foreground mb-4 text-[13px] font-semibold">Product</h5>
+				<h5 class=" mb-4 text-[13px] font-semibold">Product</h5>
 				{#each product as item (item.label)}
 					<a
 						href="{home}{item.hash}"
@@ -67,7 +67,7 @@
 			</div>
 
 			<div>
-				<h5 class="text-muted-foreground mb-4 text-[13px] font-semibold">Company</h5>
+				<h5 class=" mb-4 text-[13px] font-semibold">Company</h5>
 				<a
 					href="/blogs/"
 					class="text-foreground/80 hover:text-primary block py-1.5 text-[13.5px] transition-colors"
@@ -86,7 +86,7 @@
 			</div>
 
 			<div>
-				<h5 class="text-muted-foreground mb-4 text-[13px] font-semibold">Legal</h5>
+				<h5 class=" mb-4 text-[13px] font-semibold">Legal</h5>
 				<a
 					href="/privacy/"
 					class="text-foreground/80 hover:text-primary block py-1.5 text-[13.5px] transition-colors"
@@ -110,7 +110,7 @@
 		</div>
 
 		<div
-			class="border-border text-muted-foreground relative z-2 flex flex-wrap items-center justify-between gap-4 border-t pt-5 pb-6 text-[12.5px]"
+			class="border-border  relative z-2 flex flex-wrap items-center justify-between gap-4 border-t pt-5 pb-6 text-[12.5px]"
 		>
 			<span>&copy; 2026 Rover HQ Inc. All rights reserved.</span>
 			<div class="flex items-center gap-5">

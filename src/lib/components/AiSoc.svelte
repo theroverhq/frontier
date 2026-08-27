@@ -193,7 +193,7 @@
 			>
 				The attack started before the alert did.
 			</h2>
-			<p class="text-muted-foreground mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
+			<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
 				Security incidents don't begin when the alert fires. Rover gives AI agents years of
 				searchable security history to reconstruct the attack, correlate activity across systems,
 				and investigate with the same search and analytics available to human analysts.
@@ -207,7 +207,7 @@
 			<!-- Evidence, oldest at the top -->
 			<div class="border-border border-b px-9 pt-[34px] pb-10 lg:border-r lg:border-b-0">
 				<div
-					class="border-border bg-card text-muted-foreground rounded-[10px] border px-[18px] py-3.5 text-xs font-semibold tracking-[0.11em] uppercase transition-opacity duration-500"
+					class="border-border bg-card  rounded-[10px] border px-[18px] py-3.5 text-xs font-semibold tracking-[0.11em] uppercase transition-opacity duration-500"
 					style="opacity: {searchIn ? 1 : 0};"
 				>
 					Searched 3 Years Of Security History
@@ -228,16 +228,16 @@
 								class="bg-primary absolute top-1 -left-[26px] h-2.5 w-2.5 rounded-full shadow-[0_0_10px_color-mix(in_oklab,var(--primary)_55%,transparent)]"
 							></span>
 							<div
-								class="text-muted-foreground text-[10.5px] font-bold tracking-[0.11em] uppercase"
+								class=" text-[10.5px] font-bold tracking-[0.11em] uppercase"
 							>
 								{ev.src}<small
-									class="text-muted-foreground/80 ml-2.5 text-[11px] font-medium tracking-[0.04em] normal-case"
+									class="/80 ml-2.5 text-[11px] font-medium tracking-[0.04em] normal-case"
 									>{ev.when}</small
 								>
 							</div>
 							<h4 class="mt-[7px] text-base font-semibold tracking-[-0.01em]">{ev.title}</h4>
 							{#if ev.sub}
-								<div class="text-muted-foreground/80 mt-[5px] text-[11.5px]">{ev.sub}</div>
+								<div class="/80 mt-[5px] text-[11.5px]">{ev.sub}</div>
 							{/if}
 						</div>
 					{/each}
@@ -255,7 +255,7 @@
 
 			<!-- What the agent concluded -->
 			<div class="flex flex-col px-9 pt-[34px] pb-10">
-				<div class="text-muted-foreground text-xs leading-[1.8] font-semibold">
+				<div class=" text-xs leading-[1.8] font-semibold">
 					11 Months of Activity Correlated<br />Rover AI Investigation
 				</div>
 				<h3
@@ -287,9 +287,9 @@
 							class="border-border flex items-baseline gap-3 border-t py-3 text-[13px] transition-all duration-500 ease-out"
 							style="opacity: {rowIn[i] ? 1 : 0}; transform: translateY({rowIn[i] ? 0 : 8}px);"
 						>
-							<span class="text-muted-foreground/70 text-[11.5px]">{row.n}</span>
-							<span class="text-muted-foreground">{row.t}</span>
-							<span class="text-muted-foreground/80 ml-auto text-xs">{row.d}</span>
+							<span class="/70 text-[11.5px]">{row.n}</span>
+							<span class="">{row.t}</span>
+							<span class="/80 ml-auto text-xs">{row.d}</span>
 						</div>
 					{/each}
 
@@ -298,10 +298,10 @@
 						style="opacity: {rowIn[4] ? 1 : 0}; transform: translateY({rowIn[4] ? 0 : 8}px);"
 					>
 						<div class="flex items-baseline gap-3">
-							<span class="text-muted-foreground/70 text-[11.5px]">05</span>
+							<span class="/70 text-[11.5px]">05</span>
 							<span class="font-semibold">Today's alert</span>
 						</div>
-						<div class="text-muted-foreground/80 mt-[5px] text-[11px]">
+						<div class="/80 mt-[5px] text-[11px]">
 							Traced to activity first observed 11 months ago
 						</div>
 					</div>
@@ -379,9 +379,9 @@
 					</div>
 					<div>
 						<h4 class="text-[15px] font-semibold">
-							<b class="text-muted-foreground mr-1.5 font-semibold">{step.n}</b>{step.title}
+							<b class=" mr-1.5 font-semibold">{step.n}</b>{step.title}
 						</h4>
-						<p class="text-muted-foreground mt-1 text-[11.5px]">{step.body}</p>
+						<p class=" mt-1 text-[11.5px]">{step.body}</p>
 					</div>
 					{#if i < steps.length - 1}
 						<span
@@ -404,7 +404,7 @@
 				<span class="bg-muted-foreground/50 hidden h-[9px] w-[9px] shrink-0 rounded-full sm:block"
 				></span>
 				<span
-					class="text-muted-foreground absolute left-0 hidden text-[13px] font-medium sm:block"
+					class=" absolute left-0 hidden text-[13px] font-medium sm:block"
 					style="top: calc(50% + 18px);">Day 0</span
 				>
 
@@ -468,7 +468,7 @@
 							class="text-[17px] font-medium tracking-normal">days</small
 						>
 					</div>
-					<p class="text-muted-foreground mt-3 max-w-[200px] text-[13.5px] leading-[1.55]">
+					<p class=" mt-3 max-w-[200px] text-[13.5px] leading-[1.55]">
 						Average breach lifecycle to
 						<mark class="bg-primary text-primary-foreground px-1.5 py-px font-semibold"
 							>identify and contain.</mark
@@ -477,7 +477,7 @@
 				</div>
 
 				<span
-					class="text-muted-foreground absolute right-0 hidden text-[13px] font-medium sm:block"
+					class=" absolute right-0 hidden text-[13px] font-medium sm:block"
 					style="top: calc(50% + 18px);">Day 241</span
 				>
 				<span
@@ -485,10 +485,10 @@
 				></span>
 			</div>
 
-			<div class="text-muted-foreground mt-10 text-center text-sm">
+			<div class=" mt-10 text-center text-sm">
 				When investigations span months, AI needs more than a short hot-data window.
 			</div>
-			<div class="text-muted-foreground/80 mt-11 text-center text-xs">
+			<div class="/80 mt-11 text-center text-xs">
 				Source:
 				<a
 					href="https://www.ibm.com/think/x-force/2025-cost-of-a-data-breach-navigating-ai"

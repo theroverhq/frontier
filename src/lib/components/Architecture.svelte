@@ -359,7 +359,7 @@
 			>
 				Search is bursty. Detection is continuous.<br />Rover is built for both.
 			</h2>
-			<p class="text-muted-foreground mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
+			<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
 				Rover accepts security telemetry through HTTP pull, HTTP push, or direct S3 drop. It writes
 				the Rover Index beside the data in customer-owned Object Storage and updates Signal Mesh—a
 				state machine designed for continuous detection queries.
@@ -392,7 +392,7 @@
 									</span>
 								{/if}
 								<h4 class="text-[16.5px] font-semibold tracking-[-0.01em]">{box.title}</h4>
-								<p class="text-muted-foreground mt-[7px] text-[12.5px] leading-[1.55]">
+								<p class=" mt-[7px] text-[12.5px] leading-[1.55]">
 									{box.body}
 								</p>
 							</div>
@@ -411,10 +411,10 @@
 					>
 						<h4 class="text-[16.5px] font-semibold tracking-[-0.01em]">Rover Reader + Indexer</h4>
 						<div class="text-primary mt-2 text-[12.5px] font-semibold">Schema-on-read</div>
-						<p class="text-muted-foreground mt-2.5 text-[12.5px] leading-[1.55]">
+						<p class=" mt-2.5 text-[12.5px] leading-[1.55]">
 							No upfront schema engineering
 						</p>
-						<p class="text-muted-foreground mt-1 text-[12.5px] leading-[1.55]">
+						<p class=" mt-1 text-[12.5px] leading-[1.55]">
 							Go live in hours, not weeks
 						</p>
 					</div>
@@ -436,13 +436,13 @@
 						</svg>
 						{#each branchLabels as br (br.x)}
 							<span
-								class="text-muted-foreground absolute bottom-0 -translate-x-1/2 text-center text-[9.5px] leading-[1.6] font-semibold tracking-[0.11em] uppercase"
+								class=" absolute bottom-0 -translate-x-1/2 text-center text-[9.5px] leading-[1.6] font-semibold tracking-[0.11em] uppercase"
 								style="left: {br.x}%;"
 							>
 								{br.label}
 								{#if br.note}
 									<small
-										class="text-muted-foreground/70 block text-[9px] font-normal tracking-[0.04em] normal-case"
+										class="/70 block text-[9px] font-normal tracking-[0.04em] normal-case"
 										>{br.note}</small
 									>
 								{/if}
@@ -460,14 +460,14 @@
 						Index where the data lives.
 					</h3>
 					<p
-						class="text-muted-foreground mx-auto mt-3 max-w-[420px] text-center text-[13.5px] leading-[1.65]"
+						class=" mx-auto mt-3 max-w-[420px] text-center text-[13.5px] leading-[1.65]"
 					>
 						Rover writes its inverted indexes directly alongside security data in customer-owned
 						object storage.
 					</p>
 
 					<div
-						class="text-muted-foreground mt-7 text-center text-[9.5px] font-semibold tracking-[0.13em] uppercase"
+						class=" mt-7 text-center text-[9.5px] font-semibold tracking-[0.13em] uppercase"
 					>
 						Customer-Owned Object Storage
 					</div>
@@ -481,7 +481,7 @@
 							<ul class="mt-3">
 								{#each securityData as item (item)}
 									<li
-										class="text-muted-foreground flex items-center gap-2 py-[3.5px] text-[11.5px]"
+										class=" flex items-center gap-2 py-[3.5px] text-[11.5px]"
 									>
 										<span class="bg-muted-foreground/60 h-[3px] w-[3px] shrink-0 rounded-full"
 										></span>
@@ -491,7 +491,7 @@
 							</ul>
 						</div>
 
-						<div class="text-muted-foreground self-center text-center text-[19px]">+</div>
+						<div class=" self-center text-center text-[19px]">+</div>
 
 						<div class="border-border bg-card rounded-[11px] border px-[18px] py-4">
 							<div class="text-[10px] font-bold tracking-[0.11em] uppercase">Rover Index</div>
@@ -501,7 +501,7 @@
 										<div class="bg-muted-foreground/40 ml-11 h-2.5 w-px"></div>
 									{/if}
 									<div class="flex items-center gap-2.5 py-[5px]">
-										<span class="text-muted-foreground w-4 text-[10px]">{lvl.level}</span>
+										<span class=" w-4 text-[10px]">{lvl.level}</span>
 										{#each lvl.segs as w, si (si)}
 											<span
 												class="bg-primary h-2 origin-left rounded-[2px] transition-transform duration-500 ease-out"
@@ -513,7 +513,7 @@
 									</div>
 								{/each}
 							</div>
-							<div class="text-muted-foreground mt-3 text-[9.5px] tracking-[0.03em]">
+							<div class=" mt-3 text-[9.5px] tracking-[0.03em]">
 								Object-storage-native LSM
 							</div>
 						</div>
@@ -526,7 +526,7 @@
 
 					<div class="flex flex-col items-center">
 						<span
-							class="text-muted-foreground text-[10px] font-semibold tracking-[0.13em] uppercase"
+							class=" text-[10px] font-semibold tracking-[0.13em] uppercase"
 						>
 							Detection Query / Rule
 						</span>
@@ -537,7 +537,7 @@
 
 						<div bind:this={meshEl} class="abox max-w-[360px] p-[26px]" class:is-lit={meshLit}>
 							<h4 class="text-primary text-[21px] font-semibold">Signal Mesh</h4>
-							<p class="text-muted-foreground mt-[7px] text-[12.5px]">Detection state machine</p>
+							<p class=" mt-[7px] text-[12.5px]">Detection state machine</p>
 						</div>
 
 						<div class="aconn">
@@ -571,7 +571,7 @@
 						</div>
 
 						<div
-							class="text-muted-foreground flex min-h-[120px] items-center justify-center gap-2.5 self-stretch text-[9.5px] font-semibold tracking-[0.13em] uppercase"
+							class=" flex min-h-[120px] items-center justify-center gap-2.5 self-stretch text-[9.5px] font-semibold tracking-[0.13em] uppercase"
 						>
 							<span
 								class="border-border/80 hidden max-w-[60px] flex-1 border-t border-dashed lg:block"
@@ -592,7 +592,7 @@
 							<div bind:this={cosEl} class="abox w-full px-5 pt-[22px] pb-4" class:is-lit={cosLit}>
 								<h4 class="text-[16.5px] font-semibold">Customer Object Storage</h4>
 								<div
-									class="text-muted-foreground mt-2 text-[9.5px] font-semibold tracking-[0.13em] uppercase"
+									class=" mt-2 text-[9.5px] font-semibold tracking-[0.13em] uppercase"
 								>
 									Rover Index
 								</div>
@@ -629,7 +629,7 @@
 							<div class="flex flex-col items-center">
 								<span class="vline h-[30px]"></span>
 								<span
-									class="text-muted-foreground mt-2 text-center text-[9.5px] leading-[1.6] font-semibold tracking-[0.12em] uppercase"
+									class=" mt-2 text-center text-[9.5px] leading-[1.6] font-semibold tracking-[0.12em] uppercase"
 								>
 									{@html label}
 								</span>
@@ -843,7 +843,7 @@
 					</div>
 
 					<div
-						class="border-border bg-muted/50 text-muted-foreground border-t px-[26px] py-3.5 text-[10.5px] font-semibold tracking-[0.09em] uppercase"
+						class="border-border bg-muted/50  border-t px-[26px] py-3.5 text-[10.5px] font-semibold tracking-[0.09em] uppercase"
 					>
 						{card.foot}
 					</div>

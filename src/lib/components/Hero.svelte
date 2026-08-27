@@ -3,8 +3,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
 
-	const headlineLines = ['The SIEM built for', 'infinite retention.'];
-	const headlineLabel = headlineLines.join(' ');
+	const waveText = 'Cold Storage. Hot Intelligence.';
 
 	const sources = ['Cloud', 'Identity', 'Endpoint', 'Network', 'SaaS', 'Logs'];
 
@@ -35,7 +34,6 @@
 	];
 
 	let heroEl: HTMLElement | undefined = $state();
-	let headlineEl: HTMLHeadingElement | undefined = $state();
 	let diagramEl: HTMLDivElement | undefined = $state();
 	let connSvg: SVGSVGElement | undefined = $state();
 	let cylEl: HTMLDivElement | undefined = $state();
@@ -59,104 +57,9 @@
 		const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 		const touch = matchMedia('(hover: none)').matches;
 		const tablet = matchMedia('(max-width: 1024px)').matches;
-		const stops = [initHeadline(reduced, touch), initDiagram(reduced, touch, tablet)];
+		const stops = [initDiagram(reduced, touch, tablet)];
 		return () => stops.forEach((stop) => stop());
 	});
-
-	/* ------------------------------------------------------------------
-	   Headline — token-mixed colour ramp plus an idle wave that bends
-	   toward the cursor.
-	   ------------------------------------------------------------------ */
-	function initHeadline(reduced: boolean, touch: boolean) {
-		const h1 = headlineEl;
-		const hero = heroEl;
-		if (!h1 || !hero) return () => {};
-
-		const chars = Array.from(h1.querySelectorAll<HTMLSpanElement>('.ch'));
-		let rects: DOMRect[] = [];
-		let measure = () => {};
-
-		const paint = () => {
-			const hr = h1.getBoundingClientRect();
-			if (!hr.width) return;
-			for (const ch of chars) {
-				const r = ch.getBoundingClientRect();
-				const t = clamp(((r.left + r.width / 2 - hr.left) / hr.width - 0.46) / 0.34, 0, 1);
-				const e = t * t * (3 - 2 * t);
-				ch.style.color = `color-mix(in oklab, var(--primary) ${(e * 100).toFixed(1)}%, var(--foreground))`;
-			}
-		};
-
-		const onResize = () => {
-			paint();
-			measure();
-		};
-
-		paint();
-		document.fonts?.ready.then(paint);
-		addEventListener('resize', onResize);
-		if (reduced || touch) return () => removeEventListener('resize', onResize);
-
-		const springs = chars.map(() => ({ y: 0, vy: 0, r: 0, vr: 0 }));
-		measure = () => {
-			rects = chars.map((c) => c.getBoundingClientRect());
-		};
-		measure();
-
-		let mx = -9999;
-		let my = -9999;
-		let inside = false;
-		const onMove = (e: PointerEvent) => {
-			mx = e.clientX;
-			my = e.clientY;
-			inside = true;
-		};
-		const onLeave = () => {
-			inside = false;
-		};
-		hero.addEventListener('pointermove', onMove);
-		hero.addEventListener('pointerleave', onLeave);
-		addEventListener('scroll', measure, { passive: true });
-
-		const SIGMA = 78;
-		const t0 = performance.now();
-		let raf = 0;
-
-		const frame = (now: number) => {
-			const t = (now - t0) / 1000;
-			for (let i = 0; i < chars.length; i++) {
-				const r = rects[i];
-				if (!r) continue;
-				const cx = r.left + r.width / 2;
-				const cy = r.top + r.height / 2;
-				let targetY = Math.sin(t * 0.55 + cx * 0.011 + Math.sin(t * 0.21 + i * 0.6) * 0.6) * 1.4;
-				let targetR = Math.sin(t * 0.4 + i * 0.45) * 0.25;
-				if (inside) {
-					const dx = mx - cx;
-					const dy = my - cy;
-					const inf = Math.exp(-(dx * dx + dy * dy) / (2 * SIGMA * SIGMA));
-					targetY += inf * clamp(dy * 0.22, -13, 13);
-					targetR += inf * clamp(dx * 0.05, -4, 4);
-				}
-				const p = springs[i];
-				p.vy = (p.vy + (targetY - p.y) * 0.11) * 0.82;
-				p.y += p.vy;
-				p.vr = (p.vr + (targetR - p.r) * 0.11) * 0.82;
-				p.r += p.vr;
-				chars[i].style.transform = `translateY(${p.y.toFixed(2)}px) rotate(${p.r.toFixed(2)}deg)`;
-			}
-			raf = requestAnimationFrame(frame);
-		};
-		raf = requestAnimationFrame(frame);
-
-		return () => {
-			cancelAnimationFrame(raf);
-			removeEventListener('resize', onResize);
-			removeEventListener('scroll', measure);
-			hero.removeEventListener('pointermove', onMove);
-			hero.removeEventListener('pointerleave', onLeave);
-		};
-	}
 
 	/* ------------------------------------------------------------------
 	   Architecture diagram — connectors measured from the live layout,
@@ -285,7 +188,7 @@
 			/* Cylinder body sits at x 15..235 of a 250x400 viewBox. */
 			const cylR = rel(cylSvg);
 			const sx = cylR.w / 250;
-			const sy = cylR.h / 400;
+			const sy = cylR.h / 460;
 			const cylLeft = cylR.x + 15 * sx;
 			const cylRight = cylR.x + 235 * sx;
 			const cylMidY = cylR.y + 210 * sy;
@@ -576,39 +479,33 @@
 			<div>
 				<Badge variant="secondary" class="gap-1.5 px-3 py-1 font-sans">
 					<span class="bg-primary inline-block h-2 w-2 animate-pulse rounded-full"></span>
-					SIEM <span class="text-muted-foreground opacity-50">•</span>
-					Search <span class="text-muted-foreground opacity-50">•</span>
-					Analytics <span class="text-muted-foreground opacity-50">•</span>
+					SIEM <span class=" opacity-50">•</span>
+					Search <span class=" opacity-50">•</span>
+					Analytics <span class=" opacity-50">•</span>
 					AI SOC
 				</Badge>
 
 				<h1
-					bind:this={headlineEl}
-					aria-label={headlineLabel}
-					class="mt-6 text-[clamp(2.125rem,4.4vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.028em]"
+					class="text-foreground mt-6 text-[clamp(2.125rem,4.4vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.028em]"
 				>
-					{#each headlineLines as line (line)}
-						<span class="block whitespace-nowrap" aria-hidden="true">
-							{#each line.split('') as char, i (i)}<span class="ch">{char}</span>{/each}
-						</span>
-					{/each}
+					<span class="block whitespace-nowrap">The SIEM built for</span>
+					<span class="block whitespace-nowrap">infinite retention.</span>
 				</h1>
 
-				<p class="mt-[18px] text-[clamp(1.25rem,2vw,1.5625rem)] font-medium tracking-[-0.012em]">
-					Cold Storage. Hot Intelligence.
+				<p
+					class="gradient-text mt-[18px] text-[clamp(1.25rem,2vw,1.5625rem)] font-medium tracking-[-0.012em]"
+				>
+					{waveText}
 				</p>
 
-				<p class="text-muted-foreground mt-5 max-w-[470px] text-base leading-[1.72]">
+				<p class=" mt-5 max-w-[470px] text-base leading-[1.72]">
 					Rover keeps every security event in low-cost object storage and makes years of data
 					searchable in seconds. Run detections and analytics across everything you retain, and give
 					analysts and AI agents years of context for every investigation—without search clusters.
 				</p>
 
-				<div class="mt-8 flex flex-wrap items-center gap-3">
-					<Button size="lg" href="#early-access" class="rounded-full">Book a Demo</Button>
-					<Button variant="outline" size="lg" href="#hero-preview" class="rounded-full">
-						See Rover in Action
-					</Button>
+				<div class="mt-8">
+					<Button size="lg" href="#early-access" class="rounded-full uppercase">Book a Demo</Button>
 				</div>
 
 				<div class="mt-11 grid grid-cols-1 gap-x-11 gap-y-3 sm:grid-cols-2">
@@ -655,9 +552,7 @@
 								</div>
 							{/each}
 						</div>
-						<div class="text-muted-foreground mt-1.5 text-center text-xs italic">
-							Keep everything
-						</div>
+						<div class=" mt-1.5 text-center text-xs italic">Keep everything</div>
 					</div>
 
 					<!-- Cold storage -->
@@ -667,28 +562,28 @@
 							class="hd-cyl relative mx-auto w-full max-w-[220px]"
 							class:is-lit={cylLit}
 						>
-							<svg viewBox="0 0 250 400" class="h-auto w-full overflow-visible" aria-hidden="true">
+							<svg viewBox="0 0 250 460" class="h-auto w-full overflow-visible" aria-hidden="true">
 								<defs>
 									<radialGradient id="heroCylGlow" cx="50%" cy="45%" r="60%">
 										<stop offset="0%" stop-color="var(--primary)" stop-opacity="0.07" />
 										<stop offset="100%" stop-color="var(--primary)" stop-opacity="0" />
 									</radialGradient>
 								</defs>
-								<path class="fill-background" d="M15 30 v340 a110 26 0 0 0 220 0 v-340 Z" />
+								<path class="fill-background" d="M15 30 v400 a110 26 0 0 0 220 0 v-400 Z" />
 								<rect
 									class="cyl-glow"
 									x="15"
 									y="30"
 									width="220"
-									height="366"
+									height="426"
 									fill="url(#heroCylGlow)"
 								/>
 								<ellipse class="cyl-stroke fill-card" cx="125" cy="30" rx="110" ry="26" />
-								<path class="cyl-stroke" fill="none" d="M15 30 v340 a110 26 0 0 0 220 0 v-340" />
+								<path class="cyl-stroke" fill="none" d="M15 30 v400 a110 26 0 0 0 220 0 v-400" />
 								<ellipse
 									class="cyl-stroke"
 									cx="125"
-									cy="370"
+									cy="430"
 									rx="110"
 									ry="26"
 									fill="none"
@@ -714,18 +609,24 @@
 								<text
 									class="fill-foreground text-[16px] font-medium"
 									x="125"
-									y="348"
+									y="360"
 									text-anchor="middle">Full-fidelity data</text
 								>
 								<text
 									class="fill-foreground text-[16px] font-medium"
 									x="125"
-									y="366"
+									y="380"
 									text-anchor="middle">+ Rover Index</text
+								>
+								<text
+									class="fill-muted-foreground text-[15px]"
+									x="125"
+									y="430"
+									text-anchor="middle"
+									dominant-baseline="middle">Object Storage</text
 								>
 							</svg>
 						</div>
-						<div class="text-muted-foreground mt-2 text-center text-[13px]">Object Storage</div>
 					</div>
 
 					<!-- Outputs -->
@@ -733,9 +634,7 @@
 						<div class="mb-1 text-center text-[10.5px] font-bold tracking-[0.11em] uppercase">
 							Hot Intelligence
 						</div>
-						<div
-							class="text-muted-foreground mb-3.5 text-center text-[11.5px] leading-normal italic"
-						>
+						<div class=" mb-3.5 text-center text-[11.5px] leading-normal italic">
 							Years of context.<br />Answers in seconds.
 						</div>
 						{#each outputs as output, i (output.label)}
@@ -765,7 +664,7 @@
 				>
 					Serverless<br />Query<br />Compute
 					<small
-						class="text-muted-foreground mt-2.5 block text-[9px] font-normal tracking-normal whitespace-nowrap normal-case"
+						class=" mt-2.5 block text-[9px] font-normal tracking-normal whitespace-nowrap normal-case"
 					>
 						No search clusters.
 					</small>
@@ -783,10 +682,28 @@
 </header>
 
 <style>
-	.ch {
-		display: inline-block;
-		white-space: pre;
-		will-change: transform;
+	/* Subheading — the fill itself sweeps between the theme's ink and brand
+	   tokens; the glyphs never move. */
+	.gradient-text {
+		background-image: linear-gradient(
+			100deg,
+			var(--foreground) 10%,
+			var(--primary) 70%,
+			var(--foreground) 10%
+		);
+		background-size: 220% 100%;
+		background-clip: text;
+		-webkit-background-clip: text;
+		color: transparent;
+		animation: gradient-sweep 5s ease-in-out infinite;
+	}
+	@keyframes gradient-sweep {
+		0% {
+			background-position: 120% 0;
+		}
+		100% {
+			background-position: -20% 0;
+		}
 	}
 
 	/* Source and output chips ------------------------------------------- */
@@ -854,6 +771,10 @@
 		.cyl-dash,
 		.cyl-year {
 			transition-duration: 0.01ms;
+		}
+		.gradient-text {
+			animation: none;
+			background-position: 50% 0;
 		}
 	}
 </style>

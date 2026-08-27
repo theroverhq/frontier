@@ -290,7 +290,7 @@ body {
     color: var(--foreground) !important;
 }
 
-.text-muted-foreground {
+. {
     color: var(--muted-foreground) !important;
 }
 
@@ -1180,7 +1180,7 @@ body {
         color: #f8fafc !important;
     }
 
-    .rover-ui-preview .text-muted-foreground {
+    .rover-ui-preview . {
         color: #a1a1aa !important;
     }
 
@@ -1591,7 +1591,7 @@ body {
         color: #f8fafc !important;
     }
 
-    .investigation-card .text-muted-foreground {
+    .investigation-card . {
         color: #a1a1aa !important;
     }
 
