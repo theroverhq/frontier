@@ -3,7 +3,7 @@
 	import '@fontsource/mitr/400.css';
 	import { page } from '$app/stores';
 
-	let scrollY = 0;
+	let scrollY = $state(0);
 </script>
 
 <svelte:window bind:scrollY />
@@ -54,14 +54,14 @@
 				>Analytics</a
 			>
 			<a
-				href="{$page.url.pathname === '/' ? '' : '/'}#ai-soc"
-				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
-				>AI SOC</a
-			>
-			<a
 				href="{$page.url.pathname === '/' ? '' : '/'}#architecture"
 				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
 				>Architecture</a
+			>
+			<a
+				href="{$page.url.pathname === '/' ? '' : '/'}#ai-soc"
+				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
+				>AI SOC</a
 			>
 			<a
 				href="/blogs/"
@@ -91,7 +91,10 @@
 			</Button>
 
 			<!-- Mobile Hamburger Menu -->
-			<button class="flex items-center justify-center p-1 text-zinc-400 hover:text-white lg:hidden">
+			<button
+				class="flex items-center justify-center p-1 text-zinc-400 hover:text-white lg:hidden"
+				aria-label="Open menu"
+			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="24"

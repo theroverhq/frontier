@@ -1,96 +1,140 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
+	import '@fontsource/mitr/400.css';
+
+	const proof = [
+		'Go live in hours',
+		'Customer-owned object storage',
+		'Schema-on-read',
+		'No search clusters'
+	];
+
+	const fit = ['Generate TBs/day', 'Need multi-year retention', 'Archive high-volume telemetry'];
+
+	let tailEl: HTMLDivElement | undefined = $state();
+	let tailIn = $state(false);
+
+	onMount(() => {
+		if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			tailIn = true;
+			return;
+		}
+		if (!tailEl || !('IntersectionObserver' in window)) {
+			tailIn = true;
+			return;
+		}
+		const io = new IntersectionObserver(
+			(entries) => {
+				if (entries[0].isIntersecting) {
+					io.disconnect();
+					tailIn = true;
+				}
+			},
+			{ threshold: 0.25 }
+		);
+		io.observe(tailEl);
+		return () => io.disconnect();
+	});
 </script>
 
 <section
 	id="early-access"
-	class="dark bg-background text-foreground relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden pt-24 pb-32"
+	class="dark bg-background text-foreground relative overflow-hidden pt-28 pb-24"
 >
-	<div class="relative z-10 container mx-auto max-w-screen-2xl px-4 text-center sm:px-6">
-		<!-- Main CTA Area -->
-		<div class="mx-auto max-w-5xl">
-			<!-- Eyebrow -->
-			<div class="mb-8 flex justify-center">
-				<Badge
-					variant="outline"
-					class="text-primary border-primary/30 mb-6 text-xs tracking-widest uppercase"
-					>Rover Early Access</Badge
-				>
-			</div>
+	<!-- Ambient wash, mixed from the theme token -->
+	<div
+		class="pointer-events-none absolute inset-0"
+		style="background: radial-gradient(760px 380px at 50% 8%, color-mix(in oklab, var(--primary) 6%, transparent), transparent 65%);"
+		aria-hidden="true"
+	></div>
 
-			<!-- Headline -->
-			<h2
-				class="text-foreground mb-8 text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl"
-			>
-				Bring the data your SIEM<br class="hidden sm:block" />
-				<span class="text-primary font-bold">can't afford to keep.</span>
-			</h2>
+	<div class="relative container mx-auto max-w-screen-2xl px-4 text-center sm:px-6">
+		<Badge
+			variant="outline"
+			class="border-primary/35 bg-primary/5 text-primary px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase"
+		>
+			Rover Early Access
+		</Badge>
 
-			<!-- Supporting Copy -->
-			<p class="text-foreground/70 mx-auto mb-14 max-w-3xl text-xl leading-relaxed sm:text-2xl">
-				Join Rover Early Access and make high-volume security telemetry searchable for years—not
-				days. Start with DNS, network flows, cloud audit, raw endpoint telemetry, or anything you
-				archive today because it’s too expensive to index.
-			</p>
+		<h2
+			class="mx-auto mt-6 max-w-[760px] text-[clamp(2rem,4.6vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.025em]"
+		>
+			Bring the data your SIEM<br /><span class="text-primary">can't afford to keep.</span>
+		</h2>
 
-			<!-- CTA Buttons -->
-			<div class="mb-20 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
-				<Button
-					size="lg"
-					class="bg-primary hover:bg-primary/90 text-primary-foreground h-14 w-full rounded-full px-10 text-sm font-semibold tracking-wide sm:w-auto"
-				>
-					Join Early Access
-				</Button>
-				<Button
-					size="lg"
-					variant="outline"
-					class="h-14 w-full rounded-full bg-transparent px-10 text-sm font-semibold tracking-wide sm:w-auto"
-				>
-					See Rover in Action
-				</Button>
-			</div>
+		<p class="text-muted-foreground mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
+			Join Rover Early Access and make high-volume security telemetry searchable for years—not days.
+			Start with DNS, network flows, cloud audit, raw endpoint telemetry, or anything you archive
+			today because it's too expensive to index.
+		</p>
+
+		<div class="mt-10 flex flex-wrap justify-center gap-3.5">
+			<Button size="lg" href="mailto:contactus@roverhq.ai" class="rounded-full">
+				Join Early Access
+			</Button>
+			<Button variant="outline" size="lg" href="#hero-preview" class="rounded-full">
+				See Rover in Action
+			</Button>
 		</div>
 
-		<!-- Compact Proof Rail -->
-		<div class="border-border mx-auto mb-16 max-w-4xl border-y py-8">
+		<div bind:this={tailEl}>
 			<div
-				class="text-foreground/60 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 text-[10px] font-bold tracking-widest uppercase sm:text-xs"
+				class="border-border mx-auto mt-14 flex max-w-[820px] flex-wrap items-center justify-center gap-x-3.5 gap-y-2 border-y py-[26px] text-[14.5px] font-semibold transition-all duration-700"
+				style="opacity: {tailIn ? 1 : 0}; transform: translateY({tailIn ? 0 : 20}px);"
 			>
-				<span class="text-foreground">Go live in hours</span>
-				<span>&bull;</span>
-				<span class="text-foreground">Customer-owned object storage</span>
-				<span>&bull;</span>
-				<span class="text-foreground">Schema-on-read</span>
-				<span>&bull;</span>
-				<span class="text-foreground">No search clusters</span>
+				{#each proof as claim, i (claim)}
+					<span class="flex items-center gap-3.5">
+						{#if i > 0}
+							<i class="text-primary not-italic">•</i>
+						{/if}
+						{claim}
+					</span>
+				{/each}
 			</div>
-		</div>
 
-		<!-- Qualification Block -->
-		<div class="mx-auto mb-16 max-w-4xl text-center">
-			<p class="text-foreground/80 mb-5 text-[10px] font-bold tracking-widest uppercase">
-				A good fit if you:
-			</p>
 			<div
-				class="text-foreground/90 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-[9px] font-bold tracking-widest uppercase sm:text-[10px]"
+				class="mt-[38px] transition-all duration-700"
+				style="opacity: {tailIn ? 1 : 0}; transform: translateY({tailIn
+					? 0
+					: 20}px); transition-delay: 120ms;"
 			>
-				<span class="bg-muted border-border rounded-lg border px-3 py-2">Generate TBs/day</span>
-				<span class="bg-muted border-border rounded-lg border px-3 py-2"
-					>Need multi-year retention</span
-				>
-				<span class="bg-muted border-border rounded-lg border px-3 py-2"
-					>Archive high-volume telemetry</span
-				>
+				<div class="text-muted-foreground text-[13px] font-semibold tracking-[0.05em]">
+					A good fit if you:
+				</div>
+				<div class="mt-4 flex flex-wrap justify-center gap-3">
+					{#each fit as item (item)}
+						<span
+							class="border-border bg-card hover:border-primary/40 rounded-lg border px-4 py-[9px] text-[12.5px] font-semibold transition-all duration-300 hover:-translate-y-0.5"
+						>
+							{item}
+						</span>
+					{/each}
+				</div>
 			</div>
-		</div>
 
-		<!-- Final Brand Callback -->
-		<div class="mt-8 flex flex-col items-center opacity-60 transition-opacity hover:opacity-100">
-			<div class="text-foreground mb-1 text-2xl font-bold tracking-tight">ROVER</div>
-			<h3 class="text-foreground text-lg font-medium tracking-tight md:text-xl">
-				Cold Storage. <span class="text-primary">Hot Intelligence.</span>
-			</h3>
+			<div
+				class="mt-16 flex flex-col items-center gap-3.5 transition-all duration-700"
+				style="opacity: {tailIn ? 1 : 0}; transform: translateY({tailIn
+					? 0
+					: 20}px); transition-delay: 240ms;"
+			>
+				<a
+					href="/"
+					class="flex items-center gap-2 transition-opacity hover:opacity-90"
+					aria-label="Rover home"
+				>
+					<img src="/rover-logo.png" alt="" class="h-6 w-auto" />
+					<span
+						class="text-[22px] leading-none tracking-widest"
+						style="font-family: 'Mitr', sans-serif;">ROVER</span
+					>
+				</a>
+				<div class="text-[14.5px]">
+					Cold Storage. <span class="text-primary">Hot Intelligence.</span>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>

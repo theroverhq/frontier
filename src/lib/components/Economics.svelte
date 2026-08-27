@@ -1,204 +1,235 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { Badge } from '$lib/components/ui/badge';
+
+	/* Relative infrastructure cost. A traditional SIEM accrues another tier of
+	   cost with every step up in retention; Rover barely moves. */
+	const periods = [
+		{ label: '30 Days', tiers: 2, siem: 52, rover: 16 },
+		{ label: '90 Days', tiers: 3, siem: 78, rover: 18 },
+		{ label: '1 Year', tiers: 4, siem: 112, rover: 21 },
+		{ label: '3 Years', tiers: 5, siem: 146, rover: 24 },
+		{ label: '10 Years', tiers: 6, siem: 182, rover: 28 }
+	];
+
+	const GAP = 1.5;
+
+	/* Split a stack's height into `count` equal segments, allowing for gaps. */
+	const split = (total: number, count: number) =>
+		Array.from({ length: count }, () => (total - (count - 1) * GAP) / count);
+
+	const stacks = periods.map((p, gi) => {
+		const siemCount = p.tiers;
+		const roverCount = Math.max(2, Math.round(p.tiers / 2));
+		return {
+			...p,
+			gi,
+			siemSegs: split(p.siem, siemCount),
+			roverSegs: split(p.rover, roverCount)
+		};
+	});
+
+	/* Stacks read darkest at the top, so shade by distance from the top. */
+	const siemShade = (fromTop: number) =>
+		['bg-background/65', 'bg-background/45', 'bg-background/30'][fromTop] ?? 'bg-background/[0.18]';
+	const roverShade = (fromBottom: number) =>
+		['bg-primary-400', 'bg-primary-500', 'bg-primary-600'][fromBottom] ?? 'bg-primary-600';
+
+	const items = [
+		{
+			k: '01 — Storage',
+			title: 'Data + index at object-storage economics.',
+			body: 'Full-fidelity telemetry and Rover inverted indexes live in customer object storage—not a separate hot index tier.'
+		},
+		{
+			k: '02 — Compute',
+			title: 'Pay for search when you search.',
+			body: 'Ephemeral query workers scale up for the query and disappear when the work is done.'
+		},
+		{
+			k: '03 — Retention',
+			title: 'Keep history searchable, not archived.',
+			body: 'Years of security data remain available to investigations without a rehydration workflow.'
+		}
+	];
+
+	const proof = ['No Hot Index Tier', 'No Always-On Search Cluster', 'No Rehydration'];
+
+	let plotEl: HTMLDivElement | undefined = $state();
+	let barsIn = $state(false);
+
+	onMount(() => {
+		if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			barsIn = true;
+			return;
+		}
+		if (!plotEl || !('IntersectionObserver' in window)) {
+			barsIn = true;
+			return;
+		}
+		const io = new IntersectionObserver(
+			(entries) => {
+				if (entries[0].isIntersecting) {
+					io.disconnect();
+					barsIn = true;
+				}
+			},
+			{ threshold: 0.45 }
+		);
+		io.observe(plotEl);
+		return () => io.disconnect();
+	});
 </script>
 
-<section
-	id="economics"
-	class="dark bg-background text-foreground relative overflow-hidden pt-24 pb-32"
->
-	<div class="relative z-10 container mx-auto max-w-screen-2xl px-4 sm:px-6">
-		<!-- Header -->
-		<div class="mb-24 text-center">
+<section id="economics" class="dark bg-background text-foreground relative overflow-hidden pt-26">
+	<div class="relative container mx-auto max-w-screen-2xl px-4 sm:px-6">
+		<div class="text-center">
 			<Badge
 				variant="outline"
-				class="text-primary border-primary/30 mb-6 text-xs tracking-widest uppercase"
+				class="border-primary/35 bg-primary/5 text-primary px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase"
 			>
-				Built for retention economics
+				Built For Retention Economics
 			</Badge>
 			<h2
-				class="text-foreground text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl"
+				class="mt-6 text-[clamp(2rem,4.6vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.025em]"
 			>
-				Keep years of data. Not years of infrastructure.
+				<span class="text-primary">Keep years of data.</span> Not years of infrastructure.
 			</h2>
-			<p class="text-foreground/70 mx-auto mt-6 max-w-4xl text-xl leading-relaxed">
+			<p class="text-muted-foreground mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
 				Traditional SIEM economics compound as searchable retention grows. Rover keeps data and
 				indexes in object storage and pays for compute only when queries run.
 			</p>
 		</div>
 
-		<!-- Content Wrapper -->
-		<div
-			class="mb-24 grid items-center gap-12 lg:grid-cols-[2fr_1fr] lg:gap-16 xl:grid-cols-[3fr_1fr]"
-		>
-			<!-- Main Visual -->
+		<div class="mt-[70px] grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
+			<!-- A light card, inverted from the theme's own tokens -->
 			<div
-				class="bg-background text-foreground border-border relative w-full overflow-hidden rounded-xl border shadow-2xl"
-				style="--background: #FFFFFF; --foreground: #1A1A1A; --muted: #F3F4F6; --muted-foreground: #606067; --border: rgba(18, 18, 15, 0.15);"
+				class="bg-foreground text-background rounded-2xl px-4 pt-[30px] pb-[26px] shadow-[0_30px_70px_-24px_rgba(0,0,0,0.5)] sm:px-8"
 			>
-				<div class="relative z-10 flex flex-col items-center p-8 lg:p-12">
-					<!-- Top Legend -->
-					<div class="mb-12 flex flex-col items-center gap-2">
-						<div
-							class="text-muted-foreground mb-4 flex flex-col items-center gap-1.5 text-[10px] tracking-widest uppercase"
-						>
-							<span>Relative Infrastructure Cost</span>
-							<span class="text-[9px] opacity-60">Illustrative architecture-based comparison</span>
-						</div>
-						<div
-							class="flex flex-col items-center gap-4 text-[10px] font-semibold lg:flex-row lg:gap-6 lg:text-xs"
-						>
-							<div class="text-muted-foreground flex items-center gap-2 text-center">
-								<span class="bg-muted-foreground/70 h-2.5 w-2.5 shrink-0 rounded-sm"></span>
-								Traditional SIEM — hot index + always-on compute
+				<div class="text-center text-[10px] font-bold tracking-[0.13em] uppercase">
+					Relative Infrastructure Cost
+				</div>
+				<div
+					class="text-background/40 mt-1.5 text-center text-[9px] font-semibold tracking-[0.13em] uppercase"
+				>
+					Illustrative Architecture-Based Comparison
+				</div>
+
+				<div class="mt-3.5 flex flex-wrap justify-center gap-x-6 gap-y-2">
+					<span class="flex items-center gap-[7px] text-[10.5px] font-bold">
+						<i class="bg-background/55 h-2 w-2 rounded-full"></i>
+						Traditional SIEM — hot index + always-on compute
+					</span>
+					<span class="flex items-center gap-[7px] text-[10.5px] font-bold">
+						<i class="bg-primary h-2 w-2 rounded-full"></i>
+						Rover — object storage + on-demand compute
+					</span>
+				</div>
+
+				<h3 class="mt-[18px] text-center text-[23px] font-bold tracking-[-0.02em]">
+					The cost gap widens as retention grows.
+				</h3>
+
+				<div
+					bind:this={plotEl}
+					class="border-background/15 mt-7 flex h-[190px] items-end justify-between border-b px-2"
+					role="img"
+					aria-label="Relative infrastructure cost by retention window: traditional SIEM rises steeply from 30 days to 10 years while Rover stays nearly flat"
+				>
+					{#each stacks as group (group.label)}
+						<div class="flex h-full items-end gap-[5px] sm:gap-[9px]">
+							<!-- Traditional SIEM -->
+							<div class="flex w-[22px] flex-col-reverse justify-start sm:w-10">
+								{#each group.siemSegs as h, si (si)}
+									<span
+										class="seg block w-full {siemShade(group.siemSegs.length - 1 - si)} {si ===
+										group.siemSegs.length - 1
+											? 'rounded-t-[1.5px] sm:rounded-t-[3px]'
+											: ''}"
+										class:is-in={barsIn}
+										style="height: {h.toFixed(
+											1
+										)}px; margin-top: {GAP}px; transition-delay: {group.gi * 160 + si * 80}ms;"
+									></span>
+								{/each}
 							</div>
-							<div class="text-foreground flex items-center gap-2 text-center">
-								<span class="bg-primary h-2.5 w-2.5 shrink-0 rounded-sm"></span>
-								Rover — object storage + on-demand compute
+							<!-- Rover -->
+							<div class="flex w-[22px] flex-col-reverse justify-start sm:w-10">
+								{#each group.roverSegs as h, si (si)}
+									<span
+										class="seg block w-full {roverShade(si)} {si === group.roverSegs.length - 1
+											? 'rounded-t-[1.5px] sm:rounded-t-[3px]'
+											: ''}"
+										class:is-in={barsIn}
+										style="height: {h.toFixed(
+											1
+										)}px; margin-top: {GAP}px; transition-delay: {group.gi * 160 + 70 + si * 80}ms;"
+									></span>
+								{/each}
 							</div>
 						</div>
-					</div>
+					{/each}
+				</div>
 
-					<!-- Chart Title -->
-					<h3 class="mb-16 text-center text-2xl font-medium tracking-tight md:text-3xl">
-						The cost gap widens as retention grows.
-					</h3>
-
-					<!-- Chart Area -->
-					<div
-						class="border-border/50 relative mt-4 flex h-64 w-full max-w-4xl items-end justify-between border-b pr-20 pb-4 pl-4 md:pr-32 md:pl-8"
-					>
-						<!-- Background dashed lines -->
-						<div
-							class="pointer-events-none absolute top-0 bottom-10 left-0 flex w-full flex-col justify-between opacity-10"
+				<div class="flex justify-between px-2 pt-2.5">
+					{#each periods as p (p.label)}
+						<span
+							class="text-background/50 w-[49px] text-center text-[8px] font-semibold tracking-[0.04em] uppercase sm:w-[89px] sm:text-[9.5px] sm:tracking-[0.1em]"
+							>{p.label}</span
 						>
-							<div class="border-border w-full border-t border-dashed"></div>
-							<div class="border-border w-full border-t border-dashed"></div>
-							<div class="border-border w-full border-t border-dashed"></div>
-							<div class="border-border w-full border-t border-dashed"></div>
-						</div>
-
-						{#each [{ label: '30 DAYS', trad: { h: 25, segments: [20, 30, 25, 25] }, rover: { h: 10, segments: [15, 40, 45] } }, { label: '90 DAYS', trad: { h: 40, segments: [25, 25, 25, 25] }, rover: { h: 12, segments: [20, 35, 45] } }, { label: '1 YEAR', trad: { h: 60, segments: [30, 20, 20, 30] }, rover: { h: 15, segments: [20, 35, 45] } }, { label: '3 YEARS', trad: { h: 80, segments: [35, 15, 20, 30] }, rover: { h: 18, segments: [20, 35, 45] } }, { label: '10 YEARS', trad: { h: 100, segments: [40, 15, 15, 30] }, rover: { h: 25, segments: [25, 35, 40] } }] as item, i}
-							<div
-								class="group relative z-10 flex h-full w-16 flex-col items-center justify-end md:w-20 lg:w-32"
-							>
-								<div class="relative flex h-full w-full items-end gap-1.5 pb-8 md:gap-3">
-									<!-- Trad -->
-									<div
-										class="flex w-1/2 flex-col justify-end gap-[1px]"
-										style="height: {item.trad.h}%;"
-									>
-										<div
-											class="bg-muted-foreground w-full rounded-t-sm"
-											style="height: {item.trad.segments[0]}%"
-										></div>
-										<div
-											class="bg-muted-foreground/70 w-full"
-											style="height: {item.trad.segments[1]}%"
-										></div>
-										<div
-											class="bg-muted-foreground/50 w-full"
-											style="height: {item.trad.segments[2]}%"
-										></div>
-										<div
-											class="bg-muted-foreground/30 w-full rounded-b-sm"
-											style="height: {item.trad.segments[3]}%"
-										></div>
-									</div>
-									<!-- Rover -->
-									<div
-										class="flex w-1/2 flex-col justify-end gap-[1px]"
-										style="height: {item.rover.h}%;"
-									>
-										<div
-											class="bg-primary/40 w-full rounded-t-sm"
-											style="height: {item.rover.segments[0]}%"
-										></div>
-										<div
-											class="bg-primary/70 w-full"
-											style="height: {item.rover.segments[1]}%"
-										></div>
-										<div
-											class="bg-primary w-full rounded-b-sm"
-											style="height: {item.rover.segments[2]}%"
-										></div>
-									</div>
-								</div>
-
-								<div
-									class="text-muted-foreground absolute bottom-0 text-[8px] tracking-widest whitespace-nowrap uppercase md:text-[10px] lg:text-xs"
-								>
-									{item.label}
-								</div>
-							</div>
-						{/each}
-					</div>
+					{/each}
 				</div>
 			</div>
 
-			<!-- 3 Cards -->
-			<div class="flex flex-col gap-10 lg:gap-14">
-				<!-- 01 Storage -->
-				<div class="flex flex-col space-y-3">
-					<div class="text-muted-foreground text-xs tracking-widest uppercase">
-						01 &mdash; STORAGE
+			<div>
+				{#each items as item (item.k)}
+					<div class="mb-[34px] last:mb-0">
+						<div
+							class="text-muted-foreground text-[11px] font-semibold tracking-[0.11em] uppercase"
+						>
+							{item.k}
+						</div>
+						<h4 class="mt-2.5 text-[20px] font-bold tracking-[-0.015em]">{item.title}</h4>
+						<p class="text-muted-foreground mt-2.5 max-w-[400px] text-sm leading-[1.65]">
+							{item.body}
+						</p>
 					</div>
-					<h3 class="text-foreground mb-1 text-xl font-medium md:text-2xl">
-						Data + index at object-storage economics.
-					</h3>
-					<p class="text-muted-foreground text-sm leading-relaxed md:text-base">
-						Full-fidelity telemetry and Rover inverted indexes live in customer object storage—not a
-						separate hot index tier.
-					</p>
-				</div>
-
-				<!-- 02 Compute -->
-				<div class="flex flex-col space-y-3">
-					<div class="text-muted-foreground text-xs tracking-widest uppercase">
-						02 &mdash; COMPUTE
-					</div>
-					<h3 class="text-foreground mb-1 text-xl font-medium md:text-2xl">
-						Pay for search when you search.
-					</h3>
-					<p class="text-muted-foreground text-sm leading-relaxed md:text-base">
-						Ephemeral query workers scale up for the query and disappear when the work is done.
-					</p>
-				</div>
-
-				<!-- 03 Retention -->
-				<div class="flex flex-col space-y-3">
-					<div class="text-muted-foreground text-xs tracking-widest uppercase">
-						03 &mdash; RETENTION
-					</div>
-					<h3 class="text-foreground mb-1 text-xl font-medium md:text-2xl">
-						Keep history searchable—not archived.
-					</h3>
-					<p class="text-muted-foreground text-sm leading-relaxed md:text-base">
-						Years of security data remain available to investigations without a rehydration
-						workflow.
-					</p>
-				</div>
+				{/each}
 			</div>
 		</div>
 
-		<!-- Proof strip -->
-		<div
-			class="border-border/50 text-foreground flex flex-wrap items-center justify-center gap-4 border-t pt-10 pb-20 text-sm font-bold tracking-widest uppercase"
-		>
-			<span>No hot index tier</span>
-			<span class="text-primary/50">&middot;</span>
-			<span>No always-on search cluster</span>
-			<span class="text-primary/50">&middot;</span>
-			<span>No rehydration</span>
-		</div>
-
-		<!-- Closing Line -->
-		<div class="pt-16 text-center">
-			<h2
-				class="flex flex-col gap-2 text-3xl leading-tight font-medium tracking-tight md:text-4xl lg:text-5xl"
-			>
-				<span class="text-foreground">Retention grows.</span>
-				<span class="text-primary">Search infrastructure doesn't.</span>
-			</h2>
+		<div class="border-border mt-24 border-t pt-22 pb-24 text-center">
+			<div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+				{#each proof as claim, i (claim)}
+					{#if i > 0}
+						<i class="text-muted-foreground/60 not-italic">·</i>
+					{/if}
+					<span class="text-[13px] font-semibold tracking-[0.08em] uppercase">{claim}</span>
+				{/each}
+			</div>
+			<h3 class="mt-[30px] text-[clamp(1.5rem,3vw,2rem)] font-bold tracking-[-0.02em]">
+				Retention grows. <span class="text-primary">Search infrastructure doesn't.</span>
+			</h3>
 		</div>
 	</div>
 </section>
+
+<style>
+	/* Segments grow from the baseline as the chart comes into view. */
+	.seg {
+		transform: scaleY(0);
+		transform-origin: bottom;
+		transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.2, 1);
+	}
+	.seg.is-in {
+		transform: scaleY(1);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.seg {
+			transform: scaleY(1);
+			transition-duration: 0.01ms;
+			transition-delay: 0ms !important;
+		}
+	}
+</style>
