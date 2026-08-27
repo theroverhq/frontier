@@ -652,7 +652,7 @@
 		</div>
 
 		<!-- ============ Index / Track / Query ============ -->
-		<div class="mt-28 text-center">
+<!-- 		<div class="mt-28 text-center">
 			<div class="text-[11px] font-bold tracking-[0.12em] uppercase">
 				Persistent index · Continuous detection state · Ephemeral query compute
 			</div>
@@ -679,7 +679,6 @@
 
 						<div class="relative mt-2 h-[172px]">
 							{#if ci === 0}
-								<!-- Index segments written beside the data -->
 								<svg viewBox="0 0 300 160" class="h-full w-full" aria-hidden="true">
 									<rect
 										x="18"
@@ -730,7 +729,6 @@
 									>
 								</svg>
 							{:else if ci === 1}
-								<!-- Detection state fanning out to every source -->
 								<svg viewBox="0 0 300 160" class="h-full w-full" aria-hidden="true">
 									<g class="stroke-border" stroke-dasharray="2 4">
 										<line x1="150" y1="76" x2="62" y2="30" /><line
@@ -766,7 +764,6 @@
 									/>
 								</svg>
 							{:else}
-								<!-- Query fans out to workers, results come back -->
 								<svg viewBox="0 0 300 160" class="h-full w-full" aria-hidden="true">
 									<rect
 										x="18"
@@ -849,7 +846,7 @@
 					</div>
 				</article>
 			{/each}
-		</div>
+		</div> -->
 	</div>
 </section>
 

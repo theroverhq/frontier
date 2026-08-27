@@ -259,7 +259,6 @@
 	<!-- Ambient wash, mixed from the theme token -->
 	<div
 		class="pointer-events-none absolute inset-0"
-		style="background: radial-gradient(700px 340px at 50% 4%, color-mix(in oklab, var(--primary) 5%, transparent), transparent 65%);"
 		aria-hidden="true"
 	></div>
 
