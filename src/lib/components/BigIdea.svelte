@@ -259,6 +259,7 @@
 	<!-- Ambient wash, mixed from the theme token -->
 	<div
 		class="pointer-events-none absolute inset-0"
+		style="background: radial-gradient(50% 25% at 50% 17%, color-mix(in oklab, var(--primary) 5%, transparent), transparent 65%);"
 		aria-hidden="true"
 	></div>
 
@@ -342,9 +343,7 @@
 				<div class="border-border border-b px-[18px] pt-4 pb-3.5 text-[12.5px] leading-[1.85]">
 					{#each codeLines as line, li (li)}
 						<div class="flex gap-3.5">
-							<span class="/60 w-2.5 shrink-0 text-right select-none"
-								>{li + 1}</span
-							>
+							<span class="/60 w-2.5 shrink-0 text-right select-none">{li + 1}</span>
 							<span class="whitespace-pre">
 								{#each slice(line, typed[li]) as tok, ti (ti)}<span
 										class:text-primary={tok.k}
@@ -383,10 +382,7 @@
 						<span class="text-[10.5px] font-bold tracking-[0.1em] uppercase">
 							Activity over 10 years
 						</span>
-						<span
-							class=" text-[10.5px] font-semibold tracking-[0.1em] uppercase"
-							>Log scale</span
-						>
+						<span class=" text-[10.5px] font-semibold tracking-[0.1em] uppercase">Log scale</span>
 					</div>
 
 					<div

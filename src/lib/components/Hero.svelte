@@ -468,6 +468,7 @@
 	<!-- Ambient lime wash, mixed from the theme token -->
 	<div
 		class="pointer-events-none absolute inset-0"
+		style="background: radial-gradient(70% 40% at 68% 25%, color-mix(in oklab, var(--primary) 5%, transparent), transparent 62%);"
 		aria-hidden="true"
 	></div>
 
