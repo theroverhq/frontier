@@ -78,14 +78,14 @@
 				variant="secondary"
 				size="sm"
 				href="{$page.url.pathname === '/' ? '' : '/'}#early-access"
-				class="rounded-full px-12 font-sans text-[11px] font-bold tracking-wide text-zinc-950 uppercase"
+				class="rounded-full px-12 font-sans text-[11px] font-bold  uppercase"
 			>
 				Get Demo
 			</Button>
 			<Button
 				size="sm"
 				href="{$page.url.pathname === '/' ? '' : '/'}#early-access"
-				class="bg-primary hover:bg-primary/90 rounded-full px-12 font-sans text-[11px] font-bold tracking-wide text-zinc-950 uppercase"
+				class="bg-primary hover:bg-primary/90 rounded-full px-12 font-sans text-[11px] font-bold tracking-wide uppercase"
 			>
 				Contact Us
 			</Button>

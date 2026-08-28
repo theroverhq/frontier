@@ -33,7 +33,7 @@
 	const siemShade = (fromTop: number) =>
 		['bg-background/65', 'bg-background/45', 'bg-background/30'][fromTop] ?? 'bg-background/[0.18]';
 	const roverShade = (fromBottom: number) =>
-		['bg-primary-400', 'bg-primary-500', 'bg-primary-600'][fromBottom] ?? 'bg-primary-600';
+		['bg-primary', 'bg-primary', 'bg-primary'][fromBottom] ?? 'bg-primary/80';
 
 	const items = [
 		{
@@ -184,9 +184,7 @@
 			<div>
 				{#each items as item (item.k)}
 					<div class="mb-[34px] last:mb-0">
-						<div
-							class=" text-[11px] font-semibold tracking-[0.11em] uppercase"
-						>
+						<div class=" text-[11px] font-semibold tracking-[0.11em] uppercase">
 							{item.k}
 						</div>
 						<h4 class="mt-2.5 text-[20px] font-bold tracking-[-0.015em]">{item.title}</h4>
