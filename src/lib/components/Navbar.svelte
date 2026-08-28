@@ -13,7 +13,6 @@
 
 <svelte:window bind:scrollY />
 
-
 <nav
 	class="dark sticky top-0 z-50 w-full border-b transition-all duration-300 {scrollY > 20
 		? 'bg-background/85 border-white/10 shadow-sm backdrop-blur-md'
@@ -157,11 +156,6 @@
 					onclick={closeMenu}>Search</a
 				>
 				<a
-					href="{$page.url.pathname === '/' ? '' : '/'}#capabilities"
-					class="hover:text-primary border-b border-white/5 py-2 transition-all"
-					onclick={closeMenu}>Analytics</a
-				>
-				<a
 					href="{$page.url.pathname === '/' ? '' : '/'}#architecture"
 					class="hover:text-primary border-b border-white/5 py-2 transition-all"
 					onclick={closeMenu}>Architecture</a
@@ -203,4 +197,3 @@
 		</div>
 	{/if}
 </nav>
-
