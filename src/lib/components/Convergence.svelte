@@ -105,7 +105,7 @@
 			<h2
 				class="mt-6 text-[clamp(2rem,4.6vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.025em]"
 			>
-				Search. Analytics. SIEM. AI. <span class="text-primary">One platform.</span>
+				SIEM. AI. <span class="text-primary">One platform.</span>
 			</h2>
 			<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
 				Traditional security stacks split telemetry and context across hot SIEM indexes, data lakes,
@@ -120,9 +120,7 @@
 				bind:this={fragEl}
 				class="border-border bg-card rounded-[18px] border px-7 pt-[30px] pb-[26px]"
 			>
-				<div class=" text-[11px] font-bold tracking-[0.12em] uppercase">
-					Today
-				</div>
+				<div class=" text-[11px] font-bold tracking-[0.12em] uppercase">Today</div>
 				<h3 class="mt-3 text-[19.5px] font-bold tracking-[-0.015em]">
 					Five systems. Fragmented security context.
 				</h3>
@@ -144,15 +142,13 @@
 								class="border-border/80 mx-1 flex-1 origin-left border-t border-dashed transition-transform duration-500 ease-out"
 								style="transform: scaleX({rowsIn ? 1 : 0}); transition-delay: {250 + i * 120}ms;"
 							></span>
-							<span class=" text-[11.5px] font-normal whitespace-nowrap"
-								>{sys.role}</span
-							>
+							<span class=" text-[11.5px] font-normal whitespace-nowrap">{sys.role}</span>
 						</div>
 					{/each}
 				</div>
 
 				<div
-					class="border-border/80  mt-5 border-t border-dashed pt-4 text-center text-[13px] leading-[1.7]"
+					class="border-border/80 mt-5 border-t border-dashed pt-4 text-center text-[13px] leading-[1.7]"
 				>
 					Copy · Move · Normalize<br />Rehydrate · Retain Differently
 				</div>

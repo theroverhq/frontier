@@ -10,8 +10,7 @@
 	const outputs = [
 		{ label: 'Instant Search', color: 'var(--chart-1)', spaced: false },
 		{ label: 'Live Analytics', color: 'var(--chart-3)', spaced: false },
-		{ label: 'Continuous Detections', color: 'var(--destructive)', spaced: true },
-		{ label: 'SIEM', color: 'var(--chart-2)', spaced: false },
+		{ label: 'SIEM', color: 'var(--chart-2)', spaced: true },
 		{ label: 'AI SOC', color: 'var(--chart-4)', spaced: false }
 	];
 
@@ -24,13 +23,13 @@
 
 	/* Cylinder rows: five recent years, an elided span, then the oldest two. */
 	const cylRows = [
-		{ y: 132, year: 2026 },
-		{ y: 160, year: 2025 },
-		{ y: 188, year: 2024 },
-		{ y: 216, year: 2023 },
-		{ y: 244, year: 2022 },
-		{ y: 286, year: 2017 },
-		{ y: 314, year: 2016 }
+		{ y: 92, year: 2026 },
+		{ y: 120, year: 2025 },
+		{ y: 148, year: 2024 },
+		{ y: 176, year: 2023 },
+		{ y: 204, year: 2022 },
+		{ y: 246, year: 2017 },
+		{ y: 274, year: 2016 }
 	];
 
 	let heroEl: HTMLElement | undefined = $state();
@@ -39,6 +38,7 @@
 	let cylEl: HTMLDivElement | undefined = $state();
 	let sqcEl: HTMLDivElement | undefined = $state();
 	let spEl: HTMLDivElement | undefined = $state();
+	let cdEl: HTMLDivElement | undefined = $state();
 
 	/* Animation state, driven imperatively but rendered declaratively. */
 	let srcLit = $state(sources.map(() => false));
@@ -71,7 +71,8 @@
 		const cyl = cylEl;
 		const sqc = sqcEl;
 		const sp = spEl;
-		if (!dia || !svg || !cyl || !sqc || !sp) return () => {};
+		const cd = cdEl;
+		if (!dia || !svg || !cyl || !sqc || !sp || !cd) return () => {};
 
 		const NS = 'http://www.w3.org/2000/svg';
 		const cylSvg = cyl.querySelector('svg');
@@ -130,7 +131,10 @@
 			return p;
 		};
 
-		const spawn = (pathEl: SVGPathElement, opts: { dur?: number; size?: number } = {}) =>
+		const spawn = (
+			pathEl: SVGPathElement,
+			opts: { dur?: number; size?: number; reverse?: boolean } = {}
+		) =>
 			new Promise<void>((resolve) => {
 				if (reduced || dead) {
 					resolve();
@@ -138,6 +142,7 @@
 				}
 				const dur = opts.dur ?? 900;
 				const size = opts.size ?? 2.2;
+				const reverse = opts.reverse ?? false;
 				const len = pathEl.getTotalLength();
 				const dot = document.createElementNS(NS, 'circle');
 				dot.setAttribute('r', String(size));
@@ -158,8 +163,10 @@
 						return;
 					}
 					const e = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-					const pt = pathEl.getPointAtLength(e * len);
-					const tp = pathEl.getPointAtLength(Math.max(0, e * len - 7));
+					const actualE = reverse ? 1 - e : e;
+					const pt = pathEl.getPointAtLength(actualE * len);
+					const tailE = reverse ? Math.min(1, actualE + 7 / len) : Math.max(0, actualE - 7 / len);
+					const tp = pathEl.getPointAtLength(tailE * len);
 					dot.setAttribute('cx', String(pt.x));
 					dot.setAttribute('cy', String(pt.y));
 					trail.setAttribute('cx', String(tp.x));
@@ -180,18 +187,20 @@
 			if (matchMedia('(max-width: 639px)').matches) {
 				sqc.style.display = 'none';
 				sp.style.display = 'none';
+				cd.style.display = 'none';
 				return;
 			}
 			sqc.style.display = '';
 			sp.style.display = '';
+			cd.style.display = '';
 
-			/* Cylinder body sits at x 15..235 of a 250x400 viewBox. */
+			/* Cylinder body sits at x 15..235 of a 250x360 viewBox. */
 			const cylR = rel(cylSvg);
 			const sx = cylR.w / 250;
-			const sy = cylR.h / 400;
+			const sy = cylR.h / 360;
 			const cylLeft = cylR.x + 15 * sx;
 			const cylRight = cylR.x + 235 * sx;
-			const cylMidY = cylR.y + 210 * sy;
+			const cylMidY = cylR.y + 170 * sy;
 
 			const srcRs = srcs.map(rel);
 			const busX = (srcRs[0].right + cylLeft) / 2;
@@ -257,6 +266,9 @@
 			sqc.style.top = `${outRs[0].cy - 12}px`;
 			sp.style.left = `${bus2X}px`;
 			sp.style.top = `${(outRs[3] ? outRs[3].cy : cylMidY) - 14}px`;
+
+			cd.style.left = `${(busX + cylLeft) / 2}px`;
+			cd.style.top = `${cylMidY}px`;
 		};
 
 		const setConns = (lit: boolean) => {
@@ -286,48 +298,86 @@
 			if (!p) return Promise.resolve();
 			srcLit[i] = true;
 			later(() => (srcLit[i] = false), 500);
-			return spawn(p, { dur: 1050, size: 2, ...opts }).then(() => {
+			const dur = opts?.dur ?? 700 + Math.random() * 600;
+			const size = 1.8 + Math.random() * 0.6;
+			return spawn(p, { dur, size, ...opts }).then(() => {
 				litCyl(900);
-				pulseRow(Math.floor(Math.random() * rowLit.length));
+				pulseRow(0); // 2026
+
+				// Route incoming data straight to streaming workloads
+				// Continuous Detections happens on incoming stream. Route to SIEM.
+				later(() => query(2), 50 + Math.random() * 150); // SIEM
+			});
+		};
+
+		const scanAllYears = () => {
+			rowLit.forEach((_, k) => {
+				later(() => {
+					rowLit[k] = true;
+					later(() => (rowLit[k] = false), 500 + Math.random() * 400);
+				}, Math.random() * 400);
 			});
 		};
 
 		const query = (outIndex?: number, bright = false) => {
-			const i = outIndex ?? Math.floor(Math.random() * outs.length);
+			let i = outIndex;
+			if (i === undefined) {
+				const r = Math.random();
+				if (r < 0.4)
+					i = 2; // 40% SIEM (was Continuous Detections)
+				else if (r < 0.65)
+					i = 0; // 25% Instant Search
+				else if (r < 0.9)
+					i = 3; // 25% AI SOC
+				else i = 1; // 10% Live Analytics
+			}
 			const p = rightPaths[i];
 			if (!p) return Promise.resolve();
 			flashConn(rightConns[i], 700);
-			return spawn(p, { dur: 850, size: bright ? 2.6 : 2 }).then(() => {
+
+			const dur = 600 + Math.random() * 500;
+			const size = bright ? 2.6 : 1.8 + Math.random() * 0.6;
+
+			if (i === 0 || i === 3) {
 				outLit[i] = true;
 				later(() => (outLit[i] = false), 620);
-			});
+				return spawn(p, { dur, size, reverse: true }).then(() => {
+					litCyl(1200);
+					scanAllYears();
+				});
+			} else {
+				return spawn(p, { dur, size }).then(() => {
+					outLit[i] = true;
+					later(() => (outLit[i] = false), 620);
+				});
+			}
 		};
 
 		let started = false;
 		const startIdle = () => {
 			if (reduced) return;
-			let n = 0;
-			const loop = () => {
-				later(
-					() => {
-						n++;
-						const roll = Math.random();
-						if (document.hidden) {
-							/* skip a beat while hidden */
-						} else if (roll < 0.55) {
-							ingest(Math.floor(Math.random() * srcs.length));
-						} else if (roll < 0.85) {
-							query();
-						} else {
-							litCyl(900);
-							pulseRow(n);
-						}
-						loop();
-					},
-					2400 + Math.random() * 2600
-				);
+			const ingestLoop = () => {
+				if (!document.hidden) ingest(Math.floor(Math.random() * srcs.length));
+				later(ingestLoop, 4500 + Math.random() * 2000);
 			};
-			loop();
+
+			const queryLoop = () => {
+				if (!document.hidden) query();
+				later(queryLoop, 4000 + Math.random() * 2000);
+			};
+
+			const cylLoop = () => {
+				if (!document.hidden) {
+					litCyl(900);
+					pulseRow(Math.floor(Math.random() * rowLit.length));
+				}
+				later(cylLoop, 6000 + Math.random() * 2000);
+			};
+
+			// Stagger the initial starts to prevent them all firing at once
+			later(ingestLoop, 1000);
+			later(queryLoop, 2800);
+			later(cylLoop, 4500);
 		};
 
 		const intro = () => {
@@ -528,157 +578,144 @@
 					class:is-focus={focused}
 					aria-label="Rover architecture: all security data into cold storage, hot intelligence out"
 				>
-				<svg
-					bind:this={connSvg}
-					class="pointer-events-none absolute inset-0 z-1 overflow-visible max-sm:hidden"
-					aria-hidden="true"
-				></svg>
+					<svg
+						bind:this={connSvg}
+						class="pointer-events-none absolute inset-0 z-1 overflow-visible max-sm:hidden"
+						aria-hidden="true"
+					></svg>
 
-				<div
-					class="relative z-2 grid grid-cols-1 items-start gap-x-[18px] gap-y-8 sm:grid-cols-[110px_minmax(0,1fr)_190px] sm:gap-y-0"
-				>
-					<!-- Sources -->
-					<div class="flex flex-col">
-						<div
-							class="mb-3.5 text-center text-[10.5px] font-bold tracking-[0.11em] whitespace-nowrap uppercase"
-						>
-							All Security Data
+					<div
+						class="relative z-2 grid grid-cols-1 items-start gap-x-[18px] gap-y-8 sm:grid-cols-[110px_minmax(0,1fr)_190px] sm:gap-y-0"
+					>
+						<!-- Sources -->
+						<div class="flex flex-col">
+							<div
+								class="mb-3.5 text-center text-[10.5px] font-bold tracking-[0.11em] whitespace-nowrap uppercase"
+							>
+								All Security Data
+							</div>
+							<div class="flex flex-wrap gap-2 sm:block sm:gap-0">
+								{#each sources as source, i (source)}
+									<div
+										class="hd-src border-border bg-background/50 mb-0 flex-1 basis-[40%] rounded-[11px] border px-2 py-2.5 text-center text-[13px] font-medium sm:mb-3 sm:basis-auto"
+										class:is-lit={srcLit[i]}
+									>
+										{source}
+									</div>
+								{/each}
+							</div>
+							<div class=" mt-1.5 text-center text-xs italic">Keep everything</div>
 						</div>
-						<div class="flex flex-wrap gap-2 sm:block sm:gap-0">
-							{#each sources as source, i (source)}
-								<div
-									class="hd-src border-border bg-background/50 mb-0 flex-1 basis-[40%] rounded-[11px] border px-2 py-2.5 text-center text-[13px] font-medium sm:mb-3 sm:basis-auto"
-									class:is-lit={srcLit[i]}
+
+						<!-- Cold storage -->
+						<div class="flex flex-col items-center">
+							<div class="text-primary mb-3.5 text-center text-[27px] leading-none font-bold">
+								Rover
+							</div>
+							<div
+								bind:this={cylEl}
+								class="hd-cyl relative mx-auto w-full max-w-[220px]"
+								class:is-lit={cylLit}
+							>
+								<svg
+									viewBox="0 0 250 360"
+									class="h-auto w-full overflow-visible"
+									aria-hidden="true"
 								>
-									{source}
+									<defs>
+										<radialGradient id="heroCylGlow" cx="50%" cy="45%" r="60%">
+											<stop offset="0%" stop-color="var(--primary)" stop-opacity="0.07" />
+											<stop offset="100%" stop-color="var(--primary)" stop-opacity="0" />
+										</radialGradient>
+									</defs>
+									<path class="fill-background" d="M15 30 v300 a110 26 0 0 0 220 0 v-300 Z" />
+									<rect
+										class="cyl-glow"
+										x="15"
+										y="30"
+										width="220"
+										height="326"
+										fill="url(#heroCylGlow)"
+									/>
+									<ellipse class="cyl-stroke fill-card" cx="125" cy="30" rx="110" ry="26" />
+									<path class="cyl-stroke" fill="none" d="M15 30 v300 a110 26 0 0 0 220 0 v-300" />
+
+									<text
+										class="fill-foreground text-[13px] font-bold tracking-[0.11em]"
+										x="125"
+										y="34"
+										text-anchor="middle">OBJECT STORAGE</text
+									>
+
+									{#each cylRows as row, i (row.year)}
+										<g class="cyl-row" class:is-lit={rowLit[i]}>
+											<text class="cyl-year font-small" x="42" y={row.y + 4}>{row.year}</text>
+											<line class="cyl-dash" x1="72" y1={row.y} x2="212" y2={row.y} />
+										</g>
+									{/each}
+									<text class="fill-foreground font-small" x="125" y="320" text-anchor="middle"
+										>Full-fidelity data</text
+									>
+								</svg>
+							</div>
+						</div>
+
+						<!-- Outputs -->
+						<div class="flex flex-col">
+							<div class="mb-1 text-center text-[10.5px] font-bold tracking-[0.11em] uppercase">
+								Hot Intelligence
+							</div>
+							<div class=" mb-3.5 text-center text-[11.5px] leading-normal italic">
+								Years of context.<br />Answers in seconds.
+							</div>
+							{#each outputs as output, i (output.label)}
+								{#if output.spaced}
+									<div class="h-0 sm:h-[34px]" aria-hidden="true"></div>
+								{/if}
+								<div
+									class="hd-out border-border bg-background/50 mb-[11px] flex items-center gap-2.5 rounded-[11px] border px-3 py-2.5 text-xs font-medium whitespace-nowrap"
+									class:is-lit={outLit[i]}
+									style="color: {output.color};"
+								>
+									<i
+										class="h-[7px] w-[7px] shrink-0 rounded-full"
+										style="background: currentColor; box-shadow: 0 0 9px currentColor;"
+									></i>
+									{output.label}
 								</div>
 							{/each}
 						</div>
-						<div class=" mt-1.5 text-center text-xs italic">Keep everything</div>
 					</div>
 
-					<!-- Cold storage -->
-					<div class="flex flex-col items-center">
-						<div
-							bind:this={cylEl}
-							class="hd-cyl relative mx-auto w-full max-w-[220px]"
-							class:is-lit={cylLit}
-						>
-							<svg viewBox="0 0 250 400" class="h-auto w-full overflow-visible" aria-hidden="true">
-								<defs>
-									<radialGradient id="heroCylGlow" cx="50%" cy="45%" r="60%">
-										<stop offset="0%" stop-color="var(--primary)" stop-opacity="0.07" />
-										<stop offset="100%" stop-color="var(--primary)" stop-opacity="0" />
-									</radialGradient>
-								</defs>
-								<path class="fill-background" d="M15 30 v340 a110 26 0 0 0 220 0 v-340 Z" />
-								<rect
-									class="cyl-glow"
-									x="15"
-									y="30"
-									width="220"
-									height="366"
-									fill="url(#heroCylGlow)"
-								/>
-								<ellipse class="cyl-stroke fill-card" cx="125" cy="30" rx="110" ry="26" />
-								<path class="cyl-stroke" fill="none" d="M15 30 v340 a110 26 0 0 0 220 0 v-340" />
-								<ellipse
-									class="cyl-stroke"
-									cx="125"
-									cy="430"
-									rx="110"
-									ry="26"
-									fill="none"
-									opacity="0.7"
-								/>
-								<text
-									class="fill-foreground text-[13px] font-bold tracking-[0.11em]"
-									x="125"
-									y="34"
-									text-anchor="middle">COLD STORAGE</text
-								>
-								<text class="fill-primary text-[27px] font-bold" x="125" y="98" text-anchor="middle"
-									>Rover</text
-								>
-								{#each cylRows as row, i (row.year)}
-									<g class="cyl-row" class:is-lit={rowLit[i]}>
-										<text class="cyl-year text-[16px] font-medium" x="42" y={row.y + 4}
-											>{row.year}</text
-										>
-										<line class="cyl-dash" x1="72" y1={row.y} x2="212" y2={row.y} />
-									</g>
-								{/each}
-								<text
-									class="fill-foreground text-[16px] font-medium"
-									x="125"
-									y="348"
-									text-anchor="middle">Full-fidelity data</text
-								>
-								<text
-									class="fill-foreground text-[16px] font-medium"
-									x="125"
-									y="366"
-									text-anchor="middle">+ Rover Index</text
-								>
-								<text
-									class="fill-muted-foreground text-[15px]"
-									x="125"
-									y="396"
-									text-anchor="middle"
-									dominant-baseline="middle">Object Storage</text
-								>
-							</svg>
-						</div>
-					</div>
-
-					<!-- Outputs -->
-					<div class="flex flex-col">
-						<div class="mb-1 text-center text-[10.5px] font-bold tracking-[0.11em] uppercase">
-							Hot Intelligence
-						</div>
-						<div class=" mb-3.5 text-center text-[11.5px] leading-normal italic">
-							Years of context.<br />Answers in seconds.
-						</div>
-						{#each outputs as output, i (output.label)}
-							{#if output.spaced}
-								<div class="h-0 sm:h-[34px]" aria-hidden="true"></div>
-							{/if}
-							<div
-								class="hd-out border-border bg-background/50 mb-[11px] flex items-center gap-2.5 rounded-[11px] border px-3 py-2.5 text-xs font-medium whitespace-nowrap"
-								class:is-lit={outLit[i]}
-								style="color: {output.color};"
-							>
-								<i
-									class="h-[7px] w-[7px] shrink-0 rounded-full"
-									style="background: currentColor; box-shadow: 0 0 9px currentColor;"
-								></i>
-								{output.label}
-							</div>
-						{/each}
-					</div>
-				</div>
-
-				<!-- Floating mid-column labels, positioned against the measured bus -->
-				<div
-					bind:this={sqcEl}
-					class="text-foreground absolute z-2 -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] uppercase max-sm:hidden"
-					aria-hidden="true"
-				>
-					Serverless<br />Query<br />Compute
-					<small
-						class=" mt-2.5 block text-[9px] font-normal tracking-normal whitespace-nowrap normal-case"
+					<!-- Floating mid-column labels, positioned against the measured bus -->
+					<div
+						bind:this={cdEl}
+						class="text-foreground absolute z-2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-[14px] text-center text-[9.5px] font-semibold tracking-[0.08em] uppercase max-sm:hidden"
+						aria-hidden="true"
 					>
-						No search clusters.
-					</small>
+						<span>Continuous</span>
+						<span>Detections</span>
+					</div>
+					<div
+						bind:this={sqcEl}
+						class="text-foreground absolute z-2 -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] uppercase max-sm:hidden"
+						aria-hidden="true"
+					>
+						Serverless<br />Query<br />Compute
+						<small
+							class=" mt-2.5 block text-[9px] font-normal tracking-normal whitespace-nowrap normal-case"
+						>
+							No search clusters.
+						</small>
+					</div>
+					<div
+						bind:this={spEl}
+						class="text-foreground absolute z-2 -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] uppercase max-sm:hidden"
+						aria-hidden="true"
+					>
+						Security<br />Platform
+					</div>
 				</div>
-				<div
-					bind:this={spEl}
-					class="text-foreground absolute z-2 -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] uppercase max-sm:hidden"
-					aria-hidden="true"
-				>
-					Security<br />Platform
-				</div>
-			</div>
 			</div>
 		</div>
 	</div>
