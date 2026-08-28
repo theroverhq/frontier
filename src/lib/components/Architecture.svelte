@@ -415,7 +415,25 @@
 						<p class=" mt-1 text-[12.5px] leading-[1.55]">Go live in hours, not weeks</p>
 					</div>
 
-					<div bind:this={branchEl} class="relative mt-2 h-[78px]">
+					<!-- Mobile branch labels layout -->
+					<div class="mt-4 flex items-start justify-between gap-1 text-center sm:hidden">
+						{#each branchLabels as br (br.x)}
+							<div class="flex flex-1 flex-col items-center px-1">
+								<div class="bg-border h-4 w-px mb-1.5"></div>
+								<span class="text-[9px] font-semibold leading-[1.35] tracking-[0.05em] uppercase">
+									{br.label}
+									{#if br.note}
+										<small class="text-muted-foreground block text-[8px] font-normal tracking-normal normal-case">
+											{br.note}
+										</small>
+									{/if}
+								</span>
+							</div>
+						{/each}
+					</div>
+
+					<!-- Desktop / Tablet branch diagram -->
+					<div bind:this={branchEl} class="relative mt-2 hidden h-[78px] sm:block">
 						<svg
 							class="absolute inset-0 h-full w-full overflow-visible"
 							viewBox="0 0 100 78"
@@ -432,12 +450,12 @@
 						</svg>
 						{#each branchLabels as br (br.x)}
 							<span
-								class=" absolute bottom-0 -translate-x-1/2 text-center text-[9.5px] leading-[1.6] font-semibold tracking-[0.11em] uppercase"
+								class="absolute bottom-0 -translate-x-1/2 text-center text-[9.5px] leading-[1.6] font-semibold tracking-[0.09em] uppercase max-w-[150px]"
 								style="left: {br.x}%;"
 							>
 								{br.label}
 								{#if br.note}
-									<small class="/70 block text-[9px] font-normal tracking-[0.04em] normal-case"
+									<small class="text-muted-foreground block text-[9px] font-normal tracking-[0.04em] normal-case"
 										>{br.note}</small
 									>
 								{/if}

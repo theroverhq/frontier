@@ -184,7 +184,7 @@
 			rightPaths = [];
 			visConns = [];
 			rightConns = [];
-			if (matchMedia('(max-width: 639px)').matches) {
+			if (matchMedia('(max-width: 1023px)').matches) {
 				sqc.style.display = 'none';
 				sp.style.display = 'none';
 				cd.style.display = 'none';
@@ -538,8 +538,8 @@
 				<h1
 					class="text-foreground mt-6 text-[clamp(2.125rem,4.4vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.028em]"
 				>
-					<span class="block whitespace-nowrap">The SIEM built for</span>
-					<span class="block whitespace-nowrap">infinite retention.</span>
+					<span class="block sm:whitespace-nowrap">The SIEM built for</span>
+					<span class="block sm:whitespace-nowrap">infinite retention.</span>
 				</h1>
 
 				<p
@@ -692,7 +692,7 @@
 					<!-- Floating mid-column labels, positioned against the measured bus -->
 					<div
 						bind:this={cdEl}
-						class="text-foreground absolute z-2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-[14px] text-center text-[9.5px] font-semibold tracking-[0.08em] uppercase max-sm:hidden"
+						class="text-foreground absolute z-2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-[14px] text-center text-[9.5px] font-semibold tracking-[0.08em] uppercase max-lg:hidden"
 						aria-hidden="true"
 					>
 						<span>Continuous</span>
@@ -700,7 +700,7 @@
 					</div>
 					<div
 						bind:this={sqcEl}
-						class="text-foreground absolute z-2 -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] uppercase max-sm:hidden"
+						class="text-foreground absolute z-2 -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] uppercase max-lg:hidden"
 						aria-hidden="true"
 					>
 						Serverless<br />Query<br />Compute
@@ -712,7 +712,7 @@
 					</div>
 					<div
 						bind:this={spEl}
-						class="text-foreground absolute z-2 -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] uppercase max-sm:hidden"
+						class="text-foreground absolute z-2 -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] uppercase max-lg:hidden"
 						aria-hidden="true"
 					>
 						Security<br />Platform

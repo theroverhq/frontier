@@ -9,7 +9,7 @@
 		{ label: '90 Days', tiers: 3, siem: 75, rover: 25, savings: '3x' },
 		{ label: '1 Year', tiers: 4, siem: 110, rover: 31, savings: '3.5x' },
 		{ label: '3 Years', tiers: 5, siem: 145, rover: 36, savings: '4x' },
-		{ label: '10 Years', tiers: 6, siem: 180, rover: 36, savings: '5x cheaper' }
+		{ label: '10 Years', tiers: 6, siem: 180, rover: 36, savings: '5x' }
 	];
 
 	const GAP = 1.5;
@@ -158,7 +158,7 @@
 							<div class="flex w-[22px] flex-col-reverse justify-start sm:w-10 relative">
 								{#each group.roverSegs as h, si (si)}
 									{#if si === group.roverSegs.length - 1}
-										<div class="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[8.5px] sm:text-[9.5px] font-bold text-primary bg-primary/10 border border-primary/30 px-1.5 py-0.5 rounded-full shadow-sm">
+										<div class="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[8px] sm:text-[9.5px] font-bold text-primary bg-primary/10 border border-primary/30 px-1 py-0.5 sm:px-1.5 rounded-full shadow-sm">
 											{group.savings}
 										</div>
 									{/if}

@@ -118,7 +118,7 @@
 			<!-- Today: five systems, five stores -->
 			<div
 				bind:this={fragEl}
-				class="border-border bg-card rounded-[18px] border px-7 pt-[30px] pb-[26px]"
+				class="border-border bg-card rounded-[18px] border px-4 pt-[30px] pb-[26px] sm:px-7"
 			>
 				<div class=" text-[11px] font-bold tracking-[0.12em] uppercase">Today</div>
 				<h3 class="mt-3 text-[19.5px] font-bold tracking-[-0.015em]">
@@ -157,7 +157,7 @@
 			<!-- With Rover: every workflow lands on one plane -->
 			<div
 				bind:this={planeEl}
-				class="border-border bg-card rounded-[18px] border px-7 pt-[30px] pb-[26px]"
+				class="border-border bg-card rounded-[18px] border px-4 pt-[30px] pb-[26px] sm:px-7"
 			>
 				<div class="text-primary text-[11px] font-bold tracking-[0.12em] uppercase">With Rover</div>
 				<h3 class="mt-3 text-[19.5px] font-bold tracking-[-0.015em]">
@@ -190,7 +190,7 @@
 
 						{#each workflows as flow (flow.label)}
 							<span
-								class="bg-foreground text-background absolute -translate-x-1/2 rounded-lg px-3.5 py-2 text-[10.5px] font-bold tracking-[0.08em] whitespace-nowrap uppercase shadow-lg"
+								class="bg-foreground text-background absolute -translate-x-1/2 rounded-lg px-2.5 py-1.5 text-[9.5px] font-bold tracking-[0.06em] whitespace-nowrap uppercase shadow-lg sm:px-3.5 sm:py-2 sm:text-[10.5px] sm:tracking-[0.08em]"
 								style="left: {flow.x}%; top: {flow.top}px;">{flow.label}</span
 							>
 						{/each}

@@ -340,7 +340,7 @@
 				</div>
 
 				<!-- Query -->
-				<div class="border-border border-b px-[18px] pt-4 pb-3.5 text-[12.5px] leading-[1.85]">
+				<div class="border-border overflow-x-auto border-b px-[18px] pt-4 pb-3.5 text-[12.5px] leading-[1.85] font-mono">
 					{#each codeLines as line, li (li)}
 						<div class="flex gap-3.5">
 							<span class="/60 w-2.5 shrink-0 text-right select-none">{li + 1}</span>
@@ -359,7 +359,7 @@
 
 				<!-- Result meta -->
 				<div
-					class=" border-border flex flex-wrap items-center gap-3 border-b px-[18px] py-3 text-[11.5px]"
+					class="border-border flex flex-wrap items-center gap-2 sm:gap-3 border-b px-[18px] py-3 text-[11.5px]"
 				>
 					<span>2016 → 2026</span>
 					<span
@@ -367,7 +367,7 @@
 						>All security data</span
 					>
 					<span
-						class="border-primary/25 bg-primary/10 text-foreground ml-auto flex items-center gap-2 rounded-md border px-2.5 py-[5px] font-semibold transition-shadow duration-300"
+						class="border-primary/25 bg-primary/10 text-foreground ml-0 sm:ml-auto flex items-center gap-2 rounded-md border px-2.5 py-[5px] font-semibold transition-shadow duration-300"
 						class:is-flash={flash}
 					>
 						<span class="bg-primary h-1.5 w-1.5 rounded-full shadow-[0_0_8px_var(--primary)]"

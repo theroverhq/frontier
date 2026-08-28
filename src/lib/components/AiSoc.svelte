@@ -222,7 +222,7 @@
 			class="dark bg-background text-foreground mt-16 grid grid-cols-1 overflow-hidden rounded-[20px] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.4)] lg:grid-cols-2"
 		>
 			<!-- Evidence, oldest at the top -->
-			<div class="border-border border-b px-9 pt-[34px] pb-10 lg:border-r lg:border-b-0">
+			<div class="border-border border-b px-4 pt-[34px] pb-10 sm:px-9 lg:border-r lg:border-b-0">
 				<div
 					class="border-border bg-card rounded-[10px] border px-[18px] py-3.5 text-xs font-semibold tracking-[0.11em] uppercase transition-opacity duration-500"
 					style="opacity: {searchIn ? 1 : 0};"
@@ -272,7 +272,7 @@
 			</div>
 
 			<!-- What the agent concluded -->
-			<div class="flex flex-col px-9 pt-[34px] pb-10">
+			<div class="flex flex-col px-4 pt-[34px] pb-10 sm:px-9">
 				<div class=" text-xs leading-[1.8] font-semibold">
 					11 Months of Activity Correlated<br />Rover AI Investigation
 				</div>
