@@ -5,11 +5,11 @@
 	/* Relative infrastructure cost. A traditional SIEM accrues another tier of
 	   cost with every step up in retention; Rover barely moves. */
 	const periods = [
-		{ label: '30 Days', tiers: 2, siem: 52, rover: 16 },
-		{ label: '90 Days', tiers: 3, siem: 78, rover: 18 },
-		{ label: '1 Year', tiers: 4, siem: 112, rover: 21 },
-		{ label: '3 Years', tiers: 5, siem: 146, rover: 24 },
-		{ label: '10 Years', tiers: 6, siem: 182, rover: 28 }
+		{ label: '30 Days', tiers: 2, siem: 50, rover: 20, savings: '2.5x' },
+		{ label: '90 Days', tiers: 3, siem: 75, rover: 25, savings: '3x' },
+		{ label: '1 Year', tiers: 4, siem: 110, rover: 31, savings: '3.5x' },
+		{ label: '3 Years', tiers: 5, siem: 145, rover: 36, savings: '4x' },
+		{ label: '10 Years', tiers: 6, siem: 180, rover: 36, savings: '5x cheaper' }
 	];
 
 	const GAP = 1.5;
@@ -31,9 +31,13 @@
 
 	/* Stacks read darkest at the top, so shade by distance from the top. */
 	const siemShade = (fromTop: number) =>
-		['bg-background/65', 'bg-background/45', 'bg-background/30'][fromTop] ?? 'bg-background/[0.18]';
-	const roverShade = (fromBottom: number) =>
-		['bg-primary', 'bg-primary', 'bg-primary'][fromBottom] ?? 'bg-primary/80';
+		['bg-foreground/65', 'bg-foreground/45', 'bg-foreground/30'][fromTop] ?? 'bg-foreground/[0.18]';
+	
+	const roverShade = (fromBottom: number, isTop: boolean) => {
+		const base = ['bg-primary/40', 'bg-primary/60', 'bg-primary/80'][fromBottom] ?? 'bg-primary/80';
+		if (isTop) return `${base} shadow-[0_-8px_20px_-6px_var(--color-primary)] z-10 relative`;
+		return base;
+	};
 
 	const items = [
 		{
@@ -102,37 +106,34 @@
 		</div>
 
 		<div class="mt-[70px] grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
-			<!-- A light card, inverted from the theme's own tokens -->
+			<!-- A dark card, matching the hero-preview -->
 			<div
-				class="bg-foreground text-background rounded-2xl px-4 pt-[30px] pb-[26px] shadow-[0_30px_70px_-24px_rgba(0,0,0,0.5)] sm:px-8"
+				class="dark border-border bg-card text-foreground rounded-2xl border px-4 pt-[30px] pb-[26px] sm:px-8"
+				style="box-shadow: 0 30px 80px rgba(0,0,0,.4), 0 0 60px rgba(200,241,53,.04);"
 			>
-				<div class="text-center text-[10px] font-bold tracking-[0.13em] uppercase">
-					Relative Infrastructure Cost
-				</div>
+				<h3 class="text-center text-[22px] sm:text-[25px] font-bold tracking-[-0.02em]">
+					The cost gap widens as retention grows.
+				</h3>
 				<div
-					class="text-background/40 mt-1.5 text-center text-[9px] font-semibold tracking-[0.13em] uppercase"
+					class="text-muted-foreground mt-1 text-center text-[9.5px] font-semibold tracking-[0.12em] uppercase"
 				>
-					Illustrative Architecture-Based Comparison
+					Relative Infrastructure Cost — Illustrative Architecture Comparison
 				</div>
 
-				<div class="mt-3.5 flex flex-wrap justify-center gap-x-6 gap-y-2">
-					<span class="flex items-center gap-[7px] text-[10.5px] font-bold">
-						<i class="bg-background/55 h-2 w-2 rounded-full"></i>
+				<div class="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 border-y border-border/40 py-2.5">
+					<span class="flex items-center gap-[7px] text-[11px] font-medium text-muted-foreground">
+						<i class="bg-foreground/40 h-2 w-2 rounded-full"></i>
 						Traditional SIEM — hot index + always-on compute
 					</span>
-					<span class="flex items-center gap-[7px] text-[10.5px] font-bold">
-						<i class="bg-primary h-2 w-2 rounded-full"></i>
+					<span class="flex items-center gap-[7px] text-[11px] font-bold text-foreground">
+						<i class="bg-primary h-2 w-2 rounded-full shadow-[0_0_8px_var(--color-primary)]"></i>
 						Rover — object storage + on-demand compute
 					</span>
 				</div>
 
-				<h3 class="mt-[18px] text-center text-[23px] font-bold tracking-[-0.02em]">
-					The cost gap widens as retention grows.
-				</h3>
-
 				<div
 					bind:this={plotEl}
-					class="border-background/15 mt-7 flex h-[190px] items-end justify-between border-b px-2"
+					class="border-border mt-9 flex h-[215px] items-end justify-between border-b px-2"
 					role="img"
 					aria-label="Relative infrastructure cost by retention window: traditional SIEM rises steeply from 30 days to 10 years while Rover stays nearly flat"
 				>
@@ -154,10 +155,15 @@
 								{/each}
 							</div>
 							<!-- Rover -->
-							<div class="flex w-[22px] flex-col-reverse justify-start sm:w-10">
+							<div class="flex w-[22px] flex-col-reverse justify-start sm:w-10 relative">
 								{#each group.roverSegs as h, si (si)}
+									{#if si === group.roverSegs.length - 1}
+										<div class="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[8.5px] sm:text-[9.5px] font-bold text-primary bg-primary/10 border border-primary/30 px-1.5 py-0.5 rounded-full shadow-sm">
+											{group.savings}
+										</div>
+									{/if}
 									<span
-										class="seg block w-full {roverShade(si)} {si === group.roverSegs.length - 1
+										class="seg block w-full {roverShade(si, si === group.roverSegs.length - 1)} {si === group.roverSegs.length - 1
 											? 'rounded-t-[1.5px] sm:rounded-t-[3px]'
 											: ''}"
 										class:is-in={barsIn}
@@ -174,7 +180,7 @@
 				<div class="flex justify-between px-2 pt-2.5">
 					{#each periods as p (p.label)}
 						<span
-							class="text-background/50 w-[49px] text-center text-[8px] font-semibold tracking-[0.04em] uppercase sm:w-[89px] sm:text-[9.5px] sm:tracking-[0.1em]"
+							class="text-muted-foreground w-[49px] text-center text-[8px] font-semibold tracking-[0.04em] uppercase sm:w-[89px] sm:text-[9.5px] sm:tracking-[0.1em]"
 							>{p.label}</span
 						>
 					{/each}
