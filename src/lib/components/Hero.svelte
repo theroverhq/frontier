@@ -15,10 +15,10 @@
 	];
 
 	const features = [
-		'Object-storage economics',
-		'Full-fidelity retention',
+		'Customer-owned Object-storage',
+		'No rehydration',
 		'Serverless compute',
-		'No search clusters'
+		'Multi-year searchable retention'
 	];
 
 	/* Cylinder rows: five recent years, an elided span, then the oldest two. */
@@ -529,10 +529,7 @@
 			<div>
 				<Badge variant="secondary" class="gap-1.5 px-3 py-1 font-sans">
 					<span class="bg-primary inline-block h-2 w-2 animate-pulse rounded-full"></span>
-					SIEM <span class=" opacity-50">•</span>
-					Search <span class=" opacity-50">•</span>
-					Analytics <span class=" opacity-50">•</span>
-					AI SOC
+					SIEM + Security Data Lake
 				</Badge>
 
 				<h1

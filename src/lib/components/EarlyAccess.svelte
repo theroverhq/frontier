@@ -58,9 +58,7 @@
 			Rover Early Access
 		</Badge>
 
-		<h2
-			class="mx-auto mt-6 max-w-[760px] text-[clamp(2rem,4.6vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.025em]"
-		>
+		<h2 class="mx-auto mt-6 max-w-[760px] leading-[1.12] font-bold tracking-[-0.025em]">
 			Bring the data your SIEM<br /><span class="text-primary">can't afford to keep.</span>
 		</h2>
 

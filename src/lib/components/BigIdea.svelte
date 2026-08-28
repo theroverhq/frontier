@@ -268,9 +268,7 @@
 			<Badge class="px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase">
 				Search Everything
 			</Badge>
-			<h2
-				class="mt-6 text-[clamp(2rem,4.6vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.025em]"
-			>
+			<h2 class="mt-6 leading-[1.12] font-bold tracking-[-0.025em]">
 				Years of data. <span class="text-primary">Answers in seconds.</span>
 			</h2>
 			<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
@@ -340,7 +338,9 @@
 				</div>
 
 				<!-- Query -->
-				<div class="border-border overflow-x-auto border-b px-[18px] pt-4 pb-3.5 text-[12.5px] leading-[1.85] font-mono">
+				<div
+					class="border-border overflow-x-auto border-b px-[18px] pt-4 pb-3.5 font-mono text-[12.5px] leading-[1.85]"
+				>
 					{#each codeLines as line, li (li)}
 						<div class="flex gap-3.5">
 							<span class="/60 w-2.5 shrink-0 text-right select-none">{li + 1}</span>
@@ -359,7 +359,7 @@
 
 				<!-- Result meta -->
 				<div
-					class="border-border flex flex-wrap items-center gap-2 sm:gap-3 border-b px-[18px] py-3 text-[11.5px]"
+					class="border-border flex flex-wrap items-center gap-2 border-b px-[18px] py-3 text-[11.5px] sm:gap-3"
 				>
 					<span>2016 → 2026</span>
 					<span
@@ -367,7 +367,7 @@
 						>All security data</span
 					>
 					<span
-						class="border-primary/25 bg-primary/10 text-foreground ml-0 sm:ml-auto flex items-center gap-2 rounded-md border px-2.5 py-[5px] font-semibold transition-shadow duration-300"
+						class="border-primary/25 bg-primary/10 text-foreground ml-0 flex items-center gap-2 rounded-md border px-2.5 py-[5px] font-semibold transition-shadow duration-300 sm:ml-auto"
 						class:is-flash={flash}
 					>
 						<span class="bg-primary h-1.5 w-1.5 rounded-full shadow-[0_0_8px_var(--primary)]"

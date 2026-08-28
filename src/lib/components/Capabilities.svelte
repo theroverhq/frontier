@@ -184,9 +184,7 @@
 			<Badge class="px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase">
 				What Your SIEM Can't Afford To Keep
 			</Badge>
-			<h2
-				class="mt-6 text-[clamp(2rem,4.6vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.025em]"
-			>
+			<h2 class="mt-6 leading-[1.12] font-bold tracking-[-0.025em]">
 				Search it. Analyze it.<br />Detect on it.
 			</h2>
 			<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
@@ -249,7 +247,7 @@
 					</div>
 				</div>
 				<div
-					class="border-border bg-muted/50  border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
+					class="border-border bg-muted/50 border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
 				>
 					Full-fidelity network flow data, searchable for years.
 				</div>
@@ -275,7 +273,7 @@
 						<div class="relative pb-3.5" bind:this={dnsEl}>
 							<!-- Query underneath, results lifted over it -->
 							<div
-								class="dark bg-background  h-[118px] overflow-hidden rounded-xl px-[22px] py-5 text-[12.5px]"
+								class="dark bg-background h-[118px] overflow-hidden rounded-xl px-[22px] py-5 text-[12.5px]"
 							>
 								source=<span class="text-primary opacity-60">dns</span> | rare query_name<br />
 								&nbsp;&nbsp;over <span class="text-primary opacity-60">12 months</span>
@@ -307,7 +305,7 @@
 					</div>
 				</div>
 				<div
-					class="border-border bg-muted/50  border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
+					class="border-border bg-muted/50 border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
 				>
 					Rare domains observed across the last 12 months.
 				</div>
@@ -346,25 +344,17 @@
 								class="border-border bg-muted/40 mt-4 grid grid-cols-2 gap-x-6 rounded-[10px] border px-[18px] py-3.5"
 							>
 								<div>
-									<div
-										class=" text-[10px] font-bold tracking-[0.1em] uppercase"
-									>
-										Bucket
-									</div>
+									<div class=" text-[10px] font-bold tracking-[0.1em] uppercase">Bucket</div>
 									<div class="mt-1.5 truncate text-[12.5px]">prod-customer-data</div>
 								</div>
 								<div>
-									<div
-										class=" text-[10px] font-bold tracking-[0.1em] uppercase"
-									>
-										Principal
-									</div>
+									<div class=" text-[10px] font-bold tracking-[0.1em] uppercase">Principal</div>
 									<div class="mt-1.5 truncate text-[12.5px]">arn:aws:iam...</div>
 								</div>
 							</div>
 						</div>
 						<div
-							class="border-border  group-hover:border-foreground/20 mt-3.5 flex items-center justify-center gap-2.5 rounded-[10px] border px-[18px] py-3.5 text-[12.5px] transition-all duration-300 group-hover:shadow-[0_8px_22px_-10px_rgba(0,0,0,0.15)]"
+							class="border-border group-hover:border-foreground/20 mt-3.5 flex items-center justify-center gap-2.5 rounded-[10px] border px-[18px] py-3.5 text-[12.5px] transition-all duration-300 group-hover:shadow-[0_8px_22px_-10px_rgba(0,0,0,0.15)]"
 						>
 							<b class="text-foreground text-[11.5px] font-bold tracking-[0.09em] uppercase"
 								>Investigate</b
@@ -375,7 +365,7 @@
 					</div>
 				</div>
 				<div
-					class="border-border bg-muted/50  border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
+					class="border-border bg-muted/50 border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
 				>
 					High-volume telemetry · S3 data events · Unsampled
 				</div>
@@ -453,7 +443,7 @@
 					</div>
 				</div>
 				<div
-					class="border-border bg-muted/50  border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
+					class="border-border bg-muted/50 border-t px-[30px] py-3.5 text-[11px] font-semibold tracking-[0.09em] uppercase"
 				>
 					Raw EDR telemetry · Process executions · Process trees
 				</div>

@@ -32,7 +32,7 @@
 	/* Stacks read darkest at the top, so shade by distance from the top. */
 	const siemShade = (fromTop: number) =>
 		['bg-foreground/65', 'bg-foreground/45', 'bg-foreground/30'][fromTop] ?? 'bg-foreground/[0.18]';
-	
+
 	const roverShade = (fromBottom: number, isTop: boolean) => {
 		const base = ['bg-primary/40', 'bg-primary/60', 'bg-primary/80'][fromBottom] ?? 'bg-primary/80';
 		if (isTop) return `${base} shadow-[0_-8px_20px_-6px_var(--color-primary)] z-10 relative`;
@@ -94,9 +94,7 @@
 			>
 				Built For Retention Economics
 			</Badge>
-			<h2
-				class="mt-6 text-[clamp(2rem,4.6vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.025em]"
-			>
+			<h2 class="mt-6 leading-[1.12] font-bold tracking-[-0.025em]">
 				<span class="text-primary">Keep years of data.</span> Not years of infrastructure.
 			</h2>
 			<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
@@ -111,7 +109,7 @@
 				class="dark border-border bg-card text-foreground rounded-2xl border px-4 pt-[30px] pb-[26px] sm:px-8"
 				style="box-shadow: 0 30px 80px rgba(0,0,0,.4), 0 0 60px rgba(200,241,53,.04);"
 			>
-				<h3 class="text-center text-[22px] sm:text-[25px] font-bold tracking-[-0.02em]">
+				<h3 class="text-center text-[22px] font-bold tracking-[-0.02em] sm:text-[25px]">
 					The cost gap widens as retention grows.
 				</h3>
 				<div
@@ -120,12 +118,14 @@
 					Relative Infrastructure Cost — Illustrative Architecture Comparison
 				</div>
 
-				<div class="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 border-y border-border/40 py-2.5">
-					<span class="flex items-center gap-[7px] text-[11px] font-medium text-muted-foreground">
+				<div
+					class="border-border/40 mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 border-y py-2.5"
+				>
+					<span class="text-muted-foreground flex items-center gap-[7px] text-[11px] font-medium">
 						<i class="bg-foreground/40 h-2 w-2 rounded-full"></i>
 						Traditional SIEM — hot index + always-on compute
 					</span>
-					<span class="flex items-center gap-[7px] text-[11px] font-bold text-foreground">
+					<span class="text-foreground flex items-center gap-[7px] text-[11px] font-bold">
 						<i class="bg-primary h-2 w-2 rounded-full shadow-[0_0_8px_var(--color-primary)]"></i>
 						Rover — object storage + on-demand compute
 					</span>
@@ -155,15 +155,20 @@
 								{/each}
 							</div>
 							<!-- Rover -->
-							<div class="flex w-[22px] flex-col-reverse justify-start sm:w-10 relative">
+							<div class="relative flex w-[22px] flex-col-reverse justify-start sm:w-10">
 								{#each group.roverSegs as h, si (si)}
 									{#if si === group.roverSegs.length - 1}
-										<div class="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[8px] sm:text-[9.5px] font-bold text-primary bg-primary/10 border border-primary/30 px-1 py-0.5 sm:px-1.5 rounded-full shadow-sm">
+										<div
+											class="text-primary bg-primary/10 border-primary/30 absolute -top-6 left-1/2 -translate-x-1/2 rounded-full border px-1 py-0.5 text-[8px] font-bold whitespace-nowrap shadow-sm sm:px-1.5 sm:text-[9.5px]"
+										>
 											{group.savings}
 										</div>
 									{/if}
 									<span
-										class="seg block w-full {roverShade(si, si === group.roverSegs.length - 1)} {si === group.roverSegs.length - 1
+										class="seg block w-full {roverShade(
+											si,
+											si === group.roverSegs.length - 1
+										)} {si === group.roverSegs.length - 1
 											? 'rounded-t-[1.5px] sm:rounded-t-[3px]'
 											: ''}"
 										class:is-in={barsIn}

@@ -203,9 +203,7 @@
 			<div class="text-muted-foreground mt-4 text-[11px] font-bold tracking-[0.12em] uppercase">
 				Persistent data. Stateful detections. Ephemeral queries.
 			</div>
-			<h2
-				class="mt-6 text-[clamp(2rem,4.6vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.025em]"
-			>
+			<h2 class="mt-6 leading-[1.12] font-bold tracking-[-0.025em]">
 				The attack started before the alert did.
 			</h2>
 			<p class="text-muted-foreground mx-auto mt-5 max-w-[760px] text-[17.5px] leading-[1.62]">
@@ -340,9 +338,7 @@
 			<Badge class="px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase">
 				From Months Of Manual Searching
 			</Badge>
-			<h2
-				class="mt-6 text-[clamp(2rem,4.6vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.025em]"
-			>
+			<h2 class="mt-6 leading-[1.12] font-bold tracking-[-0.025em]">
 				Years of security memory.<br />Answers in seconds.
 			</h2>
 		</div>

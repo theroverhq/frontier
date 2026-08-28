@@ -354,9 +354,7 @@
 			<div class="mt-4 text-[11px] font-bold tracking-[0.12em] uppercase">
 				Persistent data. Stateful detections. Ephemeral queries.
 			</div>
-			<h2
-				class="mt-6 text-[clamp(2rem,4.6vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.025em]"
-			>
+			<h2 class="mt-6 leading-[1.12] font-bold tracking-[-0.025em]">
 				Continuous detection. Rapid investigation.<br />One Rover
 			</h2>
 			<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
@@ -419,11 +417,13 @@
 					<div class="mt-4 flex items-start justify-between gap-1 text-center sm:hidden">
 						{#each branchLabels as br (br.x)}
 							<div class="flex flex-1 flex-col items-center px-1">
-								<div class="bg-border h-4 w-px mb-1.5"></div>
-								<span class="text-[9px] font-semibold leading-[1.35] tracking-[0.05em] uppercase">
+								<div class="bg-border mb-1.5 h-4 w-px"></div>
+								<span class="text-[9px] leading-[1.35] font-semibold tracking-[0.05em] uppercase">
 									{br.label}
 									{#if br.note}
-										<small class="text-muted-foreground block text-[8px] font-normal tracking-normal normal-case">
+										<small
+											class="text-muted-foreground block text-[8px] font-normal tracking-normal normal-case"
+										>
 											{br.note}
 										</small>
 									{/if}
@@ -450,12 +450,13 @@
 						</svg>
 						{#each branchLabels as br (br.x)}
 							<span
-								class="absolute bottom-0 -translate-x-1/2 text-center text-[9.5px] leading-[1.6] font-semibold tracking-[0.09em] uppercase max-w-[150px]"
+								class="absolute bottom-0 max-w-[150px] -translate-x-1/2 text-center text-[9.5px] leading-[1.6] font-semibold tracking-[0.09em] uppercase"
 								style="left: {br.x}%;"
 							>
 								{br.label}
 								{#if br.note}
-									<small class="text-muted-foreground block text-[9px] font-normal tracking-[0.04em] normal-case"
+									<small
+										class="text-muted-foreground block text-[9px] font-normal tracking-[0.04em] normal-case"
 										>{br.note}</small
 									>
 								{/if}
@@ -617,7 +618,7 @@
 							</div>
 
 							<div bind:this={mergeEl} class="abox w-full p-[18px]" class:is-lit={mergeLit}>
-								<h4 class="text-[16.5px] font-semibold">Query Planner</h4>
+								<h4 class="text-[16.5px] font-semibold">Search + Analytics</h4>
 							</div>
 						</div>
 					</div>
@@ -658,7 +659,7 @@
 				Persistent index · Continuous detection state · Ephemeral query compute
 			</div>
 			<h2
-				class="mt-6 text-[clamp(2rem,4.6vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.025em]"
+				class="mt-6 leading-[1.12] font-bold tracking-[-0.025em]"
 			>
 				Index the history. Track the present.<br />Query on demand.
 			</h2>

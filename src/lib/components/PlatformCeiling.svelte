@@ -117,9 +117,7 @@
 			<Badge class="px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase">
 				Beyond SIEM
 			</Badge>
-			<h2
-				class="mt-6 text-[clamp(2rem,4.6vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.025em]"
-			>
+			<h2 class="mt-6 leading-[1.12] font-bold tracking-[-0.025em]">
 				Security is where Rover starts.
 			</h2>
 			<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
@@ -191,9 +189,7 @@
 			style="opacity: {barIn ? 1 : 0}; transform: translateY({barIn ? 0 : 20}px);"
 		>
 			<h3 class="text-[19.5px] font-bold tracking-[-0.01em]">Rover Engine</h3>
-			<p
-				class=" mt-3 flex flex-wrap justify-center gap-x-3 gap-y-1 text-[13.5px]"
-			>
+			<p class=" mt-3 flex flex-wrap justify-center gap-x-3 gap-y-1 text-[13.5px]">
 				{#each engineTraits as trait, i (trait)}
 					{#if i > 0}
 						<i class="/60 not-italic">•</i>
