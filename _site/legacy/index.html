@@ -3,8 +3,7 @@
          SECTION 1: HERO — QOUNT MINIMALIST MONOCHROME HEADER BLOCK
          (SURGICAL 1% GREEN ACCENT ON PRIMARY CTA & ACTIVE DOT ONLY)
          ========================================================== -->
-    <header
-        class="py-16 md:py-24 bg-background text-foreground rounded-b-3xl border-b border-border shadow-2xl">
+    <header class="py-16 md:py-24 bg-background text-foreground rounded-b-3xl border-b border-border shadow-2xl">
         <div class="shell">
             <div class="grid grid-cols-1 lg:grid-cols-[1fr_520px] gap-12 items-center">
                 <div>
@@ -42,29 +41,35 @@
                     <div class="mt-8 flex flex-wrap items-center gap-4">
                         <!-- Primary 1% Surgical Accent CTA -->
                         <a class="px-5 py-3 text-sm font-semibold rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-colors shadow-sm"
-                            href="#early-access">Book a Demo</a>
+                            href="#early-access">Get Demo</a>
                         <a class="px-5 py-3 text-sm font-semibold rounded-md border border-border bg-surface-1 text-foreground hover:bg-surface-2 transition-colors shadow-sm"
                             href="#hero-preview">See Rover in Action</a>
                     </div>
 
                     <!-- Trust Strip (Clean Muted Dots) -->
                     <div class="mt-8 trust-strip ">
-                        <div class="trust-item text-foreground"><span class="dot bg-muted-foreground"></span>Your object storage
+                        <div class="trust-item text-foreground"><span class="dot bg-muted-foreground"></span>Your object
+                            storage
                         </div>
                         <span class="opacity-30">•</span>
-                        <div class="trust-item text-foreground"><span class="dot bg-muted-foreground"></span>Full-fidelity
+                        <div class="trust-item text-foreground"><span
+                                class="dot bg-muted-foreground"></span>Full-fidelity
                             retention</div>
                         <span class="opacity-30">•</span>
-                        <div class="trust-item text-foreground"><span class="dot bg-muted-foreground"></span>Serverless compute
+                        <div class="trust-item text-foreground"><span class="dot bg-muted-foreground"></span>Serverless
+                            compute
                         </div>
                         <span class="opacity-30">•</span>
-                        <div class="trust-item text-foreground"><span class="dot bg-muted-foreground"></span>No search clusters
+                        <div class="trust-item text-foreground"><span class="dot bg-muted-foreground"></span>No search
+                            clusters
                         </div>
                     </div>
                 </div>
 
                 <!-- Right Side: Rover Cold Storage Query Engine Visual -->
-                <div id="hero-preview" class="rover-ui-preview relative w-full h-[460px] bg-surface-0 border border-border rounded-2xl overflow-hidden shadow-2xl flex flex-col font-sans" aria-label="Rover Architecture Visualization">
+                <div id="hero-preview"
+                    class="rover-ui-preview relative w-full h-[460px] bg-surface-0 border border-border rounded-2xl overflow-hidden shadow-2xl flex flex-col font-sans"
+                    aria-label="Rover Architecture Visualization">
                     <!-- Top Bar -->
                     <div class="h-10 border-b border-border bg-surface-1 px-4 flex items-center justify-between z-10">
                         <div class="flex items-center gap-3 text-xs font-bold  uppercase tracking-widest">
@@ -82,44 +87,70 @@
                     <!-- Main Visual Canvas -->
                     <div class="relative flex-1 p-6 flex flex-col justify-between overflow-hidden">
                         <!-- Background Grid -->
-                        <div class="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:24px_24px] opacity-20 pointer-events-none"></div>
+                        <div
+                            class="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:24px_24px] opacity-20 pointer-events-none">
+                        </div>
 
                         <!-- Glowing Connecting Line -->
-                        <div class="absolute left-[40px] top-12 bottom-12 w-0.5 bg-gradient-to-b from-transparent via-primary to-transparent opacity-60"></div>
+                        <div
+                            class="absolute left-[40px] top-12 bottom-12 w-0.5 bg-gradient-to-b from-transparent via-primary to-transparent opacity-60">
+                        </div>
 
                         <!-- Step 1: Storage -->
                         <div class="relative z-10 flex items-center gap-5">
-                            <div class="w-10 h-10 rounded-full bg-surface-1 border border-border flex items-center justify-center  shadow-lg shrink-0">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+                            <div
+                                class="w-10 h-10 rounded-full bg-surface-1 border border-border flex items-center justify-center  shadow-lg shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                                </svg>
                             </div>
                             <div class="bg-surface-1 border border-border p-4 rounded-xl flex-1 shadow-lg">
-                                <div class="text-xs font-bold  mb-1.5 uppercase tracking-widest">1. Keep Everything</div>
-                                <div class="text-foreground text-xs font-semibold mb-2.5">100% Data in Object Storage</div>
+                                <div class="text-xs font-bold  mb-1.5 uppercase tracking-widest">1. Keep Everything
+                                </div>
+                                <div class="text-foreground text-xs font-semibold mb-2.5">100% Data in Object Storage
+                                </div>
                                 <div class="flex gap-2">
-                                    <span class="px-2 py-0.5 bg-surface-0 border border-border rounded text-xs font-mono ">Amazon S3 / GCS</span>
-                                    <span class="px-2 py-0.5 bg-primary/10 border border-primary/30 rounded text-xs font-mono text-primary font-bold">~ $0.02 / GB</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-surface-0 border border-border rounded text-xs font-mono ">Amazon
+                                        S3 / GCS</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-primary/10 border border-primary/30 rounded text-xs font-mono text-primary font-bold">~
+                                        $0.02 / GB</span>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Step 2: Compute -->
                         <div class="relative z-10 flex items-center gap-5">
-                            <div class="w-10 h-10 rounded-full bg-surface-0 border border-primary flex items-center justify-center text-primary shadow-[0_0_15px_var(--primary)] shrink-0 opacity-80">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            <div
+                                class="w-10 h-10 rounded-full bg-surface-0 border border-primary flex items-center justify-center text-primary shadow-[0_0_15px_var(--primary)] shrink-0 opacity-80">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
                             </div>
-                            <div class="bg-surface-0/60 border border-primary/30 p-4 rounded-xl flex-1 backdrop-blur-sm shadow-sm">
+                            <div
+                                class="bg-surface-0/60 border border-primary/30 p-4 rounded-xl flex-1 backdrop-blur-sm shadow-sm">
                                 <div class="flex items-center justify-between mb-2">
                                     <div>
-                                        <div class="text-xs font-bold text-primary uppercase tracking-widest mb-1.5">2. Serverless Engine</div>
-                                        <div class="text-foreground text-xs font-semibold">Parallel Inverted Index Scan</div>
+                                        <div class="text-xs font-bold text-primary uppercase tracking-widest mb-1.5">2.
+                                            Serverless Engine</div>
+                                        <div class="text-foreground text-xs font-semibold">Parallel Inverted Index Scan
+                                        </div>
                                     </div>
-                                    <div class="text-xs  font-mono font-bold bg-surface-1 px-2 py-1 rounded">1,024 Workers</div>
+                                    <div class="text-xs  font-mono font-bold bg-surface-1 px-2 py-1 rounded">1,024
+                                        Workers</div>
                                 </div>
                                 <div class="flex gap-1.5 mt-3 opacity-80">
                                     <div class="h-1.5 flex-1 bg-primary/90 rounded-full animate-pulse"></div>
                                     <div class="h-1.5 w-6 bg-primary/30 rounded-full"></div>
-                                    <div class="h-1.5 flex-[2] bg-primary/70 rounded-full animate-[pulse_1.5s_infinite]"></div>
-                                    <div class="h-1.5 flex-[1.5] bg-primary rounded-full animate-pulse shadow-[0_0_8px_var(--primary)]"></div>
+                                    <div
+                                        class="h-1.5 flex-[2] bg-primary/70 rounded-full animate-[pulse_1.5s_infinite]">
+                                    </div>
+                                    <div
+                                        class="h-1.5 flex-[1.5] bg-primary rounded-full animate-pulse shadow-[0_0_8px_var(--primary)]">
+                                    </div>
                                     <div class="h-1.5 w-4 bg-border rounded-full"></div>
                                     <div class="h-1.5 flex-1 bg-primary/50 rounded-full"></div>
                                 </div>
@@ -128,13 +159,20 @@
 
                         <!-- Step 3: Result -->
                         <div class="relative z-10 flex items-center gap-5">
-                            <div class="w-10 h-10 rounded-full bg-surface-1 border border-border flex items-center justify-center  shadow-lg shrink-0">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            <div
+                                class="w-10 h-10 rounded-full bg-surface-1 border border-border flex items-center justify-center  shadow-lg shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
                             </div>
-                            <div class="bg-surface-1 border border-border p-4 rounded-xl flex-1 flex items-center justify-between shadow-lg">
+                            <div
+                                class="bg-surface-1 border border-border p-4 rounded-xl flex-1 flex items-center justify-between shadow-lg">
                                 <div>
-                                    <div class="text-xs font-bold  mb-1.5 uppercase tracking-widest">3. Instant Answers</div>
-                                    <div class="text-foreground text-xs font-semibold">Search 2.4 Petabytes of Data</div>
+                                    <div class="text-xs font-bold  mb-1.5 uppercase tracking-widest">3. Instant Answers
+                                    </div>
+                                    <div class="text-foreground text-xs font-semibold">Search 2.4 Petabytes of Data
+                                    </div>
                                 </div>
                                 <div class="text-right">
                                     <div class="text-3xl font-bold text-primary font-mono leading-none mb-1">0.42s</div>
@@ -152,8 +190,7 @@
     <!-- ==========================================================
          SECTION 2: IMMEDIATELY EXPLAIN THE BIG IDEA (60% WARM CANVAS)
          ========================================================== -->
-    <section id="big-idea"
-        class="py-20 bg-surface-1 rounded-3xl my-8 border border-border shadow-sm">
+    <section id="big-idea" class="py-20 bg-surface-1 rounded-3xl my-8 border border-border shadow-sm">
         <div class="shell">
             <div class="max-w-3xl mb-12">
                 <h2 class="text-h2 font-medium tracking-tight text-foreground">
@@ -264,8 +301,7 @@
                             massive datasets without waiting for indexing pipelines.
                         </p>
                     </div>
-                    <div
-                        class="mt-6 pt-4 border-t border-border font-mono text-xs  flex items-center gap-3">
+                    <div class="mt-6 pt-4 border-t border-border font-mono text-xs  flex items-center gap-3">
                         <span class="text-foreground font-bold">Query syntax:</span>
                         <code
                             class="bg-surface-0 px-2.5 py-1 rounded border border-border text-foreground">fulltext:"unauthorized_access" AND retention > 365d</code>
@@ -288,8 +324,7 @@
                             moving them into another analytics engine or warehouse.
                         </p>
                     </div>
-                    <div
-                        class="mt-6 pt-4 border-t border-border font-mono text-xs  flex items-center gap-3">
+                    <div class="mt-6 pt-4 border-t border-border font-mono text-xs  flex items-center gap-3">
                         <span class="text-foreground font-bold">Analytics engine:</span>
                         <code
                             class="bg-surface-0 px-2.5 py-1 rounded border border-border text-foreground">stats count() by src_ip, user | calc entropy()</code>
@@ -312,8 +347,7 @@
                             forensic analysis across your entire telemetry dataset.
                         </p>
                     </div>
-                    <div
-                        class="mt-6 pt-4 border-t border-border font-mono text-xs  flex items-center gap-3">
+                    <div class="mt-6 pt-4 border-t border-border font-mono text-xs  flex items-center gap-3">
                         <span class="text-foreground font-bold">Security rules:</span>
                         <code
                             class="bg-surface-0 px-2.5 py-1 rounded border border-border text-foreground">Sigma Rules • MITRE ATT&CK • Baselines</code>
@@ -336,8 +370,7 @@
                             only today's hot data.
                         </p>
                     </div>
-                    <div
-                        class="mt-6 pt-4 border-t border-border font-mono text-xs  flex items-center gap-3">
+                    <div class="mt-6 pt-4 border-t border-border font-mono text-xs  flex items-center gap-3">
                         <span class="text-foreground font-bold">AI advantage:</span>
                         <code
                             class="bg-surface-0 px-2.5 py-1 rounded border border-border text-foreground">Agentic Triage • 12-Month Baseline</code>
@@ -351,8 +384,7 @@
     <!-- ==========================================================
          SECTION 4: ARCHITECTURE PROOF
          ========================================================== -->
-    <section id="architecture"
-        class="py-20 bg-surface-1 rounded-3xl my-8 border border-border shadow-sm">
+    <section id="architecture" class="py-20 bg-surface-1 rounded-3xl my-8 border border-border shadow-sm">
         <div class="shell">
             <div class="max-w-3xl mb-12">
                 <div class="eyebrow-badge mb-3"><span class="eyebrow-dot"></span>Architecture Proof</div>
@@ -372,8 +404,7 @@
                         Ingestion & Indexing</div>
 
                     <div class="arch-nodes-row">
-                        <span
-                            class="arch-node bg-surface-2 border-border text-foreground">CloudTrail</span>
+                        <span class="arch-node bg-surface-2 border-border text-foreground">CloudTrail</span>
                         <span class="arch-node bg-surface-2 border-border text-foreground">EDR</span>
                         <span class="arch-node bg-surface-2 border-border text-foreground">Okta</span>
                         <span class="arch-node bg-surface-2 border-border text-foreground">Network</span>
@@ -525,8 +556,7 @@
     <!-- ==========================================================
          SECTION 6: ECONOMIC REALITY TABLE (MONOCHROME HIGH-TRUST)
          ========================================================== -->
-    <section id="economics"
-        class="py-20 bg-surface-1 rounded-3xl my-8 border border-border shadow-sm">
+    <section id="economics" class="py-20 bg-surface-1 rounded-3xl my-8 border border-border shadow-sm">
         <div class="shell">
             <div class="max-w-3xl mb-12">
                 <div class="eyebrow-badge mb-3"><span class="eyebrow-dot"></span>Economic Reality</div>
@@ -541,8 +571,7 @@
 
             <!-- Side-by-Side High Contrast Table -->
             <div class="overflow-x-auto">
-                <table
-                    class="comp-table bg-surface-0 rounded-3xl border border-border overflow-hidden shadow-sm"
+                <table class="comp-table bg-surface-0 rounded-3xl border border-border overflow-hidden shadow-sm"
                     aria-label="Traditional SIEM versus Rover comparison table">
                     <thead>
                         <tr>
@@ -592,8 +621,7 @@
     <!-- ==========================================================
          SECTION 7: AI SOC MEMORY FEATURE BLOCK (DARK SLATE OKLCH)
          ========================================================== -->
-    <section id="ai-soc"
-        class="py-20 bg-background text-foreground rounded-3xl my-8 shadow-2xl border border-border">
+    <section id="ai-soc" class="py-20 bg-background text-foreground rounded-3xl my-8 shadow-2xl border border-border">
         <div class="shell grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12 items-center">
             <div>
                 <div
@@ -685,9 +713,11 @@
                     <div class="step-item active" id="ai-step-6">
                         <span class="step-icon text-primary">└─</span>
                         <div>
-                            <strong class="text-foreground font-bold">Produces complete investigation timeline & evidence
+                            <strong class="text-foreground font-bold">Produces complete investigation timeline &
+                                evidence
                                 case</strong>
-                            <div class="text-xs text-foreground mt-0.5">Case #4812 created with 142 source event citations
+                            <div class="text-xs text-foreground mt-0.5">Case #4812 created with 142 source event
+                                citations
                             </div>
                         </div>
                     </div>
@@ -714,20 +744,16 @@
 
             <div
                 class="mt-8 flex flex-wrap justify-center items-center gap-3 font-mono text-xs uppercase font-semibold ">
-                <span
-                    class="px-4 py-2 rounded-full bg-surface-1 border border-border text-foreground">Security</span>
+                <span class="px-4 py-2 rounded-full bg-surface-1 border border-border text-foreground">Security</span>
                 <span class="">•</span>
-                <span
-                    class="px-4 py-2 rounded-full bg-surface-1 border border-border text-foreground">Logs</span>
+                <span class="px-4 py-2 rounded-full bg-surface-1 border border-border text-foreground">Logs</span>
                 <span class="">•</span>
-                <span
-                    class="px-4 py-2 rounded-full bg-surface-1 border border-border text-foreground">Audit</span>
+                <span class="px-4 py-2 rounded-full bg-surface-1 border border-border text-foreground">Audit</span>
                 <span class="">•</span>
                 <span
                     class="px-4 py-2 rounded-full bg-surface-1 border border-border text-foreground">Infrastructure</span>
                 <span class="">•</span>
-                <span
-                    class="px-4 py-2 rounded-full bg-surface-1 border border-border text-foreground">Machine
+                <span class="px-4 py-2 rounded-full bg-surface-1 border border-border text-foreground">Machine
                     Data</span>
             </div>
         </div>
@@ -763,7 +789,7 @@
                             class="bg-surface-1 border border-border rounded-md px-4 py-3 text-foreground placeholder-muted-foreground outline-none focus:border-primary w-full sm:w-72">
                         <button
                             class="px-6 py-3 text-sm font-semibold rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-colors shadow-sm whitespace-nowrap"
-                            type="submit">Book a Demo</button>
+                            type="submit">Get Demo</button>
                     </form>
                 </div>
             </div>

@@ -555,7 +555,9 @@
 				</p>
 
 				<div class="mt-8">
-					<Button size="lg" href="#early-access" class="rounded-full uppercase">Book a Demo</Button>
+					<Button size="lg" href="#early-access" class=" rounded-full px-12 uppercase"
+						>Get Demo</Button
+					>
 				</div>
 
 				<div class="mt-11 grid grid-cols-1 gap-x-11 gap-y-3 sm:grid-cols-2">

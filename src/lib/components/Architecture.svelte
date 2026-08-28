@@ -6,7 +6,7 @@
 		{ title: 'HTTP Pull', body: 'Rover retrieves telemetry', chip: '' },
 		{ title: 'HTTP Push', body: 'Sources stream or batch telemetry to Rover', chip: '' },
 		{
-			title: 'S3 Drop',
+			title: 'Object Storage Drop',
 			body: 'Data already lands in customer object storage',
 			chip: 'No Pipeline Change'
 		}
@@ -14,7 +14,7 @@
 
 	const branchLabels = [
 		{ x: 17, label: 'Persist Data', note: 'when required' },
-		{ x: 50, label: 'Write Index In Place', note: '' },
+		{ x: 50, label: 'Write Index In Object Storage', note: '' },
 		{ x: 83, label: 'Update Signal Mesh', note: '' }
 	];
 
@@ -357,12 +357,12 @@
 			<h2
 				class="mt-6 text-[clamp(2rem,4.6vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.025em]"
 			>
-				Search is bursty. Detection is continuous.<br />Rover is built for both.
+				Continuous detection. Rapid investigation.<br />One Rover
 			</h2>
 			<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
-				Rover accepts security telemetry through HTTP pull, HTTP push, or direct S3 drop. It writes
-				the Rover Index beside the data in customer-owned Object Storage and updates Signal Mesh—a
-				state machine designed for continuous detection queries.
+				Send telemetry via HTTP push/pull or direct Object Storage Drop. Rover builds the Rover
+				Index entirely within your own object storage, while constantly updating Signal Mesh—our
+				stateful engine driving continuous detection.
 			</p>
 		</div>
 
@@ -411,12 +411,8 @@
 					>
 						<h4 class="text-[16.5px] font-semibold tracking-[-0.01em]">Rover Reader + Indexer</h4>
 						<div class="text-primary mt-2 text-[12.5px] font-semibold">Schema-on-read</div>
-						<p class=" mt-2.5 text-[12.5px] leading-[1.55]">
-							No upfront schema engineering
-						</p>
-						<p class=" mt-1 text-[12.5px] leading-[1.55]">
-							Go live in hours, not weeks
-						</p>
+						<p class=" mt-2.5 text-[12.5px] leading-[1.55]">No upfront schema engineering</p>
+						<p class=" mt-1 text-[12.5px] leading-[1.55]">Go live in hours, not weeks</p>
 					</div>
 
 					<div bind:this={branchEl} class="relative mt-2 h-[78px]">
@@ -441,8 +437,7 @@
 							>
 								{br.label}
 								{#if br.note}
-									<small
-										class="/70 block text-[9px] font-normal tracking-[0.04em] normal-case"
+									<small class="/70 block text-[9px] font-normal tracking-[0.04em] normal-case"
 										>{br.note}</small
 									>
 								{/if}
@@ -459,16 +454,12 @@
 					<h3 class="text-center text-[23px] font-semibold tracking-[-0.01em]">
 						Index where the data lives.
 					</h3>
-					<p
-						class=" mx-auto mt-3 max-w-[420px] text-center text-[13.5px] leading-[1.65]"
-					>
+					<p class=" mx-auto mt-3 max-w-[420px] text-center text-[13.5px] leading-[1.65]">
 						Rover writes its inverted indexes directly alongside security data in customer-owned
 						object storage.
 					</p>
 
-					<div
-						class=" mt-7 text-center text-[9.5px] font-semibold tracking-[0.13em] uppercase"
-					>
+					<div class=" mt-7 text-center text-[9.5px] font-semibold tracking-[0.13em] uppercase">
 						Customer-Owned Object Storage
 					</div>
 
@@ -480,9 +471,7 @@
 							<div class="text-[10px] font-bold tracking-[0.11em] uppercase">Security Data</div>
 							<ul class="mt-3">
 								{#each securityData as item (item)}
-									<li
-										class=" flex items-center gap-2 py-[3.5px] text-[11.5px]"
-									>
+									<li class=" flex items-center gap-2 py-[3.5px] text-[11.5px]">
 										<span class="bg-muted-foreground/60 h-[3px] w-[3px] shrink-0 rounded-full"
 										></span>
 										{item}
@@ -513,9 +502,7 @@
 									</div>
 								{/each}
 							</div>
-							<div class=" mt-3 text-[9.5px] tracking-[0.03em]">
-								Object-storage-native LSM
-							</div>
+							<div class=" mt-3 text-[9.5px] tracking-[0.03em]">Object-storage-native LSM</div>
 						</div>
 					</div>
 				</div>
@@ -525,9 +512,7 @@
 					<span class="stage-tag bg-background">03 · Signal Mesh</span>
 
 					<div class="flex flex-col items-center">
-						<span
-							class=" text-[10px] font-semibold tracking-[0.13em] uppercase"
-						>
+						<span class=" text-[10px] font-semibold tracking-[0.13em] uppercase">
 							Detection Query / Rule
 						</span>
 						<div class="aconn">
@@ -591,9 +576,7 @@
 							<div class="s4-klabel">Persistent · Customer-Owned</div>
 							<div bind:this={cosEl} class="abox w-full px-5 pt-[22px] pb-4" class:is-lit={cosLit}>
 								<h4 class="text-[16.5px] font-semibold">Customer Object Storage</h4>
-								<div
-									class=" mt-2 text-[9.5px] font-semibold tracking-[0.13em] uppercase"
-								>
+								<div class=" mt-2 text-[9.5px] font-semibold tracking-[0.13em] uppercase">
 									Rover Index
 								</div>
 							</div>
@@ -652,7 +635,7 @@
 		</div>
 
 		<!-- ============ Index / Track / Query ============ -->
-<!-- 		<div class="mt-28 text-center">
+		<!-- 		<div class="mt-28 text-center">
 			<div class="text-[11px] font-bold tracking-[0.12em] uppercase">
 				Persistent index · Continuous detection state · Ephemeral query compute
 			</div>

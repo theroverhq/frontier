@@ -75,11 +75,19 @@
 
 		<div class="flex items-center gap-4">
 			<Button
+				variant="secondary"
 				size="sm"
 				href="{$page.url.pathname === '/' ? '' : '/'}#early-access"
-				class="bg-primary hover:bg-primary/90 rounded-full px-5 font-sans text-[11px] font-bold tracking-wide text-zinc-950 uppercase"
+				class="rounded-full px-12 font-sans text-[11px] font-bold tracking-wide text-zinc-950 uppercase"
 			>
-				Book a Demo
+				Get Demo
+			</Button>
+			<Button
+				size="sm"
+				href="{$page.url.pathname === '/' ? '' : '/'}#early-access"
+				class="bg-primary hover:bg-primary/90 rounded-full px-12 font-sans text-[11px] font-bold tracking-wide text-zinc-950 uppercase"
+			>
+				Contact Us
 			</Button>
 
 			<!-- Mobile Hamburger Menu -->
