@@ -55,11 +55,6 @@
 				>Search</a
 			>
 			<a
-				href="{$page.url.pathname === '/' ? '' : '/'}#capabilities"
-				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
-				>Analytics</a
-			>
-			<a
 				href="{$page.url.pathname === '/' ? '' : '/'}#architecture"
 				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
 				>Architecture</a

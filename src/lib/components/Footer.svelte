@@ -6,7 +6,6 @@
 
 	const product = [
 		{ label: 'Search', hash: '#big-idea' },
-		{ label: 'Analytics', hash: '#capabilities' },
 		{ label: 'Architecture', hash: '#architecture' },
 		{ label: 'AI SOC', hash: '#ai-soc' }
 	];
@@ -110,7 +109,7 @@
 		</div>
 
 		<div
-			class="border-border  relative z-2 flex flex-wrap items-center justify-between gap-4 border-t pt-5 pb-6 text-[12.5px]"
+			class="border-border relative z-2 flex flex-wrap items-center justify-between gap-4 border-t pt-5 pb-6 text-[12.5px]"
 		>
 			<span>&copy; 2026 Rover HQ Inc. All rights reserved.</span>
 			<div class="flex items-center gap-5">
