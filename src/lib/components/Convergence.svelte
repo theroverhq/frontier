@@ -103,7 +103,7 @@
 				Converged Security
 			</Badge>
 			<h2 class="mt-6 leading-[1.12] font-bold tracking-[-0.025em]">
-				SIEM. AI. <span class="text-primary">One platform.</span>
+				SIEM. AI. SECURITY DATA LAKE. <br /> <span class="text-primary">One platform.</span>
 			</h2>
 			<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
 				Traditional security stacks split telemetry and context across hot SIEM indexes, data lakes,

@@ -11,7 +11,11 @@
 		'No search clusters'
 	];
 
-	const fit = ['Generate TBs/day', 'Need multi-year retention', 'Archive high-volume telemetry'];
+	const fit = [
+		'Generate GBs or TBs/day',
+		'Need multi-year hot retention',
+		'Archive high-volume telemetry'
+	];
 
 	let tailEl: HTMLDivElement | undefined = $state();
 	let tailIn = $state(false);

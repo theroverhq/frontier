@@ -40,7 +40,7 @@
 				</div>
 				<a
 					href="mailto:contactus@roverhq.ai"
-					class="text-foreground/85 hover:text-foreground mt-4 flex items-center gap-2.5 text-sm transition-colors"
+					class="text-foreground/85 hover:text-foreground mt-4 flex items-center gap-1.5 text-sm transition-colors"
 				>
 					<svg
 						viewBox="0 0 24 24"
@@ -48,7 +48,7 @@
 						stroke-width="1.6"
 						aria-hidden="true"
 					>
-						<rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" />
+						<rect x="3" y="6" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" />
 					</svg>
 					contactus@roverhq.ai
 				</a>
@@ -125,9 +125,37 @@
 						class="fill-muted-foreground group-hover:fill-foreground h-[18px] w-[18px] transition-colors"
 						aria-hidden="true"
 					>
-						<path
-							d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.22 8.16h4.56V23H.22V8.16Zm7.32 0h4.37v2.02h.06c.61-1.16 2.1-2.38 4.32-2.38 4.62 0 5.47 3.04 5.47 7v8.2h-4.55v-7.27c0-1.73-.03-3.96-2.41-3.96-2.42 0-2.79 1.89-2.79 3.84V23H7.54V8.16Z"
-						/>
+						<path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+					</svg>
+				</a>
+				<a
+					href="https://www.facebook.com/profile.php?id=61593680348655"
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label="Rover on Facebook"
+					class="group"
+				>
+					<svg
+						viewBox="0 0 24 24"
+						class="fill-muted-foreground group-hover:fill-foreground h-[18px] w-[18px] transition-colors"
+						aria-hidden="true"
+					>
+						<path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-3 7h-1.924c-.615 0-1.076.252-1.076.889v1.111h3l-.239 3h-2.761v8h-3v-8h-2v-3h2v-1.923c0-2.022 1.064-3.077 3.461-3.077h2.539v3z" />
+					</svg>
+				</a>
+				<a
+					href="https://www.instagram.com/roverhq.ai/"
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label="Rover on Instagram"
+					class="group"
+				>
+					<svg
+						viewBox="0 0 24 24"
+						class="fill-muted-foreground group-hover:fill-foreground h-[18px] w-[18px] transition-colors"
+						aria-hidden="true"
+					>
+						<path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-7 15.36c-1.855 0-3.36-1.505-3.36-3.36s1.505-3.36 3.36-3.36 3.36 1.505 3.36 3.36-1.505 3.36-3.36 3.36zm4.56-6.41c-.426 0-.771-.345-.771-.771s.345-.771.771-.771.771.345.771.771-.345.771-.771.771zm-4.56 1.01c-1.019 0-1.84.821-1.84 1.84s.821 1.84 1.84 1.84 1.84-.821 1.84-1.84-.821-1.84-1.84-1.84z" />
 					</svg>
 				</a>
 				<a href="#top" onclick={toTop} class="hover:text-foreground transition-colors">
