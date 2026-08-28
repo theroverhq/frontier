@@ -100,9 +100,7 @@
 					? 0
 					: 20}px); transition-delay: 120ms;"
 			>
-				<div class=" text-[13px] font-semibold tracking-[0.05em]">
-					A good fit if you:
-				</div>
+				<div class=" text-[13px] font-semibold tracking-[0.05em]">A good fit if you:</div>
 				<div class="mt-4 flex flex-wrap justify-center gap-3">
 					{#each fit as item (item)}
 						<span
@@ -111,28 +109,6 @@
 							{item}
 						</span>
 					{/each}
-				</div>
-			</div>
-
-			<div
-				class="mt-16 flex flex-col items-center gap-3.5 transition-all duration-700"
-				style="opacity: {tailIn ? 1 : 0}; transform: translateY({tailIn
-					? 0
-					: 20}px); transition-delay: 240ms;"
-			>
-				<a
-					href="/"
-					class="flex items-center gap-2 transition-opacity hover:opacity-90"
-					aria-label="Rover home"
-				>
-					<img src="/rover-logo.png" alt="" class="h-6 w-auto" />
-					<span
-						class="text-[22px] leading-none tracking-widest"
-						style="font-family: 'Mitr', sans-serif;">ROVER</span
-					>
-				</a>
-				<div class="text-[14.5px]">
-					Cold Storage. <span class="text-primary">Hot Intelligence.</span>
 				</div>
 			</div>
 		</div>
