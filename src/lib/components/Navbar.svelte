@@ -60,9 +60,9 @@
 				>Architecture</a
 			>
 			<a
-				href="{$page.url.pathname === '/' ? '' : '/'}#ai-soc"
+				href="{$page.url.pathname === '/' ? '' : '/'}#economics"
 				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
-				>AI SOC</a
+				>Pricing</a
 			>
 			<a
 				href="/blogs/"
@@ -156,9 +156,9 @@
 					onclick={closeMenu}>Architecture</a
 				>
 				<a
-					href="{$page.url.pathname === '/' ? '' : '/'}#ai-soc"
+					href="{$page.url.pathname === '/' ? '' : '/'}#economics"
 					class="hover:text-primary border-b border-white/5 py-2 transition-all"
-					onclick={closeMenu}>AI SOC</a
+					onclick={closeMenu}>Pricing</a
 				>
 				<a
 					href="/blogs/"

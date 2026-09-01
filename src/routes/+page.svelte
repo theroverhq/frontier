@@ -52,6 +52,6 @@
 <Architecture />
 <Convergence />
 <Economics />
-<AiSoc />
+<!-- <AiSoc /> -->
 <!-- <PlatformCeiling /> -->
 <EarlyAccess />

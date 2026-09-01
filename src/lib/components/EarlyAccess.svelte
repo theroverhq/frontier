@@ -73,9 +73,7 @@
 		</p>
 
 		<div class="mt-10 flex flex-wrap justify-center gap-3.5">
-			<Button size="lg" href="mailto:contactus@roverhq.ai" class="rounded-full">
-				Join Early Access
-			</Button>
+			<Button size="lg" href="mailto:contactus@roverhq.ai" class="rounded-full">Get Demo</Button>
 			<Button variant="outline" size="lg" href="#hero-preview" class="rounded-full">
 				See Rover in Action
 			</Button>

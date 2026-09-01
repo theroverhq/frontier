@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Badge } from '$lib/components/ui/badge';
+	import PricingCalculator from '$lib/components/PricingCalculator.svelte';
 
 	/* Relative infrastructure cost. A traditional SIEM accrues another tier of
 	   cost with every step up in retention; Rover barely moves. */
@@ -85,7 +86,7 @@
 	});
 </script>
 
-<section id="economics" class="dark bg-background text-foreground relative overflow-hidden pt-26">
+<section id="economics" class="dark bg-background text-foreground relative overflow-hidden">
 	<div class="relative container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div class="text-center">
 			<Badge
@@ -101,6 +102,10 @@
 				Traditional SIEM economics compound as searchable retention grows. Rover keeps data and
 				indexes in object storage and pays for compute only when queries run.
 			</p>
+		</div>
+
+		<div class="mt-26">
+			<PricingCalculator />
 		</div>
 
 		<div class="mt-[70px] grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
