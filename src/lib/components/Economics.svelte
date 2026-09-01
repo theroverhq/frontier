@@ -86,7 +86,10 @@
 	});
 </script>
 
-<section id="economics" class="dark bg-background text-foreground relative overflow-hidden">
+<section
+	id="economics"
+	class="dark bg-background text-foreground relative overflow-hidden pt-24 pb-28"
+>
 	<div class="relative container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div class="text-center">
 			<Badge
@@ -104,12 +107,11 @@
 			</p>
 		</div>
 
-		<div class="mt-26">
+		<div class="my-26">
 			<PricingCalculator />
 		</div>
 
-		<div class="mt-[70px] grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
-			<!-- A dark card, matching the hero-preview -->
+		<!-- 		<div class="mt-[70px] grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
 			<div
 				class="dark border-border bg-card text-foreground rounded-2xl border px-4 pt-[30px] pb-[26px] sm:px-8"
 				style="box-shadow: 0 30px 80px rgba(0,0,0,.4), 0 0 60px rgba(200,241,53,.04);"
@@ -144,7 +146,6 @@
 				>
 					{#each stacks as group (group.label)}
 						<div class="flex h-full items-end gap-[5px] sm:gap-[9px]">
-							<!-- Traditional SIEM -->
 							<div class="flex w-[22px] flex-col-reverse justify-start sm:w-10">
 								{#each group.siemSegs as h, si (si)}
 									<span
@@ -159,7 +160,6 @@
 									></span>
 								{/each}
 							</div>
-							<!-- Rover -->
 							<div class="relative flex w-[22px] flex-col-reverse justify-start sm:w-10">
 								{#each group.roverSegs as h, si (si)}
 									{#if si === group.roverSegs.length - 1}
@@ -210,9 +210,9 @@
 					</div>
 				{/each}
 			</div>
-		</div>
+		</div> -->
 
-		<div class="border-border mt-24 border-t pt-22 pb-24 text-center">
+		<div class="text-center">
 			<div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
 				{#each proof as claim, i (claim)}
 					{#if i > 0}

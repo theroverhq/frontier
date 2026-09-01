@@ -50,8 +50,8 @@
 <BigIdea />
 <!-- <Capabilities /> -->
 <Architecture />
-<Convergence />
+<AiSoc />
+<!-- <Convergence /> -->
 <Economics />
-<!-- <AiSoc /> -->
 <!-- <PlatformCeiling /> -->
 <EarlyAccess />

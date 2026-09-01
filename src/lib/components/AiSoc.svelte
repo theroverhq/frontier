@@ -189,11 +189,7 @@
 
 <section id="ai-soc" class="bg-muted text-foreground relative overflow-hidden pt-26 pb-28">
 	<!-- Lime-tinted wash, mixed from the theme token -->
-	<div
-		class="pointer-events-none absolute inset-0"
-		style="background: radial-gradient(760px 400px at 50% 0%, color-mix(in oklab, var(--primary) 16%, var(--muted)), transparent 70%);"
-		aria-hidden="true"
-	></div>
+	<div class="pointer-events-none absolute inset-0" aria-hidden="true"></div>
 
 	<div class="relative container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div class="text-center">

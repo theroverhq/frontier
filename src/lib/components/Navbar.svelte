@@ -41,7 +41,7 @@
 		</a>
 
 		<div
-			class="hidden items-center gap-8 text-[11px] font-bold tracking-widest text-zinc-300 uppercase lg:flex"
+			class="hidden items-center gap-6 xl:gap-8 text-[11px] font-bold tracking-widest text-zinc-300 uppercase lg:flex"
 			aria-label="Page sections"
 		>
 			<a
@@ -58,6 +58,11 @@
 				href="{$page.url.pathname === '/' ? '' : '/'}#architecture"
 				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
 				>Architecture</a
+			>
+			<a
+				href="{$page.url.pathname === '/' ? '' : '/'}#ai-soc"
+				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
+				>AI SOC</a
 			>
 			<a
 				href="{$page.url.pathname === '/' ? '' : '/'}#economics"
@@ -154,6 +159,11 @@
 					href="{$page.url.pathname === '/' ? '' : '/'}#architecture"
 					class="hover:text-primary border-b border-white/5 py-2 transition-all"
 					onclick={closeMenu}>Architecture</a
+				>
+				<a
+					href="{$page.url.pathname === '/' ? '' : '/'}#ai-soc"
+					class="hover:text-primary border-b border-white/5 py-2 transition-all"
+					onclick={closeMenu}>AI SOC</a
 				>
 				<a
 					href="{$page.url.pathname === '/' ? '' : '/'}#economics"
