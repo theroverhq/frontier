@@ -62,7 +62,7 @@
 			<a
 				href="{$page.url.pathname === '/' ? '' : '/'}#ai-soc"
 				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
-				>AI SOC</a
+				>AI Context Engine</a
 			>
 			<a
 				href="{$page.url.pathname === '/' ? '' : '/'}#economics"
@@ -163,7 +163,7 @@
 				<a
 					href="{$page.url.pathname === '/' ? '' : '/'}#ai-soc"
 					class="hover:text-primary border-b border-white/5 py-2 transition-all"
-					onclick={closeMenu}>AI SOC</a
+					onclick={closeMenu}>AI Context Engine</a
 				>
 				<a
 					href="{$page.url.pathname === '/' ? '' : '/'}#economics"

@@ -8,7 +8,7 @@
 		{ label: 'SIEM', hash: '#hero-preview' },
 		{ label: 'Search', hash: '#big-idea' },
 		{ label: 'Architecture', hash: '#architecture' },
-		{ label: 'AI SOC', hash: '#ai-soc' },
+		{ label: 'AI Context Engine', hash: '#ai-soc' },
 		{ label: 'Pricing', hash: '#economics' }
 	];
 

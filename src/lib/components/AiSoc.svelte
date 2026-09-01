@@ -38,10 +38,10 @@
 	];
 
 	const steps = [
-		{ n: '01', title: 'Search', body: 'Years of security history' },
-		{ n: '02', title: 'Correlate', body: 'Across every security source' },
-		{ n: '03', title: 'Reconstruct', body: 'The attack timeline' },
-		{ n: '04', title: 'Explain', body: 'Analyst-ready conclusions' }
+		{ n: '01', title: 'Multi-Year Memory', body: 'Years of searchable security history' },
+		{ n: '02', title: 'Zero Scan Tax', body: 'Unlimited high-frequency AI query loops' },
+		{ n: '03', title: 'Sub-Second Search', body: 'Instant answers over S3 object storage' },
+		{ n: '04', title: 'In-Place Context', body: 'Zero log rehydration pipelines required' }
 	];
 
 	const BREACH_DAYS = 241;
@@ -194,7 +194,7 @@
 	<div class="relative container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div class="text-center">
 			<Badge class="px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase">
-				AI SOC With Memory
+				AI Context Engine
 			</Badge>
 			<div class="text-muted-foreground mt-4 text-[11px] font-bold tracking-[0.12em] uppercase">
 				Persistent data. Stateful detections. Ephemeral queries.

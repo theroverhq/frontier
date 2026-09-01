@@ -8,10 +8,10 @@
 	const sources = ['Cloud', 'Identity', 'Endpoint', 'Network', 'SaaS', 'Logs'];
 
 	const outputs = [
-		{ label: 'Instant Search', color: 'var(--chart-1)', spaced: false },
-		{ label: 'Live Analytics', color: 'var(--chart-3)', spaced: false },
-		{ label: 'SIEM', color: 'var(--chart-2)', spaced: true },
-		{ label: 'AI SOC', color: 'var(--chart-4)', spaced: false }
+		{ label: 'Instant Search', color: '', spaced: false },
+		{ label: 'Analytics', color: '', spaced: false },
+		{ label: 'SIEM', color: '', spaced: true },
+		{ label: 'AI SOC', color: '', spaced: false }
 	];
 
 	const features = [
@@ -764,7 +764,7 @@
 	.hd-src:hover,
 	.hd-src.is-lit {
 		border-color: color-mix(in oklab, var(--primary) 50%, transparent);
-		box-shadow: 0 0 16px color-mix(in oklab, var(--primary) 12%, transparent);
+		box-shadow: 0 0 1px color-mix(in oklab, var(--primary) 12%, transparent);
 	}
 	.hd-out.is-lit {
 		border-color: currentColor;
