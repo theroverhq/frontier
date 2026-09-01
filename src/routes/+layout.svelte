@@ -9,6 +9,9 @@
 </script>
 
 <svelte:head>
+  <meta property="og:site_name" content="Rover" />
+  <meta name="twitter:site" content="@roverhq_ai" />
+  <meta name="twitter:creator" content="@roverhq_ai" />
   {#if browser}
     {#if PUBLIC_GA_MEASUREMENT_ID}
       <script async src="https://www.googletagmanager.com/gtag/js?id={PUBLIC_GA_MEASUREMENT_ID}"></script>

@@ -6,11 +6,50 @@
 </script>
 
 <svelte:head>
-	<title>{data.blog.card_title} | Rover Blog</title>
+	<title>{data.blog.title}</title>
 	<meta name="description" content={data.blog.description} />
-	{#if data.blog.og_image}
-		<meta property="og:image" content={data.blog.og_image} />
-	{/if}
+	<link rel="canonical" href="https://roverhq.ai/blogs/{data.blog.slug}" />
+
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="https://roverhq.ai/blogs/{data.blog.slug}" />
+	<meta property="og:title" content={data.blog.title} />
+	<meta property="og:description" content={data.blog.description} />
+	<meta property="og:image" content={data.blog.og_image || 'https://roverhq.ai/og-image.jpg'} />
+	<meta property="article:section" content={data.blog.category} />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content={data.blog.title} />
+	<meta name="twitter:description" content={data.blog.description} />
+	<meta name="twitter:image" content={data.blog.og_image || 'https://roverhq.ai/og-image.jpg'} />
+
+	{@html `<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"headline": ${JSON.stringify(data.blog.card_title)},
+		"description": ${JSON.stringify(data.blog.description)},
+		"image": [${JSON.stringify(data.blog.og_image || 'https://roverhq.ai/og-image.jpg')}],
+		"url": ${JSON.stringify('https://roverhq.ai/blogs/' + data.blog.slug)},
+		"articleSection": ${JSON.stringify(data.blog.category)},
+		"author": {
+			"@type": "Organization",
+			"name": "Rover Engineering",
+			"url": "https://roverhq.ai"
+		},
+		"publisher": {
+			"@type": "Organization",
+			"name": "Rover",
+			"logo": {
+				"@type": "ImageObject",
+				"url": "https://roverhq.ai/rover-logo.png"
+			}
+		},
+		"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": ${JSON.stringify('https://roverhq.ai/blogs/' + data.blog.slug)}
+		}
+	}
+	</script>`}
 </svelte:head>
 
 <div class="dark min-h-screen bg-background text-foreground">

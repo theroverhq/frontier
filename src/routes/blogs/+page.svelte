@@ -21,11 +21,48 @@
 </script>
 
 <svelte:head>
-	<title>Rover Blog | Agentic SIEM, SecOps, and S3 Search</title>
+	<title>Rover Blog | Security Data Lakes & Object Storage Search</title>
 	<meta
 		name="description"
-		content="Read Rover research and engineering notes on agentic SIEM architecture, security data lakes, S3-native search, and AI-assisted SecOps."
+		content="Engineering research and architecture notes on object storage log search, SIEM cost optimization, multi-year telemetry retention, and AI SOC automation."
 	/>
+	<meta
+		name="keywords"
+		content="Rover Blog, Security Data Lake, Object Storage SIEM, SIEM cost reduction, telemetry retention, SOC automation, detection engineering, threat hunting"
+	/>
+	<link rel="canonical" href="https://roverhq.ai/blogs" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://roverhq.ai/blogs" />
+	<meta property="og:title" content="Rover Blog | Security Data Lakes & Object Storage Search" />
+	<meta
+		property="og:description"
+		content="Engineering research and architecture notes on object storage log search, SIEM cost optimization, multi-year telemetry retention, and AI SOC automation."
+	/>
+	<meta property="og:image" content="https://roverhq.ai/og-image.jpg" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Rover Blog | Security Data Lakes & Object Storage Search" />
+	<meta
+		name="twitter:description"
+		content="Engineering research and architecture notes on object storage log search, SIEM cost optimization, multi-year telemetry retention, and AI SOC automation."
+	/>
+	<meta name="twitter:image" content="https://roverhq.ai/og-image.jpg" />
+
+	{@html `<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "Blog",
+		"name": "Rover Blog | Security Data Lakes & Object Storage Search",
+		"description": "Engineering research and architecture notes on object storage log search, SIEM cost optimization, multi-year telemetry retention, and AI SOC automation.",
+		"url": "https://roverhq.ai/blogs",
+		"publisher": {
+			"@type": "Organization",
+			"name": "Rover",
+			"logo": "https://roverhq.ai/rover-logo.png"
+		}
+	}
+	</script>`}
 </svelte:head>
 
 <div class="dark min-h-screen bg-background text-foreground">

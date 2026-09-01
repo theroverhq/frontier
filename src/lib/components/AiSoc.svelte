@@ -40,7 +40,7 @@
 	const steps = [
 		{ n: '01', title: 'Multi-Year Memory', body: 'Years of searchable security history' },
 		{ n: '02', title: 'Zero Scan Tax', body: 'Unlimited high-frequency AI query loops' },
-		{ n: '03', title: 'Sub-Second Search', body: 'Instant answers over S3 object storage' },
+		{ n: '03', title: 'Sub-Second Search', body: 'Instant answers over object storage' },
 		{ n: '04', title: 'In-Place Context', body: 'Zero log rehydration pipelines required' }
 	];
 
