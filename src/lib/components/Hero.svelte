@@ -653,8 +653,8 @@
 										</g>
 									{/each}
 									<text class="fill-foreground font-small" x="125" y="320" text-anchor="middle"
-										>Full-fidelity data</text
-									>
+										>Full-fidelity data
+									</text>
 								</svg>
 							</div>
 						</div>
@@ -677,8 +677,8 @@
 									style="color: {output.color};"
 								>
 									<i
-										class="h-[7px] w-[7px] shrink-0 rounded-full"
-										style="background: currentColor; box-shadow: 0 0 9px currentColor;"
+										class="h-[5px] w-[5px] shrink-0 rounded-full"
+										style="background: var(--primary); box-shadow: 0 0 0px currentColor;"
 									></i>
 									{output.label}
 								</div>
@@ -692,8 +692,8 @@
 						class="text-foreground absolute z-2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-[14px] text-center text-[9.5px] font-semibold tracking-[0.08em] uppercase max-lg:hidden"
 						aria-hidden="true"
 					>
-						<span>Continuous</span>
-						<span>Detections</span>
+						<span>Continuous Detections</span>
+						<span>Schema on read</span>
 					</div>
 					<div
 						bind:this={sqcEl}
@@ -767,8 +767,8 @@
 		box-shadow: 0 0 1px color-mix(in oklab, var(--primary) 12%, transparent);
 	}
 	.hd-out.is-lit {
-		border-color: currentColor;
-		box-shadow: 0 0 16px -3px currentColor;
+		border-color: var(--primary);
+		box-shadow: 0 0 3px -3px var(--primary);
 	}
 
 	/* Hover focus dims everything off the highlighted path --------------- */
