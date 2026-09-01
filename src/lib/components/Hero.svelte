@@ -203,7 +203,7 @@
 			const cylMidY = cylR.y + 170 * sy;
 
 			const srcRs = srcs.map(rel);
-			const busX = (srcRs[0].right + cylLeft) / 2;
+			const busX = (srcRs[0].right + cylLeft) / 2.5;
 			srcRs.forEach((r) =>
 				visConns.push(
 					mkPath(
@@ -584,7 +584,7 @@
 					></svg>
 
 					<div
-						class="relative z-2 grid grid-cols-1 items-start gap-x-[18px] gap-y-8 sm:grid-cols-[110px_minmax(0,1fr)_190px] sm:gap-y-0"
+						class="relative z-2 grid grid-cols-1 items-start gap-x-[18px] gap-y-8 sm:grid-cols-[105px_minmax(0,1fr)_175px] sm:gap-y-0"
 					>
 						<!-- Sources -->
 						<div class="flex flex-col">
@@ -596,7 +596,7 @@
 							<div class="flex flex-wrap gap-2 sm:block sm:gap-0">
 								{#each sources as source, i (source)}
 									<div
-										class="hd-src border-border bg-background/50 mb-0 flex-1 basis-[40%] rounded-[11px] border px-2 py-2.5 text-center text-[13px] font-medium sm:mb-3 sm:basis-auto"
+										class="hd-src border-border bg-background/50 mb-0 flex-1 basis-[40%] rounded-[11px] border px-2 py-2 text-center text-[13px] font-medium sm:mb-2 sm:basis-auto"
 										class:is-lit={srcLit[i]}
 									>
 										{source}
@@ -689,7 +689,7 @@
 					<!-- Floating mid-column labels, positioned against the measured bus -->
 					<div
 						bind:this={cdEl}
-						class="text-foreground absolute z-2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-[14px] text-center text-[9.5px] font-semibold tracking-[0.08em] uppercase max-lg:hidden"
+						class="text-foreground absolute z-2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-[12px] text-center text-[9px] font-semibold tracking-[0.07em] whitespace-nowrap uppercase max-lg:hidden"
 						aria-hidden="true"
 					>
 						<span>Continuous Detections</span>
