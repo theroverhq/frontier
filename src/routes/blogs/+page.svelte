@@ -75,10 +75,10 @@
 					Rover Engineering Blog
 				</div>
 				<h1 class="mt-6 font-heading text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-foreground">
-					Insights for <span class="text-primary">agentic</span> security teams.
+					Insights for <span class="text-primary">modern</span> security teams.
 				</h1>
 				<p class="mt-4 text-lg text-text-secondary leading-relaxed">
-					Architecture notes on Agentic SIEM, S3-native search, retained telemetry, and the operational tradeoffs shaping modern SecOps.
+					Architecture notes on Security Data Lakes, Object Storage-native search, retained telemetry, and the operational tradeoffs shaping modern SecOps.
 				</p>
 			</div>
 
