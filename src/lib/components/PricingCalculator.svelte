@@ -139,7 +139,7 @@
 	];
 
 	// Provider Benchmarks from CUSTOMER_PROFILE_INFRA_COST_ESTIMATE.md
-	// Rover baseline rates anchored at 250 GB/day = $50k/yr and 500 GB/day = $95k/yr
+	// Rover baseline rates anchored at 250 GB/day = $50k/yr, 500 GB/day = $95k/yr, 1 TB/day = $175k/yr, 2 TB/day = $275k/yr
 	interface ProviderBenchmark {
 		rover: { monthly1Y: number; yearly1Y: number };
 		splunk: { baseYearly: number; oneYearHot: number };
@@ -173,7 +173,7 @@
 			bigquery: { baseYearly90d: 1210, oneYearHot: 2760 }
 		},
 		250: {
-			rover: { monthly1Y: 4165, yearly1Y: 50000 }, // Exact $50k/yr anchor
+			rover: { monthly1Y: 4167, yearly1Y: 50000 }, // Exact $50k/yr anchor
 			splunk: { baseYearly: 250000, oneYearHot: 456000 },
 			sentinel: { baseYearly: 300000, oneYearHot: 399000 },
 			crowdstrike: { baseYearly: 536000, oneYearHot: 659000 },
@@ -183,7 +183,7 @@
 			bigquery: { baseYearly90d: 4400, oneYearHot: 8290 }
 		},
 		500: {
-			rover: { monthly1Y: 7915, yearly1Y: 95000 }, // Exact $95k/yr anchor
+			rover: { monthly1Y: 7917, yearly1Y: 95000 }, // Exact $95k/yr anchor
 			splunk: { baseYearly: 500000, oneYearHot: 912000 },
 			sentinel: { baseYearly: 600000, oneYearHot: 798000 },
 			crowdstrike: { baseYearly: 1070000, oneYearHot: 1320000 },
@@ -194,7 +194,7 @@
 		},
 		1000: {
 			// 1 TB
-			rover: { monthly1Y: 14585, yearly1Y: 175000 },
+			rover: { monthly1Y: 14583, yearly1Y: 175000 }, // Estimated $175k/yr
 			splunk: { baseYearly: 1000000, oneYearHot: 1820000 },
 			sentinel: { baseYearly: 1200000, oneYearHot: 1600000 },
 			crowdstrike: { baseYearly: 2140000, oneYearHot: 2640000 },
@@ -205,7 +205,7 @@
 		},
 		2000: {
 			// 2 TB
-			rover: { monthly1Y: 26250, yearly1Y: 315000 },
+			rover: { monthly1Y: 22917, yearly1Y: 275000 }, // Exact $275k/yr anchor
 			splunk: { baseYearly: 2000000, oneYearHot: 3650000 },
 			sentinel: { baseYearly: 2400000, oneYearHot: 3190000 },
 			crowdstrike: { baseYearly: 4280000, oneYearHot: 5270000 },
@@ -239,7 +239,7 @@
 	};
 
 	// State
-	let selectedVolumeIdx = $state(6); // Default: 10 TB/day matching screenshot
+	let selectedVolumeIdx = $state(2); // Default: 250 GB/day
 	let selectedRetentionIdx = $state(2); // Default: 1 Year
 	let selectedQueryIntensityIdx = $state(0); // Default: Standard SOC (1.0x base)
 	let billingPeriod = $state<'monthly' | 'yearly'>('monthly');
