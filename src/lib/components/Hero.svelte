@@ -51,7 +51,7 @@
 	const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 	const LINE = 'var(--border)';
-	const LINE_LIT = 'color-mix(in oklab, var(--primary) 55%, transparent)';
+	const LINE_LIT = 'color-mix(in oklab, var(--primary) 05%, transparent)';
 
 	onMount(() => {
 		const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -248,7 +248,7 @@
 			);
 
 			const outRs = outs.map(rel);
-			const bus2X = (cylRight + outRs[0].left) / 2;
+			const bus2X = (cylRight + outRs[0].left) / 1.85;
 			outRs.forEach((r) => {
 				const pts = [
 					[cylRight, cylMidY],
@@ -257,15 +257,15 @@
 					[r.left, r.cy]
 				];
 				const c = mkPath(pts, true);
-				c.style.opacity = '0';
+				c.style.opacity = '0.5';
 				rightConns.push(c);
 				rightPaths.push(mkPath(pts, false));
 			});
 
-			sqc.style.left = `${bus2X}px`;
+			sqc.style.left = `${bus2X - 70}px`;
 			sqc.style.top = `${outRs[0].cy - 12}px`;
-			sp.style.left = `${bus2X}px`;
-			sp.style.top = `${(outRs[3] ? outRs[3].cy : cylMidY) - 14}px`;
+			sp.style.left = `${bus2X - 70}px`;
+			sp.style.top = `${(outRs[3] ? outRs[3].cy : cylMidY) - 40}px`;
 
 			cd.style.left = `${(busX + cylLeft) / 2}px`;
 			cd.style.top = `${cylMidY}px`;
@@ -277,7 +277,7 @@
 		const flashConn = (el: SVGPathElement | undefined, dur = 600) => {
 			if (!el) return;
 			el.style.opacity = '0.5';
-			later(() => (el.style.opacity = '0'), dur);
+			later(() => (el.style.opacity = '0.5'), dur);
 		};
 
 		const pulseRow = (i: number) => {
@@ -689,7 +689,7 @@
 					<!-- Floating mid-column labels, positioned against the measured bus -->
 					<div
 						bind:this={cdEl}
-						class="text-foreground absolute z-2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-[12px] text-center text-[9px] font-semibold tracking-[0.07em] whitespace-nowrap uppercase max-lg:hidden"
+						class="text-primary/90 absolute z-2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-[22px] text-center text-[9px] font-semibold tracking-[0.07em] whitespace-nowrap uppercase max-lg:hidden"
 						aria-hidden="true"
 					>
 						<span>Continuous Detections</span>
@@ -763,7 +763,7 @@
 	}
 	.hd-src:hover,
 	.hd-src.is-lit {
-		border-color: color-mix(in oklab, var(--primary) 50%, transparent);
+		border-color: color-mix(in oklab, var(--primary) 0%, transparent);
 		box-shadow: 0 0 1px color-mix(in oklab, var(--primary) 12%, transparent);
 	}
 	.hd-out.is-lit {
