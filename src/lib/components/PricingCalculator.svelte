@@ -6,15 +6,42 @@
 		return Math.round(val / 5) * 5;
 	}
 
-	// Helper function: Real-world Search Latency timing for unindexed Data Lakes/Warehouses (Athena/BigQuery)
-	// Median query: ~45s-2m (partitioned) vs Deep historical search: ~12-25+ hrs (unpartitioned 300+ TB)
-	function getSearchLatency(tbTotal: number): string {
-		if (tbTotal <= 5) return '~45s - 2 min query latency';
-		if (tbTotal <= 30) return '~2 - 15 min query latency';
-		if (tbTotal <= 100) return '~45 min - 2 hr query latency';
-		if (tbTotal <= 300) return '~12 - 25+ hr query latency';
-		if (tbTotal <= 1000) return '~25 - 48+ hr query latency';
-		return '~3 - 7+ days (query timeout)';
+	// Helper function: Platform-tailored Search Latency timing for unindexed Data Lakes/Warehouses
+	function getSearchLatency(
+		providerId: string,
+		tbTotal: number,
+		queryFactor: number = 1.0
+	): string {
+		// Scanned volume increases dynamically as total searchable dataset (GB/day x Retention) scales
+		// Standard SOC scans recent partition windows, while Advanced Hunting/Incident Response execute full table sweeps
+		const scanRatio = queryFactor === 1.0 ? 0.08 : 0.2 + (queryFactor - 1) * 0.15;
+		const effectiveTB = Math.max(1, tbTotal * scanRatio);
+
+		if (providerId === 'athena') {
+			if (effectiveTB <= 2) return '~45s - 2 min query latency';
+			if (effectiveTB <= 15) return '~3 - 15 min query latency';
+			if (effectiveTB <= 60) return '~30 min - 2 hr query latency';
+			if (effectiveTB <= 200) return '~6 - 18+ hr query latency';
+			return '~1 - 7+ days (query timeout)';
+		}
+
+		if (providerId === 'databricks') {
+			if (effectiveTB <= 2) return '~30s - 1.5 min query latency';
+			if (effectiveTB <= 15) return '~2 - 10 min query latency';
+			if (effectiveTB <= 60) return '~20 - 60 min query latency';
+			if (effectiveTB <= 200) return '~3 - 12+ hr query latency';
+			return '~8 - 24+ hr query latency';
+		}
+
+		if (providerId === 'snowflake') {
+			if (effectiveTB <= 2) return '~15s - 45s query latency';
+			if (effectiveTB <= 15) return '~1 - 6 min query latency';
+			if (effectiveTB <= 60) return '~15 - 45 min query latency';
+			if (effectiveTB <= 200) return '~2 - 8+ hr query latency';
+			return '~6 - 18+ hr query latency';
+		}
+
+		return '~45s - 2 min query latency';
 	}
 
 	// Volume Tiers & Base SOC Workload Profiles from CUSTOMER_PROFILE_INFRA_COST_ESTIMATE.md
@@ -145,6 +172,7 @@
 		splunk: { baseYearly: number; oneYearHot: number };
 		sentinel: { baseYearly: number; oneYearHot: number };
 		crowdstrike: { baseYearly: number; oneYearHot: number };
+		datadog: { baseYearly: number; oneYearHot: number };
 		snowflake: { baseYearly90d: number; oneYearHot: number };
 		databricks: { baseYearly90d: number; oneYearHot: number };
 		athena: { baseYearly90d: number; oneYearHot: number };
@@ -157,6 +185,7 @@
 			splunk: { baseYearly: 10000, oneYearHot: 18200 },
 			sentinel: { baseYearly: 19200, oneYearHot: 23200 },
 			crowdstrike: { baseYearly: 21400, oneYearHot: 26400 },
+			datadog: { baseYearly: 22000, oneYearHot: 28000 },
 			snowflake: { baseYearly90d: 3650, oneYearHot: 3800 },
 			databricks: { baseYearly90d: 3050, oneYearHot: 3200 },
 			athena: { baseYearly90d: 1100, oneYearHot: 1250 },
@@ -167,6 +196,7 @@
 			splunk: { baseYearly: 100000, oneYearHot: 182000 },
 			sentinel: { baseYearly: 120000, oneYearHot: 160000 },
 			crowdstrike: { baseYearly: 214000, oneYearHot: 264000 },
+			datadog: { baseYearly: 220000, oneYearHot: 280000 },
 			snowflake: { baseYearly90d: 36500, oneYearHot: 38000 },
 			databricks: { baseYearly90d: 30500, oneYearHot: 32000 },
 			athena: { baseYearly90d: 11400, oneYearHot: 12900 },
@@ -177,6 +207,7 @@
 			splunk: { baseYearly: 250000, oneYearHot: 456000 },
 			sentinel: { baseYearly: 300000, oneYearHot: 399000 },
 			crowdstrike: { baseYearly: 536000, oneYearHot: 659000 },
+			datadog: { baseYearly: 550000, oneYearHot: 700000 },
 			snowflake: { baseYearly90d: 91200, oneYearHot: 95000 },
 			databricks: { baseYearly90d: 76200, oneYearHot: 80000 },
 			athena: { baseYearly90d: 29500, oneYearHot: 33300 },
@@ -187,6 +218,7 @@
 			splunk: { baseYearly: 500000, oneYearHot: 912000 },
 			sentinel: { baseYearly: 600000, oneYearHot: 798000 },
 			crowdstrike: { baseYearly: 1070000, oneYearHot: 1320000 },
+			datadog: { baseYearly: 1100000, oneYearHot: 1400000 },
 			snowflake: { baseYearly90d: 182000, oneYearHot: 190000 },
 			databricks: { baseYearly90d: 152000, oneYearHot: 160000 },
 			athena: { baseYearly90d: 62200, oneYearHot: 69800 },
@@ -198,6 +230,7 @@
 			splunk: { baseYearly: 1000000, oneYearHot: 1820000 },
 			sentinel: { baseYearly: 1200000, oneYearHot: 1600000 },
 			crowdstrike: { baseYearly: 2140000, oneYearHot: 2640000 },
+			datadog: { baseYearly: 2200000, oneYearHot: 2800000 },
 			snowflake: { baseYearly90d: 365000, oneYearHot: 380000 },
 			databricks: { baseYearly90d: 305000, oneYearHot: 320000 },
 			athena: { baseYearly90d: 133000, oneYearHot: 148000 },
@@ -209,6 +242,7 @@
 			splunk: { baseYearly: 2000000, oneYearHot: 3650000 },
 			sentinel: { baseYearly: 2400000, oneYearHot: 3190000 },
 			crowdstrike: { baseYearly: 4280000, oneYearHot: 5270000 },
+			datadog: { baseYearly: 4400000, oneYearHot: 5600000 },
 			snowflake: { baseYearly90d: 730000, oneYearHot: 760000 },
 			databricks: { baseYearly90d: 610000, oneYearHot: 640000 },
 			athena: { baseYearly90d: 291000, oneYearHot: 322000 },
@@ -220,6 +254,7 @@
 			splunk: { baseYearly: 10000000, oneYearHot: 18250000 },
 			sentinel: { baseYearly: 12000000, oneYearHot: 15960000 },
 			crowdstrike: { baseYearly: 21420000, oneYearHot: 26370000 },
+			datadog: { baseYearly: 22000000, oneYearHot: 28000000 },
 			snowflake: { baseYearly90d: 3650000, oneYearHot: 3800000 },
 			databricks: { baseYearly90d: 3050000, oneYearHot: 3200000 },
 			athena: { baseYearly90d: 1880000, oneYearHot: 2030000 },
@@ -231,6 +266,7 @@
 			splunk: { baseYearly: 100000000, oneYearHot: 182500000 },
 			sentinel: { baseYearly: 120000000, oneYearHot: 159600000 },
 			crowdstrike: { baseYearly: 214200000, oneYearHot: 263700000 },
+			datadog: { baseYearly: 220000000, oneYearHot: 280000000 },
 			snowflake: { baseYearly90d: 36500000, oneYearHot: 38010000 },
 			databricks: { baseYearly90d: 30500000, oneYearHot: 32010000 },
 			athena: { baseYearly90d: 33440000, oneYearHot: 34950000 },
@@ -277,12 +313,6 @@
 
 	let providerList = $derived([
 		{
-			id: 'crowdstrike',
-			name: 'CrowdStrike LogScale',
-			category: 'SIEM / Log Management',
-			cost: getSiemCost(bm.crowdstrike.baseYearly, bm.crowdstrike.oneYearHot)
-		},
-		{
 			id: 'splunk',
 			name: 'Splunk ES',
 			category: 'Traditional SIEM',
@@ -293,6 +323,18 @@
 			name: 'Microsoft Sentinel',
 			category: 'Cloud SIEM',
 			cost: getSiemCost(bm.sentinel.baseYearly, bm.sentinel.oneYearHot)
+		},
+		{
+			id: 'crowdstrike',
+			name: 'CrowdStrike LogScale',
+			category: 'SIEM / Log Management',
+			cost: getSiemCost(bm.crowdstrike.baseYearly, bm.crowdstrike.oneYearHot)
+		},
+		{
+			id: 'datadog',
+			name: 'Datadog Cloud SIEM',
+			category: 'Cloud Log Management',
+			cost: getSiemCost(bm.datadog.baseYearly, bm.datadog.oneYearHot)
 		},
 		{
 			id: 'qradar',
@@ -336,7 +378,7 @@
 <div class="dark border-border bg-card text-foreground rounded-2xl border p-6 sm:p-10">
 	<div class="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-12">
 		<!-- LEFT COLUMN: Controls & Options -->
-		<div class="flex flex-col justify-between space-y-2">
+		<div class="flex flex-col justify-between space-y-3.5">
 			<div>
 				<Badge
 					variant="outline"
@@ -483,11 +525,11 @@
 				</div>
 			</div>
 
-			<!-- Control 4: Retention Period (Billing Toggle) -->
+			<!-- Control 4: Billing Term Toggle -->
 			<div
 				class="border-border bg-background flex items-center justify-between rounded-xl border p-4"
 			>
-				<span class="text-overline text-text-primary font-semibold">Retention Period</span>
+				<span class="text-overline text-text-primary font-semibold">Billing Term</span>
 				<div class="border-border bg-card flex rounded-lg border p-1">
 					<button
 						type="button"
@@ -512,7 +554,7 @@
 		</div>
 
 		<!-- RIGHT COLUMN: Provider Cards -->
-		<div class="flex flex-col space-y-5">
+		<div class="flex flex-col space-y-2.5">
 			<div class="flex items-center justify-between px-1 pb-0.5">
 				<span class="text-overline text-text-muted font-semibold">Provider</span>
 				<span class="text-overline text-text-muted font-semibold"
@@ -522,15 +564,15 @@
 
 			<!-- ROVER PLATFORM CARD -->
 			<div
-				class="border-border bg-background relative overflow-hidden rounded-xl border p-4 shadow-md sm:p-5"
+				class="border-border bg-background relative mt-1 mb-6 overflow-hidden rounded-xl border p-4 shadow-md sm:p-4"
 			>
 				<div class="flex items-center justify-between gap-3">
-					<div class="flex items-center gap-3">
+					<div class="flex items-center gap-4">
 						<!-- Rover Brand Logo -->
 						<img
 							src="/favicon.png"
 							alt="Rover Platform"
-							class="h-11 w-11 shrink-0 object-contain"
+							class="h-10 w-10 shrink-0 object-contain"
 						/>
 
 						<div class="max-w-[280px]">
@@ -539,10 +581,10 @@
 								<Badge
 									class="border-primary/40 bg-primary/10 text-primary rounded-full px-2 py-0.5 text-[9px] font-semibold"
 								>
-									&lt; 5s instant search
+									&lt; 10s instant search
 								</Badge>
 							</div>
-							<div class="text-caption text-text-muted mt-0.5 mt-1 leading-snug">
+							<div class="text-caption text-text-muted mt-0.5 leading-snug">
 								Object Storage Native · Flat Multi-Year Retention & Unlimited Queries
 							</div>
 						</div>
@@ -559,16 +601,16 @@
 				</div>
 			</div>
 
-			<!-- COMPETITOR CARDS WITH EXACT WHITE/TRANSPARENT SVG ICONS -->
+			<!-- COMPETITOR CARDS WITH EXACT WHITE/TRANSPARENT SVG / PNG ICONS -->
 			{#each providerList as provider (provider.name)}
 				{@const multiplier = (provider.cost / Math.max(1, roverCost)).toFixed(1)}
 				{@const totalSearchableTB = activeVolume.tbPerMonth * activeRetention.R * 12}
 				<div
-					class="border-border bg-card/60 hover:bg-card p- flex items-center justify-between gap-3 rounded-xl border transition-all sm:p-4"
+					class="border-border bg-card/60 hover:bg-card flex items-center justify-between gap-3 rounded-xl border p-3 transition-all sm:p-3.5"
 				>
-					<div class="flex items-center gap-3">
-						<!-- Direct Competitor SVG Icon (No Container Box) -->
-						<div class="flex h-8 w-8 shrink-0 items-center justify-center">
+					<div class="flex items-center gap-2.5">
+						<!-- Direct Competitor SVG / PNG Icon -->
+						<div class="flex h-7 w-7 shrink-0 items-center justify-center">
 							{#if provider.id === 'crowdstrike'}
 								<!-- CrowdStrike LogScale.svg -->
 								<svg
@@ -598,6 +640,13 @@
 										fill="currentColor"
 									/>
 								</svg>
+							{:else if provider.id === 'datadog'}
+								<!-- Datadog Cloud SIEM PNG -->
+								<img
+									src="/datadog.png"
+									alt="Datadog Cloud SIEM"
+									class="h-6 w-6 shrink-0 object-contain"
+								/>
 							{:else if provider.id === 'splunk'}
 								<!-- Splunk ES.svg -->
 								<svg
@@ -697,15 +746,20 @@
 						<div>
 							<div class="flex flex-wrap items-center gap-2">
 								<span class="text-label-md text-text-primary font-bold">{provider.name}</span>
-								{#if provider.id === 'athena'}
+								{#if provider.id === 'athena' || provider.id === 'snowflake' || provider.id === 'databricks'}
 									<span
 										class="border-security-critical/30 bg-security-critical/10 text-security-critical/80 rounded-full border bg-transparent px-2 py-0.5 text-[10px] font-medium"
 									>
-										{getSearchLatency(totalSearchableTB)}
+										{getSearchLatency(provider.id, totalSearchableTB, activeQueryIntensity.factor)}
 									</span>
 								{/if}
 							</div>
 							<div class="text-caption text-text-muted mt-0.5">{provider.category}</div>
+							{#if provider.id === 'athena' || provider.id === 'snowflake' || provider.id === 'databricks'}
+								<div class="text-text-muted/80 mt-0.5 text-[10px] leading-tight">
+									* Fast on time filters · Slow on unindexed log search
+								</div>
+							{/if}
 						</div>
 					</div>
 
@@ -717,8 +771,8 @@
 								{multiplier}x higher
 							</span>
 						{/if}
-						<div class="flex items-baseline justify-end gap-0.5">
-							<span class="text-heading-5 text-text-primary font-bold"
+						<div class="flex items-baseline justify-end gap-1">
+							<span class="text-heading-4 text-text-primary font-bold"
 								>{formatVal(provider.cost)}</span
 							>
 							<span class="text-caption text-text-muted font-medium"
