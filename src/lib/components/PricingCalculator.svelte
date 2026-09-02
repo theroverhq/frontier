@@ -148,7 +148,7 @@
 		snowflake: { baseYearly90d: number; oneYearHot: number };
 		databricks: { baseYearly90d: number; oneYearHot: number };
 		athena: { baseYearly90d: number; oneYearHot: number };
-		bigquery: { baseYearly90d: number; oneYearHot: number };
+		qradar: { baseYearly: number; oneYearHot: number };
 	}
 
 	const benchmarkData: Record<number, ProviderBenchmark> = {
@@ -160,7 +160,7 @@
 			snowflake: { baseYearly90d: 3650, oneYearHot: 3800 },
 			databricks: { baseYearly90d: 3050, oneYearHot: 3200 },
 			athena: { baseYearly90d: 1100, oneYearHot: 1250 },
-			bigquery: { baseYearly90d: 51, oneYearHot: 206 }
+			qradar: { baseYearly: 14000, oneYearHot: 19000 }
 		},
 		100: {
 			rover: { monthly1Y: 2085, yearly1Y: 25000 },
@@ -170,7 +170,7 @@
 			snowflake: { baseYearly90d: 36500, oneYearHot: 38000 },
 			databricks: { baseYearly90d: 30500, oneYearHot: 32000 },
 			athena: { baseYearly90d: 11400, oneYearHot: 12900 },
-			bigquery: { baseYearly90d: 1210, oneYearHot: 2760 }
+			qradar: { baseYearly: 110000, oneYearHot: 148000 }
 		},
 		250: {
 			rover: { monthly1Y: 4167, yearly1Y: 50000 }, // Exact $50k/yr anchor
@@ -180,7 +180,7 @@
 			snowflake: { baseYearly90d: 91200, oneYearHot: 95000 },
 			databricks: { baseYearly90d: 76200, oneYearHot: 80000 },
 			athena: { baseYearly90d: 29500, oneYearHot: 33300 },
-			bigquery: { baseYearly90d: 4400, oneYearHot: 8290 }
+			qradar: { baseYearly: 275000, oneYearHot: 368000 }
 		},
 		500: {
 			rover: { monthly1Y: 7917, yearly1Y: 95000 }, // Exact $95k/yr anchor
@@ -190,7 +190,7 @@
 			snowflake: { baseYearly90d: 182000, oneYearHot: 190000 },
 			databricks: { baseYearly90d: 152000, oneYearHot: 160000 },
 			athena: { baseYearly90d: 62200, oneYearHot: 69800 },
-			bigquery: { baseYearly90d: 12700, oneYearHot: 20500 }
+			qradar: { baseYearly: 550000, oneYearHot: 735000 }
 		},
 		1000: {
 			// 1 TB
@@ -201,7 +201,7 @@
 			snowflake: { baseYearly90d: 365000, oneYearHot: 380000 },
 			databricks: { baseYearly90d: 305000, oneYearHot: 320000 },
 			athena: { baseYearly90d: 133000, oneYearHot: 148000 },
-			bigquery: { baseYearly90d: 36000, oneYearHot: 51500 }
+			qradar: { baseYearly: 1100000, oneYearHot: 1470000 }
 		},
 		2000: {
 			// 2 TB
@@ -212,7 +212,7 @@
 			snowflake: { baseYearly90d: 730000, oneYearHot: 760000 },
 			databricks: { baseYearly90d: 610000, oneYearHot: 640000 },
 			athena: { baseYearly90d: 291000, oneYearHot: 322000 },
-			bigquery: { baseYearly90d: 103000, oneYearHot: 134000 }
+			qradar: { baseYearly: 2200000, oneYearHot: 2940000 }
 		},
 		10000: {
 			// 10 TB
@@ -223,7 +223,7 @@
 			snowflake: { baseYearly90d: 3650000, oneYearHot: 3800000 },
 			databricks: { baseYearly90d: 3050000, oneYearHot: 3200000 },
 			athena: { baseYearly90d: 1880000, oneYearHot: 2030000 },
-			bigquery: { baseYearly90d: 1030000, oneYearHot: 1190000 }
+			qradar: { baseYearly: 11000000, oneYearHot: 14700000 }
 		},
 		100000: {
 			// 100 TB
@@ -234,7 +234,7 @@
 			snowflake: { baseYearly90d: 36500000, oneYearHot: 38010000 },
 			databricks: { baseYearly90d: 30500000, oneYearHot: 32010000 },
 			athena: { baseYearly90d: 33440000, oneYearHot: 34950000 },
-			bigquery: { baseYearly90d: 28190000, oneYearHot: 29750000 }
+			qradar: { baseYearly: 110000000, oneYearHot: 147000000 }
 		}
 	};
 
@@ -295,6 +295,12 @@
 			cost: getSiemCost(bm.sentinel.baseYearly, bm.sentinel.oneYearHot)
 		},
 		{
+			id: 'qradar',
+			name: 'IBM QRadar',
+			category: 'Enterprise SIEM',
+			cost: getSiemCost(bm.qradar.baseYearly, bm.qradar.oneYearHot)
+		},
+		{
 			id: 'snowflake',
 			name: 'Snowflake',
 			category: 'Security Data Lake',
@@ -311,12 +317,6 @@
 			name: 'AWS Security Lake + Athena',
 			category: 'Data Lake',
 			cost: getLakeCost(bm.athena.baseYearly90d, bm.athena.oneYearHot)
-		},
-		{
-			id: 'bigquery',
-			name: 'Google BigQuery',
-			category: 'Data Warehouse',
-			cost: getLakeCost(bm.bigquery.baseYearly90d, bm.bigquery.oneYearHot)
 		}
 	]);
 
@@ -678,8 +678,8 @@
 										fill="currentColor"
 									/>
 								</svg>
-							{:else if provider.id === 'bigquery'}
-								<!-- Google BigQuery.svg -->
+							{:else if provider.id === 'qradar'}
+								<!-- IBM QRadar.svg -->
 								<svg
 									class="text-foreground h-7 w-7 shrink-0"
 									viewBox="0 0 34 34"
@@ -687,17 +687,8 @@
 									xmlns="http://www.w3.org/2000/svg"
 								>
 									<path
-										d="M9.29457 28.1164L3.1787 17.8862C2.85173 17.3395 2.85173 16.665 3.1787 16.1183L9.29457 5.88363C9.62088 5.3376 10.2239 5.00128 10.8831 5H23.1234C23.7741 5.0032 24.3744 5.33887 24.6987 5.88363L30.8212 16.1189C31.1482 16.6656 31.1482 17.3402 30.8212 17.8868L24.6921 28.1164C24.3658 28.6624 23.7628 28.9987 23.1036 29H10.8652C10.2139 28.9981 9.61294 28.6611 9.28663 28.1164H9.29457Z"
+										d="M3 7h5v1.6H3V7zm0 2.5h5v1.6H3V9.5zm0 2.5h5v1.6H3V12zm0 2.5h5v1.6H3v-1.6zm0 2.5h5v1.6H3V17zm0 2.5h5v1.6H3v-1.6zm0 2.5h5v1.6H3V22zm0 2.5h5v1.6H3v-1.6zM10 7h9v1.6h-9V7zm0 2.5h3.2v1.6H10V9.5zm5.8 0h3.2v1.6h-3.2V9.5zM10 12h3.2v1.6H10V12zm5.8 0h3.2v1.6h-3.2V12zM10 14.5h9v1.6h-9v-1.6zM10 17h3.2v1.6H10V17zm5.8 0h3.2v1.6h-3.2V17zM10 19.5h3.2v1.6H10v-1.6zm5.8 0h3.2v1.6h-3.2v-1.6zM10 22h3.2v1.6H10V22zm5.8 0h3.2v1.6h-3.2V22zM10 24.5h9v1.6h-9v-1.6zM21 7h2.5v1.6H21V7zm6.5 0h2.5v1.6H27.5V7zM21 9.5h3.2v1.6H21V9.5zm4.8 0h3.2v1.6h-3.2V9.5zM21 12h4v1.6h-4V12zm4 0h4v1.6h-4V12zM21 14.5h2.5v1.6H21v-1.6zm3.25 0h2.5v1.6h-2.5v-1.6zm3.25 0h2.5v1.6h-2.5v-1.6zM21 17h2.5v1.6H21V17zm3.25 0h2.5v1.6h-2.5V17zm3.25 0h2.5v1.6h-2.5V17zM21 19.5h2.5v1.6H21v-1.6zm6.5 0h2.5v1.6h-2.5v-1.6zM21 22h2.5v1.6H21V22zm6.5 0h2.5v1.6h-2.5V22zM21 24.5h2.5v1.6H21v-1.6zm6.5 0h2.5v1.6h-2.5v-1.6z"
 										fill="currentColor"
-									/>
-									<path
-										opacity="0.1"
-										d="M20.8149 13.6943C20.8149 13.6943 22.5159 17.6342 20.1973 19.8683C17.8787 22.1023 13.6578 20.672 13.6578 20.672L22.2445 28.9987H23.1163C23.7689 28.9974 24.3719 28.6611 24.7048 28.1151L28.7542 21.3414L20.8149 13.6943Z"
-										fill="black"
-									/>
-									<path
-										d="M22.8236 21.7643L20.9438 19.9568C20.9236 19.9365 20.9004 19.9193 20.875 19.9057C21.6693 18.9116 22.0415 17.6624 21.9158 16.4125C21.7901 15.1626 21.176 14.006 20.1986 13.1781C19.2211 12.3503 17.9538 11.9134 16.6546 11.9565C15.3554 11.9996 14.122 12.5194 13.2056 13.4101C11.304 15.2612 11.22 18.2266 13.015 20.1684C13.8805 21.1056 15.0828 21.6893 16.3777 21.8011C17.6726 21.9128 18.963 21.5442 19.9867 20.7701C20.0004 20.7934 20.017 20.8149 20.0364 20.834L21.9161 22.6499C21.9434 22.6763 21.9758 22.6971 22.0115 22.7113C22.0471 22.7254 22.0854 22.7326 22.124 22.7324C22.2017 22.7322 22.2763 22.7025 22.3318 22.6499L22.8302 22.1684C22.8575 22.1421 22.8791 22.1108 22.8937 22.0763C22.9084 22.0419 22.9158 22.0049 22.9156 21.9677C22.9153 21.8925 22.8847 21.8205 22.8302 21.7669L22.8236 21.7643ZM16.8354 20.5904C16.0751 20.5902 15.3319 20.3723 14.6997 19.9642C14.0675 19.5561 13.5748 18.9761 13.2837 18.2976C12.688 16.9101 13.0177 15.3117 14.1177 14.2503C14.6556 13.7313 15.3406 13.378 16.0862 13.2349C16.8318 13.0918 17.6046 13.1654 18.307 13.4464C19.0093 13.7274 19.6097 14.2032 20.0322 14.8137C20.4548 15.4241 20.6806 16.1419 20.681 16.8762C20.6797 18.9268 18.9601 20.5885 16.8368 20.5898L16.8354 20.5904ZM14.3785 16.678V18.2126C14.6234 18.6301 14.9775 18.9773 15.4058 19.2209V16.6748L14.3785 16.678ZM16.298 15.4057V19.5534C16.6375 19.6135 16.9864 19.6135 17.3252 19.5534V15.3993L16.298 15.4057ZM19.2712 18.2106V17.3027H18.244V19.217C18.6715 18.9741 19.025 18.6288 19.2712 18.2119V18.2106Z"
-										fill="#A0A59E"
 									/>
 								</svg>
 							{/if}
@@ -706,7 +697,7 @@
 						<div>
 							<div class="flex flex-wrap items-center gap-2">
 								<span class="text-label-md text-text-primary font-bold">{provider.name}</span>
-								{#if provider.id === 'athena' || provider.id === 'bigquery'}
+								{#if provider.id === 'athena'}
 									<span
 										class="border-security-critical/30 bg-security-critical/10 text-security-critical/80 rounded-full border bg-transparent px-2 py-0.5 text-[10px] font-medium"
 									>
