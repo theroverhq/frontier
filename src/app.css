@@ -1,0 +1,803 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn-svelte/tailwind.css";
+
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/montserrat";
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+@custom-variant dark (&:is(.dark *));
+
+
+/* =========================================================
+   LIGHT MODE
+   ========================================================= */
+
+:root {
+
+  /* -------------------------------------------------------
+     Typography — Instrument Sans
+
+     Rover's primary typeface across brand, product, UI,
+     and presentation design.
+
+     Tone: Clear, modern, precise
+     Approved weights: Regular 400, Medium 500,
+     Semibold 600, Bold 700
+     ------------------------------------------------------- */
+
+  --font-family-primary: "Instrument Sans Variable", "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --letter-spacing-display: -0.05em;
+  --letter-spacing-heading: -0.035em;
+  --letter-spacing-body: -0.005em;
+  --letter-spacing-label: 0.01em;
+  --letter-spacing-eyebrow: 0.12em;
+
+  /* -------------------------------------------------------
+     Brand
+     ------------------------------------------------------- */
+
+  --primary: oklch(0.898 0.203 121.838); /* #C8F135 */
+  --primary-hover: oklch(0.665 0.150 119.000); /* #8AA71D */
+  --primary-pressed: oklch(0.600 0.135 119.000); /* #758F18 */
+  --primary-subtle: oklch(0.960 0.080 119.000); /* #F1F8D6 */
+  --primary-subtle-hover: oklch(0.930 0.110 119.000); /* #E7F2B8 */
+  --primary-border: oklch(0.790 0.150 119.000); /* #B4D447 */
+
+  --primary-foreground: oklch(0.218 0 0);
+
+
+  /* -------------------------------------------------------
+     Background
+     ------------------------------------------------------- */
+
+  --background: oklch(0.978 0.005 120); /* #F7F8F4 */
+  --foreground: oklch(0.218 0 0); /* #1A1A1A */
+
+  --card: oklch(1 0 0); /* #FFFFFF */
+  --card-foreground: oklch(0.218 0 0);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.218 0 0);
+
+
+  /* -------------------------------------------------------
+     Background States
+     ------------------------------------------------------- */
+
+  --background-surface: oklch(1 0 0); /* #FFFFFF */
+  --background-elevated: oklch(0.955 0.008 120); /* #F1F3ED */
+  --background-hover: oklch(0.942 0.010 120); /* #ECEFE7 */
+  --background-selected: oklch(0.960 0.080 119); /* #EFF8CC */
+  --background-disabled: oklch(0.925 0.008 120); /* #E8EAE5 */
+  --background-inverse: oklch(0.218 0 0); /* #1A1A1A */
+
+
+  /* -------------------------------------------------------
+     Shadcn Semantic Colors
+     ------------------------------------------------------- */
+
+  --secondary: oklch(0.922 0 0);
+  --secondary-foreground: oklch(0.218 0 0);
+
+  --muted: oklch(0.942 0.010 120);
+  --muted-foreground: oklch(0.575 0.015 120); /* #8C9188 */
+
+  --accent: oklch(0.942 0.010 120);
+  --accent-foreground: oklch(0.218 0 0);
+
+
+  /* -------------------------------------------------------
+     Text
+     ------------------------------------------------------- */
+
+  --text-primary: oklch(0.218 0 0); /* #1A1A1A */
+  --text-secondary: oklch(0.500 0.015 120); /* #747A74 */
+  --text-muted: oklch(0.575 0.015 120); /* #8C9188 */
+  --text-disabled: oklch(0.770 0.012 120); /* #B7BBB3 */
+
+  --text-inverse: oklch(0.978 0.005 120); /* #F7F8F4 */
+
+
+  /* -------------------------------------------------------
+     Borders
+     ------------------------------------------------------- */
+
+  --border-subtle: oklch(0.925 0.010 120); /* #E7EAE5 */
+  --border-default: oklch(0.850 0.015 120); /* #D7DBD2 */
+  --border-hover: oklch(0.570 0.015 120); /* #828A83 */
+
+  --border: var(--border-default);
+  --input: var(--border-default);
+
+  --ring: var(--primary);
+
+
+  /* -------------------------------------------------------
+     Security
+     ------------------------------------------------------- */
+
+  --security-critical: oklch(0.637 0.208 25.331); /* #E5484D */
+  --security-critical-dark: oklch(0.685 0.210 25.331); /* #FF645F */
+
+  --security-high: oklch(0.690 0.165 65); /* #E58A1F */
+  --security-high-dark: oklch(0.790 0.145 70); /* #FFB84A */
+
+  --security-warning: oklch(0.700 0.145 85); /* #C99816 */
+  --security-warning-dark: oklch(0.850 0.145 90); /* #F4D03F */
+
+  --security-success: oklch(0.570 0.145 155); /* #24965A */
+  --security-success-dark: oklch(0.750 0.145 155); /* #4ED08A */
+
+  --security-info: oklch(0.570 0.160 255); /* #327ACB */
+  --security-info-dark: oklch(0.720 0.145 255); /* #65A7FF */
+
+  --security-ai: oklch(0.555 0.180 285); /* #765DD8 */
+  --security-ai-dark: oklch(0.680 0.165 285); /* #9B87FF */
+
+  --security-trace: oklch(0.570 0.130 175); /* #159C90 */
+  --security-trace-dark: oklch(0.780 0.145 175); /* #4DE3D0 */
+
+
+  /* -------------------------------------------------------
+     Chart Colors
+     ------------------------------------------------------- */
+
+  --chart-1: var(--security-info);
+  --chart-2: var(--security-success);
+  --chart-3: var(--security-warning);
+  --chart-4: var(--security-ai);
+  --chart-5: var(--security-trace);
+
+
+  /* -------------------------------------------------------
+     Destructive
+     ------------------------------------------------------- */
+
+  --destructive: var(--security-critical);
+  --destructive-foreground: oklch(1 0 0);
+
+
+  /* -------------------------------------------------------
+     Sidebar
+     ------------------------------------------------------- */
+
+  --sidebar: var(--background-surface);
+  --sidebar-foreground: var(--text-primary);
+
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+
+  --sidebar-accent: var(--background-hover);
+  --sidebar-accent-foreground: var(--text-primary);
+
+  --sidebar-border: var(--border-subtle);
+  --sidebar-ring: var(--ring);
+
+
+  /* -------------------------------------------------------
+     Radius
+     ------------------------------------------------------- */
+
+  --radius: 0.5rem;
+}
+
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+.dark {
+
+  /* -------------------------------------------------------
+     Brand
+     ------------------------------------------------------- */
+
+  --primary: oklch(0.898 0.203 121.838); /* #C8F135 */
+  --primary-hover: oklch(0.915 0.170 119.000); /* #D3F65D */
+  --primary-pressed: oklch(0.830 0.190 121.000); /* #B5DC2F */
+  --primary-subtle: oklch(0.285 0.070 119.000); /* #293211 */
+  --primary-subtle-hover: oklch(0.330 0.075 119.000); /* #354015 */
+  --primary-border: oklch(0.690 0.170 119.000); /* #96B724 */
+
+  --primary-foreground: oklch(0.218 0 0);
+
+
+  /* -------------------------------------------------------
+     Background
+     ------------------------------------------------------- */
+
+  --background: oklch(0.218 0 0); /* #1A1A1A */
+  --foreground: oklch(0.978 0.005 120); /* #F7F8F4 */
+
+  --card: oklch(0.270 0 0); /* #222222 */
+  --card-foreground: oklch(0.978 0.005 120);
+
+  --popover: oklch(0.270 0 0);
+  --popover-foreground: oklch(0.978 0.005 120);
+
+
+  /* -------------------------------------------------------
+     Background States
+     ------------------------------------------------------- */
+
+  --background-surface: oklch(0.270 0 0); /* #222222 */
+  --background-elevated: oklch(0.300 0 0); /* #2A2A2A */
+  --background-hover: oklch(0.335 0 0); /* #303030 */
+  --background-selected: oklch(0.300 0.025 120); /* #2A3018 */
+  --background-disabled: oklch(0.285 0 0); /* #252624 */
+  --background-inverse: oklch(0.978 0.005 120); /* #F7F8F4 */
+
+
+  /* -------------------------------------------------------
+     Shadcn Semantic Colors
+     ------------------------------------------------------- */
+
+  --secondary: var(--background-surface);
+  --secondary-foreground: var(--foreground);
+
+  --muted: var(--background-surface);
+  --muted-foreground: oklch(0.575 0.015 120); /* #8C9188 */
+
+  --accent: var(--background-surface);
+  --accent-foreground: var(--foreground);
+
+
+  /* -------------------------------------------------------
+     Text
+     ------------------------------------------------------- */
+
+  --text-primary: oklch(0.978 0.005 120); /* #F7F8F4 */
+  --text-secondary: oklch(0.650 0.015 120); /* #A3AAA5 */
+  --text-muted: oklch(0.575 0.015 120); /* #8C9188 */
+  --text-disabled: oklch(0.430 0.012 120); /* #666A64 */
+
+  --text-inverse: oklch(0.218 0 0); /* #1A1A1A */
+
+
+  /* -------------------------------------------------------
+     Borders
+     ------------------------------------------------------- */
+
+  --border-subtle: oklch(0.285 0 0); /* #262626 */
+  --border-default: oklch(0.360 0 0); /* #343434 */
+  --border-hover: oklch(0.480 0.015 120); /* #747A74 */
+
+  --border: var(--border-default);
+  --input: var(--border-default);
+
+  --ring: var(--primary);
+
+
+  /* -------------------------------------------------------
+     Security
+     ------------------------------------------------------- */
+
+  --security-critical: oklch(0.685 0.210 25.331); /* #FF645F */
+  --security-high: oklch(0.790 0.145 70); /* #FFB84A */
+  --security-warning: oklch(0.850 0.145 90); /* #F4D03F */
+  --security-success: oklch(0.750 0.145 155); /* #4ED08A */
+  --security-info: oklch(0.720 0.145 255); /* #65A7FF */
+  --security-ai: oklch(0.680 0.165 285); /* #9B87FF */
+  --security-trace: oklch(0.780 0.145 175); /* #4DE3D0 */
+
+
+  /* -------------------------------------------------------
+     Charts
+     ------------------------------------------------------- */
+
+  --chart-1: var(--security-info);
+  --chart-2: var(--security-success);
+  --chart-3: var(--security-warning);
+  --chart-4: var(--security-ai);
+  --chart-5: var(--security-trace);
+
+
+  /* -------------------------------------------------------
+     Destructive
+     ------------------------------------------------------- */
+
+  --destructive: var(--security-critical);
+  --destructive-foreground: oklch(1 0 0);
+
+
+  /* -------------------------------------------------------
+     Sidebar
+     ------------------------------------------------------- */
+
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+
+  --sidebar-accent: var(--background-surface);
+  --sidebar-accent-foreground: var(--foreground);
+
+  --sidebar-border: var(--border-subtle);
+  --sidebar-ring: var(--primary);
+}
+
+
+/* =========================================================
+   TAILWIND THEME TOKENS
+   ========================================================= */
+
+@theme inline {
+
+  /* Typography family */
+  --font-sans: var(--font-family-primary);
+  --font-heading: var(--font-family-primary);
+  --font-display: var(--font-family-primary);
+  --font-ui: var(--font-family-primary);
+
+  /* Four approved weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* -------------------------------------------------------
+     Display styles
+     ------------------------------------------------------- */
+
+  --text-display-xl: clamp(4.5rem, 9vw, 8rem);
+  --text-display-xl--line-height: 0.92;
+  --text-display-xl--letter-spacing: -0.055em;
+  --text-display-xl--font-weight: 600;
+
+  --text-display-lg: clamp(3.75rem, 7vw, 6rem);
+  --text-display-lg--line-height: 0.95;
+  --text-display-lg--letter-spacing: -0.05em;
+  --text-display-lg--font-weight: 600;
+
+  --text-display-md: clamp(3rem, 5.5vw, 4.5rem);
+  --text-display-md--line-height: 1;
+  --text-display-md--letter-spacing: -0.045em;
+  --text-display-md--font-weight: 600;
+
+  /* -------------------------------------------------------
+     Heading styles
+     ------------------------------------------------------- */
+
+  --text-heading-1: clamp(2.5rem, 4.5vw, 3.75rem);
+  --text-heading-1--line-height: 1.04;
+  --text-heading-1--letter-spacing: -0.04em;
+  --text-heading-1--font-weight: 600;
+
+  --text-heading-2: clamp(2.125rem, 3.8vw, 3rem);
+  --text-heading-2--line-height: 1.08;
+  --text-heading-2--letter-spacing: -0.035em;
+  --text-heading-2--font-weight: 600;
+
+  --text-heading-3: clamp(1.75rem, 3vw, 2.25rem);
+  --text-heading-3--line-height: 1.14;
+  --text-heading-3--letter-spacing: -0.025em;
+  --text-heading-3--font-weight: 600;
+
+  --text-heading-4: 1.5rem;
+  --text-heading-4--line-height: 1.22;
+  --text-heading-4--letter-spacing: -0.02em;
+  --text-heading-4--font-weight: 600;
+
+  --text-heading-5: 1.25rem;
+  --text-heading-5--line-height: 1.3;
+  --text-heading-5--letter-spacing: -0.015em;
+  --text-heading-5--font-weight: 600;
+
+  --text-heading-6: 1.125rem;
+  --text-heading-6--line-height: 1.35;
+  --text-heading-6--letter-spacing: -0.01em;
+  --text-heading-6--font-weight: 600;
+
+  /* -------------------------------------------------------
+     Body styles
+     ------------------------------------------------------- */
+
+  --text-body-xl: 1.25rem;
+  --text-body-xl--line-height: 1.55;
+  --text-body-xl--letter-spacing: -0.012em;
+  --text-body-xl--font-weight: 400;
+
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.6;
+  --text-body-lg--letter-spacing: -0.01em;
+  --text-body-lg--font-weight: 400;
+
+  --text-body-md: 1rem;
+  --text-body-md--line-height: 1.6;
+  --text-body-md--letter-spacing: -0.005em;
+  --text-body-md--font-weight: 400;
+
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.55;
+  --text-body-sm--letter-spacing: 0;
+  --text-body-sm--font-weight: 400;
+
+  --text-body-xs: 0.75rem;
+  --text-body-xs--line-height: 1.5;
+  --text-body-xs--letter-spacing: 0.005em;
+  --text-body-xs--font-weight: 400;
+
+  /* -------------------------------------------------------
+     UI, label, and supporting styles
+     ------------------------------------------------------- */
+
+  --text-label-lg: 0.9375rem;
+  --text-label-lg--line-height: 1.35;
+  --text-label-lg--letter-spacing: 0;
+  --text-label-lg--font-weight: 500;
+
+  --text-label-md: 0.875rem;
+  --text-label-md--line-height: 1.3;
+  --text-label-md--letter-spacing: 0.005em;
+  --text-label-md--font-weight: 500;
+
+  --text-label-sm: 0.75rem;
+  --text-label-sm--line-height: 1.3;
+  --text-label-sm--letter-spacing: 0.01em;
+  --text-label-sm--font-weight: 500;
+
+  --text-button-lg: 1rem;
+  --text-button-lg--line-height: 1.25;
+  --text-button-lg--letter-spacing: -0.005em;
+  --text-button-lg--font-weight: 600;
+
+  --text-button-md: 0.875rem;
+  --text-button-md--line-height: 1.25;
+  --text-button-md--letter-spacing: 0;
+  --text-button-md--font-weight: 600;
+
+  --text-button-sm: 0.75rem;
+  --text-button-sm--line-height: 1.25;
+  --text-button-sm--letter-spacing: 0.005em;
+  --text-button-sm--font-weight: 600;
+
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.12em;
+  --text-eyebrow--font-weight: 500;
+
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.45;
+  --text-caption--letter-spacing: 0.01em;
+  --text-caption--font-weight: 400;
+
+  --text-overline: 0.6875rem;
+  --text-overline--line-height: 1.2;
+  --text-overline--letter-spacing: 0.14em;
+  --text-overline--font-weight: 600;
+
+  /* Core */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  /* Brand */
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-pressed: var(--primary-pressed);
+  --color-primary-subtle: var(--primary-subtle);
+  --color-primary-subtle-hover: var(--primary-subtle-hover);
+  --color-primary-border: var(--primary-border);
+  --color-primary-foreground: var(--primary-foreground);
+
+  /* Semantic */
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Background states */
+  --color-surface: var(--background-surface);
+  --color-elevated: var(--background-elevated);
+  --color-hover: var(--background-hover);
+  --color-selected: var(--background-selected);
+  --color-disabled: var(--background-disabled);
+  --color-inverse: var(--background-inverse);
+
+  /* Text */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-disabled: var(--text-disabled);
+  --color-text-inverse: var(--text-inverse);
+
+  /* Borders */
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-border-hover: var(--border-hover);
+
+  /* Security */
+  --color-security-critical: var(--security-critical);
+  --color-security-high: var(--security-high);
+  --color-security-warning: var(--security-warning);
+  --color-security-success: var(--security-success);
+  --color-security-info: var(--security-info);
+  --color-security-ai: var(--security-ai);
+  --color-security-trace: var(--security-trace);
+
+  /* Charts */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Radius */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans text-body-md;
+    margin: 0;
+    min-height: 100vh;
+    font-weight: var(--font-weight-regular);
+    font-synthesis: none;
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading text-text-primary;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  h1 {
+    @apply text-heading-1;
+  }
+
+  h2 {
+    @apply text-heading-2;
+  }
+
+  h3 {
+    @apply text-heading-3;
+  }
+
+  h4 {
+    @apply text-heading-4;
+  }
+
+  h5 {
+    @apply text-heading-5;
+  }
+
+  h6 {
+    @apply text-heading-6;
+  }
+
+  p {
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  small {
+    @apply text-caption text-text-muted;
+  }
+
+  strong,
+  b {
+    font-weight: var(--font-weight-bold);
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [role="button"][aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+
+  ::selection {
+    background: var(--primary-subtle-hover);
+    color: var(--text-primary);
+  }
+}
+
+
+/* =========================================================
+   SEMANTIC TYPOGRAPHY CLASSES
+
+   These classes keep typography consistent across the
+   Rover brand, product, UI, and presentation surfaces.
+   ========================================================= */
+
+@layer components {
+  /* Display */
+  .type-display-xl {
+    @apply font-display text-display-xl text-text-primary;
+  }
+
+  .type-display-lg {
+    @apply font-display text-display-lg text-text-primary;
+  }
+
+  .type-display-md {
+    @apply font-display text-display-md text-text-primary;
+  }
+
+  /* Headings */
+  .type-heading-1 {
+    @apply font-heading text-heading-1 text-text-primary;
+  }
+
+  .type-heading-2 {
+    @apply font-heading text-heading-2 text-text-primary;
+  }
+
+  .type-heading-3 {
+    @apply font-heading text-heading-3 text-text-primary;
+  }
+
+  .type-heading-4 {
+    @apply font-heading text-heading-4 text-text-primary;
+  }
+
+  .type-heading-5 {
+    @apply font-heading text-heading-5 text-text-primary;
+  }
+
+  .type-heading-6 {
+    @apply font-heading text-heading-6 text-text-primary;
+  }
+
+  /* Body */
+  .type-body-xl {
+    @apply font-sans text-body-xl text-text-secondary;
+  }
+
+  .type-body-lg {
+    @apply font-sans text-body-lg text-text-secondary;
+  }
+
+  .type-body-md,
+  .type-body {
+    @apply font-sans text-body-md text-text-secondary;
+  }
+
+  .type-body-sm {
+    @apply font-sans text-body-sm text-text-secondary;
+  }
+
+  .type-body-xs {
+    @apply font-sans text-body-xs text-text-muted;
+  }
+
+  /* Labels */
+  .type-label-lg {
+    @apply font-ui text-label-lg text-text-primary;
+  }
+
+  .type-label-md,
+  .type-label {
+    @apply font-ui text-label-md text-text-primary;
+  }
+
+  .type-label-sm {
+    @apply font-ui text-label-sm text-text-primary;
+  }
+
+  /* Buttons */
+  .type-button-lg {
+    @apply font-ui text-button-lg;
+  }
+
+  .type-button-md,
+  .type-button {
+    @apply font-ui text-button-md;
+  }
+
+  .type-button-sm {
+    @apply font-ui text-button-sm;
+  }
+
+  /* Supporting text */
+  .type-eyebrow {
+    @apply font-ui text-eyebrow uppercase text-primary;
+  }
+
+  .type-overline {
+    @apply font-ui text-overline uppercase text-text-muted;
+  }
+
+  .type-caption {
+    @apply font-sans text-caption text-text-muted;
+  }
+
+  /* Approved weight helpers */
+  .type-regular {
+    font-weight: var(--font-weight-regular);
+  }
+
+  .type-medium {
+    font-weight: var(--font-weight-medium);
+  }
+
+  .type-semibold {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .type-bold {
+    font-weight: var(--font-weight-bold);
+  }
+
+  /* Useful for dashboards and security metrics */
+  .type-tabular {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+}
