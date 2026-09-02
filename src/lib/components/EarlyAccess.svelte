@@ -72,8 +72,22 @@
 			today because it's too expensive to index.
 		</p>
 
-		<div class="mt-10 flex flex-wrap justify-center gap-3.5">
-			<Button size="lg" href="mailto:contactus@roverhq.ai" class="rounded-full">Get Demo</Button>
+		<div class="mt-10 flex flex-col items-center justify-center gap-3.5 sm:flex-row">
+			<Button size="lg" href="mailto:contactus@roverhq.ai" class="rounded-full px-8">Get Demo</Button>
+			<a
+				href="mailto:contactus@roverhq.ai"
+				class="border-border bg-card/60 hover:border-primary/40 text-foreground/90 hover:text-primary inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium transition-all"
+			>
+				<svg
+					viewBox="0 0 24 24"
+					class="stroke-muted-foreground h-4 w-4 fill-none"
+					stroke-width="1.6"
+					aria-hidden="true"
+				>
+					<rect x="3" y="6" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" />
+				</svg>
+				contactus@roverhq.ai
+			</a>
 		</div>
 
 		<div bind:this={tailEl}>
