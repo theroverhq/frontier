@@ -14,7 +14,7 @@
 	<title>Rover | SIEM Built for Infinite Retention & Object Storage Search</title>
 	<meta
 		name="description"
-		content="Keep 100% of your security events in object storage and search years of data in seconds. Run detections and AI investigations without search clusters."
+		content="Cold storage. Hot intelligence. The SIEM & Security Data Lake built for object storage. Search years of data in seconds without search clusters."
 	/>
 	<meta
 		name="keywords"
@@ -31,7 +31,7 @@
 	/>
 	<meta
 		property="og:description"
-		content="Keep 100% of your security events in object storage. Search petabytes of historical telemetry in seconds and give your SOC full context without hot storage fees."
+		content="Cold storage. Hot intelligence. The SIEM & Security Data Lake built for object storage. Search years of data in seconds without search clusters."
 	/>
 	<meta property="og:image" content="https://roverhq.ai/og-image.jpg" />
 
@@ -42,7 +42,7 @@
 	/>
 	<meta
 		name="twitter:description"
-		content="Keep 100% of your security events in object storage. Search petabytes of historical telemetry in seconds and give your SOC full context without hot storage fees."
+		content="Cold storage. Hot intelligence. The SIEM & Security Data Lake built for object storage. Search years of data in seconds without search clusters."
 	/>
 	<meta name="twitter:image" content="https://roverhq.ai/og-image.jpg" />
 
