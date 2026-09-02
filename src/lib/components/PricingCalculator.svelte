@@ -44,6 +44,18 @@
 		return '~45s - 2 min query latency';
 	}
 
+	// Helper function: Dynamic Rover query latency scaling anchored at ~100 TB = 10s
+	function getRoverLatency(tbTotal: number): string {
+		if (tbTotal <= 5) return '< 1s instant search';
+		if (tbTotal <= 25) return '< 3s instant search';
+		if (tbTotal <= 60) return '< 6s instant search';
+		if (tbTotal <= 150) return '< 10s instant search';
+		if (tbTotal <= 500) return '< 35s instant search';
+		if (tbTotal <= 1500) return '< 1.5 min search';
+		if (tbTotal <= 5000) return '< 4 min search';
+		return '< 12 min search';
+	}
+
 	// Volume Tiers & Base SOC Workload Profiles from CUSTOMER_PROFILE_INFRA_COST_ESTIMATE.md
 	const volumeTiers = [
 		{
@@ -250,7 +262,7 @@
 		},
 		10000: {
 			// 10 TB
-			rover: { monthly1Y: 54165, yearly1Y: 650000 },
+			rover: { monthly1Y: 54167, yearly1Y: 650000 },
 			splunk: { baseYearly: 10000000, oneYearHot: 18250000 },
 			sentinel: { baseYearly: 12000000, oneYearHot: 15960000 },
 			crowdstrike: { baseYearly: 21420000, oneYearHot: 26370000 },
@@ -290,10 +302,14 @@
 	const R = $derived(activeRetention.R);
 	// Query intensity multiplier Q
 	const Q = $derived(activeQueryIntensity.factor);
+	// Total searchable dataset volume in TB
+	let totalSearchableTB = $derived(activeVolume.tbPerMonth * R * 12);
 
 	// Rover Commercial Pricing: Fixed flat rate based ONLY on daily ingestion volume.
 	let roverYearly = $derived(bm.rover.yearly1Y);
-	let roverCost = $derived(billingPeriod === 'yearly' ? bm.rover.yearly1Y : bm.rover.monthly1Y);
+	let roverCost = $derived(
+		billingPeriod === 'yearly' ? bm.rover.yearly1Y : Math.round(bm.rover.yearly1Y / 12)
+	);
 
 	// SIEM Retention & Query Scale: Base + R * StorageAdder
 	function getSiemCost(baseYearly: number, oneYearHot: number): number {
@@ -581,11 +597,8 @@
 								<Badge
 									class="border-primary/40 bg-primary/10 text-primary rounded-full px-2 py-0.5 text-[9px] font-semibold"
 								>
-									&lt; 10s instant search
+									{getRoverLatency(totalSearchableTB)}
 								</Badge>
-							</div>
-							<div class="text-caption text-text-muted mt-0.5 leading-snug">
-								Object Storage Native · Flat Multi-Year Retention & Unlimited Queries
 							</div>
 						</div>
 					</div>
