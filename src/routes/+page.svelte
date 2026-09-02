@@ -64,7 +64,7 @@
 				"@id": "https://roverhq.ai/#website",
 				"url": "https://roverhq.ai",
 				"name": "Rover",
-				"description": "Cold Storage. Hot Intelligence. — Search, Analytics & AI for Your Security Data Lake",
+				"description": "Cold Storage. Hot Intelligence. — Search, Analytics & AI over Object Storage",
 				"publisher": {
 					"@id": "https://roverhq.ai/#organization"
 				}

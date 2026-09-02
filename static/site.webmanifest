@@ -1,7 +1,7 @@
 {
-  "name": "Rover | Agentic SIEM & Security Data Lake",
+  "name": "Rover | SIEM & Security Data Lake",
   "short_name": "Rover",
-  "description": "Cold Storage. Hot Intelligence. Search, Analytics & AI for Your Security Data Lake.",
+  "description": "Cold Storage. Hot Intelligence. Search, Analytics & AI over Object Storage.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
