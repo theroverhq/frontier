@@ -3,9 +3,7 @@
   import Navbar from "$lib/components/Navbar.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import { browser } from "$app/environment";
-  import { env } from "$env/dynamic/public";
-  const PUBLIC_GA_MEASUREMENT_ID = env.PUBLIC_GA_MEASUREMENT_ID;
-  const PUBLIC_CLARITY_PROJECT_ID = env.PUBLIC_CLARITY_PROJECT_ID;
+  import { PUBLIC_GA_MEASUREMENT_ID, PUBLIC_CLARITY_PROJECT_ID } from "$env/static/public";
   
   let { children } = $props();
 </script>
