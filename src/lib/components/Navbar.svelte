@@ -83,7 +83,7 @@
 			<Button
 				variant="secondary"
 				size="sm"
-				href="{$page.url.pathname === '/' ? '' : '/'}#early-access"
+				href="mailto:contactus@roverhq.ai"
 				class="hidden rounded-full px-4 font-sans text-[11px] font-bold uppercase sm:inline-flex md:px-6 lg:px-8"
 			>
 				Get Demo
@@ -183,7 +183,7 @@
 					<Button
 						variant="secondary"
 						size="lg"
-						href="{$page.url.pathname === '/' ? '' : '/'}#early-access"
+						href="mailto:contactus@roverhq.ai"
 						class="w-full rounded-full font-sans text-xs font-bold uppercase"
 						onclick={closeMenu}
 					>
