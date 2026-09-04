@@ -31,7 +31,16 @@
 			aria-label="Rover home"
 			onclick={closeMenu}
 		>
-			<img src="/rover-logo.png" alt="Rover Logo" class="h-5 w-auto" />
+			<img
+				src="/rover-logo.png"
+				alt="Rover Logo"
+				class="h-5 w-auto"
+				width="20"
+				height="20"
+				fetchpriority="high"
+				loading="eager"
+				decoding="async"
+			/>
 			<span
 				class="text-foreground text-2xl leading-none tracking-[0px]"
 				style="font-family: 'Mitr', sans-serif;"
@@ -41,7 +50,7 @@
 		</a>
 
 		<div
-			class="hidden items-center gap-6 xl:gap-8 text-[11px] font-bold tracking-widest text-zinc-300 uppercase lg:flex"
+			class="hidden items-center gap-6 text-[11px] font-bold tracking-widest text-zinc-300 uppercase lg:flex xl:gap-8"
 			aria-label="Page sections"
 		>
 			<a

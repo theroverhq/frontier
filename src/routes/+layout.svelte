@@ -8,35 +8,43 @@
   let { children } = $props();
 
   onMount(() => {
-    // Inject Google Analytics after hydration
-    if (PUBLIC_GA_MEASUREMENT_ID) {
-      const gaScript = document.createElement("script");
-      gaScript.async = true;
-      gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${PUBLIC_GA_MEASUREMENT_ID}`;
-      document.head.appendChild(gaScript);
+    const injectScripts = () => {
+      // Inject Google Analytics after hydration & initial paint
+      if (PUBLIC_GA_MEASUREMENT_ID) {
+        const gaScript = document.createElement("script");
+        gaScript.async = true;
+        gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${PUBLIC_GA_MEASUREMENT_ID}`;
+        document.head.appendChild(gaScript);
 
-      const gaConfig = document.createElement("script");
-      gaConfig.innerHTML = `
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '${PUBLIC_GA_MEASUREMENT_ID}');
-      `;
-      document.head.appendChild(gaConfig);
-    }
+        const gaConfig = document.createElement("script");
+        gaConfig.innerHTML = `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${PUBLIC_GA_MEASUREMENT_ID}');
+        `;
+        document.head.appendChild(gaConfig);
+      }
 
-    // Inject Microsoft Clarity after hydration
-    if (PUBLIC_CLARITY_PROJECT_ID) {
-      const clarityConfig = document.createElement("script");
-      clarityConfig.type = "text/javascript";
-      clarityConfig.innerHTML = `
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "${PUBLIC_CLARITY_PROJECT_ID}");
-      `;
-      document.head.appendChild(clarityConfig);
+      // Inject Microsoft Clarity after hydration & initial paint
+      if (PUBLIC_CLARITY_PROJECT_ID) {
+        const clarityConfig = document.createElement("script");
+        clarityConfig.type = "text/javascript";
+        clarityConfig.innerHTML = `
+          (function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+          })(window, document, "clarity", "script", "${PUBLIC_CLARITY_PROJECT_ID}");
+        `;
+        document.head.appendChild(clarityConfig);
+      }
+    };
+
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(injectScripts, { timeout: 3000 });
+    } else {
+      setTimeout(injectScripts, 1500);
     }
   });
 </script>

@@ -57,8 +57,14 @@
 		const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 		const touch = matchMedia('(hover: none)').matches;
 		const tablet = matchMedia('(max-width: 1024px)').matches;
-		const stops = [initDiagram(reduced, touch, tablet)];
-		return () => stops.forEach((stop) => stop());
+		let stopFn: (() => void) | undefined;
+		const timer = setTimeout(() => {
+			stopFn = initDiagram(reduced, touch, tablet);
+		}, 0);
+		return () => {
+			clearTimeout(timer);
+			if (stopFn) stopFn();
+		};
 	});
 
 	/* ------------------------------------------------------------------
@@ -96,8 +102,8 @@
 		let visConns: SVGPathElement[] = [];
 		let rightConns: SVGPathElement[] = [];
 
-		const rel = (el: Element) => {
-			const base = dia.getBoundingClientRect();
+		const rel = (el: Element, baseRect?: DOMRect) => {
+			const base = baseRect ?? dia.getBoundingClientRect();
 			const r = el.getBoundingClientRect();
 			return {
 				x: r.left - base.left,
@@ -194,15 +200,18 @@
 			sp.style.display = '';
 			cd.style.display = '';
 
+			/* Single batch read of diagram base bounding rect */
+			const baseRect = dia.getBoundingClientRect();
+
 			/* Cylinder body sits at x 15..235 of a 250x360 viewBox. */
-			const cylR = rel(cylSvg);
+			const cylR = rel(cylSvg, baseRect);
 			const sx = cylR.w / 250;
 			const sy = cylR.h / 360;
 			const cylLeft = cylR.x + 15 * sx;
 			const cylRight = cylR.x + 235 * sx;
 			const cylMidY = cylR.y + 170 * sy;
 
-			const srcRs = srcs.map(rel);
+			const srcRs = srcs.map((s) => rel(s, baseRect));
 			const busX = (srcRs[0].right + cylLeft) / 2.5;
 			srcRs.forEach((r) =>
 				visConns.push(
@@ -247,7 +256,7 @@
 				)
 			);
 
-			const outRs = outs.map(rel);
+			const outRs = outs.map((o) => rel(o, baseRect));
 			const bus2X = (cylRight + outRs[0].left) / 1.85;
 			outRs.forEach((r) => {
 				const pts = [
