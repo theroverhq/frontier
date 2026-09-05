@@ -8,10 +8,10 @@
 <svelte:head>
 	<title>{data.blog.title}</title>
 	<meta name="description" content={data.blog.description} />
-	<link rel="canonical" href="https://roverhq.ai/blogs/{data.blog.slug}" />
+	<link rel="canonical" href="https://roverhq.ai/blogs/{data.blog.slug}/" />
 
 	<meta property="og:type" content="article" />
-	<meta property="og:url" content="https://roverhq.ai/blogs/{data.blog.slug}" />
+	<meta property="og:url" content="https://roverhq.ai/blogs/{data.blog.slug}/" />
 	<meta property="og:title" content={data.blog.title} />
 	<meta property="og:description" content={data.blog.description} />
 	<meta property="og:image" content={data.blog.og_image || 'https://roverhq.ai/og-image.jpg'} />
@@ -29,7 +29,7 @@
 		"headline": ${JSON.stringify(data.blog.card_title)},
 		"description": ${JSON.stringify(data.blog.description)},
 		"image": [${JSON.stringify(data.blog.og_image || 'https://roverhq.ai/og-image.jpg')}],
-		"url": ${JSON.stringify('https://roverhq.ai/blogs/' + data.blog.slug)},
+		"url": ${JSON.stringify('https://roverhq.ai/blogs/' + data.blog.slug + '/')},
 		"articleSection": ${JSON.stringify(data.blog.category)},
 		"author": {
 			"@type": "Organization",
@@ -46,7 +46,7 @@
 		},
 		"mainEntityOfPage": {
 			"@type": "WebPage",
-			"@id": ${JSON.stringify('https://roverhq.ai/blogs/' + data.blog.slug)}
+			"@id": ${JSON.stringify('https://roverhq.ai/blogs/' + data.blog.slug + '/')}
 		}
 	}
 	</script>`}
@@ -57,7 +57,7 @@
 	<div class="border-b border-border bg-card/60 py-3 backdrop-blur-md">
 		<div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
 			<div class="flex items-center gap-2 text-xs font-mono text-text-secondary">
-				<a href="/blogs" class="hover:text-primary transition-colors">Blogs</a>
+				<a href="/blogs/" class="hover:text-primary transition-colors">Blogs</a>
 				<ChevronRight class="h-3 w-3 text-text-muted" />
 				<span class="text-primary font-medium">{data.blog.category}</span>
 				<ChevronRight class="h-3 w-3 text-text-muted" />
@@ -85,7 +85,7 @@
 						{#each data.allBlogs as b (b.slug)}
 							{@const isActive = b.slug === data.blog.slug}
 							<a
-								href="/blogs/{b.slug}"
+								href="/blogs/{b.slug}/"
 								class="group flex flex-col gap-1 rounded-lg px-3 py-2.5 transition-all {isActive
 									? 'bg-primary-subtle text-primary font-semibold border border-primary-border/40 shadow-sm'
 									: 'text-text-secondary hover:bg-hover hover:text-foreground border border-transparent'}"
@@ -148,7 +148,7 @@
 					<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 						{#if data.prevBlog}
 							<a
-								href="/blogs/{data.prevBlog.slug}"
+								href="/blogs/{data.prevBlog.slug}/"
 								class="group flex flex-col gap-1.5 rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:bg-hover"
 							>
 								<span class="flex items-center gap-1.5 font-mono text-xs text-text-muted group-hover:text-primary">
@@ -164,7 +164,7 @@
 
 						{#if data.nextBlog}
 							<a
-								href="/blogs/{data.nextBlog.slug}"
+								href="/blogs/{data.nextBlog.slug}/"
 								class="group flex flex-col gap-1.5 rounded-xl border border-border bg-card p-5 text-right transition-all hover:border-primary/50 hover:bg-hover"
 							>
 								<span class="flex items-center justify-end gap-1.5 font-mono text-xs text-text-muted group-hover:text-primary">
@@ -179,7 +179,7 @@
 
 					<div class="mt-10 text-center">
 						<a
-							href="/blogs"
+							href="/blogs/"
 							class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-2.5 font-mono text-xs font-semibold text-foreground transition-all hover:border-primary hover:bg-primary hover:text-primary-foreground"
 						>
 							← Back to All Blogs

@@ -22,7 +22,7 @@
 <footer class="dark bg-background text-foreground border-border relative overflow-hidden border-t">
 	<div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div
-			class="relative z-2 grid grid-cols-1 gap-10 pt-16 pb-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]"
+			class="relative z-2 grid grid-cols-1 gap-10 pt-16 pb-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]"
 		>
 			<!-- Brand -->
 			<div>
@@ -86,19 +86,6 @@
 				>
 			</div>
 
-			<div>
-				<h5 class=" mb-4 text-[13px] font-semibold">Legal</h5>
-				<a
-					href="/privacy/"
-					class="text-foreground/80 hover:text-primary block py-1.5 text-[13.5px] transition-colors"
-					>Privacy</a
-				>
-				<a
-					href="/terms/"
-					class="text-foreground/80 hover:text-primary block py-1.5 text-[13.5px] transition-colors"
-					>Terms</a
-				>
-			</div>
 		</div>
 
 		<!-- Oversized wordmark, sunk just above the base colour -->

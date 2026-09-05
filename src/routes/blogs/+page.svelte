@@ -30,10 +30,10 @@
 		name="keywords"
 		content="Rover Blog, Security Data Lake, Object Storage SIEM, SIEM cost reduction, telemetry retention, SOC automation, detection engineering, threat hunting"
 	/>
-	<link rel="canonical" href="https://roverhq.ai/blogs" />
+	<link rel="canonical" href="https://roverhq.ai/blogs/" />
 
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://roverhq.ai/blogs" />
+	<meta property="og:url" content="https://roverhq.ai/blogs/" />
 	<meta property="og:title" content="Rover Blog | Security Data Lakes & Object Storage Search" />
 	<meta
 		property="og:description"
@@ -55,7 +55,7 @@
 		"@type": "Blog",
 		"name": "Rover Blog | Security Data Lakes & Object Storage Search",
 		"description": "Engineering research and architecture notes on object storage log search, SIEM cost optimization, multi-year telemetry retention, and AI SOC automation.",
-		"url": "https://roverhq.ai/blogs",
+		"url": "https://roverhq.ai/blogs/",
 		"publisher": {
 			"@type": "Organization",
 			"name": "Rover",
@@ -145,7 +145,7 @@
 								</div>
 
 								<h3 class="font-heading text-lg font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">
-									<a href="/blogs/{blog.slug}">
+									<a href="/blogs/{blog.slug}/">
 										<span class="absolute inset-0"></span>
 										{blog.card_title}
 									</a>
