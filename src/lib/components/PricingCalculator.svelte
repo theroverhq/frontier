@@ -391,7 +391,7 @@
 	};
 </script>
 
-<div class="dark border-border bg-card text-foreground rounded-2xl border p-6 sm:p-10">
+<div class="dark border-border bg-card text-foreground rounded-2xl border p-4 sm:p-8 lg:p-10">
 	<div class="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-12">
 		<!-- LEFT COLUMN: Controls & Options -->
 		<div class="flex flex-col justify-between space-y-3.5">
@@ -413,7 +413,7 @@
 			</div>
 
 			<!-- Control 1: Daily Ingestion Volume -->
-			<div class="border-border bg-background space-y-2 rounded-xl border p-5">
+			<div class="border-border bg-background space-y-2 rounded-xl border p-4 sm:p-5">
 				<div class="flex items-center justify-between">
 					<span class="text-overline text-text-primary font-semibold">Daily Ingestion Volume</span>
 					<span
@@ -435,8 +435,8 @@
 
 				<div class="text-caption text-text-muted relative h-5 font-medium">
 					<span class="absolute left-0">10 GB/d</span>
-					<span class="absolute left-[42.86%] -translate-x-1/2">500 GB/d</span>
-					<span class="absolute left-[71.43%] -translate-x-1/2">2 TB/d</span>
+					<span class="absolute left-[42.86%] hidden -translate-x-1/2 sm:inline">500 GB/d</span>
+					<span class="absolute left-[71.43%] hidden -translate-x-1/2 sm:inline">2 TB/d</span>
 					<span class="absolute right-0 text-right">100 TB/d</span>
 				</div>
 				<div class="text-caption text-text-muted pt-1">
@@ -448,7 +448,7 @@
 			</div>
 
 			<!-- Control 2: Query Workload Factor -->
-			<div class="border-border bg-background space-y-2 rounded-xl border p-5">
+			<div class="border-border bg-background space-y-2 rounded-xl border p-4 sm:p-5">
 				<div class="flex items-center justify-between">
 					<span class="text-overline text-text-primary font-semibold">Query Workload Factor</span>
 					<span
@@ -463,12 +463,12 @@
 						<button
 							type="button"
 							onclick={() => (selectedQueryIntensityIdx = idx)}
-							class="flex items-center justify-between rounded-xl border p-3.5 transition-all {selectedQueryIntensityIdx ===
+							class="flex min-w-0 flex-col items-start justify-between gap-2 rounded-xl border p-3 transition-all sm:flex-row sm:items-center sm:p-3.5 {selectedQueryIntensityIdx ===
 							idx
 								? 'border-primary/80 bg-card text-foreground font-semibold shadow-sm'
 								: 'border-border bg-card/40 text-text-secondary hover:border-border/80 hover:text-text-primary'}"
 						>
-							<div class="flex items-center gap-2.5">
+							<div class="flex min-w-0 items-center gap-2.5">
 								<div
 									class="flex h-4 w-4 items-center justify-center rounded-full border {selectedQueryIntensityIdx ===
 									idx
@@ -479,10 +479,13 @@
 										<div class="bg-primary h-2 w-2 rounded-full"></div>
 									{/if}
 								</div>
-								<span class="text-label-sm text-text-primary font-bold">{option.label}</span>
+								<span class="text-label-sm text-text-primary min-w-0 leading-tight font-bold"
+									>{option.label}</span
+								>
 							</div>
 							<span
-								class="text-caption font-bold {selectedQueryIntensityIdx === idx
+								class="text-caption self-end font-bold sm:self-auto {selectedQueryIntensityIdx ===
+								idx
 									? 'text-primary'
 									: 'text-text-muted'}"
 							>
@@ -515,7 +518,7 @@
 			</div>
 
 			<!-- Control 3: Retention Period -->
-			<div class="border-border bg-background space-y-2 rounded-xl border p-5">
+			<div class="border-border bg-background space-y-2 rounded-xl border p-4 sm:p-5">
 				<div class="flex items-center justify-between">
 					<span class="text-overline text-text-primary font-semibold">Retention Period</span>
 					<span
@@ -525,12 +528,12 @@
 					</span>
 				</div>
 
-				<div class="grid grid-cols-5 gap-2">
+				<div class="grid grid-cols-2 gap-2 min-[360px]:grid-cols-3 sm:grid-cols-5">
 					{#each retentionOptions as ret, idx (ret.label)}
 						<button
 							type="button"
 							onclick={() => (selectedRetentionIdx = idx)}
-							class="text-button-sm rounded-lg border px-2 py-2.5 text-center transition-all {selectedRetentionIdx ===
+							class="text-button-sm min-h-11 rounded-lg border px-2 py-2.5 text-center transition-all {selectedRetentionIdx ===
 							idx
 								? 'border-foreground bg-foreground text-background font-bold shadow-sm'
 								: 'border-border bg-card/40 text-text-secondary hover:text-text-primary'}"
@@ -550,7 +553,8 @@
 					<button
 						type="button"
 						onclick={() => (billingPeriod = 'monthly')}
-						class="text-button-sm rounded-md px-3.5 py-1 transition-all {billingPeriod === 'monthly'
+						class="text-button-sm min-h-11 rounded-md px-3.5 py-1 transition-all {billingPeriod ===
+						'monthly'
 							? 'bg-foreground text-background font-bold shadow-sm'
 							: 'text-text-muted hover:text-text-primary'}"
 					>
@@ -559,7 +563,8 @@
 					<button
 						type="button"
 						onclick={() => (billingPeriod = 'yearly')}
-						class="text-button-sm rounded-md px-3.5 py-1 transition-all {billingPeriod === 'yearly'
+						class="text-button-sm min-h-11 rounded-md px-3.5 py-1 transition-all {billingPeriod ===
+						'yearly'
 							? 'bg-foreground text-background font-bold shadow-sm'
 							: 'text-text-muted hover:text-text-primary'}"
 					>
@@ -571,7 +576,7 @@
 
 		<!-- RIGHT COLUMN: Provider Cards -->
 		<div class="flex flex-col space-y-2.5">
-			<div class="flex items-center justify-between px-1 pb-0.5">
+			<div class="hidden items-center justify-between px-1 pb-0.5 sm:flex">
 				<span class="text-overline text-text-muted font-semibold">Provider</span>
 				<span class="text-overline text-text-muted font-semibold"
 					>Estimated Pricing ({billingPeriod})</span
@@ -582,8 +587,10 @@
 			<div
 				class="border-border bg-background relative mt-1 mb-6 overflow-hidden rounded-xl border p-4 shadow-md sm:p-4"
 			>
-				<div class="flex items-center justify-between gap-3">
-					<div class="flex items-center gap-4">
+				<div
+					class="flex flex-col items-stretch gap-4 min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between"
+				>
+					<div class="flex min-w-0 items-center gap-4">
 						<!-- Rover Brand Logo -->
 						<img
 							src="/favicon.png"
@@ -603,7 +610,7 @@
 						</div>
 					</div>
 
-					<div class="shrink-0 text-right">
+					<div class="shrink-0 self-end text-right min-[420px]:self-auto">
 						<div class="flex items-baseline justify-end gap-1">
 							<span class="text-heading-3 text-primary font-bold">{formatVal(roverCost)}</span>
 							<span class="text-caption text-text-muted font-medium"
@@ -619,9 +626,9 @@
 				{@const multiplier = (provider.cost / Math.max(1, roverCost)).toFixed(1)}
 				{@const totalSearchableTB = activeVolume.tbPerMonth * activeRetention.R * 12}
 				<div
-					class="border-border bg-card/60 hover:bg-card flex items-center justify-between gap-3 rounded-xl border p-3 transition-all sm:p-3.5"
+					class="border-border bg-card/60 hover:bg-card flex flex-col items-stretch gap-4 rounded-xl border p-3 transition-all min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between sm:p-3.5"
 				>
-					<div class="flex items-center gap-2.5">
+					<div class="flex min-w-0 items-center gap-2.5">
 						<!-- Direct Competitor SVG / PNG Icon -->
 						<div class="flex h-7 w-7 shrink-0 items-center justify-center">
 							{#if provider.id === 'crowdstrike'}
@@ -756,7 +763,7 @@
 							{/if}
 						</div>
 
-						<div>
+						<div class="min-w-0">
 							<div class="flex flex-wrap items-center gap-2">
 								<span class="text-label-md text-text-primary font-bold">{provider.name}</span>
 								{#if provider.id === 'athena' || provider.id === 'snowflake' || provider.id === 'databricks'}
@@ -776,7 +783,7 @@
 						</div>
 					</div>
 
-					<div class="flex shrink-0 items-center gap-2.5">
+					<div class="flex shrink-0 items-center gap-2.5 self-end min-[420px]:self-auto">
 						{#if Number(multiplier) > 1.1}
 							<span
 								class="border-border/80 bg-background/80 text-text-muted rounded-md border px-2 py-0.5 text-[10px] font-medium"

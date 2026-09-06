@@ -533,7 +533,7 @@
 
 	<div class="relative container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div
-			class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,462px)_minmax(0,1fr)] lg:gap-[46px]"
+			class="grid grid-cols-1 items-center gap-12 xl:grid-cols-[minmax(0,430px)_minmax(0,1fr)] xl:gap-9"
 		>
 			<div>
 				<Badge variant="secondary" class="gap-1.5 px-3 py-1 font-sans">
@@ -698,7 +698,7 @@
 					<!-- Floating mid-column labels, positioned against the measured bus -->
 					<div
 						bind:this={cdEl}
-						class="text-primary/90 absolute z-2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-[22px] text-center text-[9px] font-semibold tracking-[0.07em] whitespace-nowrap uppercase max-lg:hidden"
+						class="text-primary/90 absolute z-2 hidden -translate-x-1/2 -translate-y-1/2 flex-col gap-[22px] text-center text-[9px] font-semibold tracking-[0.07em] whitespace-nowrap uppercase xl:flex"
 						aria-hidden="true"
 					>
 						<span>Continuous Detections</span>
@@ -706,7 +706,7 @@
 					</div>
 					<div
 						bind:this={sqcEl}
-						class="text-foreground absolute z-2 -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] uppercase max-lg:hidden"
+						class="text-foreground absolute z-2 hidden -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] uppercase xl:block"
 						aria-hidden="true"
 					>
 						Serverless<br />Query<br />Compute
@@ -718,7 +718,7 @@
 					</div>
 					<div
 						bind:this={spEl}
-						class="text-foreground absolute z-2 -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] uppercase max-lg:hidden"
+						class="text-foreground absolute z-2 hidden -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] uppercase xl:block"
 						aria-hidden="true"
 					>
 						Security<br />Platform

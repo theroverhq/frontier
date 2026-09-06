@@ -55,32 +55,32 @@
 		>
 			<a
 				href="{$page.url.pathname === '/' ? '' : '/'}#hero-preview"
-				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
+				class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b border-transparent transition-all"
 				>SIEM</a
 			>
 			<a
 				href="{$page.url.pathname === '/' ? '' : '/'}#big-idea"
-				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
+				class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b border-transparent transition-all"
 				>Search</a
 			>
 			<a
 				href="{$page.url.pathname === '/' ? '' : '/'}#architecture"
-				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
+				class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b border-transparent transition-all"
 				>Architecture</a
 			>
 			<a
 				href="{$page.url.pathname === '/' ? '' : '/'}#ai-soc"
-				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
+				class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b border-transparent transition-all"
 				>AI Context Engine</a
 			>
 			<a
 				href="{$page.url.pathname === '/' ? '' : '/'}#economics"
-				class="hover:text-primary hover:border-primary border-b border-transparent pb-0.5 transition-all"
+				class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b border-transparent transition-all"
 				>Pricing</a
 			>
 			<a
 				href="/blogs/"
-				class="hover:text-primary hover:border-primary border-b pb-0.5 transition-all {$page.url.pathname.startsWith(
+				class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b transition-all {$page.url.pathname.startsWith(
 					'/blogs'
 				)
 					? 'text-primary border-primary'
@@ -93,21 +93,21 @@
 				variant="secondary"
 				size="sm"
 				href="mailto:contactus@roverhq.ai"
-				class="hidden rounded-full px-4 font-sans text-[11px] font-bold uppercase sm:inline-flex md:px-6 lg:px-8"
+				class="hidden h-11 rounded-full px-4 font-sans text-[11px] font-bold uppercase sm:inline-flex md:px-6 lg:px-8"
 			>
 				Get Demo
 			</Button>
 			<Button
 				size="sm"
 				href="{$page.url.pathname === '/' ? '' : '/'}#early-access"
-				class="bg-primary hover:bg-primary/90 rounded-full px-4 font-sans text-[11px] font-bold tracking-wide uppercase sm:px-6 lg:px-8"
+				class="bg-primary hover:bg-primary/90 hidden h-11 rounded-full px-4 font-sans text-[11px] font-bold tracking-wide uppercase min-[360px]:inline-flex sm:px-6 lg:px-8"
 			>
 				Contact Us
 			</Button>
 
 			<!-- Mobile Hamburger Menu Toggle -->
 			<button
-				class="flex h-10 w-10 items-center justify-center rounded-lg p-1 text-zinc-300 hover:bg-white/10 hover:text-white lg:hidden"
+				class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg p-1 text-zinc-300 hover:bg-white/10 hover:text-white lg:hidden"
 				aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
 				aria-expanded={mobileMenuOpen}
 				onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
@@ -156,32 +156,32 @@
 			<div class="flex flex-col gap-4 text-sm font-bold tracking-widest text-zinc-300 uppercase">
 				<a
 					href="{$page.url.pathname === '/' ? '' : '/'}#hero-preview"
-					class="hover:text-primary border-b border-white/5 py-2 transition-all"
+					class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all"
 					onclick={closeMenu}>SIEM</a
 				>
 				<a
 					href="{$page.url.pathname === '/' ? '' : '/'}#big-idea"
-					class="hover:text-primary border-b border-white/5 py-2 transition-all"
+					class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all"
 					onclick={closeMenu}>Search</a
 				>
 				<a
 					href="{$page.url.pathname === '/' ? '' : '/'}#architecture"
-					class="hover:text-primary border-b border-white/5 py-2 transition-all"
+					class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all"
 					onclick={closeMenu}>Architecture</a
 				>
 				<a
 					href="{$page.url.pathname === '/' ? '' : '/'}#ai-soc"
-					class="hover:text-primary border-b border-white/5 py-2 transition-all"
+					class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all"
 					onclick={closeMenu}>AI Context Engine</a
 				>
 				<a
 					href="{$page.url.pathname === '/' ? '' : '/'}#economics"
-					class="hover:text-primary border-b border-white/5 py-2 transition-all"
+					class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all"
 					onclick={closeMenu}>Pricing</a
 				>
 				<a
 					href="/blogs/"
-					class="hover:text-primary border-b border-white/5 py-2 transition-all {$page.url.pathname.startsWith(
+					class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all {$page.url.pathname.startsWith(
 						'/blogs'
 					)
 						? 'text-primary'
@@ -193,7 +193,7 @@
 						variant="secondary"
 						size="lg"
 						href="mailto:contactus@roverhq.ai"
-						class="w-full rounded-full font-sans text-xs font-bold uppercase"
+						class="h-11 w-full rounded-full font-sans text-xs font-bold uppercase"
 						onclick={closeMenu}
 					>
 						Get Demo
@@ -201,7 +201,7 @@
 					<Button
 						size="lg"
 						href="{$page.url.pathname === '/' ? '' : '/'}#early-access"
-						class="bg-primary hover:bg-primary/90 w-full rounded-full font-sans text-xs font-bold tracking-wide uppercase"
+						class="bg-primary hover:bg-primary/90 h-11 w-full rounded-full font-sans text-xs font-bold tracking-wide uppercase"
 						onclick={closeMenu}
 					>
 						Contact Us

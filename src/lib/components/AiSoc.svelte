@@ -193,7 +193,9 @@
 
 	<div class="relative container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div class="text-center">
-			<Badge class="px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase">
+			<Badge
+				class="h-auto max-w-full px-3 py-1 text-center text-[11.5px] leading-snug font-bold tracking-[0.12em] whitespace-normal uppercase sm:px-4"
+			>
 				AI Context Engine
 			</Badge>
 			<div class="text-muted-foreground mt-4 text-[11px] font-bold tracking-[0.12em] uppercase">
@@ -331,7 +333,9 @@
 
 		<!-- ============ Years of security memory ============ -->
 		<div class="mt-28 text-center">
-			<Badge class="px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase">
+			<Badge
+				class="h-auto max-w-full px-3 py-1 text-center text-[11.5px] leading-snug font-bold tracking-[0.12em] whitespace-normal uppercase sm:px-4"
+			>
 				From Months Of Manual Searching
 			</Badge>
 			<h2 class="mt-6 leading-[1.12] font-bold tracking-[-0.025em]">

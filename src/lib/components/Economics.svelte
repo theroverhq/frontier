@@ -94,7 +94,7 @@
 		<div class="text-center">
 			<Badge
 				variant="outline"
-				class="border-primary/35 bg-primary/5 text-primary px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase"
+				class="border-primary/35 bg-primary/5 text-primary h-auto max-w-full px-3 py-1 text-center text-[11.5px] leading-snug font-bold tracking-[0.12em] whitespace-normal uppercase sm:px-4"
 			>
 				Built For Retention Economics
 			</Badge>

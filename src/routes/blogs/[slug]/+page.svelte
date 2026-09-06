@@ -52,51 +52,61 @@
 	</script>`}
 </svelte:head>
 
-<div class="dark min-h-screen bg-background text-foreground">
+<div class="dark bg-background text-foreground min-h-screen">
 	<!-- Breadcrumb Header -->
-	<div class="border-b border-border bg-card/60 py-3 backdrop-blur-md">
+	<div class="border-border bg-card/60 border-b py-3 backdrop-blur-md">
 		<div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
-			<div class="flex items-center gap-2 text-xs font-mono text-text-secondary">
+			<div class="text-text-secondary flex items-center gap-2 font-mono text-xs">
 				<a href="/blogs/" class="hover:text-primary transition-colors">Blogs</a>
-				<ChevronRight class="h-3 w-3 text-text-muted" />
+				<ChevronRight class="text-text-muted h-3 w-3" />
 				<span class="text-primary font-medium">{data.blog.category}</span>
-				<ChevronRight class="h-3 w-3 text-text-muted" />
-				<span class="truncate text-foreground font-medium">{data.blog.card_title}</span>
+				<ChevronRight class="text-text-muted h-3 w-3" />
+				<span class="text-foreground truncate font-medium">{data.blog.card_title}</span>
 			</div>
 		</div>
 	</div>
 
-	<div class="container mx-auto max-w-screen-2xl px-4 sm:px-6 py-10">
+	<div class="container mx-auto max-w-screen-2xl px-4 py-10 sm:px-6">
 		<div class="grid grid-cols-1 gap-12 lg:grid-cols-[300px_1fr] xl:grid-cols-[340px_1fr]">
 			<!-- Left Sticky Sidebar -->
 			<aside class="order-2 lg:order-1">
-				<div class="sticky top-24 rounded-xl border border-border bg-card p-5 shadow-lg shadow-black/20 backdrop-blur-md">
-					<div class="mb-4 flex items-center justify-between border-b border-border pb-3">
-						<span class="font-mono text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
-							<BookOpen class="h-3.5 w-3.5 text-primary" />
+				<div
+					class="border-border bg-card sticky top-24 rounded-xl border p-5 shadow-lg shadow-black/20 backdrop-blur-md"
+				>
+					<div class="border-border mb-4 flex items-center justify-between border-b pb-3">
+						<span
+							class="text-foreground flex items-center gap-2 font-mono text-xs font-bold tracking-wider uppercase"
+						>
+							<BookOpen class="text-primary h-3.5 w-3.5" />
 							Latest Insights
 						</span>
-						<span class="rounded-full bg-primary/10 border border-primary/20 px-2.5 py-0.5 font-mono text-[11px] font-semibold text-primary">
+						<span
+							class="bg-primary/10 border-primary/20 text-primary rounded-full border px-2.5 py-0.5 font-mono text-[11px] font-semibold"
+						>
 							{data.allBlogs.length} Posts
 						</span>
 					</div>
 
-					<nav class="flex flex-col gap-1.5 max-h-[calc(100vh-220px)] overflow-y-auto pr-1 text-xs font-sans scrollbar-thin">
+					<nav
+						class="flex max-h-[calc(100vh-220px)] scrollbar-thin flex-col gap-1.5 overflow-y-auto pr-1 font-sans text-xs"
+					>
 						{#each data.allBlogs as b (b.slug)}
 							{@const isActive = b.slug === data.blog.slug}
 							<a
 								href="/blogs/{b.slug}/"
 								class="group flex flex-col gap-1 rounded-lg px-3 py-2.5 transition-all {isActive
-									? 'bg-primary-subtle text-primary font-semibold border border-primary-border/40 shadow-sm'
+									? 'bg-primary-subtle text-primary border-primary-border/40 border font-semibold shadow-sm'
 									: 'text-text-secondary hover:bg-hover hover:text-foreground border border-transparent'}"
 							>
 								<div class="flex items-center justify-between font-mono text-[10px]">
 									<span class={isActive ? 'text-primary font-bold' : 'text-text-muted'}>
 										{b.blog_counter}
 									</span>
-									<span class={isActive ? 'text-primary/90 font-medium' : 'text-text-muted'}>{b.category}</span>
+									<span class={isActive ? 'text-primary/90 font-medium' : 'text-text-muted'}
+										>{b.category}</span
+									>
 								</div>
-								<span class="line-clamp-2 leading-snug transition-colors group-hover:text-primary">
+								<span class="group-hover:text-primary line-clamp-2 leading-snug transition-colors">
 									{b.card_title}
 								</span>
 							</a>
@@ -106,33 +116,41 @@
 			</aside>
 
 			<!-- Right Content Main Panel -->
-			<main class="order-1 lg:order-2 max-w-4xl">
+			<main class="order-1 max-w-4xl lg:order-2">
 				<!-- Header Meta -->
-				<header class="mb-10 border-b border-border pb-8">
+				<header class="border-border mb-10 border-b pb-8">
 					<div class="mb-4 flex flex-wrap items-center gap-3">
-						<span class="rounded-full bg-primary/15 border border-primary/30 px-3.5 py-1 font-mono text-xs font-semibold text-primary">
+						<span
+							class="bg-primary/15 border-primary/30 text-primary rounded-full border px-3.5 py-1 font-mono text-xs font-semibold"
+						>
 							{data.blog.blog_counter}
 						</span>
-						<span class="rounded-full bg-card px-3.5 py-1 font-mono text-xs font-medium text-text-secondary border border-border">
+						<span
+							class="bg-card text-text-secondary border-border rounded-full border px-3.5 py-1 font-mono text-xs font-medium"
+						>
 							{data.blog.category}
 						</span>
 					</div>
 
-					<h1 class="font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl leading-[1.15]">
+					<h1
+						class="font-heading text-foreground text-3xl leading-[1.15] font-bold tracking-tight sm:text-4xl lg:text-5xl"
+					>
 						{data.blog.card_title}
 					</h1>
 
-					<div class="mt-6 flex flex-wrap items-center gap-6 text-xs font-mono text-text-secondary border-t border-border/80 pt-4">
+					<div
+						class="text-text-secondary border-border/80 mt-6 flex flex-wrap items-center gap-6 border-t pt-4 font-mono text-xs"
+					>
 						<div class="flex items-center gap-2">
-							<Calendar class="h-4 w-4 text-primary" />
+							<Calendar class="text-primary h-4 w-4" />
 							<span class="text-foreground">Published: {data.blog.published_label}</span>
 						</div>
 						<div class="flex items-center gap-2">
-							<Clock class="h-4 w-4 text-primary" />
+							<Clock class="text-primary h-4 w-4" />
 							<span class="text-foreground">{data.blog.read_time}</span>
 						</div>
 						<div class="flex items-center gap-2">
-							<span class="h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+							<span class="bg-primary h-2 w-2 animate-pulse rounded-full"></span>
 							<span class="text-foreground">By: Rover Engineering</span>
 						</div>
 					</div>
@@ -144,17 +162,21 @@
 				</article>
 
 				<!-- Post Navigation Footer -->
-				<footer class="mt-16 border-t border-border pt-8">
+				<footer class="border-border mt-16 border-t pt-8">
 					<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 						{#if data.prevBlog}
 							<a
 								href="/blogs/{data.prevBlog.slug}/"
-								class="group flex flex-col gap-1.5 rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:bg-hover"
+								class="group border-border bg-card hover:border-primary/50 hover:bg-hover flex flex-col gap-1.5 rounded-xl border p-5 transition-all"
 							>
-								<span class="flex items-center gap-1.5 font-mono text-xs text-text-muted group-hover:text-primary">
+								<span
+									class="text-text-muted group-hover:text-primary flex items-center gap-1.5 font-mono text-xs"
+								>
 									<ArrowLeft class="h-3.5 w-3.5" /> Previous Article
 								</span>
-								<span class="font-heading text-sm font-semibold text-foreground group-hover:text-primary line-clamp-1">
+								<span
+									class="font-heading text-foreground group-hover:text-primary line-clamp-1 text-sm font-semibold"
+								>
 									{data.prevBlog.card_title}
 								</span>
 							</a>
@@ -165,12 +187,16 @@
 						{#if data.nextBlog}
 							<a
 								href="/blogs/{data.nextBlog.slug}/"
-								class="group flex flex-col gap-1.5 rounded-xl border border-border bg-card p-5 text-right transition-all hover:border-primary/50 hover:bg-hover"
+								class="group border-border bg-card hover:border-primary/50 hover:bg-hover flex flex-col gap-1.5 rounded-xl border p-5 text-right transition-all"
 							>
-								<span class="flex items-center justify-end gap-1.5 font-mono text-xs text-text-muted group-hover:text-primary">
+								<span
+									class="text-text-muted group-hover:text-primary flex items-center justify-end gap-1.5 font-mono text-xs"
+								>
 									Next Article <ArrowRight class="h-3.5 w-3.5" />
 								</span>
-								<span class="font-heading text-sm font-semibold text-foreground group-hover:text-primary line-clamp-1">
+								<span
+									class="font-heading text-foreground group-hover:text-primary line-clamp-1 text-sm font-semibold"
+								>
 									{data.nextBlog.card_title}
 								</span>
 							</a>
@@ -180,7 +206,7 @@
 					<div class="mt-10 text-center">
 						<a
 							href="/blogs/"
-							class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-2.5 font-mono text-xs font-semibold text-foreground transition-all hover:border-primary hover:bg-primary hover:text-primary-foreground"
+							class="border-border bg-card text-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground inline-flex min-h-11 items-center gap-2 rounded-full border px-6 py-2.5 font-mono text-xs font-semibold transition-all"
 						>
 							← Back to All Blogs
 						</a>
@@ -195,7 +221,7 @@
 	/* Standardized Shadcn Design System Typography for Blog Articles */
 	:global(.prose-rover) {
 		color: var(--text-primary, #f7f8f4);
-		font-family: var(--font-sans, "Inter Variable", sans-serif);
+		font-family: var(--font-sans, 'Inter Variable', sans-serif);
 		font-size: 1.05rem;
 		line-height: 1.8;
 	}
@@ -205,7 +231,7 @@
 	}
 
 	:global(.prose-rover h2) {
-		font-family: var(--font-heading, "Montserrat Variable", sans-serif);
+		font-family: var(--font-heading, 'Montserrat Variable', sans-serif);
 		color: var(--text-primary, #f7f8f4);
 		font-size: 1.6rem;
 		font-weight: 700;
@@ -217,7 +243,7 @@
 	}
 
 	:global(.prose-rover h3) {
-		font-family: var(--font-heading, "Montserrat Variable", sans-serif);
+		font-family: var(--font-heading, 'Montserrat Variable', sans-serif);
 		color: var(--text-primary, #f7f8f4);
 		font-size: 1.3rem;
 		font-weight: 600;
@@ -308,7 +334,7 @@
 	/* Shadcn Grid & Cards in Articles */
 	:global(.prose-rover .grid-callout) {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
 		gap: 1.25rem;
 		margin: 2rem 0;
 	}
@@ -323,7 +349,7 @@
 	}
 
 	:global(.prose-rover .card-title) {
-		font-family: var(--font-heading, "Montserrat Variable", sans-serif);
+		font-family: var(--font-heading, 'Montserrat Variable', sans-serif);
 		font-weight: 700;
 		font-size: 1.15rem;
 		color: var(--text-primary);
@@ -388,6 +414,34 @@
 		margin-top: 1.75rem;
 		margin-bottom: 1.75rem;
 		box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+	}
+
+	@media (max-width: 640px) {
+		:global(.prose-rover) {
+			font-size: 1rem;
+			line-height: 1.75;
+		}
+
+		:global(.prose-rover h2) {
+			font-size: 1.4rem;
+		}
+
+		:global(.prose-rover blockquote),
+		:global(.prose-rover .quote-block),
+		:global(.prose-rover .scenario-box),
+		:global(.prose-rover .case-study-box) {
+			padding: 1rem;
+		}
+
+		:global(.prose-rover pre) {
+			max-width: 100%;
+			padding: 1rem;
+			overflow-x: visible;
+			white-space: pre-wrap;
+			overflow-wrap: anywhere;
+			font-size: 0.78rem;
+			line-height: 1.55;
+		}
 	}
 
 	:global(.prose-rover pre code) {
