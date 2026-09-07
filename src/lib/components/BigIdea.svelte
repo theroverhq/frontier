@@ -59,7 +59,6 @@
 	});
 
 	let cardEl: HTMLDivElement | undefined = $state();
-	let plotEl: HTMLDivElement | undefined = $state();
 
 	let typed = $state(codeLines.map(() => 0));
 	let caretLine = $state(-1);
@@ -70,7 +69,7 @@
 	let scanAt = $state(-1); // 0..1 while a query sweeps, -1 when idle
 	let hotIdx = $state(-1);
 	let hoverIdx = $state(-1);
-	let guideX = $state(0);
+	let guideXPercent = $state(0);
 
 	let tb = $state(0); // TB scanned
 	let ev = $state(0); // events, millions
@@ -179,10 +178,9 @@
 		};
 
 		let running = false;
+		let cardVisible = false;
 		const simulate = () => {
-			if (dead || running || document.hidden || !cardEl) return;
-			const r = cardEl.getBoundingClientRect();
-			if (r.bottom < 0 || r.top > innerHeight) return;
+			if (dead || running || document.hidden || !cardVisible) return;
 			running = true;
 			keysHot = true;
 			const dur = 1500;
@@ -228,7 +226,8 @@
 		if (cardEl && 'IntersectionObserver' in window) {
 			io = new IntersectionObserver(
 				(entries) => {
-					if (entries[0].isIntersecting) {
+					cardVisible = entries[0].isIntersecting;
+					if (cardVisible) {
 						io?.disconnect();
 						start();
 					}
@@ -386,7 +385,6 @@
 					</div>
 
 					<div
-						bind:this={plotEl}
 						class="border-border relative h-[118px] border-b"
 						class:is-focus={hoverIdx >= 0}
 						role="img"
@@ -405,10 +403,9 @@
 									class="bar flex h-full flex-1 cursor-default flex-col-reverse justify-start"
 									class:is-hot={hotIdx >= 0 && Math.abs(i - hotIdx) < 2}
 									class:is-hover={hoverIdx === i}
-									onmouseenter={(e) => {
+									onmouseenter={() => {
 										hoverIdx = i;
-										const el = e.currentTarget;
-										guideX = el.offsetLeft + el.offsetWidth / 2;
+										guideXPercent = ((i + 0.5) / N) * 100;
 									}}
 									onmouseleave={() => (hoverIdx = -1)}
 									aria-hidden="true"
@@ -447,14 +444,16 @@
 						{#if hoverIdx >= 0}
 							<div
 								class="bg-primary/35 pointer-events-none absolute top-0 bottom-0 w-px"
-								style="left: {guideX}px;"
+								style="left: {guideXPercent.toFixed(2)}%;"
 							></div>
 							<div
 								class="border-primary/25 bg-muted pointer-events-none absolute z-5 -translate-x-1/2 rounded-lg border px-3 py-2 text-[10.5px] leading-[1.6] whitespace-nowrap shadow-xl"
-								style="left: {Math.min(
-									Math.max(guideX, 70),
-									Math.max(70, (plotEl?.clientWidth ?? 0) - 70)
-								)}px; bottom: calc({Math.min(heights[hoverIdx] * 100, 52).toFixed(1)}% + 10px);"
+								style="left: clamp(70px, {guideXPercent.toFixed(
+									2
+								)}%, calc(100% - 70px)); bottom: calc({Math.min(
+									heights[hoverIdx] * 100,
+									52
+								).toFixed(1)}% + 10px);"
 							>
 								<b class="text-primary font-semibold">{tip(hoverIdx).months} months searched</b><br
 								/>

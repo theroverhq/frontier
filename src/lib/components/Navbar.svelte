@@ -32,7 +32,7 @@
 			onclick={closeMenu}
 		>
 			<img
-				src="/rover-logo.png"
+				src="/rover-logo-64.png"
 				alt="Rover Logo"
 				class="h-5 w-auto"
 				width="20"

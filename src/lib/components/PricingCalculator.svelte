@@ -595,9 +595,13 @@
 					<div class="flex min-w-0 items-center gap-4">
 						<!-- Rover Brand Logo -->
 						<img
-							src="/favicon.png"
+							src="/rover-logo-64.png"
 							alt="Rover Platform"
 							class="h-10 w-10 shrink-0 object-contain"
+							width="40"
+							height="40"
+							loading="lazy"
+							decoding="async"
 						/>
 
 						<div class="max-w-[280px]">

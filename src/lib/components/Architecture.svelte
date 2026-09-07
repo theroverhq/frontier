@@ -105,6 +105,7 @@
 		const NS = 'http://www.w3.org/2000/svg';
 
 		let dead = false;
+		let panelActive = false;
 		const timers = new Set<ReturnType<typeof setTimeout>>();
 		const later = (fn: () => void, ms: number) => {
 			const id = setTimeout(() => {
@@ -327,11 +328,18 @@
 		once(panel.querySelector('[data-stage="mesh"]'), runMesh);
 		once(panel.querySelector('[data-stage="engine"]'), runEngine);
 
+		const activeObserver = new IntersectionObserver(
+			(entries) => {
+				panelActive = entries[0].isIntersecting;
+			},
+			{ rootMargin: '-45% 0px -45% 0px' }
+		);
+		activeObserver.observe(panel);
+		observers.push(activeObserver);
+
 		/* Queries keep arriving while the diagram is on screen. */
 		const idle = setInterval(() => {
-			const r = panel.getBoundingClientRect();
-			if (r.top < innerHeight * 0.5 && r.bottom > innerHeight * 0.5 && !document.hidden)
-				runEngine();
+			if (panelActive && !document.hidden) runEngine();
 		}, 12000);
 
 		return () => {

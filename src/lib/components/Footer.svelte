@@ -32,7 +32,7 @@
 					class="flex items-center gap-2 transition-opacity hover:opacity-90"
 					aria-label="Rover home"
 				>
-					<img src="/rover-logo.png" alt="" class="h-5 w-auto" />
+					<img src="/rover-logo-64.png" alt="" class="h-5 w-auto" width="20" height="20" />
 					<span
 						class="text-2xl leading-none tracking-widest"
 						style="font-family: 'Mitr', sans-serif;">ROVER</span
