@@ -401,10 +401,7 @@
 
 						<div class="absolute inset-0 flex items-end gap-[3px] px-px">
 							{#each heights as h, i (i)}
-								<button
-									type="button"
-									tabindex="-1"
-									aria-hidden="true"
+								<div
 									class="bar flex h-full flex-1 cursor-default flex-col-reverse justify-start"
 									class:is-hot={hotIdx >= 0 && Math.abs(i - hotIdx) < 2}
 									class:is-hover={hoverIdx === i}
@@ -414,6 +411,7 @@
 										guideX = el.offsetLeft + el.offsetWidth / 2;
 									}}
 									onmouseleave={() => (hoverIdx = -1)}
+									aria-hidden="true"
 								>
 									<span
 										class="bg-muted-foreground/70 seg block w-full"
@@ -433,7 +431,7 @@
 											i * 28}ms, 0ms;"
 										class:is-in={barsIn}
 									></span>
-								</button>
+								</div>
 							{/each}
 						</div>
 

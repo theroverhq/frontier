@@ -246,7 +246,7 @@
   --secondary-foreground: var(--foreground);
 
   --muted: var(--background-surface);
-  --muted-foreground: oklch(0.575 0.015 120); /* #8C9188 */
+  --muted-foreground: oklch(0.650 0.015 120); /* #A3AAA5 */
 
   --accent: var(--background-surface);
   --accent-foreground: var(--foreground);
@@ -258,7 +258,7 @@
 
   --text-primary: oklch(0.978 0.005 120); /* #F7F8F4 */
   --text-secondary: oklch(0.650 0.015 120); /* #A3AAA5 */
-  --text-muted: oklch(0.575 0.015 120); /* #8C9188 */
+  --text-muted: oklch(0.650 0.015 120); /* #A3AAA5 */
   --text-disabled: oklch(0.430 0.012 120); /* #666A64 */
 
   --text-inverse: oklch(0.218 0 0); /* #1A1A1A */

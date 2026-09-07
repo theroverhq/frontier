@@ -389,7 +389,7 @@
 										{box.chip}
 									</span>
 								{/if}
-								<h4 class="text-[16.5px] font-semibold tracking-[-0.01em]">{box.title}</h4>
+								<h3 class="text-[16.5px] font-semibold tracking-[-0.01em]">{box.title}</h3>
 								<p class=" mt-[7px] text-[12.5px] leading-[1.55]">
 									{box.body}
 								</p>
@@ -407,7 +407,7 @@
 						class="abox mx-auto max-w-[360px] px-[26px] py-6"
 						class:is-lit={readerLit}
 					>
-						<h4 class="text-[16.5px] font-semibold tracking-[-0.01em]">Rover Reader + Indexer</h4>
+						<h3 class="text-[16.5px] font-semibold tracking-[-0.01em]">Rover Reader + Indexer</h3>
 						<div class="text-primary mt-2 text-[12.5px] font-semibold">Schema-on-read</div>
 						<p class=" mt-2.5 text-[12.5px] leading-[1.55]">No upfront schema engineering</p>
 						<p class=" mt-1 text-[12.5px] leading-[1.55]">Go live in hours, not weeks</p>
@@ -540,7 +540,7 @@
 						</div>
 
 						<div bind:this={meshEl} class="abox max-w-[360px] p-[26px]" class:is-lit={meshLit}>
-							<h4 class="text-primary text-[21px] font-semibold">Signal Mesh</h4>
+							<h3 class="text-primary text-[21px] font-semibold">Signal Mesh</h3>
 							<p class=" mt-[7px] text-[12.5px]">Detection state machine</p>
 						</div>
 
@@ -570,7 +570,7 @@
 							<div class="s4-klabel">Search Query</div>
 							<div class="aconn"><span class="vline h-[22px]"></span></div>
 							<div bind:this={plannerEl} class="abox w-full p-[22px]" class:is-lit={plannerLit}>
-								<h4 class="text-[16.5px] font-semibold">Query Planner</h4>
+								<h3 class="text-[16.5px] font-semibold">Query Planner</h3>
 							</div>
 						</div>
 
@@ -594,7 +594,7 @@
 						<div class="flex flex-col items-center">
 							<div class="s4-klabel">Persistent · Customer-Owned</div>
 							<div bind:this={cosEl} class="abox w-full px-5 pt-[22px] pb-4" class:is-lit={cosLit}>
-								<h4 class="text-[16.5px] font-semibold">Customer Object Storage</h4>
+								<h3 class="text-[16.5px] font-semibold">Customer Object Storage</h3>
 								<div class=" mt-2 text-[9.5px] font-semibold tracking-[0.13em] uppercase">
 									Rover Index
 								</div>
@@ -618,7 +618,7 @@
 							</div>
 
 							<div bind:this={mergeEl} class="abox w-full p-[18px]" class:is-lit={mergeLit}>
-								<h4 class="text-[16.5px] font-semibold">Search + Analytics</h4>
+								<h3 class="text-[16.5px] font-semibold">Search + Analytics</h3>
 							</div>
 						</div>
 					</div>
@@ -647,7 +647,7 @@
 						<div class="text-primary text-[10.5px] font-bold tracking-[0.12em] uppercase">
 							Rover Security Platform
 						</div>
-						<h4 class="mt-2.5 text-[19px] font-bold tracking-[0.01em]">SIEM · AI SOC</h4>
+						<h3 class="mt-2.5 text-[19px] font-bold tracking-[0.01em]">SIEM · AI SOC</h3>
 					</div>
 				</div>
 			</div>

@@ -249,7 +249,7 @@
 									>— {ev.when}</small
 								>
 							</div>
-							<h4 class="mt-[7px] text-base font-semibold tracking-[-0.01em]">{ev.title}</h4>
+							<h3 class="mt-[7px] text-base font-semibold tracking-[-0.01em]">{ev.title}</h3>
 							{#if ev.sub}
 								<div class="text-muted-foreground mt-[3px] text-[11.5px]">{ev.sub}</div>
 							{/if}
@@ -392,9 +392,9 @@
 						</svg>
 					</div>
 					<div>
-						<h4 class="text-[15px] font-semibold">
+						<h3 class="text-[15px] font-semibold">
 							<b class=" mr-1.5 font-semibold">{step.n}</b>{step.title}
-						</h4>
+						</h3>
 						<p class=" mt-1 text-[11.5px]">{step.body}</p>
 					</div>
 					{#if i < steps.length - 1}

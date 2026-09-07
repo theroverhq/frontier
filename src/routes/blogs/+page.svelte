@@ -96,10 +96,11 @@
 					{#each categories as cat}
 						<button
 							onclick={() => (selectedCategory = cat)}
+							aria-pressed={selectedCategory === cat}
 							class="min-h-11 rounded-full px-4 py-2 font-mono text-xs transition-colors {selectedCategory ===
 							cat
 								? 'bg-primary text-primary-foreground shadow-primary/20 font-semibold shadow-sm'
-								: 'bg-card hover:bg-hover text-text-secondary hover:text-foreground border-border border'}"
+								: 'bg-card hover:bg-hover text-foreground/85 hover:text-foreground border-border border'}"
 						>
 							{cat}
 						</button>
@@ -108,12 +109,14 @@
 
 				<!-- Search Input -->
 				<div class="relative w-full xl:w-72 xl:shrink-0">
+					<label for="blog-search" class="sr-only">Search blog posts</label>
 					<Search class="text-text-muted absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2" />
 					<input
+						id="blog-search"
 						type="text"
 						bind:value={searchQuery}
 						placeholder="Search posts..."
-						class="border-border bg-card text-foreground placeholder:text-text-muted focus:border-primary focus:ring-primary h-11 w-full rounded-full border py-2 pr-4 pl-10 text-base focus:ring-1 focus:outline-none xl:text-sm"
+						class="border-border bg-card text-foreground placeholder:text-foreground/70 focus:border-primary focus:ring-primary h-11 w-full rounded-full border py-2 pr-4 pl-10 text-base focus:ring-1 focus:outline-none xl:text-sm"
 					/>
 				</div>
 			</div>

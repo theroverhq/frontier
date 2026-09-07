@@ -415,7 +415,9 @@
 			<!-- Control 1: Daily Ingestion Volume -->
 			<div class="border-border bg-background space-y-2 rounded-xl border p-4 sm:p-5">
 				<div class="flex items-center justify-between">
-					<span class="text-overline text-text-primary font-semibold">Daily Ingestion Volume</span>
+					<label for="volume-slider-standard" class="text-overline text-text-primary font-semibold">
+						Daily Ingestion Volume
+					</label>
 					<span
 						class="border-border bg-card/80 text-label-sm text-text-primary rounded-md border px-3 py-1 font-bold"
 					>
