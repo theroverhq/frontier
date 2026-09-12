@@ -185,6 +185,7 @@
 		sentinel: { baseYearly: number; oneYearHot: number };
 		crowdstrike: { baseYearly: number; oneYearHot: number };
 		datadog: { baseYearly: number; oneYearHot: number };
+		opentext: { baseYearly: number; oneYearHot: number };
 		snowflake: { baseYearly90d: number; oneYearHot: number };
 		databricks: { baseYearly90d: number; oneYearHot: number };
 		athena: { baseYearly90d: number; oneYearHot: number };
@@ -198,6 +199,7 @@
 			sentinel: { baseYearly: 19200, oneYearHot: 23200 },
 			crowdstrike: { baseYearly: 21400, oneYearHot: 26400 },
 			datadog: { baseYearly: 22000, oneYearHot: 28000 },
+			opentext: { baseYearly: 16000, oneYearHot: 21500 },
 			snowflake: { baseYearly90d: 3650, oneYearHot: 3800 },
 			databricks: { baseYearly90d: 3050, oneYearHot: 3200 },
 			athena: { baseYearly90d: 1100, oneYearHot: 1250 },
@@ -209,6 +211,7 @@
 			sentinel: { baseYearly: 120000, oneYearHot: 160000 },
 			crowdstrike: { baseYearly: 214000, oneYearHot: 264000 },
 			datadog: { baseYearly: 220000, oneYearHot: 280000 },
+			opentext: { baseYearly: 160000, oneYearHot: 215000 },
 			snowflake: { baseYearly90d: 36500, oneYearHot: 38000 },
 			databricks: { baseYearly90d: 30500, oneYearHot: 32000 },
 			athena: { baseYearly90d: 11400, oneYearHot: 12900 },
@@ -220,6 +223,7 @@
 			sentinel: { baseYearly: 300000, oneYearHot: 399000 },
 			crowdstrike: { baseYearly: 536000, oneYearHot: 659000 },
 			datadog: { baseYearly: 550000, oneYearHot: 700000 },
+			opentext: { baseYearly: 400000, oneYearHot: 538000 },
 			snowflake: { baseYearly90d: 91200, oneYearHot: 95000 },
 			databricks: { baseYearly90d: 76200, oneYearHot: 80000 },
 			athena: { baseYearly90d: 29500, oneYearHot: 33300 },
@@ -231,6 +235,7 @@
 			sentinel: { baseYearly: 600000, oneYearHot: 798000 },
 			crowdstrike: { baseYearly: 1070000, oneYearHot: 1320000 },
 			datadog: { baseYearly: 1100000, oneYearHot: 1400000 },
+			opentext: { baseYearly: 800000, oneYearHot: 1075000 },
 			snowflake: { baseYearly90d: 182000, oneYearHot: 190000 },
 			databricks: { baseYearly90d: 152000, oneYearHot: 160000 },
 			athena: { baseYearly90d: 62200, oneYearHot: 69800 },
@@ -243,6 +248,7 @@
 			sentinel: { baseYearly: 1200000, oneYearHot: 1600000 },
 			crowdstrike: { baseYearly: 2140000, oneYearHot: 2640000 },
 			datadog: { baseYearly: 2200000, oneYearHot: 2800000 },
+			opentext: { baseYearly: 1600000, oneYearHot: 2150000 },
 			snowflake: { baseYearly90d: 365000, oneYearHot: 380000 },
 			databricks: { baseYearly90d: 305000, oneYearHot: 320000 },
 			athena: { baseYearly90d: 133000, oneYearHot: 148000 },
@@ -255,6 +261,7 @@
 			sentinel: { baseYearly: 2400000, oneYearHot: 3190000 },
 			crowdstrike: { baseYearly: 4280000, oneYearHot: 5270000 },
 			datadog: { baseYearly: 4400000, oneYearHot: 5600000 },
+			opentext: { baseYearly: 3200000, oneYearHot: 4300000 },
 			snowflake: { baseYearly90d: 730000, oneYearHot: 760000 },
 			databricks: { baseYearly90d: 610000, oneYearHot: 640000 },
 			athena: { baseYearly90d: 291000, oneYearHot: 322000 },
@@ -267,6 +274,7 @@
 			sentinel: { baseYearly: 12000000, oneYearHot: 15960000 },
 			crowdstrike: { baseYearly: 21420000, oneYearHot: 26370000 },
 			datadog: { baseYearly: 22000000, oneYearHot: 28000000 },
+			opentext: { baseYearly: 16000000, oneYearHot: 21500000 },
 			snowflake: { baseYearly90d: 3650000, oneYearHot: 3800000 },
 			databricks: { baseYearly90d: 3050000, oneYearHot: 3200000 },
 			athena: { baseYearly90d: 1880000, oneYearHot: 2030000 },
@@ -279,6 +287,7 @@
 			sentinel: { baseYearly: 120000000, oneYearHot: 159600000 },
 			crowdstrike: { baseYearly: 214200000, oneYearHot: 263700000 },
 			datadog: { baseYearly: 220000000, oneYearHot: 280000000 },
+			opentext: { baseYearly: 160000000, oneYearHot: 215000000 },
 			snowflake: { baseYearly90d: 36500000, oneYearHot: 38010000 },
 			databricks: { baseYearly90d: 30500000, oneYearHot: 32010000 },
 			athena: { baseYearly90d: 33440000, oneYearHot: 34950000 },
@@ -357,6 +366,12 @@
 			name: 'IBM QRadar',
 			category: 'Enterprise SIEM',
 			cost: getSiemCost(bm.qradar.baseYearly, bm.qradar.oneYearHot)
+		},
+		{
+			id: 'opentext',
+			name: 'OpenText ArcSight',
+			category: 'Enterprise SIEM',
+			cost: getSiemCost(bm.opentext.baseYearly, bm.opentext.oneYearHot)
 		},
 		{
 			id: 'snowflake',
@@ -763,6 +778,20 @@
 								>
 									<path
 										d="M3 7h5v1.6H3V7zm0 2.5h5v1.6H3V9.5zm0 2.5h5v1.6H3V12zm0 2.5h5v1.6H3v-1.6zm0 2.5h5v1.6H3V17zm0 2.5h5v1.6H3v-1.6zm0 2.5h5v1.6H3V22zm0 2.5h5v1.6H3v-1.6zM10 7h9v1.6h-9V7zm0 2.5h3.2v1.6H10V9.5zm5.8 0h3.2v1.6h-3.2V9.5zM10 12h3.2v1.6H10V12zm5.8 0h3.2v1.6h-3.2V12zM10 14.5h9v1.6h-9v-1.6zM10 17h3.2v1.6H10V17zm5.8 0h3.2v1.6h-3.2V17zM10 19.5h3.2v1.6H10v-1.6zm5.8 0h3.2v1.6h-3.2v-1.6zM10 22h3.2v1.6H10V22zm5.8 0h3.2v1.6h-3.2V22zM10 24.5h9v1.6h-9v-1.6zM21 7h2.5v1.6H21V7zm6.5 0h2.5v1.6H27.5V7zM21 9.5h3.2v1.6H21V9.5zm4.8 0h3.2v1.6h-3.2V9.5zM21 12h4v1.6h-4V12zm4 0h4v1.6h-4V12zM21 14.5h2.5v1.6H21v-1.6zm3.25 0h2.5v1.6h-2.5v-1.6zm3.25 0h2.5v1.6h-2.5v-1.6zM21 17h2.5v1.6H21V17zm3.25 0h2.5v1.6h-2.5V17zm3.25 0h2.5v1.6h-2.5V17zM21 19.5h2.5v1.6H21v-1.6zm6.5 0h2.5v1.6h-2.5v-1.6zM21 22h2.5v1.6H21V22zm6.5 0h2.5v1.6h-2.5V22zM21 24.5h2.5v1.6H21v-1.6zm6.5 0h2.5v1.6h-2.5v-1.6z"
+										fill="currentColor"
+									/>
+								</svg>
+							{:else if provider.id === 'opentext'}
+								<!-- OpenText.svg -->
+								<svg
+									class="text-foreground h-7 w-7 shrink-0"
+									viewBox="0 0 24 24"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+									aria-label="OpenText"
+								>
+									<path
+										d="M3.412 11.809c0 .786-.468 1.637-1.7 1.637-.894 0-1.712-.49-1.712-1.637 0-.946.616-1.68 1.828-1.616 1.297.074 1.584 1.052 1.584 1.616zm-2.307-.596c-.117.17-.159.383-.159.596 0 .478.244.914.765.914.51 0 .755-.404.755-.872 0-.34-.085-.595-.266-.754a.727.727 0 0 0-.553-.17c-.255.01-.414.095-.542.286zm10.63-.67c.095-.095.148-.17.318-.244.149-.063.35-.106.585-.106.191 0 .404.032.563.117.33.17.425.446.425.935v2.126h-.946v-1.754c0-.276-.01-.382-.042-.467-.075-.17-.234-.234-.425-.234-.49 0-.49.382-.49.776v1.68h-.935v-3.105h.946v.277zm-1.393 2.02c-.085.181-.361.883-1.584.883-.946 0-1.605-.564-1.605-1.584 0-.744.383-1.669 1.637-1.669.191 0 .733-.021 1.148.404.415.436.436 1.042.446 1.392H8.1c0 .383.223.776.734.776s.69-.33.807-.542l.702.34zm-.935-1.148c-.022-.127-.043-.308-.181-.435a.66.66 0 0 0-.457-.17.67.67 0 0 0-.478.202c-.128.138-.16.276-.192.414l1.308-.01zm13.977-.5H24v-.637h-.616V9.62h-.936v.648H22.3l-.425.638h.574v1.478c0 .297.01.52.138.701.202.287.553.308.883.308.17 0 .297-.02.488-.053v-.712l-.329.01c-.255 0-.255-.159-.244-.35v-1.371zM14.073 9.62h.935v.648h.967l-.425.638h-.553v1.382c-.01.191-.01.35.245.35l.33-.01v.712c-.203.032-.32.053-.49.053-.318 0-.68-.02-.882-.308-.127-.18-.138-.404-.138-.701V9.619h.01zm4.836 2.944-.18.266c-.171.234-.48.606-1.383.606-.946 0-1.573-.563-1.573-1.584 0-.744.383-1.669 1.637-1.669.191 0 .733-.02 1.148.404.415.436.436 1.042.446 1.393H16.73c-.01.382.191.776.69.776.51 0 .66-.33.777-.542l.712.35zm-.872-1.148c-.021-.127-.042-.308-.18-.435a.66.66 0 0 0-.458-.17.67.67 0 0 0-.478.202c-.127.138-.16.276-.191.414l1.307-.01zm4.071 1.956-1.17-1.626.968-1.467h-1.063l-.457.691-.5-.69h-1.062l1.052 1.466-1.084 1.626h1.063l.563-.86.617.86h1.073zm-17.41-2.827c.085-.138.372-.35.829-.35.776 0 1.329.573 1.329 1.604 0 .638-.234 1.637-1.372 1.637-.403 0-.722-.223-.797-.35v1.296h-.935v-4.114h.946v.277zm.638.361c-.17 0-.351.064-.479.234-.138.16-.19.404-.19.68 0 .362.105.585.222.712a.588.588 0 0 0 .425.192c.457 0 .66-.468.66-.925 0-.383-.117-.786-.5-.872-.053-.01-.096-.02-.138-.02z"
 										fill="currentColor"
 									/>
 								</svg>
