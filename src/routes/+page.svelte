@@ -7,7 +7,7 @@
 	import Economics from '$lib/components/Economics.svelte';
 	import AiSoc from '$lib/components/AiSoc.svelte';
 	import PlatformCeiling from '$lib/components/PlatformCeiling.svelte';
-	import EarlyAccess from '$lib/components/EarlyAccess.svelte';
+	import FinalCta from '$lib/components/FinalCta.svelte';
 </script>
 
 <svelte:head>
@@ -90,4 +90,4 @@
 <!-- <Convergence /> -->
 <Economics />
 <!-- <PlatformCeiling /> -->
-<EarlyAccess />
+<FinalCta />

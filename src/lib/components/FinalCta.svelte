@@ -44,7 +44,7 @@
 </script>
 
 <section
-	id="early-access"
+	id="get-demo"
 	class="dark bg-background text-foreground relative overflow-hidden pt-28 pb-24"
 >
 	<!-- Ambient wash, mixed from the theme token -->
@@ -59,7 +59,7 @@
 			variant="outline"
 			class="border-primary/35 bg-primary/5 text-primary px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase"
 		>
-			Rover Early Access
+			Rover Security Data Platform
 		</Badge>
 
 		<h2 class="mx-auto mt-6 max-w-[760px] leading-[1.12] font-bold tracking-[-0.025em]">
@@ -67,9 +67,9 @@
 		</h2>
 
 		<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
-			Join Rover Early Access and make high-volume security telemetry searchable for years—not days.
-			Start with DNS, network flows, cloud audit, raw endpoint telemetry, or anything you archive
-			today because it's too expensive to index.
+			Make high-volume security telemetry searchable for years—not days. Start with DNS, network
+			flows, cloud audit, raw endpoint telemetry, or anything you archive today because it's too
+			expensive to index.
 		</p>
 
 		<div class="mt-10 flex flex-col items-center justify-center gap-3.5 sm:flex-row">

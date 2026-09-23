@@ -561,7 +561,7 @@
 				</p>
 
 				<div class="mt-8">
-					<Button size="lg" href="#early-access" class=" rounded-full px-12 uppercase"
+					<Button size="lg" href="#get-demo" class=" rounded-full px-12 uppercase"
 						>Get Demo</Button
 					>
 				</div>

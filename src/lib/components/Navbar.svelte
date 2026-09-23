@@ -99,7 +99,7 @@
 			</Button>
 			<Button
 				size="sm"
-				href="{$page.url.pathname === '/' ? '' : '/'}#early-access"
+				href="{$page.url.pathname === '/' ? '' : '/'}#get-demo"
 				class="bg-primary hover:bg-primary/90 hidden h-11 rounded-full px-4 font-sans text-[11px] font-bold tracking-wide uppercase min-[360px]:inline-flex sm:px-6 lg:px-8"
 			>
 				Contact Us
@@ -200,7 +200,7 @@
 					</Button>
 					<Button
 						size="lg"
-						href="{$page.url.pathname === '/' ? '' : '/'}#early-access"
+						href="{$page.url.pathname === '/' ? '' : '/'}#get-demo"
 						class="bg-primary hover:bg-primary/90 h-11 w-full rounded-full font-sans text-xs font-bold tracking-wide uppercase"
 						onclick={closeMenu}
 					>
