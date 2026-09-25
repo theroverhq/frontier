@@ -91,8 +91,24 @@
 			<div
 				class="border-border mt-12 flex flex-col gap-6 border-t pt-8 xl:flex-row xl:items-start xl:justify-between"
 			>
+				<!-- Compact category selection keeps articles within reach on mobile. -->
+				<div class="sm:hidden">
+					<label for="blog-category" class="text-foreground mb-2 block text-sm font-medium"
+						>Category</label
+					>
+					<select
+						id="blog-category"
+						bind:value={selectedCategory}
+						class="border-border bg-card text-foreground focus:border-primary focus:ring-primary min-h-11 w-full rounded-lg border px-3 py-2 text-base focus:ring-1 focus:outline-none"
+					>
+						{#each categories as cat}
+							<option value={cat}>{cat}</option>
+						{/each}
+					</select>
+				</div>
+
 				<!-- Category Filter Pills -->
-				<div class="flex flex-wrap gap-2">
+				<div class="hidden flex-wrap gap-2 sm:flex">
 					{#each categories as cat}
 						<button
 							onclick={() => (selectedCategory = cat)}

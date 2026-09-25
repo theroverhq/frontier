@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { ArrowLeft, ArrowRight, BookOpen, Clock, Calendar, ChevronRight } from '@lucide/svelte';
+	import { ArrowLeft, ArrowRight, ChevronDown } from '@lucide/svelte';
 
 	let { data }: { data: PageData } = $props();
 </script>
@@ -58,183 +58,180 @@
 	</script>`}
 </svelte:head>
 
-<div class="dark bg-background text-foreground min-h-screen">
-	<!-- Breadcrumb Header -->
-	<div class="border-border bg-card/60 border-b py-3 backdrop-blur-md">
-		<div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
-			<div class="text-text-secondary flex items-center gap-2 font-sans text-sm">
-				<a href="/blogs/" class="hover:text-primary transition-colors">Blogs</a>
-				<ChevronRight class="text-text-muted h-3 w-3 shrink-0" />
-				<span class="text-primary shrink-0 font-medium">{data.blog.category}</span>
-				<ChevronRight class="text-text-muted h-3 w-3 shrink-0" />
-				<span class="text-foreground truncate font-medium">{data.blog.card_title}</span>
-			</div>
-		</div>
-	</div>
+<div class="blog-article dark bg-background text-foreground min-h-screen">
+	<div class="mx-auto max-w-[1200px] px-5 py-10 sm:px-8 sm:py-14">
+		<div class="article-layout">
+			<div class="article-column min-w-0">
+				<a href="/blogs/" class="article-back inline-flex min-h-11 items-center gap-2 text-sm">
+					<ArrowLeft class="h-4 w-4" /> All articles
+				</a>
 
-	<div class="container mx-auto max-w-screen-2xl px-4 py-10 sm:px-6">
-		<div class="grid grid-cols-1 gap-12 lg:grid-cols-[300px_1fr] xl:grid-cols-[340px_1fr]">
-			<!-- Left Sticky Sidebar -->
-			<aside class="order-2 lg:order-1">
-				<div
-					class="border-border bg-card sticky top-24 rounded-xl border p-5 shadow-lg shadow-black/20 backdrop-blur-md"
-				>
-					<div class="border-border mb-4 flex items-center justify-between border-b pb-3">
-						<span
-							class="text-foreground flex items-center gap-2 font-sans text-xs font-bold tracking-wider uppercase"
-						>
-							<BookOpen class="text-primary h-3.5 w-3.5" />
-							Latest Insights
-						</span>
-						<span
-							class="bg-primary/10 border-primary/20 text-primary rounded-full border px-2.5 py-0.5 font-sans text-[11px] font-semibold"
-						>
-							{data.allBlogs.length} Posts
-						</span>
-					</div>
-
-					<nav
-						class="flex max-h-[calc(100vh-220px)] scrollbar-thin flex-col gap-1.5 overflow-y-auto pr-1 font-sans text-sm"
-					>
-						{#each data.allBlogs as b (b.slug)}
-							{@const isActive = b.slug === data.blog.slug}
-							<a
-								href="/blogs/{b.slug}/"
-								class="group flex flex-col gap-1 rounded-lg px-3 py-2.5 transition-all {isActive
-									? 'bg-primary-subtle text-primary border-primary-border/40 border font-semibold shadow-sm'
-									: 'text-text-secondary hover:bg-hover hover:text-foreground border border-transparent'}"
-							>
-								<div
-									class="flex flex-wrap items-center justify-between gap-x-2 font-sans text-[11px]"
-								>
-									<span class={isActive ? 'text-primary font-bold' : 'text-text-muted'}>
-										{b.blog_counter}
-									</span>
-									<span class={isActive ? 'text-primary/90 font-medium' : 'text-text-muted'}
-										>{b.category}</span
-									>
-								</div>
-								<span
-									class="group-hover:text-primary line-clamp-2 leading-[1.55] transition-colors"
-								>
-									{b.card_title}
-								</span>
-							</a>
-						{/each}
-					</nav>
-				</div>
-			</aside>
-
-			<!-- Right Content Main Panel -->
-			<main class="order-1 w-full max-w-3xl min-w-0 lg:order-2">
-				<!-- Header Meta -->
-				<header class="border-border mb-10 border-b pb-8">
-					<div class="mb-4 flex flex-wrap items-center gap-3">
-						<span
-							class="bg-primary/15 border-primary/30 text-primary rounded-full border px-3.5 py-1 font-sans text-xs font-semibold"
-						>
-							{data.blog.blog_counter}
-						</span>
-						<span
-							class="bg-card text-text-secondary border-border rounded-full border px-3.5 py-1 font-sans text-xs font-medium"
-						>
-							{data.blog.category}
-						</span>
-					</div>
-
+				<header class="border-border mt-6 border-b pb-8 sm:mt-8">
+					<p class="text-primary text-xs font-semibold tracking-[0.08em] uppercase">
+						{data.blog.blog_counter} <span class="mx-2" aria-hidden="true">·</span>
+						{data.blog.category}
+					</p>
 					<h1
-						class="font-heading text-foreground text-[clamp(2.125rem,4.4vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.028em]"
+						class="font-heading mt-4 text-[clamp(2.125rem,4vw,3.125rem)] leading-[1.12] font-bold tracking-[-0.028em]"
 					>
 						{data.blog.card_title}
 					</h1>
-
 					<div
-						class="text-text-secondary border-border/80 mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 border-t pt-4 font-sans text-sm leading-[1.6]"
+						class="article-meta mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm leading-relaxed"
 					>
-						<div class="flex items-center gap-2">
-							<Calendar class="text-primary h-4 w-4" />
-							<span class="text-foreground">Published: {data.blog.published_label}</span>
-						</div>
-						<div class="flex items-center gap-2">
-							<Clock class="text-primary h-4 w-4" />
-							<span class="text-foreground">{data.blog.read_time}</span>
-						</div>
-						<div class="flex items-center gap-2">
-							<span class="bg-primary h-2 w-2 animate-pulse rounded-full"></span>
-							<span class="text-foreground">By: Rover Engineering</span>
-						</div>
+						<span>Rover Engineering</span>
+						<span>{data.blog.published_label}</span>
+						<span>{data.blog.read_time}</span>
 					</div>
 				</header>
 
-				<!-- Article Body -->
-				<article class="prose-rover">
+				{#if data.tableOfContents.length > 0}
+					<details class="article-mobile-contents border-border mt-6 rounded-lg border xl:hidden">
+						<summary
+							class="flex min-h-12 cursor-pointer items-center justify-between gap-4 px-4 py-3 text-sm font-semibold"
+						>
+							On this page <ChevronDown class="h-4 w-4 shrink-0" />
+						</summary>
+						<nav aria-label="Article contents" class="flex flex-col gap-1 px-4 pb-4">
+							{#each data.tableOfContents as heading (heading.id)}
+								<a
+									class="article-contents-link rounded py-2 text-sm leading-relaxed"
+									href="#{heading.id}"
+								>
+									{@html heading.html}
+								</a>
+							{/each}
+						</nav>
+					</details>
+				{/if}
+
+				<article class="prose-rover mt-8 sm:mt-10">
 					{@html data.blog.html}
 				</article>
 
-				<!-- Post Navigation Footer -->
-				<footer class="border-border mt-16 border-t pt-8">
+				<footer class="border-border mt-14 border-t pt-8">
 					<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 						{#if data.prevBlog}
 							<a
 								href="/blogs/{data.prevBlog.slug}/"
-								class="group border-border bg-card hover:border-primary/50 hover:bg-hover flex flex-col gap-1.5 rounded-xl border p-5 transition-all"
+								class="article-adjacent border-border bg-card hover:border-primary/50 rounded-xl border p-5 transition-colors"
 							>
-								<span
-									class="text-text-muted group-hover:text-primary flex items-center gap-1.5 font-sans text-sm"
+								<span class="article-meta flex items-center gap-2 text-sm"
+									><ArrowLeft class="h-4 w-4" /> Previous article</span
 								>
-									<ArrowLeft class="h-3.5 w-3.5" /> Previous Article
-								</span>
-								<span
-									class="font-heading text-foreground group-hover:text-primary line-clamp-2 text-base leading-[1.3] font-semibold"
+								<span class="font-heading mt-3 block text-lg leading-snug font-semibold"
+									>{data.prevBlog.card_title}</span
 								>
-									{data.prevBlog.card_title}
-								</span>
 							</a>
-						{:else}
-							<div></div>
 						{/if}
-
 						{#if data.nextBlog}
 							<a
 								href="/blogs/{data.nextBlog.slug}/"
-								class="group border-border bg-card hover:border-primary/50 hover:bg-hover flex flex-col gap-1.5 rounded-xl border p-5 text-right transition-all"
+								class="article-adjacent border-border bg-card hover:border-primary/50 rounded-xl border p-5 transition-colors sm:col-start-2"
 							>
-								<span
-									class="text-text-muted group-hover:text-primary flex items-center justify-end gap-1.5 font-sans text-sm"
+								<span class="article-meta flex items-center gap-2 text-sm"
+									>Next article <ArrowRight class="h-4 w-4" /></span
 								>
-									Next Article <ArrowRight class="h-3.5 w-3.5" />
-								</span>
-								<span
-									class="font-heading text-foreground group-hover:text-primary line-clamp-2 text-base leading-[1.3] font-semibold"
+								<span class="font-heading mt-3 block text-lg leading-snug font-semibold"
+									>{data.nextBlog.card_title}</span
 								>
-									{data.nextBlog.card_title}
-								</span>
 							</a>
 						{/if}
 					</div>
-
-					<div class="mt-10 text-center">
-						<a
-							href="/blogs/"
-							class="border-border bg-card text-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground inline-flex min-h-11 items-center gap-2 rounded-full border px-6 py-2.5 font-sans text-sm font-semibold transition-all"
-						>
-							← Back to All Blogs
-						</a>
-					</div>
+					<a
+						href="/blogs/"
+						class="article-back mt-6 inline-flex min-h-11 items-center gap-2 text-sm"
+					>
+						<ArrowLeft class="h-4 w-4" /> All articles
+					</a>
 				</footer>
-			</main>
+			</div>
+
+			{#if data.tableOfContents.length > 0}
+				<aside class="article-contents sticky top-24 hidden min-w-0 self-start xl:block">
+					<h2 class="font-sans text-sm font-semibold tracking-normal">On this page</h2>
+					<nav
+						aria-label="Article contents"
+						class="border-border mt-4 flex max-h-[calc(100vh-11rem)] flex-col overflow-y-auto border-l pr-2"
+					>
+						{#each data.tableOfContents as heading (heading.id)}
+							<a
+								href="#{heading.id}"
+								class="article-contents-link -ml-px border-l-2 border-transparent py-2 pl-4 text-sm leading-[1.55]"
+							>
+								{@html heading.html}
+							</a>
+						{/each}
+					</nav>
+				</aside>
+			{/if}
 		</div>
 	</div>
 </div>
 
 <style>
-	/* Match the homepage body copy and supporting heading scale. */
+	.blog-article {
+		--article-text: #dde1d9;
+		--article-muted: #b4baaf;
+	}
+
+	.article-layout {
+		display: grid;
+		grid-template-columns: minmax(0, 44rem);
+		justify-content: center;
+		gap: 4rem;
+		align-items: start;
+	}
+
+	.article-back,
+	.article-meta,
+	.article-contents-link {
+		color: var(--article-muted);
+	}
+
+	.article-back:hover,
+	.article-contents-link:hover {
+		color: var(--primary);
+	}
+
+	.article-contents-link:hover {
+		border-color: var(--primary);
+	}
+
+	.article-back:focus-visible,
+	.article-contents-link:focus-visible,
+	.article-adjacent:focus-visible,
+	.article-mobile-contents summary:focus-visible {
+		outline: 2px solid var(--primary);
+		outline-offset: 4px;
+	}
+
+	.article-mobile-contents summary {
+		list-style: none;
+	}
+
+	.article-mobile-contents summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.article-mobile-contents[open] summary :global(svg) {
+		transform: rotate(180deg);
+	}
+
+	@media (min-width: 1280px) {
+		.article-layout {
+			grid-template-columns: minmax(0, 44rem) 14rem;
+		}
+	}
+
+	/* Long-form reading uses the same fonts with a more generous text scale. */
 	:global(.prose-rover) {
-		color: var(--text-primary, #f7f8f4);
+		color: var(--article-text);
 		font-family: var(--font-sans, 'Inter Variable', sans-serif);
-		font-size: 1rem;
-		line-height: 1.72;
-		letter-spacing: -0.005em;
+		font-size: 1.125rem;
+		line-height: 1.8;
+		letter-spacing: normal;
+		overflow-wrap: break-word;
 	}
 
 	:global(.prose-rover h1) {
@@ -244,29 +241,30 @@
 	:global(.prose-rover h2) {
 		font-family: var(--font-heading, 'Instrument Sans Variable', sans-serif);
 		color: var(--text-primary, #f7f8f4);
-		font-size: 1.5rem;
-		line-height: 1.22;
+		font-size: 1.75rem;
+		line-height: 1.35;
 		font-weight: 700;
-		margin-top: 2.5rem;
+		margin-top: 3.5rem;
 		margin-bottom: 1.25rem;
+		scroll-margin-top: 2rem;
 		letter-spacing: -0.02em;
 	}
 
 	:global(.prose-rover h3) {
 		font-family: var(--font-heading, 'Instrument Sans Variable', sans-serif);
 		color: var(--text-primary, #f7f8f4);
-		font-size: 1.25rem;
-		line-height: 1.3;
-		font-weight: 700;
+		font-size: 1.375rem;
+		line-height: 1.4;
+		font-weight: 600;
 		letter-spacing: -0.015em;
-		margin-top: 2rem;
+		margin-top: 2.5rem;
 		margin-bottom: 1rem;
 	}
 
 	:global(.prose-rover p) {
 		margin-top: 1.25rem;
 		margin-bottom: 1.25rem;
-		color: var(--text-primary, #f7f8f4);
+		color: var(--article-text);
 	}
 
 	:global(.prose-rover > :first-child) {
@@ -278,8 +276,8 @@
 	}
 
 	:global(.prose-rover strong) {
-		color: var(--text-primary, #f7f8f4);
-		font-weight: 700;
+		color: var(--foreground);
+		font-weight: 600;
 	}
 
 	:global(.prose-rover a) {
@@ -317,7 +315,7 @@
 	:global(.prose-rover li) {
 		margin-top: 0.6rem;
 		margin-bottom: 0.6rem;
-		color: var(--text-primary, #f7f8f4);
+		color: var(--article-text);
 	}
 
 	:global(.prose-rover li strong) {
@@ -333,11 +331,11 @@
 		margin-top: 2rem;
 		margin-bottom: 2rem;
 		border: 1px solid var(--border);
-		box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.7);
+		box-shadow: none;
 	}
 
 	:global(.prose-rover figure) {
-		margin: 2rem 0;
+		margin: 2.25rem 0 2.75rem;
 	}
 
 	:global(.prose-rover figure img) {
@@ -347,12 +345,53 @@
 
 	:global(.prose-rover figcaption) {
 		margin-top: 0.75rem;
-		color: var(--text-secondary);
+		color: var(--article-muted);
 		font-size: 0.875rem;
-		line-height: 1.6;
+		line-height: 1.65;
 	}
 
-	/* Shadcn Quote & Callout Blocks */
+	:global(.prose-rover .article-lead) {
+		font-size: 1.25rem;
+		line-height: 1.65;
+		margin-bottom: 2rem;
+	}
+
+	:global(.prose-rover .article-takeaway) {
+		border-left: 3px solid var(--primary);
+		padding-left: 1.25rem;
+		margin: 2rem 0;
+		font-weight: 500;
+		color: var(--foreground);
+	}
+
+	:global(.prose-rover .article-formula) {
+		margin: 1.5rem 0;
+		padding: 1.25rem 1.5rem;
+		border: 1px solid var(--border);
+		border-radius: var(--radius-xl);
+		background: var(--card);
+		font-weight: 600;
+		line-height: 1.65;
+	}
+
+	:global(.prose-rover .figure-note) {
+		display: block;
+	}
+
+	:global(.prose-rover .figure-expand) {
+		display: inline-flex;
+		align-items: center;
+		min-height: 2.75rem;
+		margin-top: 0.25rem;
+		font-weight: 500;
+	}
+
+	:global(.prose-rover a:focus-visible) {
+		outline: 2px solid var(--primary);
+		outline-offset: 4px;
+	}
+
+	/* Quote & Callout Blocks */
 	:global(.prose-rover blockquote),
 	:global(.prose-rover .quote-block) {
 		background-color: var(--background-surface, #222222);
@@ -362,7 +401,7 @@
 		border-radius: var(--radius-md, 0.5rem);
 		margin-top: 1.75rem;
 		margin-bottom: 1.75rem;
-		font-style: italic;
+		font-style: normal;
 		color: var(--text-primary, #f7f8f4);
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 	}
@@ -447,6 +486,11 @@
 		background-color: var(--background-surface, #222222);
 		padding: 1.25rem;
 		border-radius: var(--radius-lg, 0.5rem);
+		max-width: 100%;
+		font-size: 0.875rem;
+		line-height: 1.65;
+		white-space: pre;
+		overflow-wrap: normal;
 		overflow-x: auto;
 		border: 1px solid var(--border);
 		margin-top: 1.75rem;
@@ -455,6 +499,20 @@
 	}
 
 	@media (max-width: 640px) {
+		:global(.prose-rover) {
+			font-size: 1.0625rem;
+			line-height: 1.75;
+		}
+
+		:global(.prose-rover .article-lead) {
+			font-size: 1.125rem;
+		}
+
+		:global(.prose-rover h2) {
+			font-size: 1.5rem;
+			margin-top: 2.75rem;
+		}
+
 		:global(.prose-rover blockquote),
 		:global(.prose-rover .quote-block),
 		:global(.prose-rover .scenario-box),
@@ -465,11 +523,7 @@
 		:global(.prose-rover pre) {
 			max-width: 100%;
 			padding: 1rem;
-			overflow-x: visible;
-			white-space: pre-wrap;
-			overflow-wrap: anywhere;
-			font-size: 0.78rem;
-			line-height: 1.55;
+			overflow-x: auto;
 		}
 	}
 
