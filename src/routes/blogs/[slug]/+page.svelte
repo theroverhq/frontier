@@ -15,12 +15,18 @@
 	<meta property="og:title" content={data.blog.title} />
 	<meta property="og:description" content={data.blog.description} />
 	<meta property="og:image" content={data.blog.og_image || 'https://roverhq.ai/og-image.jpg'} />
+	{#if data.blog.og_image_alt}
+		<meta property="og:image:alt" content={data.blog.og_image_alt} />
+	{/if}
 	<meta property="article:section" content={data.blog.category} />
 
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={data.blog.title} />
 	<meta name="twitter:description" content={data.blog.description} />
 	<meta name="twitter:image" content={data.blog.og_image || 'https://roverhq.ai/og-image.jpg'} />
+	{#if data.blog.og_image_alt}
+		<meta name="twitter:image:alt" content={data.blog.og_image_alt} />
+	{/if}
 
 	{@html `<script type="application/ld+json">
 	{
@@ -56,11 +62,11 @@
 	<!-- Breadcrumb Header -->
 	<div class="border-border bg-card/60 border-b py-3 backdrop-blur-md">
 		<div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
-			<div class="text-text-secondary flex items-center gap-2 font-mono text-xs">
+			<div class="text-text-secondary flex items-center gap-2 font-sans text-sm">
 				<a href="/blogs/" class="hover:text-primary transition-colors">Blogs</a>
-				<ChevronRight class="text-text-muted h-3 w-3" />
-				<span class="text-primary font-medium">{data.blog.category}</span>
-				<ChevronRight class="text-text-muted h-3 w-3" />
+				<ChevronRight class="text-text-muted h-3 w-3 shrink-0" />
+				<span class="text-primary shrink-0 font-medium">{data.blog.category}</span>
+				<ChevronRight class="text-text-muted h-3 w-3 shrink-0" />
 				<span class="text-foreground truncate font-medium">{data.blog.card_title}</span>
 			</div>
 		</div>
@@ -75,20 +81,20 @@
 				>
 					<div class="border-border mb-4 flex items-center justify-between border-b pb-3">
 						<span
-							class="text-foreground flex items-center gap-2 font-mono text-xs font-bold tracking-wider uppercase"
+							class="text-foreground flex items-center gap-2 font-sans text-xs font-bold tracking-wider uppercase"
 						>
 							<BookOpen class="text-primary h-3.5 w-3.5" />
 							Latest Insights
 						</span>
 						<span
-							class="bg-primary/10 border-primary/20 text-primary rounded-full border px-2.5 py-0.5 font-mono text-[11px] font-semibold"
+							class="bg-primary/10 border-primary/20 text-primary rounded-full border px-2.5 py-0.5 font-sans text-[11px] font-semibold"
 						>
 							{data.allBlogs.length} Posts
 						</span>
 					</div>
 
 					<nav
-						class="flex max-h-[calc(100vh-220px)] scrollbar-thin flex-col gap-1.5 overflow-y-auto pr-1 font-sans text-xs"
+						class="flex max-h-[calc(100vh-220px)] scrollbar-thin flex-col gap-1.5 overflow-y-auto pr-1 font-sans text-sm"
 					>
 						{#each data.allBlogs as b (b.slug)}
 							{@const isActive = b.slug === data.blog.slug}
@@ -98,7 +104,9 @@
 									? 'bg-primary-subtle text-primary border-primary-border/40 border font-semibold shadow-sm'
 									: 'text-text-secondary hover:bg-hover hover:text-foreground border border-transparent'}"
 							>
-								<div class="flex items-center justify-between font-mono text-[10px]">
+								<div
+									class="flex flex-wrap items-center justify-between gap-x-2 font-sans text-[11px]"
+								>
 									<span class={isActive ? 'text-primary font-bold' : 'text-text-muted'}>
 										{b.blog_counter}
 									</span>
@@ -106,7 +114,9 @@
 										>{b.category}</span
 									>
 								</div>
-								<span class="group-hover:text-primary line-clamp-2 leading-snug transition-colors">
+								<span
+									class="group-hover:text-primary line-clamp-2 leading-[1.55] transition-colors"
+								>
 									{b.card_title}
 								</span>
 							</a>
@@ -116,30 +126,30 @@
 			</aside>
 
 			<!-- Right Content Main Panel -->
-			<main class="order-1 max-w-4xl lg:order-2">
+			<main class="order-1 w-full max-w-3xl min-w-0 lg:order-2">
 				<!-- Header Meta -->
 				<header class="border-border mb-10 border-b pb-8">
 					<div class="mb-4 flex flex-wrap items-center gap-3">
 						<span
-							class="bg-primary/15 border-primary/30 text-primary rounded-full border px-3.5 py-1 font-mono text-xs font-semibold"
+							class="bg-primary/15 border-primary/30 text-primary rounded-full border px-3.5 py-1 font-sans text-xs font-semibold"
 						>
 							{data.blog.blog_counter}
 						</span>
 						<span
-							class="bg-card text-text-secondary border-border rounded-full border px-3.5 py-1 font-mono text-xs font-medium"
+							class="bg-card text-text-secondary border-border rounded-full border px-3.5 py-1 font-sans text-xs font-medium"
 						>
 							{data.blog.category}
 						</span>
 					</div>
 
 					<h1
-						class="font-heading text-foreground text-3xl leading-[1.15] font-bold tracking-tight sm:text-4xl lg:text-5xl"
+						class="font-heading text-foreground text-[clamp(2.125rem,4.4vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.028em]"
 					>
 						{data.blog.card_title}
 					</h1>
 
 					<div
-						class="text-text-secondary border-border/80 mt-6 flex flex-wrap items-center gap-6 border-t pt-4 font-mono text-xs"
+						class="text-text-secondary border-border/80 mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 border-t pt-4 font-sans text-sm leading-[1.6]"
 					>
 						<div class="flex items-center gap-2">
 							<Calendar class="text-primary h-4 w-4" />
@@ -170,12 +180,12 @@
 								class="group border-border bg-card hover:border-primary/50 hover:bg-hover flex flex-col gap-1.5 rounded-xl border p-5 transition-all"
 							>
 								<span
-									class="text-text-muted group-hover:text-primary flex items-center gap-1.5 font-mono text-xs"
+									class="text-text-muted group-hover:text-primary flex items-center gap-1.5 font-sans text-sm"
 								>
 									<ArrowLeft class="h-3.5 w-3.5" /> Previous Article
 								</span>
 								<span
-									class="font-heading text-foreground group-hover:text-primary line-clamp-1 text-sm font-semibold"
+									class="font-heading text-foreground group-hover:text-primary line-clamp-2 text-base leading-[1.3] font-semibold"
 								>
 									{data.prevBlog.card_title}
 								</span>
@@ -190,12 +200,12 @@
 								class="group border-border bg-card hover:border-primary/50 hover:bg-hover flex flex-col gap-1.5 rounded-xl border p-5 text-right transition-all"
 							>
 								<span
-									class="text-text-muted group-hover:text-primary flex items-center justify-end gap-1.5 font-mono text-xs"
+									class="text-text-muted group-hover:text-primary flex items-center justify-end gap-1.5 font-sans text-sm"
 								>
 									Next Article <ArrowRight class="h-3.5 w-3.5" />
 								</span>
 								<span
-									class="font-heading text-foreground group-hover:text-primary line-clamp-1 text-sm font-semibold"
+									class="font-heading text-foreground group-hover:text-primary line-clamp-2 text-base leading-[1.3] font-semibold"
 								>
 									{data.nextBlog.card_title}
 								</span>
@@ -206,7 +216,7 @@
 					<div class="mt-10 text-center">
 						<a
 							href="/blogs/"
-							class="border-border bg-card text-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground inline-flex min-h-11 items-center gap-2 rounded-full border px-6 py-2.5 font-mono text-xs font-semibold transition-all"
+							class="border-border bg-card text-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground inline-flex min-h-11 items-center gap-2 rounded-full border px-6 py-2.5 font-sans text-sm font-semibold transition-all"
 						>
 							← Back to All Blogs
 						</a>
@@ -218,12 +228,13 @@
 </div>
 
 <style>
-	/* Standardized Shadcn Design System Typography for Blog Articles */
+	/* Match the homepage body copy and supporting heading scale. */
 	:global(.prose-rover) {
 		color: var(--text-primary, #f7f8f4);
 		font-family: var(--font-sans, 'Inter Variable', sans-serif);
-		font-size: 1.05rem;
-		line-height: 1.8;
+		font-size: 1rem;
+		line-height: 1.72;
+		letter-spacing: -0.005em;
 	}
 
 	:global(.prose-rover h1) {
@@ -231,23 +242,24 @@
 	}
 
 	:global(.prose-rover h2) {
-		font-family: var(--font-heading, 'Montserrat Variable', sans-serif);
+		font-family: var(--font-heading, 'Instrument Sans Variable', sans-serif);
 		color: var(--text-primary, #f7f8f4);
-		font-size: 1.6rem;
+		font-size: 1.5rem;
+		line-height: 1.22;
 		font-weight: 700;
-		margin-top: 2.75rem;
+		margin-top: 2.5rem;
 		margin-bottom: 1.25rem;
 		letter-spacing: -0.02em;
-		border-bottom: 1px solid var(--border, #343434);
-		padding-bottom: 0.6rem;
 	}
 
 	:global(.prose-rover h3) {
-		font-family: var(--font-heading, 'Montserrat Variable', sans-serif);
+		font-family: var(--font-heading, 'Instrument Sans Variable', sans-serif);
 		color: var(--text-primary, #f7f8f4);
-		font-size: 1.3rem;
-		font-weight: 600;
-		margin-top: 2.25rem;
+		font-size: 1.25rem;
+		line-height: 1.3;
+		font-weight: 700;
+		letter-spacing: -0.015em;
+		margin-top: 2rem;
 		margin-bottom: 1rem;
 	}
 
@@ -255,6 +267,14 @@
 		margin-top: 1.25rem;
 		margin-bottom: 1.25rem;
 		color: var(--text-primary, #f7f8f4);
+	}
+
+	:global(.prose-rover > :first-child) {
+		margin-top: 0;
+	}
+
+	:global(.prose-rover > :last-child) {
+		margin-bottom: 0;
 	}
 
 	:global(.prose-rover strong) {
@@ -316,6 +336,22 @@
 		box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.7);
 	}
 
+	:global(.prose-rover figure) {
+		margin: 2rem 0;
+	}
+
+	:global(.prose-rover figure img) {
+		display: block;
+		margin: 0 auto;
+	}
+
+	:global(.prose-rover figcaption) {
+		margin-top: 0.75rem;
+		color: var(--text-secondary);
+		font-size: 0.875rem;
+		line-height: 1.6;
+	}
+
 	/* Shadcn Quote & Callout Blocks */
 	:global(.prose-rover blockquote),
 	:global(.prose-rover .quote-block) {
@@ -349,9 +385,11 @@
 	}
 
 	:global(.prose-rover .card-title) {
-		font-family: var(--font-heading, 'Montserrat Variable', sans-serif);
+		font-family: var(--font-heading, 'Instrument Sans Variable', sans-serif);
 		font-weight: 700;
-		font-size: 1.15rem;
+		font-size: 1.25rem;
+		line-height: 1.3;
+		letter-spacing: -0.015em;
 		color: var(--text-primary);
 		margin-bottom: 0.75rem;
 		display: flex;
@@ -369,7 +407,7 @@
 	}
 
 	:global(.prose-rover .scenario-title) {
-		font-family: var(--font-mono, monospace);
+		font-family: var(--font-sans, 'Inter Variable', sans-serif);
 		color: var(--primary);
 		font-weight: 700;
 		text-transform: uppercase;
@@ -392,7 +430,7 @@
 	:global(.prose-rover .case-study-box h3) {
 		color: var(--primary);
 		margin-top: 0;
-		font-size: 1.4rem;
+		font-size: 1.5rem;
 	}
 
 	:global(.prose-rover code) {
@@ -417,15 +455,6 @@
 	}
 
 	@media (max-width: 640px) {
-		:global(.prose-rover) {
-			font-size: 1rem;
-			line-height: 1.75;
-		}
-
-		:global(.prose-rover h2) {
-			font-size: 1.4rem;
-		}
-
 		:global(.prose-rover blockquote),
 		:global(.prose-rover .quote-block),
 		:global(.prose-rover .scenario-box),

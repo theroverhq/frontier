@@ -71,17 +71,17 @@
 		<div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
 			<div class="max-w-3xl">
 				<div
-					class="border-primary/30 bg-primary/10 text-primary inline-flex items-center gap-2 rounded-full border px-3.5 py-1 font-mono text-xs font-semibold tracking-wider uppercase"
+					class="border-primary/30 bg-primary/10 text-primary inline-flex items-center gap-2 rounded-full border px-3.5 py-1 font-sans text-xs font-semibold tracking-wider uppercase"
 				>
 					<span class="bg-primary h-1.5 w-1.5 animate-pulse rounded-full"></span>
 					Rover Engineering Blog
 				</div>
 				<h1
-					class="font-heading text-foreground mt-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
+					class="font-heading text-foreground mt-6 text-[clamp(2.125rem,4.4vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.028em]"
 				>
 					Insights for <span class="text-primary">modern</span> security teams.
 				</h1>
-				<p class="text-text-secondary mt-4 text-lg leading-relaxed">
+				<p class="text-foreground mt-5 text-[17.5px] leading-[1.62]">
 					Architecture notes on Security Data Lakes, Object Storage-native search, retained
 					telemetry, and the operational tradeoffs shaping modern SecOps.
 				</p>
@@ -97,7 +97,7 @@
 						<button
 							onclick={() => (selectedCategory = cat)}
 							aria-pressed={selectedCategory === cat}
-							class="min-h-11 rounded-full px-4 py-2 font-mono text-xs transition-colors {selectedCategory ===
+							class="min-h-11 rounded-full px-4 py-2 font-sans text-xs transition-colors {selectedCategory ===
 							cat
 								? 'bg-primary text-primary-foreground shadow-primary/20 font-semibold shadow-sm'
 								: 'bg-card hover:bg-hover text-foreground/85 hover:text-foreground border-border border'}"
@@ -147,7 +147,9 @@
 							class="group border-border bg-card/80 hover:border-primary/50 hover:bg-card hover:shadow-primary/5 relative flex flex-col justify-between rounded-xl border p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
 						>
 							<div>
-								<div class="mb-4 flex items-center justify-between font-mono text-xs">
+								<div
+									class="mb-4 flex flex-wrap items-center justify-between gap-2 font-sans text-xs"
+								>
 									<span class="text-primary font-semibold">
 										{blog.blog_counter}
 										{#if index === 0 && selectedCategory === 'All' && !searchQuery}
@@ -164,7 +166,7 @@
 								</div>
 
 								<h3
-									class="font-heading text-foreground group-hover:text-primary text-lg leading-snug font-semibold transition-colors"
+									class="font-heading text-foreground group-hover:text-primary text-xl leading-[1.3] font-bold tracking-[-0.015em] transition-colors"
 								>
 									<a href="/blogs/{blog.slug}/">
 										<span class="absolute inset-0"></span>
@@ -172,13 +174,13 @@
 									</a>
 								</h3>
 
-								<p class="text-text-secondary mt-3 line-clamp-3 text-xs leading-relaxed">
+								<p class="text-foreground/80 mt-3 line-clamp-3 text-sm leading-[1.65]">
 									{blog.description}
 								</p>
 							</div>
 
 							<div
-								class="border-border/60 text-text-secondary mt-6 flex items-center justify-between border-t pt-4 font-mono text-xs"
+								class="border-border/60 text-text-secondary mt-6 flex flex-wrap items-center justify-between gap-2 border-t pt-4 font-sans text-xs"
 							>
 								<span>{blog.published_label}</span>
 								<span

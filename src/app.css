@@ -3,7 +3,8 @@
 @import "shadcn-svelte/tailwind.css";
 
 @import "@fontsource-variable/inter";
-@import "@fontsource-variable/montserrat";
+@import "@fontsource-variable/inter/wght-italic.css";
+@import "@fontsource-variable/instrument-sans";
 
 /* =========================================================
    DARK MODE
@@ -19,17 +20,16 @@
 :root {
 
   /* -------------------------------------------------------
-     Typography — Instrument Sans
+     Typography — Inter & Instrument Sans
 
-     Rover's primary typeface across brand, product, UI,
-     and presentation design.
-
-     Tone: Clear, modern, precise
+     Inter for body copy and UI.
+     Instrument Sans for headings and display text.
      Approved weights: Regular 400, Medium 500,
      Semibold 600, Bold 700
      ------------------------------------------------------- */
 
-  --font-family-primary: "Instrument Sans Variable", "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-family-primary: "Inter Variable", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-family-heading: "Instrument Sans Variable", "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
@@ -336,8 +336,8 @@
 
   /* Typography family */
   --font-sans: var(--font-family-primary);
-  --font-heading: var(--font-family-primary);
-  --font-display: var(--font-family-primary);
+  --font-heading: var(--font-family-heading);
+  --font-display: var(--font-family-heading);
   --font-ui: var(--font-family-primary);
 
   /* Four approved weights */
