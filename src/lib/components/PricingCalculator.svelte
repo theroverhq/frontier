@@ -56,7 +56,6 @@
 		return '< 12 min search';
 	}
 
-	// Volume Tiers & Base SOC Workload Profiles from CUSTOMER_PROFILE_INFRA_COST_ESTIMATE.md
 	const volumeTiers = [
 		{
 			label: '10 GB / day',
@@ -142,8 +141,8 @@
 
 	// Retention duration options in years (R)
 	const retentionOptions = [
-		{ label: '30 Days', R: 1 / 12 },
-		{ label: '90 Days', R: 0.25 },
+		{ label: '30 Days', R: 30 / 365 },
+		{ label: '90 Days', R: 90 / 365 },
 		{ label: '1 Year', R: 1.0 }, // Benchmark baseline
 		{ label: '3 Years', R: 3.0 },
 		{ label: '10 Years', R: 10.0 }
@@ -177,121 +176,49 @@
 		}
 	];
 
-	// Provider Benchmarks from CUSTOMER_PROFILE_INFRA_COST_ESTIMATE.md
-	// Rover baseline rates anchored at 250 GB/day = $50k/yr, 500 GB/day = $95k/yr, 1 TB/day = $175k/yr, 2 TB/day = $275k/yr
+	// Rover baseline rates anchored at 250 GB/day = $50k/yr, 500 GB/day = $120k/yr, 1 TB/day = $200k/yr, 2 TB/day = $275k/yr
+	// ArcSight retains the existing estimates; no public rate was verified.
 	interface ProviderBenchmark {
 		rover: { monthly1Y: number; yearly1Y: number };
-		splunk: { baseYearly: number; oneYearHot: number };
-		sentinel: { baseYearly: number; oneYearHot: number };
-		crowdstrike: { baseYearly: number; oneYearHot: number };
-		datadog: { baseYearly: number; oneYearHot: number };
 		opentext: { baseYearly: number; oneYearHot: number };
-		snowflake: { baseYearly90d: number; oneYearHot: number };
-		databricks: { baseYearly90d: number; oneYearHot: number };
-		athena: { baseYearly90d: number; oneYearHot: number };
-		qradar: { baseYearly: number; oneYearHot: number };
 	}
 
 	const benchmarkData: Record<number, ProviderBenchmark> = {
 		10: {
 			rover: { monthly1Y: 835, yearly1Y: 10000 },
-			splunk: { baseYearly: 10000, oneYearHot: 18200 },
-			sentinel: { baseYearly: 19200, oneYearHot: 23200 },
-			crowdstrike: { baseYearly: 21400, oneYearHot: 26400 },
-			datadog: { baseYearly: 22000, oneYearHot: 28000 },
-			opentext: { baseYearly: 16000, oneYearHot: 21500 },
-			snowflake: { baseYearly90d: 3650, oneYearHot: 3800 },
-			databricks: { baseYearly90d: 3050, oneYearHot: 3200 },
-			athena: { baseYearly90d: 1100, oneYearHot: 1250 },
-			qradar: { baseYearly: 14000, oneYearHot: 19000 }
+			opentext: { baseYearly: 16000, oneYearHot: 21500 }
 		},
 		100: {
 			rover: { monthly1Y: 2085, yearly1Y: 25000 },
-			splunk: { baseYearly: 100000, oneYearHot: 182000 },
-			sentinel: { baseYearly: 120000, oneYearHot: 160000 },
-			crowdstrike: { baseYearly: 214000, oneYearHot: 264000 },
-			datadog: { baseYearly: 220000, oneYearHot: 280000 },
-			opentext: { baseYearly: 160000, oneYearHot: 215000 },
-			snowflake: { baseYearly90d: 36500, oneYearHot: 38000 },
-			databricks: { baseYearly90d: 30500, oneYearHot: 32000 },
-			athena: { baseYearly90d: 11400, oneYearHot: 12900 },
-			qradar: { baseYearly: 110000, oneYearHot: 148000 }
+			opentext: { baseYearly: 160000, oneYearHot: 215000 }
 		},
 		250: {
 			rover: { monthly1Y: 4167, yearly1Y: 50000 }, // Exact $50k/yr anchor
-			splunk: { baseYearly: 250000, oneYearHot: 456000 },
-			sentinel: { baseYearly: 300000, oneYearHot: 399000 },
-			crowdstrike: { baseYearly: 536000, oneYearHot: 659000 },
-			datadog: { baseYearly: 550000, oneYearHot: 700000 },
-			opentext: { baseYearly: 400000, oneYearHot: 538000 },
-			snowflake: { baseYearly90d: 91200, oneYearHot: 95000 },
-			databricks: { baseYearly90d: 76200, oneYearHot: 80000 },
-			athena: { baseYearly90d: 29500, oneYearHot: 33300 },
-			qradar: { baseYearly: 275000, oneYearHot: 368000 }
+			opentext: { baseYearly: 400000, oneYearHot: 538000 }
 		},
 		500: {
-			rover: { monthly1Y: 7917, yearly1Y: 95000 }, // Exact $95k/yr anchor
-			splunk: { baseYearly: 500000, oneYearHot: 912000 },
-			sentinel: { baseYearly: 600000, oneYearHot: 798000 },
-			crowdstrike: { baseYearly: 1070000, oneYearHot: 1320000 },
-			datadog: { baseYearly: 1100000, oneYearHot: 1400000 },
-			opentext: { baseYearly: 800000, oneYearHot: 1075000 },
-			snowflake: { baseYearly90d: 182000, oneYearHot: 190000 },
-			databricks: { baseYearly90d: 152000, oneYearHot: 160000 },
-			athena: { baseYearly90d: 62200, oneYearHot: 69800 },
-			qradar: { baseYearly: 550000, oneYearHot: 735000 }
+			rover: { monthly1Y: 10000, yearly1Y: 120000 }, // Exact $120k/yr anchor
+			opentext: { baseYearly: 800000, oneYearHot: 1075000 }
 		},
 		1000: {
 			// 1 TB
-			rover: { monthly1Y: 14583, yearly1Y: 175000 }, // Estimated $175k/yr
-			splunk: { baseYearly: 1000000, oneYearHot: 1820000 },
-			sentinel: { baseYearly: 1200000, oneYearHot: 1600000 },
-			crowdstrike: { baseYearly: 2140000, oneYearHot: 2640000 },
-			datadog: { baseYearly: 2200000, oneYearHot: 2800000 },
-			opentext: { baseYearly: 1600000, oneYearHot: 2150000 },
-			snowflake: { baseYearly90d: 365000, oneYearHot: 380000 },
-			databricks: { baseYearly90d: 305000, oneYearHot: 320000 },
-			athena: { baseYearly90d: 133000, oneYearHot: 148000 },
-			qradar: { baseYearly: 1100000, oneYearHot: 1470000 }
+			rover: { monthly1Y: 16667, yearly1Y: 200000 }, // Exact $200k/yr anchor
+			opentext: { baseYearly: 1600000, oneYearHot: 2150000 }
 		},
 		2000: {
 			// 2 TB
 			rover: { monthly1Y: 22917, yearly1Y: 275000 }, // Exact $275k/yr anchor
-			splunk: { baseYearly: 2000000, oneYearHot: 3650000 },
-			sentinel: { baseYearly: 2400000, oneYearHot: 3190000 },
-			crowdstrike: { baseYearly: 4280000, oneYearHot: 5270000 },
-			datadog: { baseYearly: 4400000, oneYearHot: 5600000 },
-			opentext: { baseYearly: 3200000, oneYearHot: 4300000 },
-			snowflake: { baseYearly90d: 730000, oneYearHot: 760000 },
-			databricks: { baseYearly90d: 610000, oneYearHot: 640000 },
-			athena: { baseYearly90d: 291000, oneYearHot: 322000 },
-			qradar: { baseYearly: 2200000, oneYearHot: 2940000 }
+			opentext: { baseYearly: 3200000, oneYearHot: 4300000 }
 		},
 		10000: {
 			// 10 TB
 			rover: { monthly1Y: 54167, yearly1Y: 650000 },
-			splunk: { baseYearly: 10000000, oneYearHot: 18250000 },
-			sentinel: { baseYearly: 12000000, oneYearHot: 15960000 },
-			crowdstrike: { baseYearly: 21420000, oneYearHot: 26370000 },
-			datadog: { baseYearly: 22000000, oneYearHot: 28000000 },
-			opentext: { baseYearly: 16000000, oneYearHot: 21500000 },
-			snowflake: { baseYearly90d: 3650000, oneYearHot: 3800000 },
-			databricks: { baseYearly90d: 3050000, oneYearHot: 3200000 },
-			athena: { baseYearly90d: 1880000, oneYearHot: 2030000 },
-			qradar: { baseYearly: 11000000, oneYearHot: 14700000 }
+			opentext: { baseYearly: 16000000, oneYearHot: 21500000 }
 		},
 		100000: {
 			// 100 TB
 			rover: { monthly1Y: 375000, yearly1Y: 4500000 },
-			splunk: { baseYearly: 100000000, oneYearHot: 182500000 },
-			sentinel: { baseYearly: 120000000, oneYearHot: 159600000 },
-			crowdstrike: { baseYearly: 214200000, oneYearHot: 263700000 },
-			datadog: { baseYearly: 220000000, oneYearHot: 280000000 },
-			opentext: { baseYearly: 160000000, oneYearHot: 215000000 },
-			snowflake: { baseYearly90d: 36500000, oneYearHot: 38010000 },
-			databricks: { baseYearly90d: 30500000, oneYearHot: 32010000 },
-			athena: { baseYearly90d: 33440000, oneYearHot: 34950000 },
-			qradar: { baseYearly: 110000000, oneYearHot: 147000000 }
+			opentext: { baseYearly: 160000000, oneYearHot: 215000000 }
 		}
 	};
 
@@ -314,11 +241,9 @@
 	// Total searchable dataset volume in TB
 	let totalSearchableTB = $derived(activeVolume.tbPerMonth * R * 12);
 
-	// Rover Commercial Pricing: Fixed flat rate based ONLY on daily ingestion volume.
+	// Rover calculator pricing: ingestion subscription only.
 	let roverYearly = $derived(bm.rover.yearly1Y);
-	let roverCost = $derived(
-		billingPeriod === 'yearly' ? bm.rover.yearly1Y : Math.round(bm.rover.yearly1Y / 12)
-	);
+	let roverCost = $derived(billingPeriod === 'yearly' ? roverYearly : roverYearly / 12);
 
 	// SIEM Retention & Query Scale: Base + R * StorageAdder
 	function getSiemCost(baseYearly: number, oneYearHot: number): number {
@@ -327,13 +252,180 @@
 		return billingPeriod === 'yearly' ? yr : Math.round(yr / 12);
 	}
 
-	// Data Lake Retention & Query Scale: Base90d + max(0, R - 0.25) * StorageAdder + (Q - 1.0) * QueryTax
-	function getLakeCost(base90d: number, oneYearHot: number): number {
-		const storageAdderPerYear = (oneYearHot - base90d) / 0.75;
-		const baseLakeYr = base90d + Math.max(0, R - 0.25) * storageAdderPerYear;
-		const annualQueryTax = activeVolume.legacyQueryCostMo * 12 * (Q - 1.0);
-		const yr = Math.round(baseLakeYr + annualQueryTax);
-		return billingPeriod === 'yearly' ? yr : Math.round(yr / 12);
+	const falconIncludedRetentionDays = 395; // 13-month planning equivalent.
+
+	function getArchiveLatency(providerId: string) {
+		const includedDays =
+			providerId === 'crowdstrike'
+				? falconIncludedRetentionDays
+				: providerId === 'datadog'
+					? 30
+					: null;
+		if (includedDays === null) return null;
+		const archiveDays = Math.max(0, Math.round(R * 365) - includedDays);
+		if (archiveDays === 0) return null;
+
+		// Illustrative linear scan-time model, not measured Falcon/Datadog latency.
+		// Match pricing's 1% archive scan and 3:1 compression; workload changes query count only.
+		const scannedGB = (activeVolume.gbPerDay * archiveDays * 0.01) / 3;
+		// Assumed 0.4–3.5 GB/s, rounded from AWS gzip COUNT(*) examples:
+		// 10 x 2.4 GB / 60s and 100 x 0.243 GB / 6.8s. Not a general performance bound.
+		// https://aws.amazon.com/blogs/big-data/top-10-performance-tuning-tips-for-amazon-athena/
+		const lowerSeconds = Math.max(1, Math.ceil(scannedGB / 3.5));
+		const upperSeconds = Math.max(1, Math.ceil(scannedGB / 0.4));
+		// Do not imply that a single query can run for days; configured timeouts may be lower.
+		// https://docs.aws.amazon.com/athena/latest/ug/service-limits.html
+		const maxTimeoutSeconds = 240 * 60;
+		const timeoutRisk = upperSeconds > maxTimeoutSeconds;
+		const duration = (seconds: number) => {
+			const unit = seconds >= 3600 ? 'hr' : seconds >= 60 ? 'min' : 'sec';
+			const value = seconds / (unit === 'hr' ? 3600 : unit === 'min' ? 60 : 1);
+			return { value: value.toLocaleString('en-US', { maximumFractionDigits: 1 }), unit };
+		};
+		const lower = duration(lowerSeconds);
+		const upper = duration(Math.min(upperSeconds, maxTimeoutSeconds));
+		const range =
+			lowerSeconds > maxTimeoutSeconds
+				? `>${upper.value} ${upper.unit}`
+				: `${lower.value}${lower.unit === upper.unit ? '' : ` ${lower.unit}`}–${upper.value}${timeoutRisk ? '+' : ''} ${upper.unit}`;
+
+		return {
+			label: `(est. ${range}/query${timeoutRisk ? ' · timeout risk' : ''})`,
+			title:
+				`Illustrative scan-time estimate, not measured vendor latency. Assumes 1% of the older archive scanned per query (${scannedGB.toLocaleString('en-US', { maximumFractionDigits: 1 })} compressed GB), 3:1 compression and 0.4–3.5 GB/s based on AWS gzip COUNT(*) examples. ` +
+				'Excludes queueing and additional query processing; actual latency can fall outside this range. Retaining more data does not slow a query with a fixed time window. ' +
+				(timeoutRisk
+					? 'Displayed range is limited at the maximum adjustable Athena timeout of 4 hours; queries may time out earlier.'
+					: 'Applies only to the modeled external Athena archive, not native SIEM searches.')
+		};
+	}
+
+	// USD pricing checked 2026-09-29. Fixed calculation assumptions: 1 KB/event,
+	// 3:1 compression, 1% of retained data scanned per query, 1,000 GB/hour warehouse
+	// throughput. These are sizing assumptions, not measured vendor performance.
+	// Annual totals use 365 days; monthly display divides the annual total by 12.
+	function tieredCost(volume: number, bands: [number, number][]): number {
+		let total = 0;
+		let previous = 0;
+		for (const [limit, rate] of bands) {
+			total += Math.max(0, Math.min(volume, limit) - previous) * rate;
+			if (volume <= limit) break;
+			previous = limit;
+		}
+		return total;
+	}
+
+	function getProviderCost(provider: string): number {
+		const dailyGB = activeVolume.gbPerDay;
+		const days = Math.round(R * 365);
+		const annualGB = dailyGB * 365;
+		const queries = Math.round(activeVolume.totalSearches * Q) * 12;
+		const storedGB = (dailyGB * days) / 3;
+		// AWS bills binary GB/TB. S3 Standard, US East (N. Virginia).
+		// https://aws.amazon.com/s3/pricing/
+		const storageAnnual =
+			tieredCost((storedGB * 1e9) / 2 ** 30, [
+				[50 * 1024, 0.023],
+				[500 * 1024, 0.022],
+				[Infinity, 0.021]
+			]) * 12;
+		// https://aws.amazon.com/athena/pricing/ — $5/TB, 10 MB minimum/query.
+		const queryAnnual = (rawGB: number) => {
+			const scanMB = (rawGB * 1e9 * 0.01) / 3 / 2 ** 20;
+			return (Math.max(10, Math.ceil(scanMB)) / 2 ** 20) * 5 * queries;
+		};
+		let annual = 0;
+		if (provider === 'splunk') {
+			// Base ingest planning bands, plus an equal ES allowance; not a public tariff.
+			// https://siemcostcalculator.com/splunk-pricing
+			const baseAnnual: Record<number, number> = {
+				10: 16200,
+				100: 90000,
+				250: 206250,
+				500: 400000,
+				1000: 725000,
+				2000: 1383333.3333333333,
+				10000: 6650000,
+				100000: 66500000
+			};
+			// Retention assumption: 90 days included; $0.10/compressed GB/month budget.
+			annual = baseAnnual[dailyGB] * 2 + ((dailyGB * Math.max(0, days - 90)) / 3) * 0.1 * 12;
+		} else if (provider === 'sentinel') {
+			// Azure East US Analytics: PAYG $4.30/GB or daily commitment plus same-rate overage.
+			// https://www.microsoft.com/en-us/security/pricing/microsoft-sentinel/
+			// https://prices.azure.com/api/retail/prices (Sentinel, eastus)
+			const commitments = [
+				[100, 296],
+				[200, 548],
+				[300, 800],
+				[400, 1037.33],
+				[500, 1265],
+				[1000, 2480],
+				[2000, 4800],
+				[5000, 11550],
+				[10000, 22240],
+				[25000, 53450],
+				[50000, 102600]
+			];
+			const ingestDaily = Math.min(
+				dailyGB * 4.3,
+				...commitments.map(([capacity, price]) => (Math.max(dailyGB, capacity) * price) / capacity)
+			);
+			// First 90 days in Analytics; older retention in the lake, billed at 6:1.
+			// Lake: $0.026/compressed GB/month, $0.005/uncompressed GB scanned.
+			const lakeGB = dailyGB * Math.max(0, days - 90);
+			annual = ingestDaily * 365 + (lakeGB / 6) * 0.026 * 12 + lakeGB * 0.01 * queries * 0.005;
+		} else if (provider === 'crowdstrike') {
+			// Falcon Next-Gen SIEM AWS PAYG: $0.00595/MB = $5.95/GB of third-party data.
+			// Ingest, search and 13-month retention are included; all input is assumed third-party.
+			// https://aws.amazon.com/marketplace/pp/prodview-vubjuepxztndi
+			annual = annualGB * 5.95;
+			// Longer retention uses the existing parallel full-window S3 archive model.
+			// Older searches run in Athena; this is not a Falcon extended-retention price.
+			// Archive pipeline, requests and native rehydration costs are excluded.
+			if (days > falconIncludedRetentionDays) {
+				annual += storageAnnual + queryAnnual(dailyGB * (days - falconIncludedRetentionDays));
+			}
+		} else if (provider === 'datadog') {
+			// Annual rates: $0.10/GB ingest + $5/M analyzed events + $2.50/M 30-day indexed events.
+			// https://www.datadoghq.com/pricing/list/
+			// At 1 KB/event, one GB contains one million events; all logs analyzed/indexed.
+			annual = annualGB * (0.1 + 5 + 2.5);
+			// Beyond 30 days, budget a parallel full-window S3 archive with Athena searches.
+			// This is external archive retention, not Datadog hot indexing or rehydration.
+			if (days > 30) annual += storageAnnual + queryAnnual(dailyGB * (days - 30));
+		} else if (provider === 'qradar') {
+			// $12,074.40/year per 500 EPS + 10,000 FPM unit; no peak/extra-flow allowance.
+			// https://aws.amazon.com/marketplace/pp/prodview-b7klpa4c3hz2i
+			const eps = (dailyGB * 1e6) / 86400;
+			// Storage allowance: $0.10/compressed GB/month; appliance/VM compute excluded.
+			annual = Math.ceil(eps / 500) * 12074.4 + storedGB * 0.1 * 12;
+		} else if (provider === 'snowflake' || provider === 'databricks') {
+			// Aggregate runtime at the fixed throughput above; one-minute budget per query/load.
+			const queryHours = queries * Math.max(1 / 60, (storedGB * 0.01) / 1000);
+			const loadHours = 365 * Math.max(1 / 60, dailyGB / 1000);
+			if (provider === 'snowflake') {
+				// AWS US East Standard: $2/credit, Gen1 XS 1 credit/hour, $23/compressed TB/month.
+				// https://www.snowflake.com/pricing/pricing-guide/
+				annual = (queryHours + loadHours) * 2 + ((storedGB * 1e9) / 2 ** 40) * 23 * 12;
+			} else {
+				// Serverless SQL $0.70/DBU; fixed sizing allowance of 4 DBU/hour, plus S3.
+				// https://www.databricks.com/product/pricing
+				annual = (queryHours + loadHours) * 0.7 * 4 + storageAnnual;
+			}
+		} else if (provider === 'athena') {
+			// Security Lake: native AWS logs other than CloudTrail; graduated monthly tiers.
+			// https://aws.amazon.com/security-lake/pricing/
+			const ingestGiB = ((annualGB / 12) * 1e9) / 2 ** 30;
+			const ingestion = tieredCost(ingestGiB, [
+				[10 * 1024, 0.25],
+				[30 * 1024, 0.15],
+				[50 * 1024, 0.075],
+				[Infinity, 0.05]
+			]);
+			annual = (ingestion + ingestGiB * 0.035) * 12 + storageAnnual + queryAnnual(dailyGB * days);
+		}
+		return billingPeriod === 'yearly' ? annual : annual / 12;
 	}
 
 	let providerList = $derived([
@@ -341,31 +433,37 @@
 			id: 'splunk',
 			name: 'Splunk ES',
 			category: 'Traditional SIEM',
-			cost: getSiemCost(bm.splunk.baseYearly, bm.splunk.oneYearHot)
+			cost: getProviderCost('splunk')
 		},
 		{
 			id: 'sentinel',
 			name: 'Microsoft Sentinel',
 			category: 'Cloud SIEM',
-			cost: getSiemCost(bm.sentinel.baseYearly, bm.sentinel.oneYearHot)
+			cost: getProviderCost('sentinel')
 		},
 		{
 			id: 'crowdstrike',
-			name: 'CrowdStrike LogScale',
-			category: 'SIEM / Log Management',
-			cost: getSiemCost(bm.crowdstrike.baseYearly, bm.crowdstrike.oneYearHot)
+			name: 'CrowdStrike Falcon Next-Gen SIEM',
+			category:
+				Math.round(R * 365) > falconIncludedRetentionDays
+					? 'Cloud SIEM + S3/Athena archive'
+					: 'Cloud SIEM (13-month retention)',
+			cost: getProviderCost('crowdstrike')
 		},
 		{
 			id: 'datadog',
 			name: 'Datadog Cloud SIEM',
-			category: 'Cloud Log Management',
-			cost: getSiemCost(bm.datadog.baseYearly, bm.datadog.oneYearHot)
+			category:
+				Math.round(R * 365) > 30
+					? 'Cloud SIEM + S3/Athena archive'
+					: 'Cloud SIEM (30-day indexed retention)',
+			cost: getProviderCost('datadog')
 		},
 		{
 			id: 'qradar',
 			name: 'IBM QRadar',
 			category: 'Enterprise SIEM',
-			cost: getSiemCost(bm.qradar.baseYearly, bm.qradar.oneYearHot)
+			cost: getProviderCost('qradar')
 		},
 		{
 			id: 'opentext',
@@ -377,19 +475,19 @@
 			id: 'snowflake',
 			name: 'Snowflake',
 			category: 'Security Data Lake',
-			cost: getLakeCost(bm.snowflake.baseYearly90d, bm.snowflake.oneYearHot)
+			cost: getProviderCost('snowflake')
 		},
 		{
 			id: 'databricks',
 			name: 'Databricks',
 			category: 'Lakehouse',
-			cost: getLakeCost(bm.databricks.baseYearly90d, bm.databricks.oneYearHot)
+			cost: getProviderCost('databricks')
 		},
 		{
 			id: 'athena',
 			name: 'AWS Security Lake + Athena',
 			category: 'Data Lake',
-			cost: getLakeCost(bm.athena.baseYearly90d, bm.athena.oneYearHot)
+			cost: getProviderCost('athena')
 		}
 	]);
 
@@ -422,8 +520,8 @@
 				</h3>
 				<p class="text-body-sm text-text-secondary mt-3 leading-relaxed">
 					Traditional SIEMs and data warehouses charge for retention and query scans. Rover pricing
-					is based strictly on daily ingestion volume—with multi-year retention and unlimited
-					queries at no extra cost.
+					is based on daily ingestion volume, with multi-year retention included and queries billed
+					at $0.01 each.
 				</p>
 			</div>
 
@@ -645,6 +743,7 @@
 			<!-- COMPETITOR CARDS WITH EXACT WHITE/TRANSPARENT SVG / PNG ICONS -->
 			{#each providerList as provider (provider.name)}
 				{@const multiplier = (provider.cost / Math.max(1, roverCost)).toFixed(1)}
+				{@const archiveLatency = getArchiveLatency(provider.id)}
 				{@const totalSearchableTB = activeVolume.tbPerMonth * activeRetention.R * 12}
 				<div
 					class="border-border bg-card/60 hover:bg-card flex flex-col items-stretch gap-4 rounded-xl border p-3 transition-all min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between sm:p-3.5"
@@ -809,7 +908,14 @@
 									</span>
 								{/if}
 							</div>
-							<div class="text-caption text-text-muted mt-0.5">{provider.category}</div>
+							<div class="text-caption text-text-muted mt-0.5">
+								{provider.category}
+								{#if archiveLatency}
+									<span class="text-security-critical/80 text-[10px]" title={archiveLatency.title}>
+										{archiveLatency.label}
+									</span>
+								{/if}
+							</div>
 							{#if provider.id === 'athena' || provider.id === 'snowflake' || provider.id === 'databricks'}
 								<div class="text-text-muted/80 mt-0.5 text-[10px] leading-tight">
 									* Fast on time filters · Slow on unindexed log search

@@ -1,42 +1,41 @@
-# sv
+# Rover website
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+The SvelteKit website for [roverhq.ai](https://roverhq.ai/).
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+## Development
 
 ```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-npx sv@0.17.0 create --template minimal --types ts --add tailwindcss="plugins:none" prettier sveltekit-adapter="adapter:static" --no-install .
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+npm ci
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
+## Validation and production build
 
 ```sh
+npm run check
 npm run build
+npm run preview
 ```
 
-You can preview the production build with `npm run preview`.
+The static adapter writes the compiled site to `build/`.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## Deployment
+
+In this repository's **Settings → Pages → Build and deployment**, keep **Source**
+set to **GitHub Actions**. Keep the custom domain set to `roverhq.ai`.
+
+The [deployment workflow](.github/workflows/deploy.yml) runs on pushes to `main`,
+compiles the app, and publishes only `build/`. It first checks that Pages uses
+GitHub Actions and fails with instructions if the setting has changed.
+
+Do not select **Deploy from a branch**. The repository root contains source code,
+not the compiled site. Branch publishing runs Jekyll, which can publish this README
+and overwrite the Svelte deployment.
+
+For a manual redeploy, open **Actions → Deploy to GitHub Pages → Run workflow**
+and select `main`. Verify the homepage and `/blogs/` after deployment completes.
+
+If the source setting is accidentally changed, restore **GitHub Actions**, let any
+already-running Jekyll deployment finish or cancel it, then rerun the Svelte
+workflow. The workflow check detects this configuration error; it does not stop a
+separate Jekyll deployment or change repository settings automatically.
