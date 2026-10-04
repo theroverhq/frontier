@@ -10,6 +10,8 @@
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"test:leads": "node --test tests/google-leads.test.mjs",
+		"setup:google-leads": "node scripts/prepare-google-leads.mjs",
 		"lint": "prettier --check .",
 		"format": "prettier --write ."
 	},
