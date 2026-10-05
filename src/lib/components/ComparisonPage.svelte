@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { ChevronDown } from '@lucide/svelte';
+	import { ChevronDown, Download } from '@lucide/svelte';
+	import { Button } from '$lib/components/ui/button';
 	import FinalCta from '$lib/components/FinalCta.svelte';
 	import ResourceDownloadForm from '$lib/components/ResourceDownloadForm.svelte';
 
@@ -23,6 +24,12 @@
 		...comparison.toc,
 		{ id: 'download-comparison', label: 'Download the comparison PDF' }
 	]);
+	function focusDownloadForm(event: MouseEvent) {
+		if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+			return;
+		const prefix = comparison.resourceId.replace(/[^a-zA-Z0-9_-]/g, '-');
+		document.getElementById(`resource-${prefix}-name`)?.focus({ preventScroll: true });
+	}
 </script>
 
 <svelte:head>
@@ -87,6 +94,17 @@
 					</h1>
 					<div class="comparison-intro mt-7 max-w-3xl text-[17.5px] leading-[1.75]">
 						{@html comparison.introHtml}
+					</div>
+					<div class="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
+						<Button
+							href="#download-comparison"
+							size="lg"
+							class="min-h-12 w-full gap-2 px-6 sm:w-auto"
+							onclick={focusDownloadForm}
+						>
+							<Download class="h-4 w-4" aria-hidden="true" />
+							Download comparison PDF
+						</Button>
 					</div>
 				</header>
 
