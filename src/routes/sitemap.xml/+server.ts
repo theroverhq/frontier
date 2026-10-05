@@ -5,7 +5,12 @@ export const prerender = true;
 
 export const GET: RequestHandler = async () => {
 	const site = 'https://roverhq.ai';
-	const paths = ['/', '/blogs/', ...blogs.map((blog) => `/blogs/${blog.slug}/`)];
+	const paths = [
+		'/',
+		'/blogs/',
+		'/resources/comparison/splunk/',
+		...blogs.map((blog) => `/blogs/${blog.slug}/`)
+	];
 
 	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
