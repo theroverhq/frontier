@@ -153,6 +153,9 @@ export function createResourceLeadClient() {
 		}
 
 		const iframe = document.createElement('iframe');
+		// Keep visitors' Google sessions out of this anonymous web-app bridge.
+		// Set before navigation; unsupported browsers retain the normal iframe.
+		if ('credentialless' in iframe) iframe.setAttribute('credentialless', '');
 		iframe.title = 'Secure resource download';
 		iframe.hidden = true;
 		iframe.setAttribute('aria-hidden', 'true');

@@ -144,6 +144,26 @@ To add another resource, extend the exact resource mapping in the Lambda handler
 its IAM read permission, the Apps Script registry/allowlist, and the frontend
 `resourceDownloads` allowlist. Upload its PDF privately, never into `static/`.
 
+## Troubleshooting Google account redirects
+
+The bridge uses a credentialless iframe when the browser supports it, isolating
+its cookies/storage from the visitor's signed-in Google sessions. This is intended
+to prevent Google's account-specific `/macros/u/1/` redirects without requiring
+visitors to sign out. Browsers without support retain the ordinary iframe, so
+this change does not guarantee multi-account compatibility in every browser.
+[Chrome credentialless iframe documentation](https://developer.chrome.com/blog/iframe-credentialless)
+
+Keep the configured endpoint in the canonical `/macros/s/DEPLOYMENT_ID/exec`
+format. In Google Apps Script, confirm **Execute as: Me** and **Who has access:
+Anyone**. Deploy the updated backend code as a new version under the existing
+URL before publishing the website. A successful HTTP response alone is not
+sufficient: the client requires the version 3 handshake before sending details.
+
+Validate in a browser with multiple Google accounts signed in: verify the iframe
+request avoids `/u/1/`, the handshake succeeds, one lead is saved, the notification
+includes CC, and the private PDF downloads. A clean-browser handshake cannot
+prove this signed-in scenario works.
+
 ## Validation and transport
 
 The browser and server require all five contact fields. The server also requires
