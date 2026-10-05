@@ -1,3 +1,4 @@
+import { comparisons } from '$lib/comparisons';
 import { blogs } from '$lib/data/blogs';
 import type { RequestHandler } from './$types';
 
@@ -8,7 +9,7 @@ export const GET: RequestHandler = async () => {
 	const paths = [
 		'/',
 		'/blogs/',
-		'/resources/comparison/splunk/',
+		...comparisons.map((comparison) => comparison.pagePath),
 		...blogs.map((blog) => `/blogs/${blog.slug}/`)
 	];
 

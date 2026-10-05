@@ -1,0 +1,4 @@
+"resourceId","title","pdfUrl","pageUrl"
+"rover-vs-elastic-security","Rover vs. Elastic Security","s3://rover-private-resources-613025568726-ap-south-1/comparisons/elastic-security/Rover-vs-Elastic-Battlecard.pdf","https://roverhq.ai/resources/comparisons/elastic-security/"
+"rover-vs-microsoft-sentinel","Rover vs. Microsoft Sentinel","s3://rover-private-resources-613025568726-ap-south-1/comparisons/microsoft-sentinel/Rover-vs-Microsoft-Sentinel-Battlecard.pdf","https://roverhq.ai/resources/comparisons/microsoft-sentinel/"
+"rover-vs-splunk","Rover vs. Splunk Enterprise Security","s3://rover-private-resources-613025568726-ap-south-1/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf","https://roverhq.ai/resources/comparisons/splunk/"

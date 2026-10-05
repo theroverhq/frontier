@@ -55,7 +55,19 @@ const ROVER_INITIAL_RESOURCE_ = Object.freeze({
 	title: 'Rover vs Splunk Enterprise Security',
 	pdfUrl:
 		's3://rover-private-resources-613025568726-ap-south-1/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf',
-	pageUrl: 'https://roverhq.ai/resources/comparison/splunk/'
+	pageUrl: 'https://roverhq.ai/resources/comparisons/splunk/'
+});
+
+// Initial migration seeds only. Runtime approval comes from the private Resources sheet.
+const ROVER_BOOTSTRAP_RESOURCES_ = Object.freeze({
+	'rover-vs-splunk': ROVER_INITIAL_RESOURCE_,
+	'rover-vs-microsoft-sentinel': Object.freeze({
+		resourceId: 'rover-vs-microsoft-sentinel',
+		title: 'Rover vs Microsoft Sentinel',
+		pdfUrl:
+			's3://rover-private-resources-613025568726-ap-south-1/comparisons/microsoft-sentinel/Rover-vs-Microsoft-Sentinel-Battlecard.pdf',
+		pageUrl: 'https://roverhq.ai/resources/comparisons/microsoft-sentinel/'
+	})
 });
 
 // Domain filtering is a policy check, not proof of mailbox ownership or company
@@ -193,14 +205,17 @@ function setupLeadCapture_() {
 			resources = spreadsheet.insertSheet(ROVER_LEAD_SETTINGS_.resourcesSheetName);
 		}
 		initializeHeaders_(resources, ROVER_RESOURCE_HEADERS_);
-		if (!findRequestRow_(resources, ROVER_INITIAL_RESOURCE_.resourceId)) {
-			writeTextRow_(resources, resources.getLastRow() + 1, [
-				ROVER_INITIAL_RESOURCE_.resourceId,
-				ROVER_INITIAL_RESOURCE_.title,
-				ROVER_INITIAL_RESOURCE_.pdfUrl,
-				ROVER_INITIAL_RESOURCE_.pageUrl
-			]);
-		}
+		Object.keys(ROVER_BOOTSTRAP_RESOURCES_).forEach(function (resourceId) {
+			const resource = ROVER_BOOTSTRAP_RESOURCES_[resourceId];
+			if (!findRequestRow_(resources, resourceId)) {
+				writeTextRow_(resources, resources.getLastRow() + 1, [
+					resource.resourceId,
+					resource.title,
+					resource.pdfUrl,
+					resource.pageUrl
+				]);
+			}
+		});
 
 		const recipients = notificationRecipients_(
 			ROVER_NOTIFICATION_EMAILS ||
@@ -311,6 +326,27 @@ setTimeout(function () { clearInterval(readyTimer); }, 30000);
 	);
 }
 
+/** Owner-only editor diagnostic; never saves a lead or calls the signer. */
+function checkSentinelResource() {
+	const activeEmail = Session.getActiveUser().getEmail();
+	if (!activeEmail || activeEmail !== Session.getEffectiveUser().getEmail()) {
+		throw new Error('Run this check from the Apps Script editor as the owner.');
+	}
+	const spreadsheetId = PropertiesService.getScriptProperties().getProperty(ROVER_LEAD_SETTINGS_.spreadsheetProperty);
+	if (!spreadsheetId) throw new Error('The lead spreadsheet is not configured.');
+	console.log('Configured Sheet: https://docs.google.com/spreadsheets/d/' + spreadsheetId + '/edit');
+	const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+	const sheet = spreadsheet.getSheetByName(ROVER_LEAD_SETTINGS_.resourcesSheetName);
+	if (!sheet) throw new Error('The configured Sheet has no Resources tab.');
+	const rows = sheet.getRange(1, 1, Math.max(1, sheet.getLastRow()), 4).getValues();
+	const matchingRows = rows.filter(function (row) {
+		return String(row[0]).indexOf('microsoft-sentinel') !== -1;
+	});
+	console.log('ROVER_SENTINEL_CHECK ' + JSON.stringify({ headers: rows[0], matchingRows: matchingRows }));
+	const resource = approvedResource_(spreadsheet, 'rover-vs-microsoft-sentinel');
+	console.log('ROVER_SENTINEL_CHECK ' + JSON.stringify({ approved: !!resource, pageUrl: resource ? resource.pageUrl : null }));
+}
+
 /** Validate and durably save a submission before disclosing its approved PDF. */
 function saveLead(input) {
 	// The editor hides function names ending in _. Running saveLead with no
@@ -356,7 +392,7 @@ function saveLead(input) {
 				}
 				return {
 					ok: true,
-					resourceId: resource.resourceId,
+					resource: resource,
 					duplicate: true
 				};
 			}
@@ -389,7 +425,7 @@ function saveLead(input) {
 				lead.company
 			]);
 			SpreadsheetApp.flush();
-			return { ok: true, resourceId: resource.resourceId, duplicate: false };
+			return { ok: true, resource: resource, duplicate: false };
 		});
 	} catch (error) {
 		return {
@@ -411,7 +447,7 @@ function saveLead(input) {
 	try {
 		return {
 			ok: true,
-			downloadUrl: signedResourceDownload_(saved.resourceId),
+			downloadUrl: signedResourceDownload_(saved.resource),
 			duplicate: saved.duplicate
 		};
 	} catch (error) {
@@ -424,7 +460,11 @@ function saveLead(input) {
 }
 
 /** Called only after a confirmed save; the shared secret never reaches the browser. */
-function signedResourceDownload_(resourceId) {
+function signedResourceDownload_(resource) {
+	// Editor diagnostics can pass an ID; web submissions pass the already approved row.
+	if (typeof resource === 'string')
+		resource = approvedResource_(configuredSpreadsheet_(), resource);
+	if (!resource || !resource.pdfKey) throw downloadDiagnostic_('unknown_resource', {});
 	const properties = PropertiesService.getScriptProperties();
 	const endpoint = (properties.getProperty('ROVER_DOWNLOAD_SIGNER_URL') || '').trim();
 	const secret = (properties.getProperty('ROVER_DOWNLOAD_SIGNER_SECRET') || '').trim();
@@ -441,7 +481,7 @@ function signedResourceDownload_(resourceId) {
 			method: 'post',
 			contentType: 'application/json',
 			headers: { Authorization: 'Bearer ' + secret },
-			payload: JSON.stringify({ resourceId: resourceId }),
+			payload: JSON.stringify({ resourceId: resource.resourceId, pdfKey: resource.pdfKey }),
 			muteHttpExceptions: true,
 			followRedirects: false
 		});
@@ -466,9 +506,11 @@ function signedResourceDownload_(resourceId) {
 		throw downloadDiagnostic_('invalid_json', {});
 	}
 	const prefix =
-		'https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf?';
+		resource.pdfUrl.replace(
+			's3://rover-private-resources-613025568726-ap-south-1/',
+			'https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/'
+		) + '?';
 	if (
-		resourceId !== 'rover-vs-splunk' ||
 		!result ||
 		typeof result.downloadUrl !== 'string' ||
 		result.downloadUrl.indexOf(prefix) !== 0
@@ -784,16 +826,20 @@ function assertHeaders_(sheet, headers) {
 }
 
 function approvedResource_(spreadsheet, resourceId) {
+	function unavailable(reason) {
+		console.log('ROVER_RESOURCE_DIAGNOSTIC ' + JSON.stringify({ resourceId: resourceId, reason: reason }));
+		return null;
+	}
 	const sheet = spreadsheet.getSheetByName(ROVER_LEAD_SETTINGS_.resourcesSheetName);
 	assertHeaders_(sheet, ROVER_RESOURCE_HEADERS_);
-	if (sheet.getLastRow() < 2) return null;
+	if (sheet.getLastRow() < 2) return unavailable('empty_resources_sheet');
 	const matches = sheet
 		.getRange(2, 1, sheet.getLastRow() - 1, ROVER_RESOURCE_HEADERS_.length)
 		.getValues()
 		.filter(function (row) {
 			return String(row[0]).trim() === resourceId;
 		});
-	if (matches.length !== 1) return null;
+	if (matches.length !== 1) return unavailable(matches.length ? 'duplicate_resource_rows' : 'missing_resource_row');
 	const row = matches[0];
 	const title = String(row[1]).trim().replace(/\s+/g, ' ');
 	let pdfUrl = String(row[2]).trim();
@@ -806,22 +852,24 @@ function approvedResource_(spreadsheet, resourceId) {
 		pdfUrl = ROVER_INITIAL_RESOURCE_.pdfUrl;
 	}
 	const pageUrl = String(row[3]).trim();
+	const expectedPage = 'https://roverhq.ai/resources/comparisons/' + resourceId.replace(/^rover-vs-/, '') + '/';
+	const legacyPage = 'https://roverhq.ai/resources/comparison/' + resourceId + '/';
+	const legacySplunkPage =
+		resourceId === 'rover-vs-splunk' &&
+		pageUrl === 'https://roverhq.ai/resources/comparison/splunk/';
 
 	// Approved links have clean path segments and cannot point to another host,
 	// JavaScript URLs, arbitrary redirects, query strings, or parent directories.
-	if (
-		!title ||
-		title.length > 200 ||
-		resourceId !== ROVER_INITIAL_RESOURCE_.resourceId ||
-		pdfUrl !== ROVER_INITIAL_RESOURCE_.pdfUrl ||
-		!/^https:\/\/roverhq\.ai\/(?:[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_-]*\/?$/.test(pageUrl)
-	) {
-		return null;
-	}
+	if (!title || title.length > 200) return unavailable('invalid_title');
+	if (!/^rover-vs-[a-z0-9]+(?:-[a-z0-9]+)*$/.test(resourceId)) return unavailable('invalid_resource_id');
+	if (!/^s3:\/\/rover-private-resources-613025568726-ap-south-1\/comparisons\/[a-z0-9]+(?:-[a-z0-9]+)*\/[A-Za-z0-9_-]+\.pdf$/.test(pdfUrl)) return unavailable('invalid_pdf_reference');
+	if (pageUrl !== expectedPage && pageUrl !== legacyPage && !legacySplunkPage) return unavailable('invalid_page_url');
+
 	return {
 		resourceId: resourceId,
 		title: title,
 		pdfUrl: pdfUrl,
+		pdfKey: pdfUrl.replace('s3://rover-private-resources-613025568726-ap-south-1/', ''),
 		pageUrl: pageUrl
 	};
 }

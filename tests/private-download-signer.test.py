@@ -42,6 +42,26 @@ class SignerTests(unittest.TestCase):
         self.assertEqual(kwargs['Params']['Key'], 'comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf')
         self.assertEqual(kwargs['Params']['Bucket'], 'private-bucket')
 
+    def test_sentinel_uses_its_own_private_key_and_attachment_filename(self):
+        result = signer.handler(self.event(resource='rover-vs-microsoft-sentinel'), None)
+        self.assertEqual(result['statusCode'], 200)
+        params = client.generate_presigned_url.call_args.kwargs['Params']
+        self.assertEqual(params['Key'], 'comparisons/microsoft-sentinel/Rover-vs-Microsoft-Sentinel-Battlecard.pdf')
+        self.assertEqual(params['ResponseContentDisposition'], 'attachment; filename="Rover-vs-Microsoft-Sentinel-Battlecard.pdf"')
+
+    def test_future_pdf_key_is_signed_without_a_lambda_allowlist_update(self):
+        event = self.event(resource='rover-vs-new-vendor')
+        event['body'] = json.dumps({'resourceId': 'rover-vs-new-vendor', 'pdfKey': 'comparisons/new-vendor/New-Vendor.pdf'})
+        self.assertEqual(signer.handler(event, None)['statusCode'], 200)
+        self.assertEqual(client.generate_presigned_url.call_args.kwargs['Params']['Key'], 'comparisons/new-vendor/New-Vendor.pdf')
+
+    def test_generic_keys_cannot_escape_the_private_comparisons_prefix(self):
+        for key in ['comparisons/../Secrets.pdf', 'outside/PDF.pdf', 'comparisons/vendor/guide.pdf?x=1', 'comparisons/vendor/%2e.pdf', 'comparisons/vendor/nested/guide.pdf', None]:
+            event = self.event()
+            event['body'] = json.dumps({'resourceId': 'rover-vs-test', 'pdfKey': key})
+            self.assertEqual(signer.handler(event, None)['statusCode'], 400)
+        client.generate_presigned_url.assert_not_called()
+
     def test_malformed_payloads_and_non_post_requests_do_not_sign(self):
         event = self.event()
         for body in ['not json', '[]', 'null']:

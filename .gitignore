@@ -22,3 +22,6 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vscode/*
+
+# Local generated resource-import rows
+/build-resources/

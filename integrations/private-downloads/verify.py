@@ -9,7 +9,9 @@ import urllib.request
 
 properties = json.loads(Path('/tmp/rover-download-script-properties.json').read_text())
 endpoint = properties['ROVER_DOWNLOAD_SIGNER_URL']
-object_url = 'https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf'
+resource_id = sys.argv[2] if len(sys.argv) > 2 else 'rover-vs-splunk'
+key = json.loads(Path(__file__).with_name('resources.json').read_text())[resource_id]
+object_url = 'https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/' + key
 
 
 def request(url, payload=None, token=None):
@@ -27,10 +29,11 @@ def request(url, payload=None, token=None):
 
 
 assert request(object_url)[0] == 403, 'Anonymous S3 download must be denied'
-assert request(endpoint, {'resourceId': 'rover-vs-splunk'})[0] == 403, 'Signer must require the backend secret'
-assert request(endpoint, {'resourceId': 'rover-vs-splunk'}, 'invalid-secret')[0] == 403
+assert request(endpoint, {'resourceId': resource_id, 'pdfKey': key})[0] == 403, 'Signer must require the backend secret'
+assert request(endpoint, {'resourceId': resource_id, 'pdfKey': key}, 'invalid-secret')[0] == 403
 assert request(endpoint, {'resourceId': 'unknown'}, properties['ROVER_DOWNLOAD_SIGNER_SECRET'])[0] == 400
-status, body, _ = request(endpoint, {'resourceId': 'rover-vs-splunk'}, properties['ROVER_DOWNLOAD_SIGNER_SECRET'])
+assert request(endpoint, {'resourceId': resource_id}, properties['ROVER_DOWNLOAD_SIGNER_SECRET'])[0] == 200, 'Legacy requests must keep working'
+status, body, _ = request(endpoint, {'resourceId': resource_id, 'pdfKey': key}, properties['ROVER_DOWNLOAD_SIGNER_SECRET'])
 assert status == 200, f'Authenticated signer status: {status}'
 url = json.loads(body)['downloadUrl']
 parts = urllib.parse.urlsplit(url)

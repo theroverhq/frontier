@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { comparisons } from '$lib/comparisons';
 	import { Button } from '$lib/components/ui/button';
 	import '@fontsource/mitr/400.css';
 	import { page } from '$app/stores';
@@ -27,15 +28,16 @@
 		<div class="px-3 pt-2 pb-2 text-[10px] font-bold tracking-widest text-zinc-400 uppercase">
 			Comparison
 		</div>
-		<a
-			href="/resources/comparison/splunk/"
-			aria-current={$page.url.pathname === '/resources/comparison/splunk/' ? 'page' : undefined}
-			class="hover:text-primary focus-visible:ring-primary flex min-h-11 items-center justify-between gap-8 rounded-lg px-3 text-sm font-semibold tracking-normal text-zinc-200 normal-case transition-colors hover:bg-white/5 focus-visible:ring-2 focus-visible:outline-none"
-			onclick={closeMenu}
-		>
-			Splunk
-			<ArrowRight class="h-4 w-4" aria-hidden="true" />
-		</a>
+		{#each comparisons as comparison (comparison.slug)}
+			<a
+				href={comparison.pagePath}
+				aria-current={$page.url.pathname === comparison.pagePath ? 'page' : undefined}
+				class="hover:text-primary focus-visible:ring-primary flex min-h-11 items-center justify-between gap-8 rounded-lg px-3 text-sm font-semibold tracking-normal text-zinc-200 normal-case transition-colors hover:bg-white/5 focus-visible:ring-2 focus-visible:outline-none"
+				onclick={closeMenu}
+			>
+				{comparison.navLabel}<ArrowRight class="h-4 w-4" aria-hidden="true" />
+			</a>
+		{/each}
 	</section>
 {/snippet}
 

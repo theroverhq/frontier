@@ -10,7 +10,10 @@ const source = readFileSync(
 );
 const pdfUrl =
 	'https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf?X-Amz-Signature=test';
-const pageUrl = 'https://roverhq.ai/resources/comparison/splunk/';
+const pageUrl = 'https://roverhq.ai/resources/comparisons/splunk/';
+const sentinelPdfUrl =
+	'https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/comparisons/microsoft-sentinel/Rover-vs-Microsoft-Sentinel-Battlecard.pdf?X-Amz-Signature=test';
+const sentinelPageUrl = 'https://roverhq.ai/resources/comparisons/microsoft-sentinel/';
 const plain = (value) => JSON.parse(JSON.stringify(value));
 
 /** In-memory Apps Script services: no account, spreadsheet, mail, or network access. */
@@ -270,7 +273,14 @@ function fixture() {
 				state.signerCalls.push(JSON.parse(options.payload));
 				return {
 					getResponseCode: () => (state.signerFailure ? 503 : state.signerStatus),
-					getContentText: () => state.signerBody ?? JSON.stringify({ downloadUrl: pdfUrl })
+					getContentText: () =>
+						state.signerBody ??
+						JSON.stringify({
+							downloadUrl:
+								'https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/' +
+								JSON.parse(options.payload).pdfKey +
+								'?X-Amz-Signature=test'
+						})
 				};
 			}
 		},
@@ -424,7 +434,7 @@ test('setup creates one private spreadsheet, owner notifications, and one retry 
 	assert.equal(f.state.triggers[0].getHandlerFunction(), 'retryLeadNotifications_');
 	assert.equal(f.state.triggers[0].minutes, 5);
 	assert.equal(f.leads().frozenRows, 1);
-	assert.equal(f.resources().rows.length, 2);
+	assert.equal(f.resources().rows.length, 3);
 	assert.equal(
 		f.resources().rows[1][2],
 		's3://rover-private-resources-613025568726-ap-south-1/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf'
@@ -435,7 +445,7 @@ test('setup creates one private spreadsheet, owner notifications, and one retry 
 	assert.equal(f.state.spreadsheets.size, 1);
 	assert.equal(f.state.triggers.length, 1);
 	assert.equal(f.leads().rows.length, 2, 'setup must preserve existing submissions');
-	assert.equal(f.resources().rows.length, 2, 'setup must not duplicate seeded resources');
+	assert.equal(f.resources().rows.length, 3, 'setup must not duplicate seeded resources');
 	assert.equal(f.state.locks, f.state.releases);
 });
 
@@ -581,12 +591,13 @@ test('notification recipient configuration survives setup and is deduplicated', 
 	assert.equal(f.state.mails[0].to, 'sales@roverhq.ai,team@roverhq.ai');
 });
 
-test('only doGet and saveLead are publicly callable; setup and helpers stay private', () => {
+test('only web entrypoints and the owner-guarded editor diagnostic are publicly callable', () => {
 	const f = fixture();
 	const functionNames = Object.keys(f.context).filter(
 		(name) => name !== 'Date' && typeof f.context[name] === 'function'
 	);
 	assert.deepEqual(functionNames.filter((name) => !name.endsWith('_')).sort(), [
+		'checkSentinelResource',
 		'doGet',
 		'saveLead'
 	]);
@@ -602,7 +613,7 @@ test('accepted lead is saved before mail and returns the registry PDF', () => {
 		jobTitle: '  Security   Lead ',
 		company: ' Acme   Security ',
 		email: 'ASHA@ACME.CO.IN',
-		pageUrl: '  https://www.roverhq.ai/resources/comparison/splunk  '
+		pageUrl: '  https://www.roverhq.ai/resources/comparisons/splunk  '
 	});
 	const result = f.save(input);
 	assert.deepEqual(result, { ok: true, downloadUrl: pdfUrl, duplicate: false });
@@ -611,7 +622,7 @@ test('accepted lead is saved before mail and returns the registry PDF', () => {
 	assert.equal(row[1], new Date(f.state.now).toISOString());
 	assert.equal(
 		row[4],
-		'https://www.roverhq.ai/resources/comparison/splunk',
+		'https://www.roverhq.ai/resources/comparisons/splunk',
 		'page metadata must preserve the validated actual source URL'
 	);
 	assert.equal(row[5], 'Asha Sharma');
@@ -745,29 +756,29 @@ test('the actual source URL must be clean, allowed, and match the requested reso
 		'   ',
 		null,
 		undefined,
-		'https://evil.invalid/resources/comparison/splunk/',
-		'https://roverhq.ai.evil.invalid/resources/comparison/splunk/',
-		'http://roverhq.ai/resources/comparison/splunk/',
-		'https://user@roverhq.ai/resources/comparison/splunk/',
-		'https://roverhq.ai/resources/comparison/splunk/?campaign=test',
-		'https://roverhq.ai/resources/comparison/splunk/#download-comparison',
-		'https://roverhq.ai/resources/comparison/other/',
+		'https://evil.invalid/resources/comparisons/splunk/',
+		'https://roverhq.ai.evil.invalid/resources/comparisons/splunk/',
+		'http://roverhq.ai/resources/comparisons/splunk/',
+		'https://user@roverhq.ai/resources/comparisons/splunk/',
+		'https://roverhq.ai/resources/comparisons/splunk/?campaign=test',
+		'https://roverhq.ai/resources/comparisons/splunk/#download-comparison',
+		'https://roverhq.ai/resources/comparisons/other/',
 		'https://roverhq.ai/resources/comparison/../splunk/',
 		'https://roverhq.ai/resources/comparison/%73plunk/',
-		'https://roverhq.ai/resources//comparison/splunk/',
-		'https://roverhq.ai/resources/comparison/splunk/extra/',
-		'https://roverhq.ai/resources/comparison/splunk/\n',
-		'http://localhost:0/resources/comparison/splunk/',
-		'http://127.0.0.1:65536/resources/comparison/splunk/'
+		'https://roverhq.ai/resources//comparison/rover-vs-splunk/',
+		'https://roverhq.ai/resources/comparisons/splunk/extra/',
+		'https://roverhq.ai/resources/comparisons/splunk/\n',
+		'http://localhost:0/resources/comparisons/splunk/',
+		'http://127.0.0.1:65536/resources/comparisons/splunk/'
 	]) {
 		assertRejected(f, lead({ pageUrl: value }));
 	}
 	for (const value of [
 		pageUrl,
-		'https://www.roverhq.ai/resources/comparison/splunk/',
-		'https://roverhq.ai/resources/comparison/splunk',
-		'http://localhost:5173/resources/comparison/splunk/',
-		'http://127.0.0.1:5180/resources/comparison/splunk/'
+		'https://www.roverhq.ai/resources/comparisons/splunk/',
+		'https://roverhq.ai/resources/comparisons/splunk',
+		'http://localhost:5173/resources/comparisons/splunk/',
+		'http://127.0.0.1:5180/resources/comparisons/splunk/'
 	]) {
 		assert.equal(f.save(lead({ pageUrl: value })).ok, true, value);
 		assert.equal(f.leads().rows.at(-1)[4], value);
@@ -903,7 +914,7 @@ test('an existing request ID cannot be reused for modified details or another re
 		{ company: 'Another Company' },
 		{ email: 'another@acme.ai' },
 		{ phone: '+12025550123' },
-		{ pageUrl: 'https://www.roverhq.ai/resources/comparison/splunk/' }
+		{ pageUrl: 'https://www.roverhq.ai/resources/comparisons/splunk/' }
 	]) {
 		const result = f.save({ ...input, ...changes });
 		assert.equal(result.ok, false);
@@ -912,14 +923,14 @@ test('an existing request ID cannot be reused for modified details or another re
 	f.resources().rows.push([
 		'rover-vs-other',
 		'Rover vs Other',
-		'https://roverhq.ai/assets/other.pdf',
-		'https://roverhq.ai/resources/comparison/other/'
+		's3://rover-private-resources-613025568726-ap-south-1/comparisons/other/Other.pdf',
+		'https://roverhq.ai/resources/comparisons/other/'
 	]);
 	assert.equal(
 		f.save({
 			...input,
 			resourceId: 'rover-vs-other',
-			pageUrl: 'https://roverhq.ai/resources/comparison/other/'
+			pageUrl: 'https://roverhq.ai/resources/comparisons/other/'
 		}).ok,
 		false
 	);
@@ -1228,4 +1239,103 @@ test('download diagnostics distinguish malformed signer responses', () => {
 		assert.ok(diagnostic.includes('"code":"' + code + '"'));
 		assert.doesNotMatch(diagnostic, /private-token|evil.invalid/);
 	}
+});
+
+test('Sentinel registration is idempotent and saved leads receive only their own PDF', () => {
+	const f = fixture();
+	f.setup();
+	f.setup();
+	assert.equal(f.resources().rows.length, 3);
+	const input = lead({ resourceId: 'rover-vs-microsoft-sentinel', pageUrl: sentinelPageUrl });
+	assert.deepEqual(f.save(input), { ok: true, downloadUrl: sentinelPdfUrl, duplicate: false });
+	assert.equal(f.leads().rows[1][2], 'rover-vs-microsoft-sentinel');
+	assert.equal(f.leads().rows[1][4], sentinelPageUrl);
+	assert.match(f.state.mails[0].subject, /Microsoft Sentinel/);
+	assert.equal(f.state.mails[0].cc, 'suyog@roverhq.ai');
+	assert.deepEqual(f.save(input), { ok: true, downloadUrl: sentinelPdfUrl, duplicate: true });
+	assert.equal(f.leads().rows.length, 2);
+	assert.equal(f.state.mails.length, 1);
+});
+
+test('Sentinel cannot use the Splunk page or receive the Splunk signed URL', () => {
+	const f = fixture();
+	f.setup();
+	assert.equal(f.save(lead({ resourceId: 'rover-vs-microsoft-sentinel' })).ok, false);
+	assert.equal(f.leads().rows.length, 1);
+	f.state.signerBody = JSON.stringify({ downloadUrl: pdfUrl });
+	assert.equal(
+		f.save(lead({ resourceId: 'rover-vs-microsoft-sentinel', pageUrl: sentinelPageUrl })).ok,
+		false
+	);
+	assert.ok(f.state.logs.some((value) => value.includes('"code":"unexpected_url"')));
+});
+
+test('a future comparison is approved by a Sheet row without adding a code allowlist', () => {
+	const f = fixture();
+	f.setup();
+	const key = 'comparisons/new-vendor/New-Vendor.pdf';
+	const url = 'https://roverhq.ai/resources/comparisons/new-vendor/';
+	f.resources().rows.push([
+		'rover-vs-new-vendor',
+		'Rover vs New Vendor',
+		's3://rover-private-resources-613025568726-ap-south-1/' + key,
+		url
+	]);
+	const result = f.save(lead({ resourceId: 'rover-vs-new-vendor', pageUrl: url }));
+	assert.equal(result.ok, true);
+	assert.ok(result.downloadUrl.includes('/' + key + '?'));
+	assert.equal(f.state.signerCalls[0].pdfKey, key);
+	assert.equal(f.leads().rows[1][2], 'rover-vs-new-vendor');
+});
+
+test('the generic Sheet registry rejects unsafe PDF keys and mismatched page IDs', () => {
+	for (const path of [
+		'comparisons/../Secrets.pdf',
+		'other/guide.pdf',
+		'comparisons/new-vendor/%2e%2e.pdf',
+		'comparisons/new-vendor/guide.pdf?x=1'
+	]) {
+		const f = fixture();
+		f.setup();
+		f.resources().rows.push([
+			'rover-vs-new-vendor',
+			'New vendor',
+			's3://rover-private-resources-613025568726-ap-south-1/' + path,
+			'https://roverhq.ai/resources/comparisons/new-vendor/'
+		]);
+		assert.equal(
+			f.save(
+				lead({
+					resourceId: 'rover-vs-new-vendor',
+					pageUrl: 'https://roverhq.ai/resources/comparisons/new-vendor/'
+				})
+			).ok,
+			false
+		);
+		assert.equal(f.state.signerCalls.length, 0);
+	}
+});
+
+test('existing comparison registry URLs remain valid during the route migration', () => {
+	for (const oldUrl of [
+		'https://roverhq.ai/resources/comparison/rover-vs-splunk/',
+		'https://roverhq.ai/resources/comparison/splunk/'
+	]) {
+		const f = fixture();
+		f.setup();
+		const row = f.resources().rows.find((row) => row[0] === 'rover-vs-splunk');
+		row[3] = oldUrl;
+		assert.equal(f.save(lead({ pageUrl: oldUrl })).ok, true);
+		assert.equal(f.save(lead()).ok, false);
+	}
+});
+
+
+test('resource editor diagnostic rejects anonymous callers without side effects', () => {
+ const f = fixture();
+ f.setup();
+ assert.throws(() => f.context.checkSentinelResource(), /as the owner/);
+ assert.equal(f.state.signerCalls.length, 0);
+ assert.equal(f.state.mails.length, 0);
+ assert.equal(f.leads().rows.length, 1);
 });

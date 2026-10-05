@@ -1,0 +1,150 @@
+[
+  {
+    "slug": "rover-vs-elastic-security",
+    "pageSlug": "elastic-security",
+    "resourceId": "rover-vs-elastic-security",
+    "title": "Rover vs. Elastic Security",
+    "competitor": "Elastic Security",
+    "navLabel": "Elastic Security",
+    "description": "Compare Rover and Elastic Security across historical investigations, onboarding, detections, AI workflows, and pricing.",
+    "pagePath": "/resources/comparisons/elastic-security/",
+    "canonical": "https://roverhq.ai/resources/comparisons/elastic-security/",
+    "pdfFile": "Rover-vs-Elastic-Battlecard.pdf",
+    "pdfFolder": "elastic-security",
+    "pdfKey": "comparisons/elastic-security/Rover-vs-Elastic-Battlecard.pdf",
+    "pdfUrl": "s3://rover-private-resources-613025568726-ap-south-1/comparisons/elastic-security/Rover-vs-Elastic-Battlecard.pdf",
+    "downloadUrl": "https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/comparisons/elastic-security/Rover-vs-Elastic-Battlecard.pdf",
+    "imageAlt": "Rover and Elastic Security comparison.",
+    "images": {
+      "dark": "/assets/comparisons/elastic-security/rover-vs-elastic-security-page-dark.jpg?v=de208895",
+      "light": "/assets/comparisons/elastic-security/rover-vs-elastic-security-page-light.jpg?v=20e45555",
+      "og": "/assets/comparisons/elastic-security/rover-vs-elastic-security-og.jpg?v=6a04a15c"
+    },
+    "toc": [
+      {
+        "id": "historical-investigations",
+        "label": "Investigate further back—without restoring archived logs."
+      },
+      {
+        "id": "onboarding",
+        "label": "Get started in hours. Simplify ongoing operations."
+      },
+      {
+        "id": "investigation-context",
+        "label": "Give every investigation more context."
+      },
+      {
+        "id": "detection-rules",
+        "label": "Detection rules: focus on coverage, not just rule count."
+      },
+      {
+        "id": "pricing",
+        "label": "Understand the annual cost of visibility."
+      },
+      {
+        "id": "at-a-glance",
+        "label": "Rover vs. Elastic Security: at a glance"
+      }
+    ]
+  },
+  {
+    "slug": "rover-vs-microsoft-sentinel",
+    "pageSlug": "microsoft-sentinel",
+    "resourceId": "rover-vs-microsoft-sentinel",
+    "title": "Rover vs. Microsoft Sentinel",
+    "competitor": "Microsoft Sentinel",
+    "navLabel": "Microsoft Sentinel",
+    "description": "Compare Rover and Microsoft Sentinel across historical investigations, onboarding, detections, AI workflows, and pricing.",
+    "pagePath": "/resources/comparisons/microsoft-sentinel/",
+    "canonical": "https://roverhq.ai/resources/comparisons/microsoft-sentinel/",
+    "pdfFile": "Rover-vs-Microsoft-Sentinel-Battlecard.pdf",
+    "pdfFolder": "microsoft-sentinel",
+    "pdfKey": "comparisons/microsoft-sentinel/Rover-vs-Microsoft-Sentinel-Battlecard.pdf",
+    "pdfUrl": "s3://rover-private-resources-613025568726-ap-south-1/comparisons/microsoft-sentinel/Rover-vs-Microsoft-Sentinel-Battlecard.pdf",
+    "downloadUrl": "https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/comparisons/microsoft-sentinel/Rover-vs-Microsoft-Sentinel-Battlecard.pdf",
+    "imageAlt": "Rover and Microsoft Sentinel comparison.",
+    "images": {
+      "dark": "/assets/comparisons/microsoft-sentinel/rover-vs-microsoft-sentinel-page-dark.jpg?v=6abcbd42",
+      "light": "/assets/comparisons/microsoft-sentinel/rover-vs-microsoft-sentinel-page-light.jpg?v=bf5eae55",
+      "og": "/assets/comparisons/microsoft-sentinel/rover-vs-microsoft-sentinel-og.jpg?v=84ea99cb"
+    },
+    "toc": [
+      {
+        "id": "historical-investigations",
+        "label": "Investigate further back—without restoring archived logs."
+      },
+      {
+        "id": "onboarding",
+        "label": "Get started in hours. Simplify ongoing operations."
+      },
+      {
+        "id": "investigation-context",
+        "label": "Give every investigation more context."
+      },
+      {
+        "id": "detection-rules",
+        "label": "Detection rules: focus on coverage, not just rule count."
+      },
+      {
+        "id": "pricing",
+        "label": "Understand the annual cost of visibility."
+      },
+      {
+        "id": "at-a-glance",
+        "label": "Rover vs. Microsoft Sentinel: at a glance"
+      }
+    ]
+  },
+  {
+    "slug": "rover-vs-splunk",
+    "pageSlug": "splunk",
+    "resourceId": "rover-vs-splunk",
+    "title": "Rover vs. Splunk Enterprise Security",
+    "competitor": "Splunk Enterprise Security",
+    "navLabel": "Splunk",
+    "description": "Compare Rover and Splunk Enterprise Security across historical investigations, onboarding, detections, AI workflows, and pricing.",
+    "pagePath": "/resources/comparisons/splunk/",
+    "canonical": "https://roverhq.ai/resources/comparisons/splunk/",
+    "pdfFile": "Rover-vs-Splunk-Battlecard.pdf",
+    "pdfFolder": "splunk",
+    "pdfKey": "comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf",
+    "pdfUrl": "s3://rover-private-resources-613025568726-ap-south-1/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf",
+    "downloadUrl": "https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf",
+    "imageAlt": "Rover and Splunk Enterprise Security comparison.",
+    "images": {
+      "dark": "/assets/comparisons/splunk/rover-vs-splunk-page-dark.png?v=e2a3ea38",
+      "light": "/assets/comparisons/splunk/rover-vs-splunk-page.png?v=e4b00b79",
+      "og": "/assets/comparisons/splunk/rover-vs-splunk-og.jpg?v=abbdc30f"
+    },
+    "toc": [
+      {
+        "id": "historical-investigations",
+        "label": "Investigate further back—without restoring archived logs."
+      },
+      {
+        "id": "onboarding",
+        "label": "Get started in hours. Simplify ongoing operations."
+      },
+      {
+        "id": "investigation-context",
+        "label": "Give every investigation more context."
+      },
+      {
+        "id": "detection-rules",
+        "label": "Detection rules: focus on coverage, not just rule count."
+      },
+      {
+        "id": "pricing",
+        "label": "Understand the annual cost of visibility."
+      },
+      {
+        "id": "at-a-glance",
+        "label": "Rover vs. Splunk Enterprise Security: at a glance"
+      },
+      {
+        "id": "see-rover",
+        "label": "See Rover with your own security data."
+      }
+    ]
+  }
+]

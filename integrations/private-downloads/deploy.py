@@ -1,5 +1,6 @@
 """Deploy a dedicated private bucket and signer with the configured AWS CLI profile.
-Usage: python3 integrations/private-downloads/deploy.py /path/to/Battlecard.pdf
+Usage: python3 integrations/private-downloads/deploy.py --signer-only
+Legacy upload usage: deploy.py /path/to/Battlecard.pdf [resource-id]
 Secrets are written only to a permission-restricted file under /tmp.
 """
 import json
@@ -15,7 +16,9 @@ import zipfile
 REGION = 'ap-south-1'
 FUNCTION = 'rover-resource-download-signer'
 ROLE = FUNCTION + '-role'
-KEY = 'comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf'
+RESOURCE_KEYS = json.loads(Path(__file__).with_name('resources.json').read_text())
+RESOURCE_ID = sys.argv[2] if len(sys.argv) > 2 else 'rover-vs-splunk'
+KEY = RESOURCE_KEYS[RESOURCE_ID]
 
 
 def aws(*args, optional=False):
@@ -31,8 +34,8 @@ account = aws('sts', 'get-caller-identity')['Account']
 if account != '613025568726':
     raise ValueError('Use the Rover AWS account 613025568726; application allowlists target this account.')
 bucket = 'rover-private-resources-' + account + '-' + REGION
-pdf = Path(sys.argv[1]).resolve()
-if not pdf.read_bytes().startswith(b'%PDF-'):
+pdf = None if sys.argv[1] == '--signer-only' else Path(sys.argv[1]).resolve()
+if pdf is not None and not pdf.read_bytes().startswith(b'%PDF-'):
     raise ValueError('Input must be a PDF')
 with tempfile.TemporaryDirectory(prefix='rover-s3-') as directory:
     work = Path(directory)
@@ -48,14 +51,16 @@ with tempfile.TemporaryDirectory(prefix='rover-s3-') as directory:
     aws('s3api', 'put-public-access-block', '--bucket', bucket, '--public-access-block-configuration', 'BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true')
     aws('s3api', 'put-bucket-encryption', '--bucket', bucket, '--server-side-encryption-configuration', config('encryption.json', {'Rules': [{'ApplyServerSideEncryptionByDefault': {'SSEAlgorithm': 'AES256'}}]}))
     aws('s3api', 'put-bucket-policy', '--bucket', bucket, '--policy', config('bucket-policy.json', {'Version': '2012-10-17', 'Statement': [{'Sid': 'RequireTLS', 'Effect': 'Deny', 'Principal': '*', 'Action': 's3:*', 'Resource': ['arn:aws:s3:::' + bucket, 'arn:aws:s3:::' + bucket + '/*'], 'Condition': {'Bool': {'aws:SecureTransport': 'false'}}}]}))
-    aws('s3api', 'put-object', '--bucket', bucket, '--key', KEY, '--body', str(pdf), '--content-type', 'application/pdf', '--content-disposition', 'attachment; filename="Rover-vs-Splunk-Battlecard.pdf"', '--cache-control', 'private, no-store', '--server-side-encryption', 'AES256')
+    if pdf is not None:
+        aws('s3api', 'put-object', '--bucket', bucket, '--key', KEY, '--body', str(pdf), '--content-type', 'application/pdf', '--content-disposition', 'attachment; filename="' + KEY.rsplit('/', 1)[-1] + '"', '--cache-control', 'private, no-store', '--server-side-encryption', 'AES256')
     role = aws('iam', 'get-role', '--role-name', ROLE, optional=True)
     if role is None:
         role = aws('iam', 'create-role', '--role-name', ROLE, '--assume-role-policy-document', config('trust.json', {'Version': '2012-10-17', 'Statement': [{'Effect': 'Allow', 'Principal': {'Service': 'lambda.amazonaws.com'}, 'Action': 'sts:AssumeRole'}]}))
-    aws('iam', 'put-role-policy', '--role-name', ROLE, '--policy-name', 'ReadBattlecard', '--policy-document', config('read.json', {'Version': '2012-10-17', 'Statement': [{'Effect': 'Allow', 'Action': 's3:GetObject', 'Resource': 'arn:aws:s3:::' + bucket + '/' + KEY}]}))
+    aws('iam', 'put-role-policy', '--role-name', ROLE, '--policy-name', 'ReadBattlecard', '--policy-document', config('read.json', {'Version': '2012-10-17', 'Statement': [{'Effect': 'Allow', 'Action': 's3:GetObject', 'Resource': 'arn:aws:s3:::' + bucket + '/comparisons/*'}]}))
     archive = work / 'handler.zip'
     with zipfile.ZipFile(archive, 'w') as output:
         output.write(Path(__file__).with_name('handler.py'), 'handler.py')
+        output.write(Path(__file__).with_name('resources.json'), 'resources.json')
     existing = aws('lambda', 'get-function', '--function-name', FUNCTION, optional=True)
     secret = (existing or {}).get('Configuration', {}).get('Environment', {}).get('Variables', {}).get('SIGNER_SECRET') or secrets.token_urlsafe(48)
     environment = config('env.json', {'Variables': {'PDF_BUCKET': bucket, 'SIGNER_SECRET': secret}})
@@ -92,4 +97,4 @@ with tempfile.TemporaryDirectory(prefix='rover-s3-') as directory:
     os.fchmod(descriptor, 0o600)
     with os.fdopen(descriptor, 'w') as output:
         json.dump({'ROVER_DOWNLOAD_SIGNER_URL': url['FunctionUrl'], 'ROVER_DOWNLOAD_SIGNER_SECRET': secret}, output, indent=2)
-    print(json.dumps({'bucket': bucket, 'region': REGION, 'objectKey': KEY, 'signerUrl': url['FunctionUrl'], 'scriptPropertiesFile': '/tmp/rover-download-script-properties.json'}, indent=2))
+    print(json.dumps({'bucket': bucket, 'region': REGION, 'objectKey': KEY if pdf is not None else None, 'signerUrl': url['FunctionUrl'], 'scriptPropertiesFile': '/tmp/rover-download-script-properties.json'}, indent=2))

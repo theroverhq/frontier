@@ -1,0 +1,156 @@
+{
+  "rover-vs-elastic-security": {
+    "slug": "rover-vs-elastic-security",
+    "pageSlug": "elastic-security",
+    "resourceId": "rover-vs-elastic-security",
+    "title": "Rover vs. Elastic Security",
+    "competitor": "Elastic Security",
+    "navLabel": "Elastic Security",
+    "description": "Compare Rover and Elastic Security across historical investigations, onboarding, detections, AI workflows, and pricing.",
+    "pagePath": "/resources/comparisons/elastic-security/",
+    "canonical": "https://roverhq.ai/resources/comparisons/elastic-security/",
+    "pdfFile": "Rover-vs-Elastic-Battlecard.pdf",
+    "pdfFolder": "elastic-security",
+    "pdfKey": "comparisons/elastic-security/Rover-vs-Elastic-Battlecard.pdf",
+    "pdfUrl": "s3://rover-private-resources-613025568726-ap-south-1/comparisons/elastic-security/Rover-vs-Elastic-Battlecard.pdf",
+    "downloadUrl": "https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/comparisons/elastic-security/Rover-vs-Elastic-Battlecard.pdf",
+    "imageAlt": "Rover and Elastic Security comparison.",
+    "images": {
+      "dark": "/assets/comparisons/elastic-security/rover-vs-elastic-security-page-dark.jpg?v=de208895",
+      "light": "/assets/comparisons/elastic-security/rover-vs-elastic-security-page-light.jpg?v=20e45555",
+      "og": "/assets/comparisons/elastic-security/rover-vs-elastic-security-og.jpg?v=6a04a15c"
+    },
+    "toc": [
+      {
+        "id": "historical-investigations",
+        "label": "Investigate further back—without restoring archived logs."
+      },
+      {
+        "id": "onboarding",
+        "label": "Get started in hours. Simplify ongoing operations."
+      },
+      {
+        "id": "investigation-context",
+        "label": "Give every investigation more context."
+      },
+      {
+        "id": "detection-rules",
+        "label": "Detection rules: focus on coverage, not just rule count."
+      },
+      {
+        "id": "pricing",
+        "label": "Understand the annual cost of visibility."
+      },
+      {
+        "id": "at-a-glance",
+        "label": "Rover vs. Elastic Security: at a glance"
+      }
+    ],
+    "introHtml": "<p class=\"takeaway\"><strong>Keep security history within reach—not just in storage.</strong></p>\n<p>Your SIEM should give your team the evidence it needs when an incident unfolds. For CISOs, that means balancing investigation depth, detection reliability, deployment effort, and the long-term cost of security visibility.</p>\n",
+    "html": "<section id=\"historical-investigations\" aria-labelledby=\"historical-investigations-heading\"><h2 id=\"historical-investigations-heading\">Investigate further back—without restoring archived logs.</h2>\n<p>With Rover, your security data and indexes stay in your own object storage. Search retained history without restoring archived logs or maintaining always-on search clusters.</p>\n<p>Elastic Security also supports historical investigations. On Elastic Cloud, data moves through hot, warm, cold, and frozen tiers to keep long retention affordable, and cold and frozen data is searched from snapshots in object storage. Older data stays searchable in place, but frozen searches are slower than cold. The difference lies in how quickly history can be searched and how retention is priced.</p>\n</section>\n<section id=\"onboarding\" aria-labelledby=\"onboarding-heading\"><h2 id=\"onboarding-heading\">Get started in hours. Simplify ongoing operations.</h2>\n<p>Connect Rover through HTTP ingestion or data already in your object storage. Get started in hours, with schema-on-read to reduce upfront data-modeling work and no persistent search clusters to provision. Timing depends on data readiness, access approvals, and integration scope. Initial setup does not represent a full enterprise migration.</p>\n<p>Elastic Security collects data through Elastic Agent and Fleet integrations, Beats, or Logstash, and incoming data must map to the Elastic Common Schema (ECS). Sources without a prebuilt integration need custom mappings, which Elastic&#39;s AI-based Automatic Import can help generate. Elastic offers hosted, serverless, and self-managed deployments, and administration responsibilities vary by option.</p>\n<p>Evaluate onboarding by the time it takes to establish usable security coverage—not simply ingest the first log.</p>\n</section>\n<section id=\"investigation-context\" aria-labelledby=\"investigation-context-heading\"><h2 id=\"investigation-context-heading\">Give every investigation more context.</h2>\n<p>Rover connects historical search, entity relationships, and AI-led investigation to build evidence-backed cases. Help your team trace related activity, reconstruct attack timelines, and understand what happened before an alert.</p>\n<p>Elastic Security combines Timeline investigations and case management with entity risk scoring and AI features, including AI Assistant, Attack Discovery, and Agent Builder. Its managed LLM is billed at $4.50 per million input tokens and $21 per million output tokens, and on Elastic&#39;s serverless offering, workflows and agent runs are billed per execution beyond a free allowance.</p>\n<p>Compare investigation quality, analyst effort, and the response workflows your SOC needs—not simply the presence of AI.</p>\n</section>\n<section id=\"detection-rules\" aria-labelledby=\"detection-rules-heading\"><h2 id=\"detection-rules-heading\">Detection rules: focus on coverage, not just rule count.</h2>\n<p>Your detection strategy should be driven by risk. The question is not simply how many rules you can enable, but how reliably they run as coverage grows.</p>\n<p>Our <strong>Signal Mesh</strong> engine continuously updates detection state as telemetry arrives. A separate, on-demand query engine handles historical investigations, giving continuous detection and investigative search distinct execution paths.</p>\n<p>Elastic Security offers a large library of prebuilt detection rules, which run on scheduled intervals with a look-back window. When runs start late because of queue backlog, cluster load, or resource limits, gaps in coverage can occur, and Elastic provides tools to find and fill them. Maintaining timely detection requires attention to rule scheduling, cluster capacity, and gap monitoring.</p>\n</section>\n<section id=\"pricing\" aria-labelledby=\"pricing-heading\"><h2 id=\"pricing-heading\">Understand the annual cost of visibility.</h2>\n<p>Our pricing is based on daily ingestion volume, includes multi-year retention, and adds <strong>$0.01 per query</strong>.</p>\n<p>Elastic&#39;s own SIEM price estimate works out to $478 per GB/day each year with about 30 days of retention, and every extra day of retention adds to the bill. AI features are metered separately.</p>\n<p>For a <strong>1 TB/day deployment</strong>, compare annual costs using the same retention period and investigation workload. Include applicable storage, implementation, support, and administration costs—not just the subscription.</p>\n</section>\n<section id=\"at-a-glance\" aria-labelledby=\"at-a-glance-heading\"><h2 id=\"at-a-glance-heading\">Rover vs. Elastic Security: at a glance</h2>\n<div class=\"comparison-table-region\" role=\"region\" aria-label=\"Comparison table\" tabindex=\"0\"><table><caption class=\"sr-only\">Rover vs. Elastic Security: at a glance</caption><thead><tr><th scope=\"col\">Evaluation area</th><th scope=\"col\">Rover</th><th scope=\"col\">Elastic Security</th></tr></thead><tbody><tr><th scope=\"row\"><strong>Data architecture</strong></th><td>Data and indexes in your object storage, with serverless queries.</td><td>Elastic-managed deployment on AWS, Azure, or Google Cloud, plus serverless and self-managed options.</td></tr><tr><th scope=\"row\"><strong>Historical investigations</strong></th><td>Search retained history without archive restoration.</td><td>Searchable in place, but slower once data moves to the cold or frozen tier.</td></tr><tr><th scope=\"row\"><strong>Onboarding time</strong></th><td>Initial setup in hours, depending on onboarding scope.</td><td>Integration-based; data must map to ECS, with custom mappings for sources without a prebuilt integration.</td></tr><tr><th scope=\"row\"><strong>Operational complexity</strong></th><td>No persistent search clusters; reduced upfront schema work.</td><td>Hosted deployments require cluster sizing and data-tier management; Serverless is managed by Elastic.</td></tr><tr><th scope=\"row\"><strong>Investigation approach</strong></th><td>Historical evidence, entity context, and AI-led investigations.</td><td>Timeline, cases, and entity risk scoring, with AI Assistant and Attack Discovery; managed LLM billed per token.</td></tr><tr><th scope=\"row\"><strong>Detection-rule execution</strong></th><td>Continuous, stateful evaluation through Signal Mesh; a separate engine handles investigative queries.</td><td>Large prebuilt rule library on scheduled intervals; delayed runs can leave coverage gaps to fill.</td></tr><tr><th scope=\"row\"><strong>Pricing model</strong></th><td>Daily-ingestion pricing plus <strong>$0.01 per query</strong>, with multi-year retention included.</td><td>$478 per GB/day each year with about 30 days of retention; extra retention and AI usage billed on top.</td></tr><tr><th scope=\"row\"><strong>Annual pricing at 1 TB/day ingestion</strong></th><td><strong>Stays flat at $16,667/mo</strong></td><td><strong>$53,284/mo</strong> (Elastic&#39;s estimate, 1-year retention)</td></tr></tbody></table></div></section>"
+  },
+  "rover-vs-microsoft-sentinel": {
+    "slug": "rover-vs-microsoft-sentinel",
+    "pageSlug": "microsoft-sentinel",
+    "resourceId": "rover-vs-microsoft-sentinel",
+    "title": "Rover vs. Microsoft Sentinel",
+    "competitor": "Microsoft Sentinel",
+    "navLabel": "Microsoft Sentinel",
+    "description": "Compare Rover and Microsoft Sentinel across historical investigations, onboarding, detections, AI workflows, and pricing.",
+    "pagePath": "/resources/comparisons/microsoft-sentinel/",
+    "canonical": "https://roverhq.ai/resources/comparisons/microsoft-sentinel/",
+    "pdfFile": "Rover-vs-Microsoft-Sentinel-Battlecard.pdf",
+    "pdfFolder": "microsoft-sentinel",
+    "pdfKey": "comparisons/microsoft-sentinel/Rover-vs-Microsoft-Sentinel-Battlecard.pdf",
+    "pdfUrl": "s3://rover-private-resources-613025568726-ap-south-1/comparisons/microsoft-sentinel/Rover-vs-Microsoft-Sentinel-Battlecard.pdf",
+    "downloadUrl": "https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/comparisons/microsoft-sentinel/Rover-vs-Microsoft-Sentinel-Battlecard.pdf",
+    "imageAlt": "Rover and Microsoft Sentinel comparison.",
+    "images": {
+      "dark": "/assets/comparisons/microsoft-sentinel/rover-vs-microsoft-sentinel-page-dark.jpg?v=6abcbd42",
+      "light": "/assets/comparisons/microsoft-sentinel/rover-vs-microsoft-sentinel-page-light.jpg?v=bf5eae55",
+      "og": "/assets/comparisons/microsoft-sentinel/rover-vs-microsoft-sentinel-og.jpg?v=84ea99cb"
+    },
+    "toc": [
+      {
+        "id": "historical-investigations",
+        "label": "Investigate further back—without restoring archived logs."
+      },
+      {
+        "id": "onboarding",
+        "label": "Get started in hours. Simplify ongoing operations."
+      },
+      {
+        "id": "investigation-context",
+        "label": "Give every investigation more context."
+      },
+      {
+        "id": "detection-rules",
+        "label": "Detection rules: focus on coverage, not just rule count."
+      },
+      {
+        "id": "pricing",
+        "label": "Understand the annual cost of visibility."
+      },
+      {
+        "id": "at-a-glance",
+        "label": "Rover vs. Microsoft Sentinel: at a glance"
+      }
+    ],
+    "introHtml": "<p class=\"takeaway\"><strong>Keep security history within reach—not just in storage.</strong></p>\n<p>Your SIEM should give your team the evidence it needs when an incident unfolds. For CISOs, that means balancing investigation depth, detection reliability, deployment effort, and the long-term cost of security visibility.</p>\n",
+    "html": "<section id=\"historical-investigations\" aria-labelledby=\"historical-investigations-heading\"><h2 id=\"historical-investigations-heading\">Investigate further back—without restoring archived logs.</h2>\n<p>With Rover, your security data and indexes stay in your own object storage. Search retained history without restoring archived logs or maintaining always-on search clusters.</p>\n<p>Microsoft Sentinel also supports historical investigations. Its analytics tier keeps 90 days of Sentinel data by default and can be extended up to two years at added cost, while the Sentinel data lake retains data for up to 12 years. Data lake queries are slower and billed per gigabyte scanned. The difference lies in how historical access is delivered and priced.</p>\n<p class=\"takeaway\"><strong>Make accessible evidence—not storage duration alone—the measure of your retention strategy.</strong></p>\n</section>\n<section id=\"onboarding\" aria-labelledby=\"onboarding-heading\"><h2 id=\"onboarding-heading\">Get started in hours. Simplify ongoing operations.</h2>\n<p>Connect Rover through HTTP ingestion or data already in your object storage. Get started in hours, with schema-on-read to reduce upfront data-modeling work and no persistent search clusters to provision. Timing depends on data readiness, access approvals, and integration scope. Initial setup does not represent a full enterprise migration.</p>\n<p>Microsoft Sentinel is a managed service built on a Log Analytics workspace, with built-in connectors for Microsoft sources. Other sources are onboarded through Content Hub solutions, the Azure Monitor Agent, and data collection rules, so scope depends on how much of your estate runs outside Microsoft. Sentinel in the Azure portal retires on March 31, 2027, so deployments should plan around the Microsoft Defender portal.</p>\n<p>Evaluate onboarding by the time it takes to establish usable security coverage—not simply ingest the first log.</p>\n</section>\n<section id=\"investigation-context\" aria-labelledby=\"investigation-context-heading\"><h2 id=\"investigation-context-heading\">Give every investigation more context.</h2>\n<p>Rover connects historical search, entity relationships, and AI-led investigation to build evidence-backed cases. Help your team trace related activity, reconstruct attack timelines, and understand what happened before an alert.</p>\n<p>Sentinel combines incident investigation with user and entity behavior analytics (UEBA), playbook-based automation, and AI assistance through Security Copilot and the Sentinel MCP server. Each user can run five concurrent analytics queries, or two on the Basic and Auxiliary tiers. Extra queries wait in a queue that times out after three minutes, which limits AI agents that run many searches in parallel.</p>\n<p>Compare investigation quality, analyst effort, and the response workflows your SOC needs—not simply the presence of AI.</p>\n</section>\n<section id=\"detection-rules\" aria-labelledby=\"detection-rules-heading\"><h2 id=\"detection-rules-heading\">Detection rules: focus on coverage, not just rule count.</h2>\n<p>Your detection strategy should be driven by risk. The question is not simply how many rules you can enable, but how reliably they run as coverage grows.</p>\n<p>Our <strong>Signal Mesh</strong> engine continuously updates detection state as telemetry arrives. A separate, on-demand query engine handles historical investigations, giving continuous detection and investigative search distinct execution paths.</p>\n<p>In Sentinel, scheduled analytics rules run KQL queries on fixed intervals of five minutes to 14 days, with a built-in five-minute delay to allow for ingestion latency. Near-real-time rules run every minute but are limited to 50 enabled rules, and data in the Sentinel data lake is excluded from analytics rules. Maintaining timely detection requires attention to rule frequency, query efficiency, and which data stays in the analytics tier.</p>\n<p class=\"takeaway\"><strong>Evaluate detection reliability under load—not just the number of enabled rules.</strong></p>\n</section>\n<section id=\"pricing\" aria-labelledby=\"pricing-heading\"><h2 id=\"pricing-heading\">Understand the annual cost of visibility.</h2>\n<p>Our pricing is based on daily ingestion volume, includes multi-year retention, and adds <strong>$0.01 per query</strong>.</p>\n<p>Sentinel&#39;s analytics tier is priced per gigabyte ingested, with retention charges for keeping data beyond the default window. Data lake storage costs less, but every data lake query is billed per gigabyte scanned.</p>\n<p>For a <strong>1 TB/day deployment</strong>, compare annual costs using the same retention period and investigation workload. Include applicable storage, implementation, support, and administration costs—not just the subscription.</p>\n</section>\n<section id=\"at-a-glance\" aria-labelledby=\"at-a-glance-heading\"><h2 id=\"at-a-glance-heading\">Rover vs. Microsoft Sentinel: at a glance</h2>\n<div class=\"comparison-table-region\" role=\"region\" aria-label=\"Comparison table\" tabindex=\"0\"><table><caption class=\"sr-only\">Rover vs. Microsoft Sentinel: at a glance</caption><thead><tr><th scope=\"col\">Evaluation area</th><th scope=\"col\">Rover</th><th scope=\"col\">Microsoft Sentinel</th></tr></thead><tbody><tr><th scope=\"row\"><strong>Data architecture</strong></th><td>Data and indexes in your object storage, with serverless queries.</td><td>Log Analytics workspace on Azure, split between an analytics tier and a lower-cost data lake.</td></tr><tr><th scope=\"row\"><strong>Historical investigations</strong></th><td>Search retained history without archive restoration.</td><td>90 days in the analytics tier by default; data lake history up to 12 years, slower to query and billed per GB scanned.</td></tr><tr><th scope=\"row\"><strong>Onboarding time</strong></th><td>Initial setup in hours, depending on onboarding scope.</td><td>Built-in connectors for Microsoft sources; other sources need Content Hub solutions, agents, and data collection rules.</td></tr><tr><th scope=\"row\"><strong>Operational complexity</strong></th><td>No persistent search clusters; reduced upfront schema work.</td><td>Managed service; teams manage data tiers, retention, and collection rules, and move to the Defender portal by March 31, 2027.</td></tr><tr><th scope=\"row\"><strong>Investigation approach</strong></th><td>Historical evidence, entity context, and AI-led investigations.</td><td>Incident investigation, UEBA, and playbook automation, with AI through Security Copilot; 5 concurrent queries per user.</td></tr><tr><th scope=\"row\"><strong>Detection-rule execution</strong></th><td>Continuous, stateful evaluation through Signal Mesh; a separate engine handles investigative queries.</td><td>Scheduled KQL rules every 5 minutes to 14 days; near-real-time rules limited to 50; data lake excluded from analytics rules.</td></tr><tr><th scope=\"row\"><strong>Pricing model</strong></th><td>Daily-ingestion pricing plus <strong>$0.01 per query</strong>, with multi-year retention included.</td><td>Per-GB analytics-tier ingestion, plus retention charges and per-GB data lake scans.</td></tr><tr><th scope=\"row\"><strong>Monthly pricing at 1 TB/day ingestion</strong></th><td><strong>Base ingestion: $16,667/mo</strong></td><td><strong>$159,675/mo</strong> (est., 1-year retention)</td></tr></tbody></table></div></section>"
+  },
+  "rover-vs-splunk": {
+    "slug": "rover-vs-splunk",
+    "pageSlug": "splunk",
+    "resourceId": "rover-vs-splunk",
+    "title": "Rover vs. Splunk Enterprise Security",
+    "competitor": "Splunk Enterprise Security",
+    "navLabel": "Splunk",
+    "description": "Compare Rover and Splunk Enterprise Security across historical investigations, onboarding, detections, AI workflows, and pricing.",
+    "pagePath": "/resources/comparisons/splunk/",
+    "canonical": "https://roverhq.ai/resources/comparisons/splunk/",
+    "pdfFile": "Rover-vs-Splunk-Battlecard.pdf",
+    "pdfFolder": "splunk",
+    "pdfKey": "comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf",
+    "pdfUrl": "s3://rover-private-resources-613025568726-ap-south-1/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf",
+    "downloadUrl": "https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf",
+    "imageAlt": "Rover and Splunk Enterprise Security comparison.",
+    "images": {
+      "dark": "/assets/comparisons/splunk/rover-vs-splunk-page-dark.png?v=e2a3ea38",
+      "light": "/assets/comparisons/splunk/rover-vs-splunk-page.png?v=e4b00b79",
+      "og": "/assets/comparisons/splunk/rover-vs-splunk-og.jpg?v=abbdc30f"
+    },
+    "toc": [
+      {
+        "id": "historical-investigations",
+        "label": "Investigate further back—without restoring archived logs."
+      },
+      {
+        "id": "onboarding",
+        "label": "Get started in hours. Simplify ongoing operations."
+      },
+      {
+        "id": "investigation-context",
+        "label": "Give every investigation more context."
+      },
+      {
+        "id": "detection-rules",
+        "label": "Detection rules: focus on coverage, not just rule count."
+      },
+      {
+        "id": "pricing",
+        "label": "Understand the annual cost of visibility."
+      },
+      {
+        "id": "at-a-glance",
+        "label": "Rover vs. Splunk Enterprise Security: at a glance"
+      },
+      {
+        "id": "see-rover",
+        "label": "See Rover with your own security data."
+      }
+    ],
+    "introHtml": "<p class=\"takeaway\"><strong>Keep security history within reach—not just in storage.</strong></p>\n<p>Your SIEM should give your team the evidence it needs when an incident unfolds. For CISOs, that means balancing investigation depth, detection reliability, deployment effort, and the long-term cost of security visibility.</p>\n",
+    "html": "<section id=\"historical-investigations\" aria-labelledby=\"historical-investigations-heading\"><h2 id=\"historical-investigations-heading\">Investigate further back—without restoring archived logs.</h2>\n<p>With Rover, your security data and indexes stay in your own object storage. Search retained history without restoring archived logs or maintaining always-on search clusters.</p>\n<p>Splunk Enterprise Security also supports historical investigations. Splunk&#39;s Federated Search can query external data lakes without ingesting that data into Splunk, with charges based on the volume scanned. The difference lies in how historical access is delivered and priced.</p>\n<p class=\"takeaway\"><strong>Make accessible evidence—not storage duration alone—the measure of your retention strategy.</strong></p>\n</section>\n<section id=\"onboarding\" aria-labelledby=\"onboarding-heading\"><h2 id=\"onboarding-heading\">Get started in hours. Simplify ongoing operations.</h2>\n<p>Connect Rover through HTTP ingestion or data already in your object storage. Get started in hours, with schema-on-read to reduce upfront data-modeling work and no persistent search clusters to provision. Timing depends on data readiness, access approvals, and integration scope. Initial setup does not represent a full enterprise migration.</p>\n<p>Splunk ES requires deployment planning, configuration, and experienced administration. Splunk Cloud provides a managed platform, while self-managed deployments add infrastructure responsibilities. Implementation scope depends on your existing environment and deployment model.</p>\n<p>Evaluate onboarding by the time it takes to establish usable security coverage—not simply ingest the first log.</p>\n</section>\n<section id=\"investigation-context\" aria-labelledby=\"investigation-context-heading\"><h2 id=\"investigation-context-heading\">Give every investigation more context.</h2>\n<p>Rover connects historical search, entity relationships, and AI-led investigation to build evidence-backed cases. Help your team trace related activity, reconstruct attack timelines, and understand what happened before an alert.</p>\n<p>Splunk ES combines risk-based alerting with investigation workflows and AI assistance. Its Premier edition adds response automation, user and entity behavior analytics, and automated threat analysis. Capabilities vary by edition and availability.</p>\n<p>Compare investigation quality, analyst effort, and the response workflows your SOC needs—not simply the presence of AI.</p>\n</section>\n<section id=\"detection-rules\" aria-labelledby=\"detection-rules-heading\"><h2 id=\"detection-rules-heading\">Detection rules: focus on coverage, not just rule count.</h2>\n<p>Your detection strategy should be driven by risk. The question is not simply how many rules you can enable, but how reliably they run as coverage grows.</p>\n<p>Our <strong>Signal Mesh</strong> engine continuously updates detection state as telemetry arrives. A separate, on-demand query engine handles historical investigations, giving continuous detection and investigative search distinct execution paths.</p>\n<p>In Splunk ES, scheduled correlation searches operate within configured search-concurrency limits. When demand exceeds available capacity, executions can be delayed or skipped, depending on scheduling configuration. Maintaining timely detection requires attention to query efficiency, scheduling, and infrastructure capacity.</p>\n<p class=\"takeaway\"><strong>Evaluate detection reliability under load—not just the number of enabled rules.</strong></p>\n</section>\n<section id=\"pricing\" aria-labelledby=\"pricing-heading\"><h2 id=\"pricing-heading\">Understand the annual cost of visibility.</h2>\n<p>Our pricing is based on daily ingestion volume, includes multi-year retention, and adds <strong>$0.01 per query</strong>.</p>\n<p>Splunk ES pricing is quote-based, with ingest, workload, and activity-based options depending on the offering and deployment.</p>\n<p>For a <strong>1 TB/day deployment</strong>, compare annual costs using the same retention period and investigation workload. Include applicable storage, implementation, support, and administration costs—not just the subscription.</p>\n</section>\n<section id=\"at-a-glance\" aria-labelledby=\"at-a-glance-heading\"><h2 id=\"at-a-glance-heading\">Rover vs. Splunk Enterprise Security: at a glance</h2>\n<div class=\"comparison-table-region\" role=\"region\" aria-label=\"Comparison table\" tabindex=\"0\"><table><caption class=\"sr-only\">Rover vs. Splunk Enterprise Security: at a glance</caption><thead><tr><th scope=\"col\">Evaluation area</th><th scope=\"col\">Rover</th><th scope=\"col\">Splunk Enterprise Security</th></tr></thead><tbody><tr><th scope=\"row\">Data architecture</th><td>Data and indexes in your object storage, with serverless queries.</td><td>Built on the Splunk platform, with managed cloud and self-managed deployment options.</td></tr><tr><th scope=\"row\">Historical investigations</th><td>Search retained history without archive restoration.</td><td>Historical search, plus federated access to external data lakes priced by data scanned.</td></tr><tr><th scope=\"row\">Onboarding time</th><td>Initial setup in hours, depending on onboarding scope.</td><td>Deployment-specific; requires planning, configuration, and experienced administration.</td></tr><tr><th scope=\"row\">Operational complexity</th><td>No persistent search clusters; reduced upfront schema work.</td><td>Managed cloud or self-managed infrastructure; administration responsibilities vary by deployment.</td></tr><tr><th scope=\"row\">Investigation approach</th><td>Historical evidence, entity context, and AI-led investigations.</td><td>Risk-based alerting and AI-assisted investigations; Premier adds response automation and behavioral analytics.</td></tr><tr><th scope=\"row\">Detection-rule execution</th><td>Continuous, stateful evaluation through Signal Mesh; a separate engine handles investigative queries.</td><td>Scheduled correlation searches depend on concurrency limits, scheduling configuration, and available resources.</td></tr><tr><th scope=\"row\">Pricing model</th><td>Daily-ingestion pricing plus <strong>$0.01 per query</strong>, with multi-year retention included.</td><td>Quote-based, with pricing options that vary by offering and deployment.</td></tr><tr><th scope=\"row\">Annual pricing at 1 TB/day ingestion</th><td><strong>Stays flat at $16,667/mo</strong></td><td><strong>$130,000/mo</strong></td></tr></tbody></table></div></section>\n<section id=\"see-rover\" aria-labelledby=\"see-rover-heading\"><h2 id=\"see-rover-heading\">See Rover with your own security data.</h2>\n<p>Bring a high-volume data source and a historical investigation. Explore onboarding, detection workflows, evidence access, and annual pricing with our team.</p>\n</section>"
+  }
+}

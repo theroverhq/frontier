@@ -6,6 +6,10 @@ import ts from 'typescript';
 
 const objectUrl =
 	'https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf';
+const sentinelUrl = objectUrl.replace(
+	'comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf',
+	'comparisons/microsoft-sentinel/Rover-vs-Microsoft-Sentinel-Battlecard.pdf'
+);
 const source = readFileSync(
 	new URL('../src/lib/forms/google-lead-client.ts', import.meta.url),
 	'utf8'
@@ -17,13 +21,15 @@ const context = vm.createContext({
 	exports: {},
 	URL,
 	Date,
-	require: () => ({ resourceDownloads: { 'rover-vs-splunk': objectUrl } })
+	require: () => ({
+		resourceDownloads: { 'rover-vs-splunk': objectUrl, 'rover-vs-microsoft-sentinel': sentinelUrl }
+	})
 });
 vm.runInContext(compiled, context);
 const validate = context.exports.allowedDownloadUrl;
 
-function signedUrl() {
-	const url = new URL(objectUrl);
+function signedUrl(target = objectUrl) {
+	const url = new URL(target);
 	const date = new Date()
 		.toISOString()
 		.replace(/[-:]/g, '')
@@ -88,4 +94,11 @@ test('client rejects public URLs, other objects/hosts, missing signatures and ex
 	}
 	for (const url of invalid) assert.throws(() => validate(url, 'rover-vs-splunk'));
 	assert.throws(() => validate(signedUrl().href, 'unknown'));
+});
+
+test('Sentinel client accepts its own signed PDF and rejects cross-resource downloads', () => {
+	const url = signedUrl(sentinelUrl);
+	assert.equal(validate(url.href, 'rover-vs-microsoft-sentinel'), url.href);
+	assert.throws(() => validate(signedUrl().href, 'rover-vs-microsoft-sentinel'));
+	assert.throws(() => validate(url.href, 'rover-vs-splunk'));
 });

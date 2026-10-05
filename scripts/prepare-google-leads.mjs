@@ -47,7 +47,7 @@ const html = `<!doctype html>
     <li>Copy the updated backend code above. Replace <code>Code.gs</code> in your existing Google Apps Script project, then save.</li>
     <li>Choose <strong>Deploy → Manage deployments</strong>. Select your existing web app, click the <strong>pencil icon</strong>, choose <strong>Version → New version</strong>, and click <strong>Deploy</strong>.</li>
   </ol>
-  <p>Keep the same Web app URL. The script adds Job Title and Company columns automatically and preserves existing leads. This update does not require a new Sheet or another setup run. Publish the backend update before the website update.</p>
+  <p>Keep the same Web app URL. The script adds Job Title and Company columns automatically and preserves existing leads. For the generic comparison upgrade, run <code>saveLead</code> once from the editor without arguments and check the Resources rows against <code>integrations/google-leads/Resources.csv</code>. Future comparisons need only a new Resources row, not another script deployment. Existing leads, rows, and private settings are preserved. Publish the backend update before the website update.</p>
   <h2>Private S3 download settings</h2>
   <p>In <strong>Project Settings → Script Properties</strong>, add these two properties. Keep this local guide private because it contains the signer secret.</p>
   <textarea id="private-properties" aria-label="Private script properties" readonly spellcheck="false"></textarea>

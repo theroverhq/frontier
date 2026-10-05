@@ -3,27 +3,27 @@
 Deployed in Rover AWS account `613025568726`, region `ap-south-1`:
 
 - Bucket: `rover-private-resources-613025568726-ap-south-1`
-- Object: `comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf`
+- Splunk object: `comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf`
+- Sentinel object: `comparisons/microsoft-sentinel/Rover-vs-Microsoft-Sentinel-Battlecard.pdf`
 - Lambda: `rover-resource-download-signer`
 - Role: `rover-resource-download-signer-role`
 
 The bucket blocks all public access, uses bucket-owner-enforced ownership and
-AES256 encryption, and denies non-TLS requests. The Lambda role has only
-`s3:GetObject` permission for the battlecard. The function URL requires the
+AES256 encryption, and denies non-TLS requests. The Lambda role has `s3:GetObject` permission only for the private `comparisons/*` prefix. The function URL requires the
 backend's bearer secret; it has no browser CORS configuration. AWS credentials
 come from the Lambda execution role, never from frontend code or Google.
 
-Apps Script saves and flushes the lead before calling the signer. Only the
-registered resource can be signed; the response is an S3 GET link valid for
+Apps Script saves and flushes the lead before calling the signer. The authenticated backend supplies a validated PDF key from the private Resources Sheet; the response is an S3 GET link valid for
 300 seconds, with an attachment filename. Lead retries obtain a fresh link.
 
-Deploy or replace the PDF using the configured Rover AWS CLI profile:
+Upload or replace a PDF using its comparison metadata and the configured Rover AWS CLI profile:
 
 ```sh
-python3 integrations/private-downloads/deploy.py /path/to/Rover-vs-Splunk-Battlecard.pdf
+npm run upload:comparison -- rover-vs-splunk /path/to/Rover-vs-Splunk-Battlecard.pdf
 ```
 
-The script preserves the existing signer secret on redeployment. It writes
+For signer code updates, run `python3 integrations/private-downloads/deploy.py --signer-only`.
+The deployment script preserves the existing signer secret on redeployment. It writes
 Google Script Properties to `/tmp/rover-download-script-properties.json` with
 owner-only permissions. Do not commit this file. Run `npm run setup:google-leads`
 to generate the private local guide for the Google deployment step. See
@@ -53,3 +53,12 @@ npm run build
 
 GitHub Pages remains the website host. Remove the public PDF from the deployed
 site by publishing the updated build after updating Google Apps Script.
+
+## Generic signer
+
+The one-time generic deployment (`python3 integrations/private-downloads/deploy.py --signer-only`)
+grants read access to `comparisons/*` in the private bucket and accepts a validated
+`pdfKey` from the authenticated Google backend. New comparisons then need only a
+private PDF upload and a Resources Sheet row; use `npm run upload:comparison`.
+The packaged resource manifest serves older ID-only requests during migration.
+See [the shared workflow](../../docs/comparisons.md).
