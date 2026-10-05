@@ -22,6 +22,9 @@ function fixture() {
 		properties: new Map(),
 		signerCalls: [],
 		signerFailure: false,
+		signerStatus: 200,
+		signerException: null,
+		signerBody: null,
 		spreadsheets: new Map(),
 		triggers: [],
 		writes: [],
@@ -258,6 +261,7 @@ function fixture() {
 		},
 		UrlFetchApp: {
 			fetch(endpoint, options) {
+				if (state.signerException) throw state.signerException;
 				assert.equal(state.locked, false, 'signing happens outside the storage lock');
 				const sheet = state.spreadsheets.values().next().value.getSheetByName('Leads');
 				assert.ok(sheet.rows.length > 1, 'signing must follow a persisted lead');
@@ -265,8 +269,8 @@ function fixture() {
 				assert.equal(options.followRedirects, false);
 				state.signerCalls.push(JSON.parse(options.payload));
 				return {
-					getResponseCode: () => (state.signerFailure ? 503 : 200),
-					getContentText: () => JSON.stringify({ downloadUrl: pdfUrl })
+					getResponseCode: () => (state.signerFailure ? 503 : state.signerStatus),
+					getContentText: () => state.signerBody ?? JSON.stringify({ downloadUrl: pdfUrl })
 				};
 			}
 		},
@@ -1172,4 +1176,56 @@ test('default notifications CC suyog without requiring another setup run', () =>
 	assert.equal(f.save(lead()).ok, true);
 	assert.equal(f.state.mails[0].to, 'owner@roverhq.ai');
 	assert.equal(f.state.mails[0].cc, 'suyog@roverhq.ai');
+});
+
+test('download diagnostics identify configuration errors without disclosing secrets', () => {
+	const f = fixture();
+	f.setup();
+	f.state.properties.set(
+		'ROVER_DOWNLOAD_SIGNER_URL',
+		'"https://example.lambda-url.ap-south-1.on.aws/"'
+	);
+	assert.equal(f.save(lead()).ok, false);
+	const diagnostic = f.state.logs.find((value) => value.startsWith('ROVER_PDF_DIAGNOSTIC'));
+	assert.match(diagnostic, /"code":"configuration"/);
+	assert.match(diagnostic, /"endpointValid":false/);
+	assert.match(diagnostic, /"secretPresent":true/);
+	assert.doesNotMatch(diagnostic, /test-backend-secret|example.lambda/);
+});
+
+test('download diagnostics report HTTP failures and authorization without raw response data', () => {
+	for (const status of [403, 429, 500]) {
+		const f = fixture();
+		f.setup();
+		f.state.signerStatus = status;
+		assert.equal(f.save(lead()).ok, false);
+		assert.ok(
+			f.state.logs.some(
+				(value) => value.includes('"code":"signer_http"') && value.includes('"status":' + status)
+			)
+		);
+	}
+	const f = fixture();
+	f.setup();
+	f.state.signerException = new Error('Permission denied: sensitive test-backend-secret');
+	assert.equal(f.save(lead()).ok, false);
+	const diagnostic = f.state.logs.find((value) => value.startsWith('ROVER_PDF_DIAGNOSTIC'));
+	assert.match(diagnostic, /"reason":"authorization"/);
+	assert.doesNotMatch(diagnostic, /sensitive|test-backend-secret/);
+});
+
+test('download diagnostics distinguish malformed signer responses', () => {
+	for (const [body, code] of [
+		['invalid', 'invalid_json'],
+		['null', 'unexpected_url'],
+		['{"downloadUrl":"https://evil.invalid/private-token"}', 'unexpected_url']
+	]) {
+		const f = fixture();
+		f.setup();
+		f.state.signerBody = body;
+		assert.equal(f.save(lead()).ok, false);
+		const diagnostic = f.state.logs.find((value) => value.startsWith('ROVER_PDF_DIAGNOSTIC'));
+		assert.ok(diagnostic.includes('"code":"' + code + '"'));
+		assert.doesNotMatch(diagnostic, /private-token|evil.invalid/);
+	}
 });

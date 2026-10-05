@@ -105,23 +105,7 @@
 				{/each}
 			</div>
 
-			<div
-				class="mt-[38px] transition-all duration-700"
-				style="opacity: {tailIn ? 1 : 0}; transform: translateY({tailIn
-					? 0
-					: 20}px); transition-delay: 120ms;"
-			>
-				<div class=" text-[13px] font-semibold tracking-[0.05em]">A good fit if you:</div>
-				<div class="mt-4 flex flex-wrap justify-center gap-3">
-					{#each fit as item (item)}
-						<span
-							class="border-border bg-card hover:border-primary/40 rounded-lg border px-4 py-[9px] text-[12.5px] font-semibold transition-all duration-300 hover:-translate-y-0.5"
-						>
-							{item}
-						</span>
-					{/each}
-				</div>
-			</div>
+			
 		</div>
 	</div>
 </section>

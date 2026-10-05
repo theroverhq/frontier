@@ -426,31 +426,62 @@ function saveLead(input) {
 /** Called only after a confirmed save; the shared secret never reaches the browser. */
 function signedResourceDownload_(resourceId) {
 	const properties = PropertiesService.getScriptProperties();
-	const endpoint = properties.getProperty('ROVER_DOWNLOAD_SIGNER_URL') || '';
-	const secret = properties.getProperty('ROVER_DOWNLOAD_SIGNER_SECRET') || '';
-	if (!/^https:\/\/[a-z0-9]+\.lambda-url\.ap-south-1\.on\.aws\/$/.test(endpoint) || !secret) {
-		throw new Error('Private downloads are not configured.');
+	const endpoint = (properties.getProperty('ROVER_DOWNLOAD_SIGNER_URL') || '').trim();
+	const secret = (properties.getProperty('ROVER_DOWNLOAD_SIGNER_SECRET') || '').trim();
+	const endpointValid = /^https:\/\/[a-z0-9]+\.lambda-url\.ap-south-1\.on\.aws\/$/.test(endpoint);
+	if (!endpointValid || !secret) {
+		throw downloadDiagnostic_('configuration', {
+			endpointValid: endpointValid,
+			secretPresent: Boolean(secret)
+		});
 	}
-	const response = UrlFetchApp.fetch(endpoint, {
-		method: 'post',
-		contentType: 'application/json',
-		headers: { Authorization: 'Bearer ' + secret },
-		payload: JSON.stringify({ resourceId: resourceId }),
-		muteHttpExceptions: true,
-		followRedirects: false
-	});
-	if (response.getResponseCode() !== 200) throw new Error('Download signer failed.');
-	const result = JSON.parse(response.getContentText());
+	let response;
+	try {
+		response = UrlFetchApp.fetch(endpoint, {
+			method: 'post',
+			contentType: 'application/json',
+			headers: { Authorization: 'Bearer ' + secret },
+			payload: JSON.stringify({ resourceId: resourceId }),
+			muteHttpExceptions: true,
+			followRedirects: false
+		});
+	} catch (error) {
+		// Classify locally; never log Google's raw error, request headers, or body.
+		const message = String((error && error.message) || '');
+		const reason = /permission|authorization|authorisation|scope/i.test(message)
+			? 'authorization'
+			: /timed? ?out|timeout/i.test(message)
+				? 'timeout'
+				: /dns|resolve|address unavailable/i.test(message)
+					? 'network'
+					: 'unknown';
+		throw downloadDiagnostic_('fetch_failed', { reason: reason });
+	}
+	const status = response.getResponseCode();
+	if (status !== 200) throw downloadDiagnostic_('signer_http', { status: status });
+	let result;
+	try {
+		result = JSON.parse(response.getContentText());
+	} catch (error) {
+		throw downloadDiagnostic_('invalid_json', {});
+	}
 	const prefix =
 		'https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf?';
 	if (
 		resourceId !== 'rover-vs-splunk' ||
+		!result ||
 		typeof result.downloadUrl !== 'string' ||
 		result.downloadUrl.indexOf(prefix) !== 0
 	) {
-		throw new Error('Unexpected download URL.');
+		throw downloadDiagnostic_('unexpected_url', {});
 	}
 	return result.downloadUrl;
+}
+
+/** Fixed diagnostic codes only: no secret, endpoint, signed URL, or lead data. */
+function downloadDiagnostic_(code, details) {
+	console.log('ROVER_PDF_DIAGNOSTIC ' + JSON.stringify(Object.assign({ code: code }, details)));
+	return new Error('PDF preparation failed: ' + code);
 }
 
 /** Private time-trigger handler; retries pending notifications in small batches. */

@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { onDestroy, onMount, tick } from 'svelte';
 	import { Download, FileText, LoaderCircle } from '@lucide/svelte';
+	import CountryCodePicker from '$lib/components/CountryCodePicker.svelte';
+	import { internationalPhone, nationalPhone, pastedPhoneCountry } from '$lib/forms/phone-number';
+	import type { CountryCode } from 'libphonenumber-js';
 	import { leadCaptureEndpoint } from '$lib/config/lead-capture';
 	import { createResourceLeadClient } from '$lib/forms/google-lead-client';
 
@@ -27,6 +30,7 @@
 	let jobTitle = $state('');
 	let company = $state('');
 	let phone = $state('');
+	let phoneCountry = $state<CountryCode>('US');
 	let pageUrl = $state('');
 	let website = $state('');
 	let phase = $state<Phase>('idle');
@@ -59,12 +63,23 @@
 		event.preventDefault();
 		if (!configured || !mounted || phase === 'submitting') return;
 
+		const formattedPhone = internationalPhone(phone, phoneCountry);
+		if (!formattedPhone) {
+			fieldErrors = {
+				...fieldErrors,
+				phone: 'Enter a valid phone number for the selected country.'
+			};
+			await tick();
+			document.getElementById(`${fieldPrefix}-phone`)?.focus();
+			return;
+		}
+
 		const values = {
 			name: name.trim(),
 			email: email.trim().toLowerCase(),
 			jobTitle: jobTitle.trim(),
 			company: company.trim(),
-			phone: phone.trim(),
+			phone: formattedPhone,
 			website,
 			resourceId,
 			pageUrl
@@ -233,25 +248,40 @@
 				<label for="{fieldPrefix}-phone" class="text-foreground mb-2 block text-sm font-medium">
 					Phone Number
 				</label>
-				<input
-					id="{fieldPrefix}-phone"
-					name="phone"
-					type="tel"
-					autocomplete="tel"
-					inputmode="tel"
-					required
-					minlength="7"
-					maxlength="32"
-					bind:value={phone}
-					oninput={() => clearFieldError('phone')}
-					disabled={phase === 'submitting'}
-					aria-invalid={Boolean(fieldErrors.phone)}
-					aria-describedby="{fieldPrefix}-phone-hint{fieldErrors.phone
-						? ` ${fieldPrefix}-phone-error`
-						: ''}"
-				/>
+				<div class="flex min-w-0 items-stretch gap-2">
+					<CountryCodePicker
+						id="{fieldPrefix}-country-code"
+						bind:value={phoneCountry}
+						disabled={phase === 'submitting'}
+						onChange={() => {
+							clearFieldError('phone');
+							phone = nationalPhone(phone);
+						}}
+					/>
+					<input
+						id="{fieldPrefix}-phone"
+						name="phone"
+						type="tel"
+						autocomplete="tel-national"
+						inputmode="tel"
+						required
+						maxlength="40"
+						bind:value={phone}
+						oninput={() => {
+							clearFieldError('phone');
+							const pastedCountry = pastedPhoneCountry(phone);
+							if (pastedCountry) phoneCountry = pastedCountry;
+						}}
+						class="min-w-0 flex-1"
+						disabled={phase === 'submitting'}
+						aria-invalid={Boolean(fieldErrors.phone)}
+						aria-describedby="{fieldPrefix}-phone-hint{fieldErrors.phone
+							? ` ${fieldPrefix}-phone-error`
+							: ''}"
+					/>
+				</div>
 				<p id="{fieldPrefix}-phone-hint" class="mt-2 text-xs leading-relaxed text-zinc-400">
-					Include your country code.
+					Choose your country code, then enter your phone number.
 				</p>
 				{#if fieldErrors.phone}
 					<p id="{fieldPrefix}-phone-error" class="field-error">{fieldErrors.phone}</p>
