@@ -9,7 +9,7 @@ const source = readFileSync(
 	'utf8'
 );
 const pdfUrl =
-	'https://roverhq.ai/assets/comparisons/splunk/rover-vs-splunk-full-comparison-guide.pdf';
+	'https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf?X-Amz-Signature=test';
 const pageUrl = 'https://roverhq.ai/resources/comparison/splunk/';
 const plain = (value) => JSON.parse(JSON.stringify(value));
 
@@ -20,6 +20,8 @@ function fixture() {
 		activeEmail: '',
 		logs: [],
 		properties: new Map(),
+		signerCalls: [],
+		signerFailure: false,
 		spreadsheets: new Map(),
 		triggers: [],
 		writes: [],
@@ -254,6 +256,20 @@ function fixture() {
 					byte > 127 ? byte - 256 : byte
 				)
 		},
+		UrlFetchApp: {
+			fetch(endpoint, options) {
+				assert.equal(state.locked, false, 'signing happens outside the storage lock');
+				const sheet = state.spreadsheets.values().next().value.getSheetByName('Leads');
+				assert.ok(sheet.rows.length > 1, 'signing must follow a persisted lead');
+				assert.equal(options.headers.Authorization, 'Bearer test-backend-secret');
+				assert.equal(options.followRedirects, false);
+				state.signerCalls.push(JSON.parse(options.payload));
+				return {
+					getResponseCode: () => (state.signerFailure ? 503 : 200),
+					getContentText: () => JSON.stringify({ downloadUrl: pdfUrl })
+				};
+			}
+		},
 		HtmlService: {
 			XFrameOptionsMode: { ALLOWALL: 'ALLOWALL' },
 			createHtmlOutput: (html) => ({
@@ -269,7 +285,15 @@ function fixture() {
 	return {
 		state,
 		context,
-		setup: () => plain(context.setupLeadCapture_()),
+		setup: () => {
+			const result = plain(context.setupLeadCapture_());
+			state.properties.set(
+				'ROVER_DOWNLOAD_SIGNER_URL',
+				'https://example.lambda-url.ap-south-1.on.aws/'
+			);
+			state.properties.set('ROVER_DOWNLOAD_SIGNER_SECRET', 'test-backend-secret');
+			return result;
+		},
 		save: (input) => plain(context.saveLead(input)),
 		retry: () => context.retryLeadNotifications_(),
 		leads: () => state.spreadsheets.values().next().value.getSheetByName('Leads'),
@@ -397,7 +421,10 @@ test('setup creates one private spreadsheet, owner notifications, and one retry 
 	assert.equal(f.state.triggers[0].minutes, 5);
 	assert.equal(f.leads().frozenRows, 1);
 	assert.equal(f.resources().rows.length, 2);
-	assert.equal(f.resources().rows[1][2], pdfUrl);
+	assert.equal(
+		f.resources().rows[1][2],
+		's3://rover-private-resources-613025568726-ap-south-1/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf'
+	);
 	const input = lead();
 	assert.equal(f.save(input).ok, true);
 	assert.deepEqual(f.setup(), first);
@@ -1018,7 +1045,7 @@ test('bridge accepts only the configured top window and correlates result to req
 		setTimeout() {}
 	});
 	assert.equal(sent[0].message.type, 'ready');
-	assert.equal(sent[0].message.formVersion, 2);
+	assert.equal(sent[0].message.formVersion, 3);
 	assert.equal(sent[0].message.channel, channel);
 	assert.equal(sent[0].origin, 'https://roverhq.ai');
 	const input = lead();
@@ -1048,14 +1075,101 @@ test('bridge accepts only the configured top window and correlates result to req
 	assert.equal(calls.length, 1, 'busy bridge must not start another server call');
 	success({ ok: true, downloadUrl: pdfUrl });
 	assert.equal(sent.at(-1).message.type, 'result');
-	assert.equal(sent.at(-1).message.formVersion, 2);
+	assert.equal(sent.at(-1).message.formVersion, 3);
 	assert.equal(sent.at(-1).message.requestId, input.requestId);
 	assert.equal(sent.at(-1).message.result.downloadUrl, pdfUrl);
 	assert.equal(sent.at(-1).origin, 'https://roverhq.ai');
 	receive({ source: top, origin: 'https://roverhq.ai', data });
 	failure(new Error('Sensitive internal error'));
 	assert.equal(sent.at(-1).message.type, 'failure');
-	assert.equal(sent.at(-1).message.formVersion, 2);
+	assert.equal(sent.at(-1).message.formVersion, 3);
 	assert.equal(sent.at(-1).message.requestId, input.requestId);
 	assert.doesNotMatch(JSON.stringify(sent.at(-1)), /Sensitive internal error/);
+});
+
+test('signer failure preserves the lead and retry signs without saving a second row', () => {
+	const f = fixture();
+	f.setup();
+	f.state.signerFailure = true;
+	const input = lead();
+	const result = f.save(input);
+	assert.equal(result.ok, false);
+	assert.match(result.error, /details were saved/);
+	assert.equal(result.downloadUrl, undefined);
+	assert.equal(f.leads().rows.length, 2);
+	f.state.signerFailure = false;
+	assert.deepEqual(f.save(input), { ok: true, downloadUrl: pdfUrl, duplicate: true });
+	assert.equal(f.leads().rows.length, 2);
+	assert.equal(f.state.signerCalls.length, 2);
+});
+
+test('rejected submissions never call the S3 signer', () => {
+	const f = fixture();
+	f.setup();
+	assert.equal(f.save(lead({ email: 'user@gmail.com' })).ok, false);
+	f.state.leadWriteFailure = true;
+	assert.equal(f.save(lead()).ok, false);
+	assert.equal(f.state.signerCalls.length, 0);
+});
+
+test('legacy Splunk registry resolves to private S3 without returning the public PDF URL', () => {
+	const f = fixture();
+	f.setup();
+	f.resources().rows[1][2] =
+		'https://roverhq.ai/assets/comparisons/splunk/rover-vs-splunk-full-comparison-guide.pdf';
+	assert.equal(f.save(lead()).downloadUrl, pdfUrl);
+});
+
+test('CC recipients are normalized and deduplicated without changing the primary recipient', () => {
+	const f = fixture();
+	f.setup();
+	f.state.properties.set(
+		'ROVER_NOTIFICATION_CC_EMAILS',
+		'Team@roverhq.ai,team@roverhq.ai,owner@roverhq.ai'
+	);
+	assert.equal(f.save(lead()).ok, true);
+	assert.equal(f.state.mails[0].to, 'owner@roverhq.ai');
+	assert.equal(f.state.mails[0].cc, 'team@roverhq.ai');
+	f.setup();
+	assert.equal(
+		f.state.properties.get('ROVER_NOTIFICATION_CC_EMAILS'),
+		'Team@roverhq.ai,team@roverhq.ai,owner@roverhq.ai'
+	);
+});
+
+test('CC recipients count toward quota and pending notifications retry with CC', () => {
+	const f = fixture();
+	f.setup();
+	f.state.properties.set('ROVER_NOTIFICATION_CC_EMAILS', 'team@roverhq.ai');
+	f.state.quota = 1;
+	assert.equal(f.save(lead()).ok, true);
+	assert.equal(f.state.mails.length, 0);
+	assert.equal(f.leads().rows[1][9], 'pending');
+	f.state.quota = 2;
+	f.state.now += 31 * 60 * 1000;
+	f.retry();
+	assert.equal(f.state.mails.length, 1);
+	assert.equal(f.state.mails[0].cc, 'team@roverhq.ai');
+	assert.equal(f.leads().rows[1][9], 'sent');
+});
+
+test('blank CC disables the default and malformed CC never sends mail', () => {
+	const f = fixture();
+	f.setup();
+	f.state.properties.set('ROVER_NOTIFICATION_CC_EMAILS', '');
+	assert.equal(f.save(lead()).ok, true);
+	assert.equal(f.state.mails[0].cc, undefined);
+	f.state.properties.set('ROVER_NOTIFICATION_CC_EMAILS', 'invalid-address');
+	assert.equal(f.save(lead()).ok, true);
+	assert.equal(f.state.mails.length, 1);
+	assert.equal(f.leads().rows[2][9], 'pending');
+});
+
+test('default notifications CC suyog without requiring another setup run', () => {
+	const f = fixture();
+	f.setup();
+	assert.equal(f.state.properties.has('ROVER_NOTIFICATION_CC_EMAILS'), false);
+	assert.equal(f.save(lead()).ok, true);
+	assert.equal(f.state.mails[0].to, 'owner@roverhq.ai');
+	assert.equal(f.state.mails[0].cc, 'suyog@roverhq.ai');
 });

@@ -11,14 +11,17 @@
 
 // Optional: comma-separated sales inboxes. Empty defaults to the script owner.
 const ROVER_NOTIFICATION_EMAILS = '';
+// Optional CC inboxes; Script Properties can override this default (blank disables CC).
+const ROVER_NOTIFICATION_CC_EMAILS = 'suyog@roverhq.ai';
 
 const ROVER_LEAD_SETTINGS_ = Object.freeze({
 	spreadsheetProperty: 'ROVER_LEAD_SPREADSHEET_ID',
 	notificationProperty: 'ROVER_NOTIFICATION_EMAILS',
+	notificationCcProperty: 'ROVER_NOTIFICATION_CC_EMAILS',
 	leadsSheetName: 'Leads',
 	resourcesSheetName: 'Resources',
 	namespace: 'rover-lead-capture',
-	formVersion: 2,
+	formVersion: 3,
 	notificationBatchSize: 20,
 	notificationLeaseMs: 15 * 60 * 1000,
 	notificationRetryMs: 30 * 60 * 1000
@@ -50,7 +53,8 @@ const ROVER_RESOURCE_HEADERS_ = Object.freeze(['resourceId', 'title', 'pdfUrl', 
 const ROVER_INITIAL_RESOURCE_ = Object.freeze({
 	resourceId: 'rover-vs-splunk',
 	title: 'Rover vs Splunk Enterprise Security',
-	pdfUrl: 'https://roverhq.ai/assets/comparisons/splunk/rover-vs-splunk-full-comparison-guide.pdf',
+	pdfUrl:
+		's3://rover-private-resources-613025568726-ap-south-1/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf',
 	pageUrl: 'https://roverhq.ai/resources/comparison/splunk/'
 });
 
@@ -352,7 +356,7 @@ function saveLead(input) {
 				}
 				return {
 					ok: true,
-					downloadUrl: resource.pdfUrl,
+					resourceId: resource.resourceId,
 					duplicate: true
 				};
 			}
@@ -385,7 +389,7 @@ function saveLead(input) {
 				lead.company
 			]);
 			SpreadsheetApp.flush();
-			return { ok: true, downloadUrl: resource.pdfUrl, duplicate: false };
+			return { ok: true, resourceId: resource.resourceId, duplicate: false };
 		});
 	} catch (error) {
 		return {
@@ -403,7 +407,50 @@ function saveLead(input) {
 			// Leave its persisted pending/sending state for the retry trigger.
 		}
 	}
-	return saved;
+	if (!saved.ok) return saved;
+	try {
+		return {
+			ok: true,
+			downloadUrl: signedResourceDownload_(saved.resourceId),
+			duplicate: saved.duplicate
+		};
+	} catch (error) {
+		return {
+			ok: false,
+			error:
+				'Your details were saved, but we could not prepare the PDF. Please submit again to retry.'
+		};
+	}
+}
+
+/** Called only after a confirmed save; the shared secret never reaches the browser. */
+function signedResourceDownload_(resourceId) {
+	const properties = PropertiesService.getScriptProperties();
+	const endpoint = properties.getProperty('ROVER_DOWNLOAD_SIGNER_URL') || '';
+	const secret = properties.getProperty('ROVER_DOWNLOAD_SIGNER_SECRET') || '';
+	if (!/^https:\/\/[a-z0-9]+\.lambda-url\.ap-south-1\.on\.aws\/$/.test(endpoint) || !secret) {
+		throw new Error('Private downloads are not configured.');
+	}
+	const response = UrlFetchApp.fetch(endpoint, {
+		method: 'post',
+		contentType: 'application/json',
+		headers: { Authorization: 'Bearer ' + secret },
+		payload: JSON.stringify({ resourceId: resourceId }),
+		muteHttpExceptions: true,
+		followRedirects: false
+	});
+	if (response.getResponseCode() !== 200) throw new Error('Download signer failed.');
+	const result = JSON.parse(response.getContentText());
+	const prefix =
+		'https://rover-private-resources-613025568726-ap-south-1.s3.ap-south-1.amazonaws.com/comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf?';
+	if (
+		resourceId !== 'rover-vs-splunk' ||
+		typeof result.downloadUrl !== 'string' ||
+		result.downloadUrl.indexOf(prefix) !== 0
+	) {
+		throw new Error('Unexpected download URL.');
+	}
+	return result.downloadUrl;
 }
 
 /** Private time-trigger handler; retries pending notifications in small batches. */
@@ -718,7 +765,15 @@ function approvedResource_(spreadsheet, resourceId) {
 	if (matches.length !== 1) return null;
 	const row = matches[0];
 	const title = String(row[1]).trim().replace(/\s+/g, ' ');
-	const pdfUrl = String(row[2]).trim();
+	let pdfUrl = String(row[2]).trim();
+	// Existing Sheets retain their legacy reference; resolve it to the private object.
+	if (
+		resourceId === ROVER_INITIAL_RESOURCE_.resourceId &&
+		pdfUrl ===
+			'https://roverhq.ai/assets/comparisons/splunk/rover-vs-splunk-full-comparison-guide.pdf'
+	) {
+		pdfUrl = ROVER_INITIAL_RESOURCE_.pdfUrl;
+	}
 	const pageUrl = String(row[3]).trim();
 
 	// Approved links have clean path segments and cannot point to another host,
@@ -726,7 +781,8 @@ function approvedResource_(spreadsheet, resourceId) {
 	if (
 		!title ||
 		title.length > 200 ||
-		!/^https:\/\/roverhq\.ai\/assets\/(?:[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_-]+\.pdf$/.test(pdfUrl) ||
+		resourceId !== ROVER_INITIAL_RESOURCE_.resourceId ||
+		pdfUrl !== ROVER_INITIAL_RESOURCE_.pdfUrl ||
 		!/^https:\/\/roverhq\.ai\/(?:[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_-]*\/?$/.test(pageUrl)
 	) {
 		return null;
@@ -823,7 +879,16 @@ function notifyLead_(requestId) {
 		const recipients = notificationRecipients_(
 			PropertiesService.getScriptProperties().getProperty(ROVER_LEAD_SETTINGS_.notificationProperty)
 		);
-		if (MailApp.getRemainingDailyQuota() < recipients.length) {
+		const storedCc = PropertiesService.getScriptProperties().getProperty(
+			ROVER_LEAD_SETTINGS_.notificationCcProperty
+		);
+		const configuredCc = storedCc === null ? ROVER_NOTIFICATION_CC_EMAILS : storedCc;
+		const ccRecipients = configuredCc.trim()
+			? notificationRecipients_(configuredCc).filter(function (email) {
+					return recipients.indexOf(email) === -1;
+				})
+			: [];
+		if (MailApp.getRemainingDailyQuota() < recipients.length + ccRecipients.length) {
 			sheet
 				.getRange(rowNumber, 10, 1, 5)
 				.setNumberFormat('@')
@@ -855,6 +920,7 @@ function notifyLead_(requestId) {
 			claimedAt: claimedAt,
 			attempts: attempts,
 			recipients: recipients,
+			ccRecipients: ccRecipients,
 			row: row,
 			payload: notificationPayload,
 			spreadsheetUrl: spreadsheet.getUrl()
@@ -867,6 +933,7 @@ function notifyLead_(requestId) {
 		const row = claimed.row;
 		MailApp.sendEmail({
 			to: claimed.recipients.join(','),
+			...(claimed.ccRecipients.length ? { cc: claimed.ccRecipients.join(',') } : {}),
 			subject: 'New comparison PDF lead: ' + String(row[3]),
 			body: [
 				'A visitor requested a Rover comparison PDF.',

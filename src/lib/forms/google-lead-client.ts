@@ -77,17 +77,34 @@ function belongsToIframe(
 
 function allowedDownloadUrl(value: unknown, resourceId: string) {
 	if (typeof value !== 'string') throw new Error(unavailableMessage);
-	const expectedPath = resourceDownloads[resourceId];
-	if (!expectedPath) throw new Error(unavailableMessage);
-	const url = new URL(value, window.location.origin);
-	const productionOrigin = ['https://roverhq.ai', 'https://www.roverhq.ai'].includes(url.origin);
+	const expectedUrl = resourceDownloads[resourceId];
+	if (!expectedUrl) throw new Error(unavailableMessage);
+	const expected = new URL(expectedUrl);
+	const url = new URL(value);
+	const expires = Number(url.searchParams.get('X-Amz-Expires'));
+	const date = url.searchParams.get('X-Amz-Date') || '';
+	const timestamp = /^\d{8}T\d{6}Z$/.test(date)
+		? Date.parse(
+				`${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)}T${date.slice(9, 11)}:${date.slice(11, 13)}:${date.slice(13, 15)}Z`
+			)
+		: NaN;
 	if (
-		(!productionOrigin && url.origin !== window.location.origin) ||
+		url.protocol !== 'https:' ||
+		url.origin !== expected.origin ||
+		url.pathname !== expected.pathname ||
 		url.username ||
 		url.password ||
-		url.pathname !== expectedPath ||
-		url.search ||
-		url.hash
+		url.hash ||
+		url.searchParams.get('X-Amz-Algorithm') !== 'AWS4-HMAC-SHA256' ||
+		url.searchParams.get('X-Amz-SignedHeaders') !== 'host' ||
+		!url.searchParams.get('X-Amz-Credential') ||
+		!/^([a-f0-9]{64})$/.test(url.searchParams.get('X-Amz-Signature') || '') ||
+		!Number.isInteger(expires) ||
+		expires < 1 ||
+		expires > 300 ||
+		!Number.isFinite(timestamp) ||
+		timestamp > Date.now() + 60_000 ||
+		timestamp + expires * 1000 <= Date.now()
 	) {
 		throw new Error(unavailableMessage);
 	}
@@ -181,7 +198,7 @@ export function createResourceLeadClient() {
 			if (reply.namespace !== namespace || reply.channel !== channel) return;
 			if (reply.type === 'ready' && !readySettled) {
 				if (!isGoogleBridgeOrigin(event.origin) || !belongsToIframe(event.source, iframe)) return;
-				if (reply.formVersion !== 2) {
+				if (reply.formVersion !== 3) {
 					connection.destroy();
 					if (bridge === connection) bridge = undefined;
 					return;

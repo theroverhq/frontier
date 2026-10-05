@@ -274,14 +274,14 @@
 		<button
 			type="submit"
 			class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-primary mt-7 inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-lg px-6 py-3 text-sm font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--card)] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
-			disabled={!configured || !mounted || phase === 'submitting' || phase === 'success'}
+			disabled={!configured || !mounted || phase === 'submitting'}
 		>
 			{#if phase === 'submitting'}
 				<LoaderCircle class="h-4 w-4 animate-spin motion-reduce:animate-none" aria-hidden="true" />
 				Preparing your PDF…
 			{:else}
 				<Download class="h-4 w-4" aria-hidden="true" />
-				Download comparison PDF
+				{phase === 'success' ? 'Get a new download link' : 'Download comparison PDF'}
 			{/if}
 		</button>
 
@@ -294,7 +294,7 @@
 			{/if}
 			{#if phase === 'success'}
 				<p class="mt-4 text-sm text-zinc-300">
-					Your PDF is ready.
+					Your PDF is ready. This link expires in five minutes.
 					<a
 						href={downloadUrl}
 						class="text-primary rounded underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"

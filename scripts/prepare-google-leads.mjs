@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { chmod, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -6,6 +6,15 @@ import { fileURLToPath } from 'node:url';
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 const code = await readFile(path.join(projectRoot, 'integrations/google-leads/Code.gs'), 'utf8');
 const serializedCode = JSON.stringify(code).replaceAll('<', '\\u003c');
+let privateProperties = {};
+try {
+	privateProperties = JSON.parse(
+		await readFile(path.join(tmpdir(), 'rover-download-script-properties.json'), 'utf8')
+	);
+} catch (error) {
+	if (error.code !== 'ENOENT') throw error;
+}
+const serializedProperties = JSON.stringify(privateProperties).replaceAll('<', '\\u003c');
 const outputPath = path.join(tmpdir(), 'rover-google-leads-setup.html');
 
 const html = `<!doctype html>
@@ -39,6 +48,12 @@ const html = `<!doctype html>
     <li>Choose <strong>Deploy → Manage deployments</strong>. Select your existing web app, click the <strong>pencil icon</strong>, choose <strong>Version → New version</strong>, and click <strong>Deploy</strong>.</li>
   </ol>
   <p>Keep the same Web app URL. The script adds Job Title and Company columns automatically and preserves existing leads. This update does not require a new Sheet or another setup run. Publish the backend update before the website update.</p>
+  <h2>Private S3 download settings</h2>
+  <p>In <strong>Project Settings → Script Properties</strong>, add these two properties. Keep this local guide private because it contains the signer secret.</p>
+  <textarea id="private-properties" aria-label="Private script properties" readonly spellcheck="false"></textarea>
+  <p>If OAuth scopes are set explicitly in <code>appsscript.json</code>, add <code>https://www.googleapis.com/auth/script.external_request</code>. Run <code>saveLead</code> without arguments as the owner to authorize the new scope, then deploy a new version using the same web app URL. Deploy the website after the backend update.</p>
+  <h2>Notification CC</h2>
+  <p>Lead notifications now CC <strong>suyog@roverhq.ai</strong> by default. To override this inbox, add <code>ROVER_NOTIFICATION_CC_EMAILS</code> in Script Properties with its email address. The primary recipient remains in To. Deploy the updated code once to enable CC; later address changes need no redeployment.</p>
   <h2>2. Run the one-time setup</h2>
   <p>In the editor's function dropdown, select <code>saveLead</code>, click <strong>Run</strong>, and authorize the requested permissions. Running this from the editor without form data creates the private Sheet and notification retry trigger, only for the signed-in script owner. The execution log shows the Sheet link. You can run setup again without losing data.</p>
   <h2>3. Deploy and share the URL</h2>
@@ -50,6 +65,7 @@ const html = `<!doctype html>
   <p>Codex can then connect the endpoint and verify the form. Keep the Sheet private; visitors only interact with the script. No Google password or private API key needs to be shared.</p>
   <script>
     const backendCode = ${serializedCode};
+    document.getElementById('private-properties').value = JSON.stringify(${serializedProperties}, null, 2);
     const textArea = document.getElementById('backend-code');
     textArea.value = backendCode;
     document.getElementById('copy-code').addEventListener('click', async () => {
@@ -76,4 +92,5 @@ const html = `<!doctype html>
 </html>`;
 
 await writeFile(outputPath, html, { mode: 0o600 });
+await chmod(outputPath, 0o600);
 console.log(`Open this local setup guide in your browser: ${outputPath}`);

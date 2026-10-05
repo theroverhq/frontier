@@ -56,7 +56,7 @@ save or notification retry. It preserves existing headers, lead values, request
 IDs, and notification state. Existing leads have blank values for the new fields.
 Unrecognized or altered schemas are rejected without overwriting their contents.
 
-The website requires the updated backend's form version before sending any lead,
+The website requires the updated backend's form version 3 before sending any lead,
 so an older deployment cannot silently discard the new fields. Publish the new
 backend version before publishing the updated website.
 
@@ -90,7 +90,17 @@ source page, and a link
 to the Sheet. By default they go to the script's Workspace owner. To notify more
 people, update the `ROVER_NOTIFICATION_EMAILS` Script Property with a comma-separated
 list under **Project Settings → Script Properties**. This does not require a new
-deployment. Google counts every recipient against the sending account's daily
+deployment.
+
+Lead notifications default to CC **suyog@roverhq.ai**. To override this recipient, set the **`ROVER_NOTIFICATION_CC_EMAILS`** Script Property
+to their email address. Multiple addresses can be comma-separated. The primary
+`ROVER_NOTIFICATION_EMAILS` recipient stays in To. An explicitly blank CC setting
+sends no CC; duplicate addresses and addresses already in To are removed. Setup
+preserves this property. Deploy the updated `Code.gs` once to enable CC support;
+subsequent CC address changes need no redeployment.
+[MailApp CC documentation](<https://developers.google.com/apps-script/reference/mail/mail-app#sendEmail(Object)>)
+
+Google counts every To and CC recipient against the sending account's daily
 quota, shared with its other scripts.
 [Google email quotas](https://developers.google.com/apps-script/guides/services/quotas)
 
@@ -99,17 +109,40 @@ function checks pending notifications, including when a quota becomes available
 again. The notification status and latest error are visible in the Sheet. A
 successful send means Google accepted the email; inbox delivery may take longer.
 
-## Adding more resource pages
+## Private PDF downloads on S3
 
-1. Add a row to the private **Resources** tab with its `resourceId`, title, PDF URL,
-   and page URL. Use approved `https://roverhq.ai` URLs. PDF files live beneath
-   `/assets/` and end in `.pdf`. This registry change needs no backend redeployment.
-2. Add its exact PDF path to `resourceDownloads` in
-   `src/lib/config/lead-capture.ts`, copy the PDF into `static/assets/`, and render
-   `<ResourceDownloadForm resourceId="the-resource-id" />` on the page.
+The Splunk battlecard is stored in the private bucket
+`rover-private-resources-613025568726-ap-south-1`, at
+`comparisons/splunk/Rover-vs-Splunk-Battlecard.pdf`. Public access is blocked.
+The website contains no PDF. A dedicated Lambda role can read only this object.
 
-The supplied Splunk comparison is already registered as **rover-vs-splunk** and
-uses the supplied seven-page comparison guide.
+After saving a lead, Apps Script calls the Lambda signer with a server-only
+shared secret. Lambda returns a five-minute S3 GET link. A retry issues a fresh
+link while preserving the existing lead and notification state. The link can
+be used by anyone who receives it until it expires; downloaded copies can be shared.
+
+To activate this flow in the existing Google project:
+
+1. Replace `Code.gs` with the updated code in this directory.
+2. Open **Project Settings → Script Properties** and add
+   `ROVER_DOWNLOAD_SIGNER_URL` and `ROVER_DOWNLOAD_SIGNER_SECRET` from the local
+   `/tmp/rover-download-script-properties.json` file. Keep this file private;
+   never commit it or put its contents in frontend configuration.
+3. If the project specifies OAuth scopes explicitly, add
+   `https://www.googleapis.com/auth/script.external_request` (see `appsscript.json`).
+   Run `saveLead` without arguments as the owner to authorize the new scope.
+4. Choose **Deploy → Manage deployments → Edit → New version → Deploy**.
+   Keep the existing `/exec` URL. Deploy the website only after this update.
+
+Existing Resources rows containing the old exact Splunk PDF URL automatically
+resolve to the private S3 object. New setup uses an `s3://` object reference.
+Neither reference is returned to visitors; only a fresh signed link is returned.
+An old backend fails the website's version 3 handshake before sending any lead.
+
+AWS deployment and verification scripts live in `integrations/private-downloads`.
+To add another resource, extend the exact resource mapping in the Lambda handler,
+its IAM read permission, the Apps Script registry/allowlist, and the frontend
+`resourceDownloads` allowlist. Upload its PDF privately, never into `static/`.
 
 ## Validation and transport
 
@@ -122,8 +155,8 @@ New version → Deploy** while keeping the same `/exec` URL.
 
 The website uses a hidden Apps Script HTML bridge and waits for a readable
 confirmed-save response. The bridge checks the page origin and a per-form random
-channel. The client checks the iframe sender, requires form version 2, and approves only the registered
-PDF URL. It does not treat completion of an opaque `no-cors` request as success.
+channel. The client checks the iframe sender, requires form version 3, and approves only the registered
+S3 object URL with a valid five-minute signature structure. It does not treat completion of an opaque `no-cors` request as success.
 [Google HTML communication](https://developers.google.com/apps-script/guides/html/communication)
 
 Retries use the same request ID for unchanged form values and source URL; the backend compares
@@ -131,6 +164,6 @@ the saved payload and deduplicates under a script lock. Text values are protecte
 from spreadsheet formula interpretation. Only `doGet` and `saveLead` are public
 functions; setup and maintenance helpers end in `_`.
 
-The PDF is a public GitHub Pages asset and can be accessed directly if its URL is
-shared. This form collects leads before the normal download flow; it is not
-private file storage.
+Remove any previously published public PDF from GitHub Pages by deploying the
+updated website. If a PDF was committed to a public repository, deletion does
+not erase Git history; previously obtained copies cannot be revoked.

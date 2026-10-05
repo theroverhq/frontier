@@ -7,10 +7,10 @@
 	const description =
 		'Compare Rover and Splunk Enterprise Security across historical investigations, onboarding, detections, AI workflows, and pricing.';
 	const canonical = 'https://roverhq.ai/resources/comparison/splunk/';
-	const pageImage = '/assets/comparisons/splunk/rover-vs-splunk-page-dark.png?v=2efbd214';
+	const pageImage = '/assets/comparisons/splunk/rover-vs-splunk-page-dark.png?v=e2a3ea38';
 	const pageImageAlt =
 		'Rover and Splunk logos connected by a dotted line on a dark background with a green glow.';
-	const ogImage = 'https://roverhq.ai/assets/comparisons/splunk/rover-vs-splunk-og.png';
+	const ogImage = 'https://roverhq.ai/assets/comparisons/splunk/rover-vs-splunk-og.png?v=4355c2ff';
 	const imageAlt =
 		'Rover and Splunk logos connected by a dotted line on a green gradient background.';
 	const sections = [

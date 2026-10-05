@@ -13,7 +13,8 @@
 		"test:leads": "node --test tests/google-leads.test.mjs",
 		"setup:google-leads": "node scripts/prepare-google-leads.mjs",
 		"lint": "prettier --check .",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"test:downloads": "node --test tests/private-download-client.test.mjs && python3 tests/private-download-signer.test.py"
 	},
 	"devDependencies": {
 		"@fontsource-variable/inter": "^5.3.0",
