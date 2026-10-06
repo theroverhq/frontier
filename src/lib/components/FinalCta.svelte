@@ -4,12 +4,25 @@
 	import { Badge } from '$lib/components/ui/badge';
 	import '@fontsource/mitr/400.css';
 
-	const proof = [
-		'Go live in hours',
-		'Customer-owned object storage',
-		'Schema-on-read',
-		'No search clusters'
-	];
+	/* Defaults are the SIEM copy; other platform pages pass their own. */
+	let {
+		badge = 'Rover Security Data Platform',
+		title = 'Bring the data your SIEM',
+		accent = "can't afford to keep.",
+		body = "Make high-volume security telemetry searchable for years—not days. Start with DNS, network flows, cloud audit, raw endpoint telemetry, or anything you archive today because it's too expensive to index.",
+		proof = [
+			'Go live in hours',
+			'Customer-owned object storage',
+			'Schema-on-read',
+			'No search clusters'
+		]
+	}: {
+		badge?: string;
+		title?: string;
+		accent?: string;
+		body?: string;
+		proof?: string[];
+	} = $props();
 
 	const fit = [
 		'Generate GBs or TBs/day',
@@ -59,17 +72,15 @@
 			variant="outline"
 			class="border-primary/35 bg-primary/5 text-primary px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase"
 		>
-			Rover Security Data Platform
+			{badge}
 		</Badge>
 
 		<h2 class="mx-auto mt-6 max-w-[760px] leading-[1.12] font-bold tracking-[-0.025em]">
-			Bring the data your SIEM<br /><span class="text-primary">can't afford to keep.</span>
+			{title}<br /><span class="text-primary">{accent}</span>
 		</h2>
 
 		<p class=" mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
-			Make high-volume security telemetry searchable for years—not days. Start with DNS, network
-			flows, cloud audit, raw endpoint telemetry, or anything you archive today because it's too
-			expensive to index.
+			{body}
 		</p>
 
 		<div class="mt-10 flex flex-col items-center justify-center gap-3.5 sm:flex-row">

@@ -9,11 +9,54 @@
 
 	let scrollY = $state(0);
 	let mobileMenuOpen = $state(false);
+	let platformMenuOpen = $state(false);
+	let mobilePlatformOpen = $state(false);
 	let resourcesMenuOpen = $state(false);
 	let mobileResourcesOpen = $state(false);
 
+	/* Section links follow the platform page you're on; everywhere else they lead to SIEM. */
+	const siemSections = [
+		{ label: 'Search', hash: '#big-idea' },
+		{ label: 'Architecture', hash: '#architecture' },
+		{ label: 'AI Context Engine', hash: '#ai-soc' },
+		{ label: 'Pricing', hash: '#economics' }
+	];
+	const damSections = [
+		{ label: 'Discovery', hash: '#discovery' },
+		{ label: 'Monitoring', hash: '#monitoring' },
+		{ label: 'Detection', hash: '#detection' },
+		{ label: 'Response', hash: '#response' },
+		{ label: 'Compliance', hash: '#compliance' }
+	];
+
+	const onDam = $derived($page.url.pathname.startsWith('/database-activity-monitoring/'));
+	const sectionPath = $derived(onDam ? '/database-activity-monitoring/' : '/');
+	const sections = $derived(onDam ? damSections : siemSections);
+
+	/* Same-page anchors stay bare so the browser scrolls instead of navigating. */
+	function sectionHref(path: string, hash: string) {
+		return $page.url.pathname === path ? hash : `${path}${hash}`;
+	}
+
+	const platforms = $derived([
+		{
+			label: 'SIEM',
+			note: 'Security data lake & search',
+			href: sectionHref('/', '#hero-preview'),
+			current: $page.url.pathname === '/'
+		},
+		{
+			label: 'DAM',
+			note: 'Database activity monitoring',
+			href: onDam ? '#database-activity-monitoring' : '/database-activity-monitoring/',
+			current: onDam
+		}
+	]);
+
 	function closeMenu() {
 		mobileMenuOpen = false;
+		platformMenuOpen = false;
+		mobilePlatformOpen = false;
 		resourcesMenuOpen = false;
 		mobileResourcesOpen = false;
 	}
@@ -22,6 +65,30 @@
 </script>
 
 <svelte:window bind:scrollY />
+
+{#snippet platformLinks()}
+	<section aria-label="Platform">
+		<div class="px-3 pt-2 pb-2 text-[10px] font-bold tracking-widest text-zinc-400 uppercase">
+			Platform
+		</div>
+		{#each platforms as platform (platform.label)}
+			<a
+				href={platform.href}
+				aria-current={platform.current ? 'page' : undefined}
+				class="hover:text-primary focus-visible:ring-primary flex min-h-11 items-center justify-between gap-6 rounded-lg px-3 py-2 tracking-normal normal-case transition-colors hover:bg-white/5 focus-visible:ring-2 focus-visible:outline-none {platform.current
+					? 'text-primary'
+					: 'text-zinc-200'}"
+				onclick={closeMenu}
+			>
+				<span class="flex flex-col gap-0.5">
+					<span class="text-sm font-semibold">{platform.label}</span>
+					<span class="text-xs font-medium text-zinc-400">{platform.note}</span>
+				</span>
+				<ArrowRight class="h-4 w-4 shrink-0" aria-hidden="true" />
+			</a>
+		{/each}
+	</section>
+{/snippet}
 
 {#snippet resourceLinks()}
 	<section aria-label="Comparison">
@@ -81,31 +148,36 @@
 			class="hidden items-center gap-6 text-[11px] font-bold tracking-widest text-zinc-300 uppercase xl:flex 2xl:gap-8"
 			aria-label="Page sections"
 		>
-			<a
-				href="{$page.url.pathname === '/' ? '' : '/'}#hero-preview"
-				class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b border-transparent transition-all"
-				>SIEM</a
-			>
-			<a
-				href="{$page.url.pathname === '/' ? '' : '/'}#big-idea"
-				class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b border-transparent transition-all"
-				>Search</a
-			>
-			<a
-				href="{$page.url.pathname === '/' ? '' : '/'}#architecture"
-				class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b border-transparent transition-all"
-				>Architecture</a
-			>
-			<a
-				href="{$page.url.pathname === '/' ? '' : '/'}#ai-soc"
-				class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b border-transparent transition-all"
-				>AI Context Engine</a
-			>
-			<a
-				href="{$page.url.pathname === '/' ? '' : '/'}#economics"
-				class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b border-transparent transition-all"
-				>Pricing</a
-			>
+			<Popover.Root bind:open={platformMenuOpen}>
+				<Popover.Trigger
+					openOnHover
+					openDelay={100}
+					class="hover:text-primary hover:border-primary focus-visible:ring-primary flex min-h-11 items-center gap-1.5 border-b border-transparent uppercase transition-colors focus-visible:ring-2 focus-visible:outline-none"
+				>
+					Platform
+					<ChevronDown
+						class="h-3.5 w-3.5 transition-transform {platformMenuOpen ? 'rotate-180' : ''}"
+						aria-hidden="true"
+					/>
+				</Popover.Trigger>
+				<Popover.Content
+					align="start"
+					sideOffset={12}
+					trapFocus={false}
+					role="dialog"
+					aria-label="Platform"
+					class="bg-background z-50 w-64 rounded-xl border border-white/10 p-2 shadow-xl outline-none"
+				>
+					{@render platformLinks()}
+				</Popover.Content>
+			</Popover.Root>
+			{#each sections as section (section.hash)}
+				<a
+					href={sectionHref(sectionPath, section.hash)}
+					class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b border-transparent transition-all"
+					>{section.label}</a
+				>
+			{/each}
 			<a
 				href="/blogs/"
 				class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b transition-all {$page.url.pathname.startsWith(
@@ -150,7 +222,7 @@
 			</Button>
 			<Button
 				size="sm"
-				href="{$page.url.pathname === '/' ? '' : '/'}#get-demo"
+				href={sectionHref(sectionPath, '#get-demo')}
 				class="bg-primary hover:bg-primary/90 hidden h-11 rounded-full px-4 font-sans text-[11px] font-bold tracking-wide uppercase min-[360px]:inline-flex sm:px-6 lg:px-8"
 			>
 				Contact Us
@@ -205,31 +277,30 @@
 			class="bg-background/95 max-h-[calc(100dvh-5rem)] overflow-y-auto border-b border-white/10 px-6 pt-4 pb-8 backdrop-blur-xl xl:hidden"
 		>
 			<div class="flex flex-col gap-4 text-sm font-bold tracking-widest text-zinc-300 uppercase">
-				<a
-					href="{$page.url.pathname === '/' ? '' : '/'}#hero-preview"
-					class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all"
-					onclick={closeMenu}>SIEM</a
-				>
-				<a
-					href="{$page.url.pathname === '/' ? '' : '/'}#big-idea"
-					class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all"
-					onclick={closeMenu}>Search</a
-				>
-				<a
-					href="{$page.url.pathname === '/' ? '' : '/'}#architecture"
-					class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all"
-					onclick={closeMenu}>Architecture</a
-				>
-				<a
-					href="{$page.url.pathname === '/' ? '' : '/'}#ai-soc"
-					class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all"
-					onclick={closeMenu}>AI Context Engine</a
-				>
-				<a
-					href="{$page.url.pathname === '/' ? '' : '/'}#economics"
-					class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all"
-					onclick={closeMenu}>Pricing</a
-				>
+				<Collapsible.Root bind:open={mobilePlatformOpen}>
+					<Collapsible.Trigger
+						class="hover:text-primary focus-visible:ring-primary flex min-h-11 w-full items-center justify-between border-b border-white/5 text-left uppercase transition-colors focus-visible:ring-2 focus-visible:outline-none"
+					>
+						Platform
+						<ChevronDown
+							class="h-4 w-4 transition-transform {mobilePlatformOpen ? 'rotate-180' : ''}"
+							aria-hidden="true"
+						/>
+					</Collapsible.Trigger>
+					<Collapsible.Content
+						hiddenUntilFound={false}
+						class="mt-2 rounded-xl border border-white/10 bg-white/[0.02] p-2"
+					>
+						{@render platformLinks()}
+					</Collapsible.Content>
+				</Collapsible.Root>
+				{#each sections as section (section.hash)}
+					<a
+						href={sectionHref(sectionPath, section.hash)}
+						class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all"
+						onclick={closeMenu}>{section.label}</a
+					>
+				{/each}
 				<a
 					href="/blogs/"
 					class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all {$page.url.pathname.startsWith(
@@ -268,7 +339,7 @@
 					</Button>
 					<Button
 						size="lg"
-						href="{$page.url.pathname === '/' ? '' : '/'}#get-demo"
+						href={sectionHref(sectionPath, '#get-demo')}
 						class="bg-primary hover:bg-primary/90 h-11 w-full rounded-full font-sans text-xs font-bold tracking-wide uppercase"
 						onclick={closeMenu}
 					>

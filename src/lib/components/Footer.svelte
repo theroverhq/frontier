@@ -3,14 +3,43 @@
 	import '@fontsource/mitr/400.css';
 
 	const homeHref = $derived($page.url.pathname === '/' ? '/' : '/');
-	const homeSectionPrefix = $derived($page.url.pathname === '/' ? '' : '/');
 
-	const product = [
-		{ label: 'SIEM', hash: '#hero-preview' },
-		{ label: 'Search', hash: '#big-idea' },
-		{ label: 'Architecture', hash: '#architecture' },
-		{ label: 'AI Context Engine', hash: '#ai-soc' },
-		{ label: 'Pricing', hash: '#economics' }
+	/* `here` is used on the platform's own page so the browser scrolls instead of navigating. */
+	const section = (path: string, label: string, hash: string) => ({
+		label,
+		here: hash,
+		away: `${path}${hash}`
+	});
+
+	const platforms = [
+		{
+			label: 'SIEM',
+			path: '/',
+			links: [
+				section('/', 'Overview', '#hero-preview'),
+				section('/', 'Search', '#big-idea'),
+				section('/', 'Architecture', '#architecture'),
+				section('/', 'AI Context Engine', '#ai-soc'),
+				section('/', 'Pricing', '#economics')
+			]
+		},
+		{
+			label: 'DAM',
+			path: '/database-activity-monitoring/',
+			links: [
+				{
+					label: 'Overview',
+					here: '#database-activity-monitoring',
+					away: '/database-activity-monitoring/'
+				},
+				section('/database-activity-monitoring/', 'Discovery', '#discovery'),
+				section('/database-activity-monitoring/', 'Monitoring', '#monitoring'),
+				section('/database-activity-monitoring/', 'Detection', '#detection'),
+				section('/database-activity-monitoring/', 'Response', '#response'),
+				section('/database-activity-monitoring/', 'Compliance', '#compliance'),
+				section('/database-activity-monitoring/', 'Why Rover', '#why-rover')
+			]
+		}
 	];
 
 	function toTop(event: MouseEvent) {
@@ -22,11 +51,9 @@
 
 <footer class="dark bg-background text-foreground border-border relative overflow-hidden border-t">
 	<div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
-		<div
-			class="relative z-2 grid grid-cols-1 gap-10 pt-16 pb-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]"
-		>
+		<div class="relative z-2 grid grid-cols-2 gap-10 pt-16 pb-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
 			<!-- Brand -->
-			<div>
+			<div class="col-span-2 sm:col-span-1">
 				<a
 					href={homeHref}
 					class="flex items-center gap-2 transition-opacity hover:opacity-90"
@@ -57,16 +84,18 @@
 				</a>
 			</div>
 
-			<div>
-				<div class="mb-4 text-[13px] font-semibold">Product</div>
-				{#each product as item (item.label)}
-					<a
-						href="{homeSectionPrefix}{item.hash}"
-						class="text-foreground/80 hover:text-primary block py-1.5 text-[13.5px] transition-colors"
-						>{item.label}</a
-					>
-				{/each}
-			</div>
+			{#each platforms as platform (platform.label)}
+				<div>
+					<div class="mb-4 text-[13px] font-semibold">{platform.label}</div>
+					{#each platform.links as link (link.label)}
+						<a
+							href={$page.url.pathname === platform.path ? link.here : link.away}
+							class="text-foreground/80 hover:text-primary block py-1.5 text-[13.5px] transition-colors"
+							>{link.label}</a
+						>
+					{/each}
+				</div>
+			{/each}
 
 			<div>
 				<div class="mb-4 text-[13px] font-semibold">Company</div>
