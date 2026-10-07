@@ -2,8 +2,6 @@
 	import { page } from '$app/stores';
 	import '@fontsource/mitr/400.css';
 
-	const homeHref = $derived($page.url.pathname === '/' ? '/' : '/');
-
 	/* `here` is used on the platform's own page so the browser scrolls instead of navigating. */
 	const section = (path: string, label: string, hash: string) => ({
 		label,
@@ -13,14 +11,26 @@
 
 	const platforms = [
 		{
-			label: 'SIEM',
-			path: '/',
+			label: 'Security Data Lake',
+			path: '/security-data-lake/',
 			links: [
-				section('/', 'Overview', '#hero-preview'),
-				section('/', 'Search', '#big-idea'),
-				section('/', 'Architecture', '#architecture'),
-				section('/', 'AI Context Engine', '#ai-soc'),
-				section('/', 'Pricing', '#economics')
+				section('/security-data-lake/', 'Overview', '#security-data-lake'),
+				section('/security-data-lake/', 'Ingestion', '#ingestion'),
+				section('/security-data-lake/', 'Search', '#big-idea'),
+				section('/security-data-lake/', 'Retention & ownership', '#retention'),
+				section('/security-data-lake/', 'Use cases', '#use-cases'),
+				section('/security-data-lake/', 'Pricing', '#economics')
+			]
+		},
+		{
+			label: 'SIEM',
+			path: '/siem/',
+			links: [
+				section('/siem/', 'Overview', '#siem'),
+				section('/siem/', 'Search', '#big-idea'),
+				section('/siem/', 'Architecture', '#architecture'),
+				section('/siem/', 'AI Context Engine', '#ai-soc'),
+				section('/siem/', 'Pricing', '#economics')
 			]
 		},
 		{
@@ -49,13 +59,15 @@
 	}
 </script>
 
-<footer class="dark bg-background text-foreground border-border relative overflow-hidden border-t">
+<footer class="dark relative overflow-hidden border-t border-border bg-background text-foreground">
 	<div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
-		<div class="relative z-2 grid grid-cols-2 gap-10 pt-16 pb-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+		<div
+			class="relative z-2 grid grid-cols-2 gap-10 pt-16 pb-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]"
+		>
 			<!-- Brand -->
 			<div class="col-span-2 sm:col-span-1">
 				<a
-					href={homeHref}
+					href="/"
 					class="flex items-center gap-2 transition-opacity hover:opacity-90"
 					aria-label="Rover home"
 				>
@@ -70,11 +82,11 @@
 				</div>
 				<a
 					href="mailto:contactus@roverhq.ai"
-					class="text-foreground/85 hover:text-foreground mt-4 flex items-center gap-1.5 text-sm transition-colors"
+					class="mt-4 flex items-center gap-1.5 text-sm text-foreground/85 transition-colors hover:text-foreground"
 				>
 					<svg
 						viewBox="0 0 24 24"
-						class="stroke-muted-foreground h-4 w-4 fill-none"
+						class="h-4 w-4 fill-none stroke-muted-foreground"
 						stroke-width="1.6"
 						aria-hidden="true"
 					>
@@ -90,7 +102,7 @@
 					{#each platform.links as link (link.label)}
 						<a
 							href={$page.url.pathname === platform.path ? link.here : link.away}
-							class="text-foreground/80 hover:text-primary block py-1.5 text-[13.5px] transition-colors"
+							class="block py-1.5 text-[13.5px] text-foreground/80 transition-colors hover:text-primary"
 							>{link.label}</a
 						>
 					{/each}
@@ -101,17 +113,17 @@
 				<div class="mb-4 text-[13px] font-semibold">Company</div>
 				<a
 					href="/blogs/"
-					class="text-foreground/80 hover:text-primary block py-1.5 text-[13.5px] transition-colors"
+					class="block py-1.5 text-[13.5px] text-foreground/80 transition-colors hover:text-primary"
 					>Blogs</a
 				>
 				<a
 					href="mailto:contactus@roverhq.ai"
-					class="text-foreground/80 hover:text-primary block py-1.5 text-[13.5px] transition-colors"
+					class="block py-1.5 text-[13.5px] text-foreground/80 transition-colors hover:text-primary"
 					>Contact</a
 				>
 				<a
 					href="mailto:contactus@roverhq.ai?subject=Careers%20at%20Rover"
-					class="text-foreground/80 hover:text-primary block py-1.5 text-[13.5px] transition-colors"
+					class="block py-1.5 text-[13.5px] text-foreground/80 transition-colors hover:text-primary"
 					>Career</a
 				>
 			</div>
@@ -127,7 +139,7 @@
 		</div>
 
 		<div
-			class="border-border relative z-2 flex flex-wrap items-center justify-between gap-4 border-t pt-5 pb-6 text-[12.5px]"
+			class="relative z-2 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-5 pb-6 text-[12.5px]"
 		>
 			<span>&copy; 2026 Rover HQ Inc. All rights reserved.</span>
 			<div class="flex items-center gap-5">
@@ -140,7 +152,7 @@
 				>
 					<svg
 						viewBox="0 0 24 24"
-						class="fill-muted-foreground group-hover:fill-foreground h-[18px] w-[18px] transition-colors"
+						class="h-[18px] w-[18px] fill-muted-foreground transition-colors group-hover:fill-foreground"
 						aria-hidden="true"
 					>
 						<path
@@ -157,7 +169,7 @@
 				>
 					<svg
 						viewBox="0 0 24 24"
-						class="fill-muted-foreground group-hover:fill-foreground h-[18px] w-[18px] transition-colors"
+						class="h-[18px] w-[18px] fill-muted-foreground transition-colors group-hover:fill-foreground"
 						aria-hidden="true"
 					>
 						<path
@@ -174,7 +186,7 @@
 				>
 					<svg
 						viewBox="0 0 24 24"
-						class="fill-muted-foreground group-hover:fill-foreground h-[18px] w-[18px] transition-colors"
+						class="h-[18px] w-[18px] fill-muted-foreground transition-colors group-hover:fill-foreground"
 						aria-hidden="true"
 					>
 						<mask id="instagram-mask">
@@ -200,7 +212,7 @@
 				>
 					<svg
 						viewBox="0 0 24 24"
-						class="fill-muted-foreground group-hover:fill-foreground h-[18px] w-[18px] transition-colors"
+						class="h-[18px] w-[18px] fill-muted-foreground transition-colors group-hover:fill-foreground"
 						aria-hidden="true"
 					>
 						<mask id="x-mask">
@@ -217,7 +229,7 @@
 						/>
 					</svg>
 				</a>
-				<a href="#top" onclick={toTop} class="hover:text-foreground transition-colors">
+				<a href="#top" onclick={toTop} class="transition-colors hover:text-foreground">
 					Back to top
 				</a>
 			</div>

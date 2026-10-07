@@ -3,6 +3,16 @@
 	import { Badge } from '$lib/components/ui/badge';
 	import DamDashboard from '$lib/components/DamDashboard.svelte';
 
+	let {
+		headingTag = 'h1',
+		ctaHref = '#get-demo',
+		ctaLabel = 'Get Demo'
+	}: {
+		headingTag?: 'h1' | 'h2';
+		ctaHref?: string;
+		ctaLabel?: string;
+	} = $props();
+
 	const waveText = 'Zero blind spots.';
 
 	const features = [
@@ -34,12 +44,13 @@
 					Database Activity Monitoring
 				</Badge>
 
-				<h1
+				<svelte:element
+					this={headingTag}
 					class="text-foreground mt-6 text-[clamp(2.125rem,4.4vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.028em]"
 				>
 					<span class="block sm:whitespace-nowrap">Every query.</span>
 					<span class="block sm:whitespace-nowrap">Every database.</span>
-				</h1>
+				</svelte:element>
 
 				<p
 					class="gradient-text mt-[18px] text-[clamp(1.25rem,2vw,1.5625rem)] font-medium tracking-[-0.012em]"
@@ -54,7 +65,7 @@
 				</p>
 
 				<div class="mt-8">
-					<Button size="lg" href="#get-demo" class=" rounded-full px-12 uppercase">Get Demo</Button>
+					<Button size="lg" href={ctaHref} class=" rounded-full px-12 uppercase">{ctaLabel}</Button>
 				</div>
 
 				<div class="mt-11 grid grid-cols-1 gap-x-11 gap-y-3 sm:grid-cols-2">

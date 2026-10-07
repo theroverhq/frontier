@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { blogs, type BlogPost } from '$lib/data/blogs';
+	import { blogs } from '$lib/data/blogs';
 	import { Search } from '@lucide/svelte';
 
 	let searchQuery = $state('');
@@ -65,23 +65,23 @@
 	</script>`}
 </svelte:head>
 
-<div class="dark bg-background text-foreground min-h-screen">
+<div class="dark min-h-screen bg-background text-foreground">
 	<!-- Hero Section -->
-	<section class="border-border bg-card/40 border-b py-16 lg:py-24">
+	<section class="border-b border-border bg-card/40 py-16 lg:py-24">
 		<div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
 			<div class="max-w-3xl">
 				<div
-					class="border-primary/30 bg-primary/10 text-primary inline-flex items-center gap-2 rounded-full border px-3.5 py-1 font-sans text-xs font-semibold tracking-wider uppercase"
+					class="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 font-sans text-xs font-semibold tracking-wider text-primary uppercase"
 				>
-					<span class="bg-primary h-1.5 w-1.5 animate-pulse rounded-full"></span>
+					<span class="h-1.5 w-1.5 animate-pulse rounded-full bg-primary"></span>
 					Rover Engineering Blog
 				</div>
 				<h1
-					class="font-heading text-foreground mt-6 text-[clamp(2.125rem,4.4vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.028em]"
+					class="mt-6 font-heading text-[clamp(2.125rem,4.4vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.028em] text-foreground"
 				>
 					Insights for <span class="text-primary">modern</span> security teams.
 				</h1>
-				<p class="text-foreground mt-5 text-[17.5px] leading-[1.62]">
+				<p class="mt-5 text-[17.5px] leading-[1.62] text-foreground">
 					Architecture notes on Security Data Lakes, Object Storage-native search, retained
 					telemetry, and the operational tradeoffs shaping modern SecOps.
 				</p>
@@ -89,17 +89,17 @@
 
 			<!-- Search & Filter Controls -->
 			<div
-				class="border-border mt-12 flex flex-col gap-6 border-t pt-8 xl:flex-row xl:items-start xl:justify-between"
+				class="mt-12 flex flex-col gap-6 border-t border-border pt-8 xl:flex-row xl:items-start xl:justify-between"
 			>
 				<!-- Compact category selection keeps articles within reach on mobile. -->
 				<div class="sm:hidden">
-					<label for="blog-category" class="text-foreground mb-2 block text-sm font-medium"
+					<label for="blog-category" class="mb-2 block text-sm font-medium text-foreground"
 						>Category</label
 					>
 					<select
 						id="blog-category"
 						bind:value={selectedCategory}
-						class="border-border bg-card text-foreground focus:border-primary focus:ring-primary min-h-11 w-full rounded-lg border px-3 py-2 text-base focus:ring-1 focus:outline-none"
+						class="min-h-11 w-full rounded-lg border border-border bg-card px-3 py-2 text-base text-foreground focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
 					>
 						{#each categories as cat}
 							<option value={cat}>{cat}</option>
@@ -115,8 +115,8 @@
 							aria-pressed={selectedCategory === cat}
 							class="min-h-11 rounded-full px-4 py-2 font-sans text-xs transition-colors {selectedCategory ===
 							cat
-								? 'bg-primary text-primary-foreground shadow-primary/20 font-semibold shadow-sm'
-								: 'bg-card hover:bg-hover text-foreground/85 hover:text-foreground border-border border'}"
+								? 'bg-primary font-semibold text-primary-foreground shadow-sm shadow-primary/20'
+								: 'border border-border bg-card text-foreground/85 hover:bg-hover hover:text-foreground'}"
 						>
 							{cat}
 						</button>
@@ -126,13 +126,13 @@
 				<!-- Search Input -->
 				<div class="relative w-full xl:w-72 xl:shrink-0">
 					<label for="blog-search" class="sr-only">Search blog posts</label>
-					<Search class="text-text-muted absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2" />
+					<Search class="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-text-muted" />
 					<input
 						id="blog-search"
 						type="text"
 						bind:value={searchQuery}
 						placeholder="Search posts..."
-						class="border-border bg-card text-foreground placeholder:text-foreground/70 focus:border-primary focus:ring-primary h-11 w-full rounded-full border py-2 pr-4 pl-10 text-base focus:ring-1 focus:outline-none xl:text-sm"
+						class="h-11 w-full rounded-full border border-border bg-card py-2 pr-4 pl-10 text-base text-foreground placeholder:text-foreground/70 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none xl:text-sm"
 					/>
 				</div>
 			</div>
@@ -142,9 +142,9 @@
 	<!-- Main Posts Grid -->
 	<section class="py-16">
 		<div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
-			<div class="border-border mb-8 flex items-center justify-between border-b pb-4">
-				<h2 class="font-heading text-foreground text-xl font-semibold">
-					Articles <span class="text-text-secondary text-sm font-normal"
+			<div class="mb-8 flex items-center justify-between border-b border-border pb-4">
+				<h2 class="font-heading text-xl font-semibold text-foreground">
+					Articles <span class="text-sm font-normal text-text-secondary"
 						>({filteredBlogs.length})</span
 					>
 				</h2>
@@ -152,7 +152,7 @@
 
 			{#if filteredBlogs.length === 0}
 				<div
-					class="border-border text-text-secondary rounded-xl border border-dashed p-12 text-center"
+					class="rounded-xl border border-dashed border-border p-12 text-center text-text-secondary"
 				>
 					No posts found matching your search. Try clearing your filter or query.
 				</div>
@@ -160,29 +160,29 @@
 				<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 					{#each filteredBlogs as blog, index (blog.slug)}
 						<article
-							class="group border-border bg-card/80 hover:border-primary/50 hover:bg-card hover:shadow-primary/5 relative flex flex-col justify-between rounded-xl border p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+							class="group relative flex flex-col justify-between rounded-xl border border-border bg-card/80 p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:bg-card hover:shadow-lg hover:shadow-primary/5"
 						>
 							<div>
 								<div
 									class="mb-4 flex flex-wrap items-center justify-between gap-2 font-sans text-xs"
 								>
-									<span class="text-primary font-semibold">
+									<span class="font-semibold text-primary">
 										{blog.blog_counter}
 										{#if index === 0 && selectedCategory === 'All' && !searchQuery}
-											<span class="text-text-muted ml-1 text-[10px] font-normal uppercase"
+											<span class="ml-1 text-[10px] font-normal text-text-muted uppercase"
 												>/ Newest</span
 											>
 										{/if}
 									</span>
 									<span
-										class="bg-background border-border/80 text-text-secondary rounded border px-2.5 py-0.5 text-[11px] font-medium"
+										class="rounded border border-border/80 bg-background px-2.5 py-0.5 text-[11px] font-medium text-text-secondary"
 									>
 										{blog.category}
 									</span>
 								</div>
 
 								<h3
-									class="font-heading text-foreground group-hover:text-primary text-xl leading-[1.3] font-bold tracking-[-0.015em] transition-colors"
+									class="font-heading text-xl leading-[1.3] font-bold tracking-[-0.015em] text-foreground transition-colors group-hover:text-primary"
 								>
 									<a href="/blogs/{blog.slug}/">
 										<span class="absolute inset-0"></span>
@@ -190,17 +190,17 @@
 									</a>
 								</h3>
 
-								<p class="text-foreground/80 mt-3 line-clamp-3 text-sm leading-[1.65]">
+								<p class="mt-3 line-clamp-3 text-sm leading-[1.65] text-foreground/80">
 									{blog.description}
 								</p>
 							</div>
 
 							<div
-								class="border-border/60 text-text-secondary mt-6 flex flex-wrap items-center justify-between gap-2 border-t pt-4 font-sans text-xs"
+								class="mt-6 flex flex-wrap items-center justify-between gap-2 border-t border-border/60 pt-4 font-sans text-xs text-text-secondary"
 							>
 								<span>{blog.published_label}</span>
 								<span
-									class="text-primary flex items-center gap-1 font-semibold group-hover:underline"
+									class="flex items-center gap-1 font-semibold text-primary group-hover:underline"
 								>
 									Read article →
 								</span>

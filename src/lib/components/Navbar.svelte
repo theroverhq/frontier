@@ -14,7 +14,7 @@
 	let resourcesMenuOpen = $state(false);
 	let mobileResourcesOpen = $state(false);
 
-	/* Section links follow the platform page you're on; everywhere else they lead to SIEM. */
+	/* Global navigation stays consistent; product sections use a separate navigation. */
 	const siemSections = [
 		{ label: 'Search', hash: '#big-idea' },
 		{ label: 'Architecture', hash: '#architecture' },
@@ -30,8 +30,25 @@
 	];
 
 	const onDam = $derived($page.url.pathname.startsWith('/database-activity-monitoring/'));
-	const sectionPath = $derived(onDam ? '/database-activity-monitoring/' : '/');
-	const sections = $derived(onDam ? damSections : siemSections);
+	const onSiem = $derived($page.url.pathname === '/siem/');
+	const onLake = $derived($page.url.pathname === '/security-data-lake/');
+	const lakeSections = [
+		{ label: 'Ingestion', hash: '#ingestion' },
+		{ label: 'Search', hash: '#big-idea' },
+		{ label: 'Retention & ownership', hash: '#retention' },
+		{ label: 'Use cases', hash: '#use-cases' },
+		{ label: 'Pricing', hash: '#economics' }
+	];
+	const globalSections = [{ label: 'Our approach', hash: '#why-rover' }];
+	const productSections = $derived(
+		onDam ? damSections : onSiem ? siemSections : onLake ? lakeSections : []
+	);
+	const productName = $derived(
+		onDam ? 'Database Activity Monitoring' : onLake ? 'Security Data Lake' : 'SIEM'
+	);
+	const productOverview = $derived(
+		onDam ? '#database-activity-monitoring' : onLake ? '#security-data-lake' : '#siem'
+	);
 
 	/* Same-page anchors stay bare so the browser scrolls instead of navigating. */
 	function sectionHref(path: string, hash: string) {
@@ -40,10 +57,16 @@
 
 	const platforms = $derived([
 		{
+			label: 'Security Data Lake',
+			note: 'Search & retention in your storage',
+			href: sectionHref('/security-data-lake/', '#security-data-lake'),
+			current: onLake
+		},
+		{
 			label: 'SIEM',
 			note: 'Security data lake & search',
-			href: sectionHref('/', '#hero-preview'),
-			current: $page.url.pathname === '/'
+			href: sectionHref('/siem/', '#siem'),
+			current: onSiem
 		},
 		{
 			label: 'DAM',
@@ -67,9 +90,9 @@
 <svelte:window bind:scrollY />
 
 {#snippet platformLinks()}
-	<section aria-label="Platform">
+	<section aria-label="Products">
 		<div class="px-3 pt-2 pb-2 text-[10px] font-bold tracking-widest text-zinc-400 uppercase">
-			Platform
+			Products
 		</div>
 		{#each platforms as platform (platform.label)}
 			<a
@@ -108,245 +131,303 @@
 	</section>
 {/snippet}
 
-<nav
-	class="dark sticky top-0 z-50 w-full border-b transition-all duration-300 {scrollY > 20
-		? 'bg-background/85 border-white/10 shadow-sm backdrop-blur-md'
-		: 'bg-background border-transparent'}"
-	aria-label="Main navigation"
->
-	<div
-		class="container mx-auto flex max-w-screen-2xl items-center justify-between gap-4 px-4 transition-all duration-300 sm:px-6 {scrollY >
-		20
-			? 'h-16'
-			: 'h-20'}"
+<div class="sticky top-0 z-50">
+	<nav
+		class="dark w-full border-b transition-all duration-300 {scrollY > 20
+			? 'bg-background/85 border-white/10 shadow-sm backdrop-blur-md'
+			: 'bg-background border-transparent'}"
+		aria-label="Main navigation"
 	>
-		<a
-			href="/"
-			class="text-foreground flex items-center gap-2 transition-opacity hover:opacity-90"
-			aria-label="Rover home"
-			onclick={closeMenu}
-		>
-			<img
-				src="/rover-logo-64.png"
-				alt="Rover Logo"
-				class="h-5 w-auto"
-				width="20"
-				height="20"
-				fetchpriority="high"
-				loading="eager"
-				decoding="async"
-			/>
-			<span
-				class="text-foreground text-2xl leading-none tracking-[0px]"
-				style="font-family: 'Mitr', sans-serif;"
-			>
-				ROVER
-			</span>
-		</a>
-
 		<div
-			class="hidden items-center gap-6 text-[11px] font-bold tracking-widest text-zinc-300 uppercase xl:flex 2xl:gap-8"
-			aria-label="Page sections"
+			class="container mx-auto flex max-w-screen-2xl items-center justify-between gap-4 px-4 transition-all duration-300 sm:px-6 {scrollY >
+			20
+				? 'h-16'
+				: 'h-20'}"
 		>
-			<Popover.Root bind:open={platformMenuOpen}>
-				<Popover.Trigger
-					openOnHover
-					openDelay={100}
-					class="hover:text-primary hover:border-primary focus-visible:ring-primary flex min-h-11 items-center gap-1.5 border-b border-transparent uppercase transition-colors focus-visible:ring-2 focus-visible:outline-none"
-				>
-					Platform
-					<ChevronDown
-						class="h-3.5 w-3.5 transition-transform {platformMenuOpen ? 'rotate-180' : ''}"
-						aria-hidden="true"
-					/>
-				</Popover.Trigger>
-				<Popover.Content
-					align="start"
-					sideOffset={12}
-					trapFocus={false}
-					role="dialog"
-					aria-label="Platform"
-					class="bg-background z-50 w-64 rounded-xl border border-white/10 p-2 shadow-xl outline-none"
-				>
-					{@render platformLinks()}
-				</Popover.Content>
-			</Popover.Root>
-			{#each sections as section (section.hash)}
-				<a
-					href={sectionHref(sectionPath, section.hash)}
-					class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b border-transparent transition-all"
-					>{section.label}</a
-				>
-			{/each}
 			<a
-				href="/blogs/"
-				class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b transition-all {$page.url.pathname.startsWith(
-					'/blogs'
-				)
-					? 'text-primary border-primary'
-					: 'border-transparent'}">Blogs</a
+				href="/"
+				class="text-foreground flex items-center gap-2 transition-opacity hover:opacity-90"
+				aria-label="Rover home"
+				onclick={closeMenu}
 			>
-			<Popover.Root bind:open={resourcesMenuOpen}>
-				<Popover.Trigger
-					openOnHover
-					openDelay={100}
-					class="hover:text-primary hover:border-primary focus-visible:ring-primary flex min-h-11 items-center gap-1.5 border-b border-transparent uppercase transition-colors focus-visible:ring-2 focus-visible:outline-none"
+				<img
+					src="/rover-logo-64.png"
+					alt="Rover Logo"
+					class="h-5 w-auto"
+					width="20"
+					height="20"
+					fetchpriority="high"
+					loading="eager"
+					decoding="async"
+				/>
+				<span
+					class="text-foreground text-2xl leading-none tracking-[0px]"
+					style="font-family: 'Mitr', sans-serif;"
 				>
-					Resources
-					<ChevronDown
-						class="h-3.5 w-3.5 transition-transform {resourcesMenuOpen ? 'rotate-180' : ''}"
-						aria-hidden="true"
-					/>
-				</Popover.Trigger>
-				<Popover.Content
-					align="start"
-					sideOffset={12}
-					trapFocus={false}
-					role="dialog"
-					aria-label="Resources"
-					class="bg-background z-50 w-56 rounded-xl border border-white/10 p-2 shadow-xl outline-none"
-				>
-					{@render resourceLinks()}
-				</Popover.Content>
-			</Popover.Root>
-		</div>
+					ROVER
+				</span>
+			</a>
 
-		<div class="flex items-center gap-2 sm:gap-4">
-			<Button
-				variant="secondary"
-				size="sm"
-				href="mailto:contactus@roverhq.ai"
-				class="hidden h-11 rounded-full px-4 font-sans text-[11px] font-bold uppercase sm:inline-flex md:px-6 lg:px-8"
+			<div
+				class="hidden items-center gap-6 text-[11px] font-bold tracking-widest text-zinc-300 uppercase xl:flex 2xl:gap-8"
+				aria-label="Site links"
 			>
-				Get Demo
-			</Button>
-			<Button
-				size="sm"
-				href={sectionHref(sectionPath, '#get-demo')}
-				class="bg-primary hover:bg-primary/90 hidden h-11 rounded-full px-4 font-sans text-[11px] font-bold tracking-wide uppercase min-[360px]:inline-flex sm:px-6 lg:px-8"
-			>
-				Contact Us
-			</Button>
-
-			<!-- Mobile Hamburger Menu Toggle -->
-			<button
-				class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg p-1 text-zinc-300 hover:bg-white/10 hover:text-white xl:hidden"
-				aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-				aria-expanded={mobileMenuOpen}
-				onclick={() => (mobileMenuOpen ? closeMenu() : (mobileMenuOpen = true))}
-			>
-				{#if mobileMenuOpen}
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
+				<Popover.Root bind:open={platformMenuOpen}>
+					<Popover.Trigger
+						openOnHover
+						openDelay={100}
+						class="hover:text-primary hover:border-primary focus-visible:ring-primary flex min-h-11 items-center gap-1.5 border-b border-transparent uppercase transition-colors focus-visible:ring-2 focus-visible:outline-none"
 					>
-						<line x1="18" y1="6" x2="6" y2="18"></line>
-						<line x1="6" y1="6" x2="18" y2="18"></line>
-					</svg>
-				{:else}
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<line x1="4" y1="12" x2="20" y2="12"></line>
-						<line x1="4" y1="6" x2="20" y2="6"></line>
-						<line x1="4" y1="18" x2="20" y2="18"></line>
-					</svg>
-				{/if}
-			</button>
-		</div>
-	</div>
-
-	<!-- Mobile Menu Overlay / Drawer -->
-	{#if mobileMenuOpen}
-		<div
-			class="bg-background/95 max-h-[calc(100dvh-5rem)] overflow-y-auto border-b border-white/10 px-6 pt-4 pb-8 backdrop-blur-xl xl:hidden"
-		>
-			<div class="flex flex-col gap-4 text-sm font-bold tracking-widest text-zinc-300 uppercase">
-				<Collapsible.Root bind:open={mobilePlatformOpen}>
-					<Collapsible.Trigger
-						class="hover:text-primary focus-visible:ring-primary flex min-h-11 w-full items-center justify-between border-b border-white/5 text-left uppercase transition-colors focus-visible:ring-2 focus-visible:outline-none"
-					>
-						Platform
+						Products
 						<ChevronDown
-							class="h-4 w-4 transition-transform {mobilePlatformOpen ? 'rotate-180' : ''}"
+							class="h-3.5 w-3.5 transition-transform {platformMenuOpen ? 'rotate-180' : ''}"
 							aria-hidden="true"
 						/>
-					</Collapsible.Trigger>
-					<Collapsible.Content
-						hiddenUntilFound={false}
-						class="mt-2 rounded-xl border border-white/10 bg-white/[0.02] p-2"
+					</Popover.Trigger>
+					<Popover.Content
+						align="start"
+						sideOffset={12}
+						trapFocus={false}
+						role="dialog"
+						aria-label="Products"
+						class="bg-background z-50 w-64 rounded-xl border border-white/10 p-2 shadow-xl outline-none"
 					>
 						{@render platformLinks()}
-					</Collapsible.Content>
-				</Collapsible.Root>
-				{#each sections as section (section.hash)}
+					</Popover.Content>
+				</Popover.Root>
+				{#each globalSections as section (section.hash)}
 					<a
-						href={sectionHref(sectionPath, section.hash)}
-						class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all"
-						onclick={closeMenu}>{section.label}</a
+						href={sectionHref('/', section.hash)}
+						class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b border-transparent transition-all"
+						>{section.label}</a
 					>
 				{/each}
 				<a
 					href="/blogs/"
-					class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all {$page.url.pathname.startsWith(
+					class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b transition-all {$page.url.pathname.startsWith(
 						'/blogs'
 					)
-						? 'text-primary'
-						: ''}"
-					onclick={closeMenu}>Blogs</a
+						? 'text-primary border-primary'
+						: 'border-transparent'}">Blogs</a
 				>
-				<Collapsible.Root bind:open={mobileResourcesOpen}>
-					<Collapsible.Trigger
-						class="hover:text-primary focus-visible:ring-primary flex min-h-11 w-full items-center justify-between border-b border-white/5 text-left uppercase transition-colors focus-visible:ring-2 focus-visible:outline-none"
+				<Popover.Root bind:open={resourcesMenuOpen}>
+					<Popover.Trigger
+						openOnHover
+						openDelay={100}
+						class="hover:text-primary hover:border-primary focus-visible:ring-primary flex min-h-11 items-center gap-1.5 border-b border-transparent uppercase transition-colors focus-visible:ring-2 focus-visible:outline-none"
 					>
 						Resources
 						<ChevronDown
-							class="h-4 w-4 transition-transform {mobileResourcesOpen ? 'rotate-180' : ''}"
+							class="h-3.5 w-3.5 transition-transform {resourcesMenuOpen ? 'rotate-180' : ''}"
 							aria-hidden="true"
 						/>
-					</Collapsible.Trigger>
-					<Collapsible.Content
-						hiddenUntilFound={false}
-						class="mt-2 rounded-xl border border-white/10 bg-white/[0.02] p-2"
+					</Popover.Trigger>
+					<Popover.Content
+						align="start"
+						sideOffset={12}
+						trapFocus={false}
+						role="dialog"
+						aria-label="Resources"
+						class="bg-background z-50 w-56 rounded-xl border border-white/10 p-2 shadow-xl outline-none"
 					>
 						{@render resourceLinks()}
-					</Collapsible.Content>
-				</Collapsible.Root>
-				<div class="mt-4 flex flex-col gap-3 pt-2">
-					<Button
-						variant="secondary"
-						size="lg"
-						href="mailto:contactus@roverhq.ai"
-						class="h-11 w-full rounded-full font-sans text-xs font-bold uppercase"
-						onclick={closeMenu}
-					>
-						Get Demo
-					</Button>
-					<Button
-						size="lg"
-						href={sectionHref(sectionPath, '#get-demo')}
-						class="bg-primary hover:bg-primary/90 h-11 w-full rounded-full font-sans text-xs font-bold tracking-wide uppercase"
-						onclick={closeMenu}
-					>
-						Contact Us
-					</Button>
-				</div>
+					</Popover.Content>
+				</Popover.Root>
+			</div>
+
+			<div class="flex items-center gap-2 sm:gap-4">
+				<Button
+					variant="secondary"
+					size="sm"
+					href="mailto:contactus@roverhq.ai"
+					class="hidden h-11 rounded-full px-4 font-sans text-[11px] font-bold uppercase sm:inline-flex md:px-6 lg:px-8"
+				>
+					Get Demo
+				</Button>
+				<Button
+					size="sm"
+					href={sectionHref('/', '#get-demo')}
+					class="bg-primary hover:bg-primary/90 hidden h-11 rounded-full px-4 font-sans text-[11px] font-bold tracking-wide uppercase min-[360px]:inline-flex sm:px-6 lg:px-8"
+				>
+					Contact Us
+				</Button>
+
+				<!-- Mobile Hamburger Menu Toggle -->
+				<button
+					class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg p-1 text-zinc-300 hover:bg-white/10 hover:text-white xl:hidden"
+					aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+					aria-expanded={mobileMenuOpen}
+					onclick={() => (mobileMenuOpen ? closeMenu() : (mobileMenuOpen = true))}
+				>
+					{#if mobileMenuOpen}
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<line x1="18" y1="6" x2="6" y2="18"></line>
+							<line x1="6" y1="6" x2="18" y2="18"></line>
+						</svg>
+					{:else}
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<line x1="4" y1="12" x2="20" y2="12"></line>
+							<line x1="4" y1="6" x2="20" y2="6"></line>
+							<line x1="4" y1="18" x2="20" y2="18"></line>
+						</svg>
+					{/if}
+				</button>
 			</div>
 		</div>
+
+		<!-- Mobile Menu Overlay / Drawer -->
+		{#if mobileMenuOpen}
+			<div
+				class="bg-background/95 overflow-y-auto border-b border-white/10 px-6 pt-4 pb-8 backdrop-blur-xl xl:hidden"
+				style:max-height={productSections.length > 0
+					? 'calc(100dvh - 8rem)'
+					: 'calc(100dvh - 5rem)'}
+			>
+				<div class="flex flex-col gap-4 text-sm font-bold tracking-widest text-zinc-300 uppercase">
+					<Collapsible.Root bind:open={mobilePlatformOpen}>
+						<Collapsible.Trigger
+							class="hover:text-primary focus-visible:ring-primary flex min-h-11 w-full items-center justify-between border-b border-white/5 text-left uppercase transition-colors focus-visible:ring-2 focus-visible:outline-none"
+						>
+							Products
+							<ChevronDown
+								class="h-4 w-4 transition-transform {mobilePlatformOpen ? 'rotate-180' : ''}"
+								aria-hidden="true"
+							/>
+						</Collapsible.Trigger>
+						<Collapsible.Content
+							hiddenUntilFound={false}
+							class="mt-2 rounded-xl border border-white/10 bg-white/[0.02] p-2"
+						>
+							{@render platformLinks()}
+						</Collapsible.Content>
+					</Collapsible.Root>
+					{#each globalSections as section (section.hash)}
+						<a
+							href={sectionHref('/', section.hash)}
+							class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all"
+							onclick={closeMenu}>{section.label}</a
+						>
+					{/each}
+					<a
+						href="/blogs/"
+						class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all {$page.url.pathname.startsWith(
+							'/blogs'
+						)
+							? 'text-primary'
+							: ''}"
+						onclick={closeMenu}>Blogs</a
+					>
+					<Collapsible.Root bind:open={mobileResourcesOpen}>
+						<Collapsible.Trigger
+							class="hover:text-primary focus-visible:ring-primary flex min-h-11 w-full items-center justify-between border-b border-white/5 text-left uppercase transition-colors focus-visible:ring-2 focus-visible:outline-none"
+						>
+							Resources
+							<ChevronDown
+								class="h-4 w-4 transition-transform {mobileResourcesOpen ? 'rotate-180' : ''}"
+								aria-hidden="true"
+							/>
+						</Collapsible.Trigger>
+						<Collapsible.Content
+							hiddenUntilFound={false}
+							class="mt-2 rounded-xl border border-white/10 bg-white/[0.02] p-2"
+						>
+							{@render resourceLinks()}
+						</Collapsible.Content>
+					</Collapsible.Root>
+					<div class="mt-4 flex flex-col gap-3 pt-2">
+						<Button
+							variant="secondary"
+							size="lg"
+							href="mailto:contactus@roverhq.ai"
+							class="h-11 w-full rounded-full font-sans text-xs font-bold uppercase"
+							onclick={closeMenu}
+						>
+							Get Demo
+						</Button>
+						<Button
+							size="lg"
+							href={sectionHref('/', '#get-demo')}
+							class="bg-primary hover:bg-primary/90 h-11 w-full rounded-full font-sans text-xs font-bold tracking-wide uppercase"
+							onclick={closeMenu}
+						>
+							Contact Us
+						</Button>
+					</div>
+				</div>
+			</div>
+		{/if}
+	</nav>
+
+	{#if productSections.length > 0}
+		<nav
+			aria-label={`${productName} page sections`}
+			class="dark bg-background/95 border-border border-b backdrop-blur-md"
+		>
+			<div class="container mx-auto flex max-w-screen-2xl items-center gap-6 px-4 sm:px-6">
+				<a
+					href={productOverview}
+					class="text-foreground hidden min-h-12 shrink-0 items-center text-[12px] font-semibold lg:inline-flex"
+					>{productName}</a
+				>
+				<div class="flex min-w-0 flex-1 items-center gap-5 overflow-x-auto sm:gap-7">
+					<a
+						href={productOverview}
+						class="text-foreground/70 hover:text-primary focus-visible:text-primary inline-flex min-h-12 shrink-0 items-center text-[11px] font-medium transition-colors"
+						>Overview</a
+					>
+					{#each productSections as section (section.hash)}
+						<a
+							href={section.hash}
+							class="text-foreground/70 hover:text-primary focus-visible:text-primary inline-flex min-h-12 shrink-0 items-center text-[11px] font-medium whitespace-nowrap transition-colors"
+							>{section.label}</a
+						>
+					{/each}
+				</div>
+			</div>
+		</nav>
 	{/if}
-</nav>
+</div>
+
+<style>
+	:global(
+		main
+			:is(
+				#siem,
+				#security-data-lake,
+				#ingestion,
+				#retention,
+				#database-activity-monitoring,
+				#big-idea,
+				#architecture,
+				#ai-soc,
+				#economics,
+				#discovery,
+				#monitoring,
+				#detection,
+				#response,
+				#compliance
+			)
+	) {
+		scroll-margin-top: 8rem;
+	}
+</style>

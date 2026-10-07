@@ -10,6 +10,7 @@
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"test": "node --test tests/*.test.mjs && python3 tests/private-download-signer.test.py",
 		"test:leads": "node --test tests/google-leads.test.mjs",
 		"setup:google-leads": "node scripts/prepare-google-leads.mjs",
 		"lint": "prettier --check .",
@@ -21,12 +22,12 @@
 		"predev": "npm run generate:comparisons",
 		"precheck": "npm run generate:comparisons",
 		"upload:comparison": "node scripts/upload-comparison-pdf.mjs",
-		"test:comparisons": "node --test tests/comparisons.test.mjs"
+		"test:comparisons": "node --test tests/comparisons.test.mjs",
+		"test:pricing": "node --test tests/data-lake-pricing.test.mjs tests/query-latency.test.mjs"
 	},
 	"devDependencies": {
 		"@fontsource-variable/instrument-sans": "^5.3.0",
 		"@fontsource-variable/inter": "^5.3.0",
-		"@fortawesome/free-brands-svg-icons": "^7.3.1",
 		"@internationalized/date": "^3.12.3",
 		"@lucide/svelte": "^1.31.0",
 		"@sveltejs/adapter-static": "^3.0.10",
@@ -38,7 +39,6 @@
 		"prettier-plugin-svelte": "^4.1.0",
 		"prettier-plugin-tailwindcss": "^0.8.0",
 		"shadcn-svelte": "^1.5.0",
-		"simple-icons": "^16.29.0",
 		"svelte": "^5.56.1",
 		"svelte-check": "^4.6.0",
 		"tailwind-variants": "^3.3.1",

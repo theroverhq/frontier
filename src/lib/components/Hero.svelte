@@ -3,16 +3,31 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
 
+	let {
+		headingTag = 'h1',
+		ctaHref = '#get-demo',
+		ctaLabel = 'Get Demo',
+		product = 'siem'
+	}: {
+		headingTag?: 'h1' | 'h2';
+		ctaHref?: string;
+		ctaLabel?: string;
+		product?: 'siem' | 'security-data-lake';
+	} = $props();
+
 	const waveText = 'Cold Storage. Hot Intelligence.';
 
 	const sources = ['Cloud', 'Identity', 'Endpoint', 'Network', 'SaaS', 'Logs'];
 
-	const outputs = [
-		{ label: 'Instant Search', color: '', spaced: false },
-		{ label: 'Analytics', color: '', spaced: false },
-		{ label: 'SIEM', color: '', spaced: true },
-		{ label: 'AI SOC', color: '', spaced: false }
-	];
+	const outputs = $derived([
+		{ label: 'Instant Search', spaced: false },
+		{ label: 'Analytics', spaced: false },
+		{
+			label: product === 'security-data-lake' ? 'Historical Search' : 'SIEM',
+			spaced: true
+		},
+		{ label: product === 'security-data-lake' ? 'Retention' : 'AI SOC', spaced: false }
+	]);
 
 	const features = [
 		'Customer-owned Object-storage',
@@ -42,7 +57,7 @@
 
 	/* Animation state, driven imperatively but rendered declaratively. */
 	let srcLit = $state(sources.map(() => false));
-	let outLit = $state(outputs.map(() => false));
+	let outLit = $state([false, false, false, false]);
 	let rowLit = $state(cylRows.map(() => false));
 	let cylLit = $state(false);
 	let focused = $state(false);
@@ -521,8 +536,8 @@
 
 <header
 	bind:this={heroEl}
-	id="siem"
-	class="dark bg-background text-foreground relative overflow-hidden pt-20 pb-24"
+	id={product}
+	class="dark relative overflow-hidden bg-background pt-20 pb-24 text-foreground"
 >
 	<!-- Ambient lime wash, mixed from the theme token -->
 	<div
@@ -537,16 +552,21 @@
 		>
 			<div>
 				<Badge variant="secondary" class="gap-1.5 px-3 py-1 font-sans">
-					<span class="bg-primary inline-block h-2 w-2 animate-pulse rounded-full"></span>
-					SIEM + Security Data Lake
+					<span class="inline-block h-2 w-2 animate-pulse rounded-full bg-primary"></span>
+					{product === 'security-data-lake' ? 'Security Data Lake' : 'SIEM + Security Data Lake'}
 				</Badge>
 
-				<h1
-					class="text-foreground mt-6 text-[clamp(2.125rem,4.4vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.028em]"
+				<svelte:element
+					this={headingTag}
+					class="mt-6 text-[clamp(2.125rem,4.4vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.028em] text-foreground"
 				>
-					<span class="block sm:whitespace-nowrap">The SIEM built for</span>
-					<span class="block sm:whitespace-nowrap">infinite retention.</span>
-				</h1>
+					<span class="block sm:whitespace-nowrap"
+						>{product === 'security-data-lake' ? 'Your security data.' : 'The SIEM built for'}</span
+					>
+					<span class="block sm:whitespace-nowrap"
+						>{product === 'security-data-lake' ? 'Without expiry.' : 'infinite retention.'}</span
+					>
+				</svelte:element>
 
 				<p
 					class="gradient-text mt-[18px] text-[clamp(1.25rem,2vw,1.5625rem)] font-medium tracking-[-0.012em]"
@@ -555,21 +575,26 @@
 				</p>
 
 				<p class=" mt-5 max-w-[470px] text-base leading-[1.72]">
-					Rover keeps every security event in low-cost object storage and makes years of data
-					searchable in seconds. Run detections and analytics across everything you retain, and give
-					analysts and AI agents years of context for every investigation—without search clusters.
+					{#if product === 'security-data-lake'}
+						Keep cloud, identity, endpoint, network, and application telemetry in object storage you
+						own. Search and analyze years of retained data without restoring archives or managing
+						search clusters—a data foundation for investigations, analytics, and AI context.
+					{:else}
+						Rover keeps every security event in low-cost object storage and makes years of data
+						searchable in seconds. Run detections and analytics across everything you retain, and
+						give analysts and AI agents years of context for every investigation—without search
+						clusters.
+					{/if}
 				</p>
 
 				<div class="mt-8">
-					<Button size="lg" href="#get-demo" class=" rounded-full px-12 uppercase"
-						>Get Demo</Button
-					>
+					<Button size="lg" href={ctaHref} class=" rounded-full px-12 uppercase">{ctaLabel}</Button>
 				</div>
 
 				<div class="mt-11 grid grid-cols-1 gap-x-11 gap-y-3 sm:grid-cols-2">
 					{#each features as feature (feature)}
-						<span class="text-foreground/80 flex items-center gap-2.5 text-[13.5px] font-medium">
-							<span class="bg-muted-foreground h-[5px] w-[5px] shrink-0 rounded-full"></span>
+						<span class="flex items-center gap-2.5 text-[13.5px] font-medium text-foreground/80">
+							<span class="h-[5px] w-[5px] shrink-0 rounded-full bg-muted-foreground"></span>
 							{feature}
 						</span>
 					{/each}
@@ -581,7 +606,7 @@
 				<div
 					bind:this={diagramEl}
 					id="hero-preview"
-					class="bend hd-diagram border-border bg-card relative min-h-0 overflow-visible rounded-2xl border px-[30px] pt-12 pb-10 sm:min-h-[460px]"
+					class="bend hd-diagram relative min-h-0 overflow-visible rounded-2xl border border-border bg-card px-[30px] pt-12 pb-10 sm:min-h-[460px]"
 					style="box-shadow: 0 30px 80px rgba(0,0,0,.4), 0 0 60px rgba(200,241,53,.04);"
 					class:is-focus={focused}
 					aria-label="Rover architecture: all security data into cold storage, hot intelligence out"
@@ -605,7 +630,7 @@
 							<div class="flex flex-wrap gap-2 sm:block sm:gap-0">
 								{#each sources as source, i (source)}
 									<div
-										class="hd-src border-border bg-background/50 mb-0 flex-1 basis-[40%] rounded-[11px] border px-2 py-2 text-center text-[13px] font-medium sm:mb-2 sm:basis-auto"
+										class="hd-src mb-0 flex-1 basis-[40%] rounded-[11px] border border-border bg-background/50 px-2 py-2 text-center text-[13px] font-medium sm:mb-2 sm:basis-auto"
 										class:is-lit={srcLit[i]}
 									>
 										{source}
@@ -617,7 +642,7 @@
 
 						<!-- Cold storage -->
 						<div class="flex flex-col items-center">
-							<div class="text-primary mb-3.5 text-center text-[27px] leading-none font-bold">
+							<div class="mb-3.5 text-center text-[27px] leading-none font-bold text-primary">
 								Rover
 							</div>
 							<div
@@ -661,7 +686,7 @@
 											<line class="cyl-dash" x1="72" y1={row.y} x2="212" y2={row.y} />
 										</g>
 									{/each}
-									<text class="fill-foreground font-small" x="125" y="320" text-anchor="middle"
+									<text class="font-small fill-foreground" x="125" y="320" text-anchor="middle"
 										>Full-fidelity data
 									</text>
 								</svg>
@@ -681,9 +706,8 @@
 									<div class="h-0 sm:h-[34px]" aria-hidden="true"></div>
 								{/if}
 								<div
-									class="hd-out border-border bg-background/50 mb-[11px] flex items-center gap-2.5 rounded-[11px] border px-3 py-2.5 text-xs font-medium whitespace-nowrap"
+									class="hd-out mb-[11px] flex items-center gap-2.5 rounded-[11px] border border-border bg-background/50 px-3 py-2.5 text-xs font-medium whitespace-nowrap"
 									class:is-lit={outLit[i]}
-									style="color: {output.color};"
 								>
 									<i
 										class="h-[5px] w-[5px] shrink-0 rounded-full"
@@ -698,15 +722,19 @@
 					<!-- Floating mid-column labels, positioned against the measured bus -->
 					<div
 						bind:this={cdEl}
-						class="text-primary/90 absolute z-2 hidden -translate-x-1/2 -translate-y-1/2 flex-col gap-[22px] text-center text-[9px] font-semibold tracking-[0.07em] whitespace-nowrap uppercase xl:flex"
+						class="absolute z-2 hidden -translate-x-1/2 -translate-y-1/2 flex-col gap-[22px] text-center text-[9px] font-semibold tracking-[0.07em] whitespace-nowrap text-primary/90 uppercase xl:flex"
 						aria-hidden="true"
 					>
-						<span>Continuous Detections</span>
+						<span
+							>{product === 'security-data-lake'
+								? 'Telemetry Ingestion'
+								: 'Continuous Detections'}</span
+						>
 						<span>Schema on read</span>
 					</div>
 					<div
 						bind:this={sqcEl}
-						class="text-foreground absolute z-2 hidden -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] uppercase xl:block"
+						class="absolute z-2 hidden -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] text-foreground uppercase xl:block"
 						aria-hidden="true"
 					>
 						Serverless<br />Query<br />Compute
@@ -718,10 +746,13 @@
 					</div>
 					<div
 						bind:this={spEl}
-						class="text-foreground absolute z-2 hidden -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] uppercase xl:block"
+						class="absolute z-2 hidden -translate-x-1/2 text-center text-[9.5px] leading-[1.75] font-bold tracking-[0.08em] text-foreground uppercase xl:block"
 						aria-hidden="true"
 					>
-						Security<br />Platform
+						{product === 'security-data-lake' ? 'Data' : 'Security'}<br />{product ===
+						'security-data-lake'
+							? 'Foundation'
+							: 'Platform'}
 					</div>
 				</div>
 			</div>
