@@ -1,14 +1,15 @@
 <script lang="ts">
-	import { blogs } from '$lib/data/blogs';
+	import type { PageData } from './$types';
 	import Search from '@lucide/svelte/icons/search';
 
+	let { data }: { data: PageData } = $props();
 	let searchQuery = $state('');
 	let selectedCategory = $state('All');
 
-	const categories = ['All', ...Array.from(new Set(blogs.map((b) => b.category)))];
+	const categories = $derived(['All', ...Array.from(new Set(data.blogs.map((b) => b.category)))]);
 
 	const filteredBlogs = $derived(
-		blogs.filter((blog) => {
+		data.blogs.filter((blog) => {
 			const matchesCategory = selectedCategory === 'All' || blog.category === selectedCategory;
 			const matchesSearch =
 				searchQuery.trim() === '' ||

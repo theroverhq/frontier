@@ -1,6 +1,6 @@
 import { blogs } from '$lib/data/blogs';
 import { error } from '@sveltejs/kit';
-import type { PageLoad } from './$types';
+import type { PageServerLoad } from './$types';
 
 function addTableOfContents(html: string) {
 	const idAttribute = /\sid\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/i;
@@ -48,7 +48,7 @@ function addTableOfContents(html: string) {
 	return { html: content, tableOfContents };
 }
 
-export const load: PageLoad = ({ params }) => {
+export const load: PageServerLoad = ({ params }) => {
 	const cleanSlug = params.slug.replace(/\.html$/, '');
 	const blog = blogs.find((b) => b.slug === cleanSlug);
 
@@ -64,8 +64,7 @@ export const load: PageLoad = ({ params }) => {
 	return {
 		blog: { ...blog, html },
 		tableOfContents,
-		allBlogs: blogs,
-		prevBlog,
-		nextBlog
+		prevBlog: prevBlog ? { slug: prevBlog.slug, card_title: prevBlog.card_title } : null,
+		nextBlog: nextBlog ? { slug: nextBlog.slug, card_title: nextBlog.card_title } : null
 	};
 };
