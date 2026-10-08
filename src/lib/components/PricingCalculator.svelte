@@ -516,17 +516,18 @@
 			: allProviders
 	);
 
-	// Formatter
-	const formatVal = (val: number) => {
-		if (val >= 1000000) {
-			return `$${(val / 1000000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}M`;
+	// Compact six-figure values; promote rounded 1,000K to 1M.
+	const formatNumber = (val: number) => {
+		const rounded = Math.round(val);
+		if (rounded >= 999_950) {
+			return `${(rounded / 1_000_000).toLocaleString('en-US', { maximumFractionDigits: 2 })}M`;
 		}
-		return new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency: 'USD',
-			maximumFractionDigits: 0
-		}).format(val);
+		if (rounded >= 100_000) {
+			return `${(rounded / 1_000).toLocaleString('en-US', { maximumFractionDigits: 1 })}K`;
+		}
+		return rounded.toLocaleString('en-US');
 	};
+	const formatVal = (val: number) => `$${formatNumber(val)}`;
 </script>
 
 <div class="dark rounded-2xl border border-border bg-card p-4 text-foreground sm:p-8 lg:p-10">
@@ -646,14 +647,11 @@
 				>
 					<span class="text-text-muted">Calculated query workload:</span>
 					<span class="font-bold text-text-primary">
-						{Math.round(activeVolume.totalSearches * activeQueryIntensity.factor).toLocaleString()} queries
-						/ mo
+						{formatNumber(activeVolume.totalSearches * activeQueryIntensity.factor)} queries / mo
 						<span class="font-normal text-text-muted">
-							({Math.round(
-								activeVolume.alertsPerMonth * activeQueryIntensity.factor
-							).toLocaleString()} alerts + {Math.round(
+							({formatNumber(activeVolume.alertsPerMonth * activeQueryIntensity.factor)} alerts + {formatNumber(
 								activeVolume.huntsPerMonth * activeQueryIntensity.factor
-							).toLocaleString()} hunts)
+							)} hunts)
 						</span>
 					</span>
 				</div>
@@ -662,7 +660,7 @@
 			<!-- Control 3: Retention Period -->
 			<div class="space-y-2 rounded-xl border border-border bg-background p-4 sm:p-5">
 				<div class="flex items-center justify-between">
-					<span class="text-overline font-semibold text-text-primary">Retention Period</span>
+					<span class="text-overline font-semibold text-text-primary">Hot Tier Retention Period</span>
 					<span
 						class="rounded-md border border-border bg-card/80 px-3 py-1 text-label-sm font-bold text-text-primary"
 					>
@@ -940,7 +938,6 @@
 								{#if queryLatency}
 									<span
 										class="rounded-full border border-security-critical/30 bg-security-critical/10 bg-transparent px-2 py-0.5 text-[10px] font-medium text-security-critical/80"
-										title={queryLatency.title}
 									>
 										{queryLatency.label}
 									</span>
@@ -949,7 +946,7 @@
 							<div class="mt-0.5 text-caption text-text-muted">
 								{provider.category}
 								{#if archiveLatency}
-									<span class="text-[10px] text-security-critical/80" title={archiveLatency.title}>
+									<span class="text-[10px] text-security-critical/80">
 										{archiveLatency.label}
 									</span>
 								{/if}
@@ -982,10 +979,6 @@
 					</div>
 				</div>
 			{/each}
-			<p class="px-1 pt-1 text-[11px] leading-relaxed text-text-muted">
-				Competitor latency ranges are theoretical estimates. Actual latency depends on query scope,
-				cache and compute.
-			</p>
 		</div>
 	</div>
 </div>

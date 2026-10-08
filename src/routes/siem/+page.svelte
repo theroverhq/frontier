@@ -4,6 +4,7 @@
 	import Architecture from '$lib/components/Architecture.svelte';
 	import Economics from '$lib/components/Economics.svelte';
 	import AiSoc from '$lib/components/AiSoc.svelte';
+	import Comparisons from '$lib/components/Comparisons.svelte';
 	import FinalCta from '$lib/components/FinalCta.svelte';
 </script>
 
@@ -62,4 +63,5 @@
 <Architecture />
 <AiSoc />
 <Economics />
+<Comparisons />
 <FinalCta />

@@ -246,7 +246,7 @@
 						id={group.id}
 						class="border-border grid grid-cols-1 gap-8 border-t py-12 first:border-t-0 md:py-14 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-14"
 					>
-						<div class="lg:sticky lg:top-28 lg:self-start">
+						<div class="lg:sticky lg:top-20 lg:self-start">
 							<div class="text-primary text-[11px] font-bold tracking-[0.12em] uppercase">
 								{num(gi)} · {group.step}
 							</div>

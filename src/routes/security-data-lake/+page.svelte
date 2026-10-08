@@ -235,9 +235,3 @@
 		'No search clusters'
 	]}
 />
-
-<style>
-	section[id] {
-		scroll-margin-top: 8rem;
-	}
-</style>

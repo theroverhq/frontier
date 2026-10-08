@@ -8,14 +8,15 @@
 		ServerOff,
 		Search,
 		Activity,
-		Eye
+		Eye,
+		CloudUpload
 	} from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
 	import { blogs } from '$lib/data/blogs';
 	const title = 'Rover | Operational Intelligence for Users and AI Agents';
 	const description =
-		'Understand threats. Control database activity. Rover brings SIEM and database activity monitoring to customer-owned object storage.';
+		'Rover brings SIEM, database activity monitoring, and a Security Data Lake to customer-owned object storage.';
 	const principles = [
 		{
 			icon: LockKeyhole,
@@ -72,51 +73,54 @@
 	<meta name="twitter:image" content="https://roverhq.ai/og-image.jpg" />
 	{@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
 </svelte:head>
-<header class="dark relative overflow-hidden bg-background pt-20 pb-0 text-foreground">
+<header class="dark relative overflow-hidden bg-background py-20 text-foreground">
 	<div class="hero-wash" aria-hidden="true"></div>
 	<div class="relative container mx-auto max-w-screen-2xl px-4 text-center sm:px-6">
-		<Badge variant="secondary" class="gap-2 px-3 py-1 font-sans"
-			><span class="h-1.5 w-1.5 rounded-full bg-primary"></span>Built around your data. Built for
-			your control.</Badge
-		>
-		<h1
-			class="mx-auto mt-7 max-w-[900px] text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.08] font-bold tracking-[-0.035em]"
-		>
-			Operational intelligence<br /><span class="text-primary">for users and AI agents.</span>
-		</h1>
-		<p class="mx-auto mt-6 max-w-[660px] text-[17.5px] leading-[1.62] text-foreground/75">
-			Connect your data. Understand the patterns. Put intelligence to work.
-		</p>
-		<div class="mt-8 flex flex-wrap justify-center gap-3">
-			<Button size="lg" href="#get-demo" class="rounded-full px-10 uppercase">Get Demo</Button
-			><Button size="lg" variant="outline" href="#products" class="rounded-full px-8 uppercase"
-				>Explore Rover<ArrowRight class="ml-2 h-4 w-4" aria-hidden="true" /></Button
-			>
-		</div>
 		<div
 			class="hero-landscape"
 			role="img"
-			aria-label="Rover provides security analytics and database monitoring, built around customer-owned object storage."
+			aria-label="Rover SIEM, Database Activity Monitoring, and Security Data Lake connect to your object storage."
 		>
 			<svg
-				class="landscape-lines"
+				class="landscape-lines landscape-lines-desktop"
 				viewBox="0 0 1000 290"
 				preserveAspectRatio="none"
 				fill="none"
 				aria-hidden="true"
-				><path class="flow-line" d="M180 90H350Q400 90 400 140V190" /><path
+				><path class="flow-line" d="M180 90V140Q180 190 230 190H400" /><path
 					class="flow-line"
-					d="M820 90H650Q600 90 600 140V190"
-				/><path
+					d="M820 90V140Q820 190 770 190H600"
+				/><path class="flow-line" d="M500 90V190" /><path
 					d="M0 255Q250 160 500 230T1000 255M0 270Q250 175 500 245T1000 270"
 					stroke="var(--primary)"
 					stroke-opacity=".09"
 				/><path d="M500 190V285" stroke="var(--primary)" stroke-opacity=".3" /></svg
 			>
+			<svg
+				class="landscape-lines landscape-lines-mobile"
+				viewBox="0 0 1000 360"
+				preserveAspectRatio="none"
+				fill="none"
+				aria-hidden="true"
+			>
+				<path class="flow-line" d="M180 90H90V220Q90 260 180 260H400" />
+				<path class="flow-line" d="M820 90H910V220Q910 260 820 260H600" />
+				<path class="flow-line" d="M500 180V270" />
+				<path d="M500 270V340" stroke="var(--primary)" stroke-opacity=".3" />
+			</svg>
 			<div class="landscape-product left">
 				<ShieldCheck class="h-6 w-6 text-primary" stroke-width={1.5} />
 				<div>
 					<span class="text-[15px] font-semibold">Rover SIEM</span><small>Understand threats.</small
+					>
+				</div>
+				<span class="landscape-dot"></span>
+			</div>
+			<div class="landscape-product middle">
+				<CloudUpload class="h-6 w-6 text-primary" stroke-width={1.5} />
+				<div>
+					<span class="text-[15px] font-semibold">Rover SDL</span><small
+						>Search retained history.</small
 					>
 				</div>
 				<span class="landscape-dot"></span>
@@ -135,8 +139,23 @@
 					class="text-[13px] font-semibold">Your object storage</span
 				><LockKeyhole class="h-4 w-4 text-primary/65" stroke-width={1.5} />
 			</div>
-			<span class="landscape-caption"
-				>Customer-owned data. Searchable history. Independent compute.</span
+		</div>
+		<Badge variant="secondary" class="gap-2 px-3 py-1 font-sans"
+			><span class="h-1.5 w-1.5 rounded-full bg-primary"></span>Built around your data. Built for
+			your control.</Badge
+		>
+		<h1
+			class="mx-auto mt-7 max-w-[900px] text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.08] font-bold tracking-[-0.035em]"
+		>
+			Operational intelligence<br /><span class="text-primary">for users and AI agents.</span>
+		</h1>
+		<p class="mx-auto mt-6 max-w-[660px] text-[17.5px] leading-[1.62] text-foreground/75">
+			Connect your data. Understand the patterns. Put intelligence to work.
+		</p>
+		<div class="mt-8 flex flex-wrap justify-center gap-3">
+			<Button size="lg" href="#get-demo" class="rounded-full px-10 uppercase">Get Demo</Button
+			><Button size="lg" variant="outline" href="#products" class="rounded-full px-8 uppercase"
+				>Explore Rover<ArrowRight class="ml-2 h-4 w-4" aria-hidden="true" /></Button
 			>
 		</div>
 	</div>
@@ -213,21 +232,19 @@
 				Different challenges.<br /><span class="text-primary">Purpose-built answers.</span>
 			</h2>
 			<p class="mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62] text-foreground/70">
-				Choose security analytics, database activity monitoring, or both. Each product has a clear
-				job. Both put your data under your control.
+				Choose SIEM, Database Activity Monitoring, or Security Data Lake. Each product has a clear
+				job. All put your data under your control.
 			</p>
 		</div>
-		<div class="mt-16 grid gap-6 lg:grid-cols-2">
+		<div class="mt-16 grid gap-6 lg:grid-cols-3">
 			<article
 				id="siem"
 				class="portfolio-card flex flex-col overflow-hidden rounded-2xl border border-border bg-card"
 			>
-				<div class="p-7 sm:p-9">
+				<div class="p-7 sm:p-9 lg:p-6 xl:p-9">
 					<div class="flex items-center gap-3">
 						<ShieldCheck class="h-6 w-6 text-primary" stroke-width={1.75} />
-						<p class="text-[11px] font-bold tracking-[0.12em] uppercase">
-							SIEM + Security Data Lake
-						</p>
+						<p class="text-[11px] font-bold tracking-[0.12em] uppercase">SIEM</p>
 					</div>
 					<h3 class="mt-6 text-[28px] leading-[1.2] font-bold tracking-[-0.02em]">
 						Turn telemetry into understanding.
@@ -238,7 +255,7 @@
 					</p>
 				</div>
 				<div
-					class="product-surface mx-7 rounded-xl border border-border bg-background p-5 sm:mx-9"
+					class="product-surface mx-7 rounded-xl border border-border bg-background p-5 sm:mx-9 lg:mx-6 xl:mx-9"
 					aria-label="Illustrative SIEM search"
 				>
 					<div class="flex items-center justify-between gap-3 text-[10px] font-semibold uppercase">
@@ -266,7 +283,7 @@
 						<span>Security telemetry</span><span>Search · Detect · Investigate</span>
 					</div>
 				</div>
-				<div class="mt-auto p-7 sm:p-9">
+				<div class="mt-auto p-7 sm:p-9 lg:p-6 xl:p-9">
 					<a href="/siem/" class="product-link"
 						>Explore Rover SIEM<ArrowRight class="h-4 w-4" aria-hidden="true" /></a
 					>
@@ -276,7 +293,7 @@
 				id="database-activity-monitoring"
 				class="portfolio-card flex flex-col overflow-hidden rounded-2xl border border-border bg-card"
 			>
-				<div class="p-7 sm:p-9">
+				<div class="p-7 sm:p-9 lg:p-6 xl:p-9">
 					<div class="flex items-center gap-3">
 						<Database class="h-6 w-6 text-primary" stroke-width={1.75} />
 						<p class="text-[11px] font-bold tracking-[0.12em] uppercase">
@@ -292,7 +309,7 @@
 					</p>
 				</div>
 				<div
-					class="product-surface mx-7 rounded-xl border border-border bg-background p-5 sm:mx-9"
+					class="product-surface mx-7 rounded-xl border border-border bg-background p-5 sm:mx-9 lg:mx-6 xl:mx-9"
 					aria-label="Illustrative database monitoring"
 				>
 					<div class="flex items-center justify-between gap-3 text-[10px] font-semibold uppercase">
@@ -321,9 +338,61 @@
 					</div>
 					<p class="mt-3 text-[10px] text-foreground/50">Monitor · Control · Comply</p>
 				</div>
-				<div class="mt-auto p-7 sm:p-9">
+				<div class="mt-auto p-7 sm:p-9 lg:p-6 xl:p-9">
 					<a href="/database-activity-monitoring/" class="product-link"
 						>Explore Rover DAM<ArrowRight class="h-4 w-4" aria-hidden="true" /></a
+					>
+				</div>
+			</article>
+			<article
+				id="security-data-lake"
+				class="portfolio-card flex flex-col overflow-hidden rounded-2xl border border-border bg-card"
+			>
+				<div class="p-7 sm:p-9 lg:p-6 xl:p-9">
+					<div class="flex items-center gap-3">
+						<CloudUpload class="h-6 w-6 text-primary" stroke-width={1.75} />
+						<p class="text-[11px] font-bold tracking-[0.12em] uppercase">Security Data Lake</p>
+					</div>
+					<h3 class="mt-6 text-[28px] leading-[1.2] font-bold tracking-[-0.02em]">
+						Keep every event within reach.
+					</h3>
+					<p class="mt-4 text-[15.5px] leading-[1.65] text-foreground/70">
+						Ingest, retain, and analyze security telemetry in your object storage. Keep years of
+						history searchable without restoring archives.
+					</p>
+				</div>
+				<div
+					class="product-surface mx-7 rounded-xl border border-border bg-background p-5 sm:mx-9 lg:mx-6 xl:mx-9"
+					aria-label="Illustrative Security Data Lake with telemetry and indexes in your object storage"
+				>
+					<div class="flex items-center justify-between gap-3 text-[10px] font-semibold uppercase">
+						<span class="flex items-center gap-2"
+							><CloudUpload class="h-3.5 w-3.5 text-primary" />Telemetry lake</span
+						><span class="text-foreground/50">Your storage</span>
+					</div>
+					<div class="mt-4 grid grid-cols-2 gap-2">
+						{#each ['Cloud', 'Identity', 'Endpoint', 'Network'] as source}
+							<span
+								class="rounded-lg border border-border bg-card px-2 py-2 text-center text-[11px] font-medium"
+								>{source}</span
+							>
+						{/each}
+					</div>
+					<div class="mt-4 rounded-lg border border-primary/30 bg-primary/5 p-3">
+						<div class="flex items-center justify-between gap-2">
+							<span class="font-mono text-[11px] text-primary">your-bucket/</span>
+							<LockKeyhole class="h-3.5 w-3.5 text-primary" />
+						</div>
+						<div class="mt-2 font-mono text-[11px] leading-[1.8] text-foreground/60">
+							<div>├ security-events/</div>
+							<div>└ indexes/</div>
+						</div>
+					</div>
+					<p class="mt-3 text-[10px] text-foreground/50">Search · Retain · Analyze</p>
+				</div>
+				<div class="mt-auto p-7 sm:p-9 lg:p-6 xl:p-9">
+					<a href="/security-data-lake/" class="product-link"
+						>Explore Security Data Lake<ArrowRight class="h-4 w-4" aria-hidden="true" /></a
 					>
 				</div>
 			</article>
@@ -341,7 +410,7 @@
 				More capability.<br />Without surrendering control.
 			</h2>
 			<p class="mx-auto mt-5 max-w-[720px] text-[17.5px] leading-[1.62]">
-				The architecture behind both products starts with a choice: your data belongs in
+				The architecture behind these products starts with a choice: your data belongs in
 				infrastructure you own.
 			</p>
 		</div>
@@ -442,7 +511,7 @@
 		</h2>
 		<p class="mx-auto mt-5 max-w-[660px] text-[17.5px] leading-[1.62] text-foreground/70">
 			Find the right starting point for your team. Explore Rover SIEM, Database Activity Monitoring,
-			or both with a personal walkthrough.
+			and Security Data Lake with a personal walkthrough.
 		</p>
 		<Button size="lg" href="mailto:contactus@roverhq.ai" class="mt-8 rounded-full px-12 uppercase"
 			>Get Demo</Button
@@ -467,15 +536,18 @@
 	}
 	.hero-landscape {
 		position: relative;
-		height: 300px;
+		height: 260px;
 		max-width: 1000px;
-		margin: 36px auto 0;
+		margin: 0 auto 20px;
 	}
 	.landscape-lines {
 		position: absolute;
 		inset: 0;
 		width: 100%;
 		height: 100%;
+	}
+	.landscape-lines-mobile {
+		display: none;
 	}
 	.flow-line {
 		stroke: var(--primary);
@@ -490,7 +562,7 @@
 		display: flex;
 		align-items: center;
 		gap: 14px;
-		width: 260px;
+		width: 26%;
 		padding: 22px;
 		text-align: left;
 		background: var(--card);
@@ -502,6 +574,10 @@
 		left: 6%;
 		transform: rotate(-3deg);
 	}
+	.landscape-product.middle {
+		left: 50%;
+		transform: translateX(-50%);
+	}
 	.landscape-product.right {
 		right: 6%;
 		transform: rotate(3deg);
@@ -511,6 +587,9 @@
 		margin-top: 5px;
 		font-size: 11px;
 		color: var(--muted-foreground);
+	}
+	.landscape-product > div {
+		min-width: 0;
 	}
 	.landscape-dot {
 		margin-left: auto;
@@ -534,15 +613,6 @@
 		background: var(--background);
 		border-radius: 12px;
 		box-shadow: 0 0 55px #c8f1350a;
-	}
-	.landscape-caption {
-		position: absolute;
-		bottom: 16px;
-		left: 0;
-		right: 0;
-		font-size: 10px;
-		letter-spacing: 0.08em;
-		color: var(--muted-foreground);
 	}
 	.portfolio-card,
 	.resource-card {
@@ -588,9 +658,15 @@
 			stroke-dashoffset: -150;
 		}
 	}
-	@media (max-width: 639px) {
+	@media (max-width: 767px) {
 		.hero-landscape {
-			height: 270px;
+			height: 360px;
+		}
+		.landscape-lines-desktop {
+			display: none;
+		}
+		.landscape-lines-mobile {
+			display: block;
 		}
 		.landscape-product {
 			top: 35px;
@@ -603,6 +679,10 @@
 		}
 		.landscape-product.right {
 			right: 1%;
+		}
+		.landscape-product.middle {
+			top: 135px;
+			width: min(68%, 260px);
 		}
 		.landscape-product small {
 			font-size: 9px;
@@ -618,13 +698,9 @@
 			display: none;
 		}
 		.landscape-core {
-			top: 150px;
+			top: 245px;
 			gap: 10px;
 			padding: 15px;
-		}
-		.landscape-caption {
-			font-size: 9px;
-			letter-spacing: 0;
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {

@@ -4,7 +4,6 @@
 	import '@fontsource/mitr/400.css';
 	import { page } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
-	import { ChevronDown, ArrowRight } from '@lucide/svelte';
 	import { Collapsible, Popover } from 'bits-ui';
 
 	let scrollY = $state(0);
@@ -14,41 +13,10 @@
 	let resourcesMenuOpen = $state(false);
 	let mobileResourcesOpen = $state(false);
 
-	/* Global navigation stays consistent; product sections use a separate navigation. */
-	const siemSections = [
-		{ label: 'Search', hash: '#big-idea' },
-		{ label: 'Architecture', hash: '#architecture' },
-		{ label: 'AI Context Engine', hash: '#ai-soc' },
-		{ label: 'Pricing', hash: '#economics' }
-	];
-	const damSections = [
-		{ label: 'Discovery', hash: '#discovery' },
-		{ label: 'Monitoring', hash: '#monitoring' },
-		{ label: 'Detection', hash: '#detection' },
-		{ label: 'Response', hash: '#response' },
-		{ label: 'Compliance', hash: '#compliance' }
-	];
-
 	const onDam = $derived($page.url.pathname.startsWith('/database-activity-monitoring/'));
 	const onSiem = $derived($page.url.pathname === '/siem/');
 	const onLake = $derived($page.url.pathname === '/security-data-lake/');
-	const lakeSections = [
-		{ label: 'Ingestion', hash: '#ingestion' },
-		{ label: 'Search', hash: '#big-idea' },
-		{ label: 'Retention & ownership', hash: '#retention' },
-		{ label: 'Use cases', hash: '#use-cases' },
-		{ label: 'Pricing', hash: '#economics' }
-	];
 	const globalSections = [{ label: 'Our approach', hash: '#why-rover' }];
-	const productSections = $derived(
-		onDam ? damSections : onSiem ? siemSections : onLake ? lakeSections : []
-	);
-	const productName = $derived(
-		onDam ? 'Database Activity Monitoring' : onLake ? 'Security Data Lake' : 'SIEM'
-	);
-	const productOverview = $derived(
-		onDam ? '#database-activity-monitoring' : onLake ? '#security-data-lake' : '#siem'
-	);
 
 	/* Same-page anchors stay bare so the browser scrolls instead of navigating. */
 	function sectionHref(path: string, hash: string) {
@@ -107,7 +75,6 @@
 					<span class="text-sm font-semibold">{platform.label}</span>
 					<span class="text-xs font-medium text-zinc-400">{platform.note}</span>
 				</span>
-				<ArrowRight class="h-4 w-4 shrink-0" aria-hidden="true" />
 			</a>
 		{/each}
 	</section>
@@ -125,7 +92,7 @@
 				class="hover:text-primary focus-visible:ring-primary flex min-h-11 items-center justify-between gap-8 rounded-lg px-3 text-sm font-semibold tracking-normal text-zinc-200 normal-case transition-colors hover:bg-white/5 focus-visible:ring-2 focus-visible:outline-none"
 				onclick={closeMenu}
 			>
-				{comparison.navLabel}<ArrowRight class="h-4 w-4" aria-hidden="true" />
+				{comparison.navLabel}
 			</a>
 		{/each}
 	</section>
@@ -172,6 +139,14 @@
 				class="hidden items-center gap-6 text-[11px] font-bold tracking-widest text-zinc-300 uppercase xl:flex 2xl:gap-8"
 				aria-label="Site links"
 			>
+				<a
+					href="/"
+					aria-current={$page.url.pathname === '/' ? 'page' : undefined}
+					class="hover:text-primary hover:border-primary flex min-h-11 items-center border-b transition-all {$page.url.pathname === '/'
+						? 'text-primary border-primary'
+						: 'border-transparent'}"
+					onclick={closeMenu}>Home</a
+				>
 				<Popover.Root bind:open={platformMenuOpen}>
 					<Popover.Trigger
 						openOnHover
@@ -179,10 +154,6 @@
 						class="hover:text-primary hover:border-primary focus-visible:ring-primary flex min-h-11 items-center gap-1.5 border-b border-transparent uppercase transition-colors focus-visible:ring-2 focus-visible:outline-none"
 					>
 						Products
-						<ChevronDown
-							class="h-3.5 w-3.5 transition-transform {platformMenuOpen ? 'rotate-180' : ''}"
-							aria-hidden="true"
-						/>
 					</Popover.Trigger>
 					<Popover.Content
 						align="start"
@@ -217,10 +188,6 @@
 						class="hover:text-primary hover:border-primary focus-visible:ring-primary flex min-h-11 items-center gap-1.5 border-b border-transparent uppercase transition-colors focus-visible:ring-2 focus-visible:outline-none"
 					>
 						Resources
-						<ChevronDown
-							class="h-3.5 w-3.5 transition-transform {resourcesMenuOpen ? 'rotate-180' : ''}"
-							aria-hidden="true"
-						/>
 					</Popover.Trigger>
 					<Popover.Content
 						align="start"
@@ -299,20 +266,22 @@
 		{#if mobileMenuOpen}
 			<div
 				class="bg-background/95 overflow-y-auto border-b border-white/10 px-6 pt-4 pb-8 backdrop-blur-xl xl:hidden"
-				style:max-height={productSections.length > 0
-					? 'calc(100dvh - 8rem)'
-					: 'calc(100dvh - 5rem)'}
+				style:max-height="calc(100dvh - 5rem)"
 			>
 				<div class="flex flex-col gap-4 text-sm font-bold tracking-widest text-zinc-300 uppercase">
+					<a
+						href="/"
+						aria-current={$page.url.pathname === '/' ? 'page' : undefined}
+						class="hover:text-primary flex min-h-11 items-center border-b border-white/5 transition-all {$page.url.pathname === '/'
+							? 'text-primary'
+							: ''}"
+						onclick={closeMenu}>Home</a
+					>
 					<Collapsible.Root bind:open={mobilePlatformOpen}>
 						<Collapsible.Trigger
 							class="hover:text-primary focus-visible:ring-primary flex min-h-11 w-full items-center justify-between border-b border-white/5 text-left uppercase transition-colors focus-visible:ring-2 focus-visible:outline-none"
 						>
 							Products
-							<ChevronDown
-								class="h-4 w-4 transition-transform {mobilePlatformOpen ? 'rotate-180' : ''}"
-								aria-hidden="true"
-							/>
 						</Collapsible.Trigger>
 						<Collapsible.Content
 							hiddenUntilFound={false}
@@ -342,10 +311,6 @@
 							class="hover:text-primary focus-visible:ring-primary flex min-h-11 w-full items-center justify-between border-b border-white/5 text-left uppercase transition-colors focus-visible:ring-2 focus-visible:outline-none"
 						>
 							Resources
-							<ChevronDown
-								class="h-4 w-4 transition-transform {mobileResourcesOpen ? 'rotate-180' : ''}"
-								aria-hidden="true"
-							/>
 						</Collapsible.Trigger>
 						<Collapsible.Content
 							hiddenUntilFound={false}
@@ -377,57 +342,4 @@
 			</div>
 		{/if}
 	</nav>
-
-	{#if productSections.length > 0}
-		<nav
-			aria-label={`${productName} page sections`}
-			class="dark bg-background/95 border-border border-b backdrop-blur-md"
-		>
-			<div class="container mx-auto flex max-w-screen-2xl items-center gap-6 px-4 sm:px-6">
-				<a
-					href={productOverview}
-					class="text-foreground hidden min-h-12 shrink-0 items-center text-[12px] font-semibold lg:inline-flex"
-					>{productName}</a
-				>
-				<div class="flex min-w-0 flex-1 items-center gap-5 overflow-x-auto sm:gap-7">
-					<a
-						href={productOverview}
-						class="text-foreground/70 hover:text-primary focus-visible:text-primary inline-flex min-h-12 shrink-0 items-center text-[11px] font-medium transition-colors"
-						>Overview</a
-					>
-					{#each productSections as section (section.hash)}
-						<a
-							href={section.hash}
-							class="text-foreground/70 hover:text-primary focus-visible:text-primary inline-flex min-h-12 shrink-0 items-center text-[11px] font-medium whitespace-nowrap transition-colors"
-							>{section.label}</a
-						>
-					{/each}
-				</div>
-			</div>
-		</nav>
-	{/if}
 </div>
-
-<style>
-	:global(
-		main
-			:is(
-				#siem,
-				#security-data-lake,
-				#ingestion,
-				#retention,
-				#database-activity-monitoring,
-				#big-idea,
-				#architecture,
-				#ai-soc,
-				#economics,
-				#discovery,
-				#monitoring,
-				#detection,
-				#response,
-				#compliance
-			)
-	) {
-		scroll-margin-top: 8rem;
-	}
-</style>
