@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { blogs } from '$lib/data/blogs';
-	import { Search } from '@lucide/svelte';
+	import Search from '@lucide/svelte/icons/search';
 
 	let searchQuery = $state('');
 	let selectedCategory = $state('All');

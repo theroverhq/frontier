@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { Badge } from '$lib/components/ui/badge';
 	import HistorySearchCard from '$lib/components/HistorySearchCard.svelte';
-	import { FileClock, Infinity as InfinityIcon, LockKeyhole, ServerOff, Zap } from '@lucide/svelte';
+	import FileClock from '@lucide/svelte/icons/file-clock';
+	import InfinityIcon from '@lucide/svelte/icons/infinity';
+	import LockKeyhole from '@lucide/svelte/icons/lock-keyhole';
+	import ServerOff from '@lucide/svelte/icons/server-off';
+	import Zap from '@lucide/svelte/icons/zap';
 
 	const extras = [
 		{

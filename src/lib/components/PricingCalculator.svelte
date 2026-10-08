@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Badge } from '$lib/components/ui/badge';
-	import { Database } from '@lucide/svelte';
+	import Database from '@lucide/svelte/icons/database';
 	import { estimateDataLake } from '$lib/data-lake-pricing.mjs';
 	import { estimateQueryLatency } from '$lib/query-latency.mjs';
 	let { dataLake = false }: { dataLake?: boolean } = $props();

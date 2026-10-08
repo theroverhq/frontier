@@ -1,13 +1,11 @@
 <script lang="ts">
-	import {
-		Database,
-		ArrowRight,
-		CloudUpload,
-		Search,
-		History,
-		ServerOff,
-		LockKeyhole
-	} from '@lucide/svelte';
+	import Database from '@lucide/svelte/icons/database';
+	import ArrowRight from '@lucide/svelte/icons/arrow-right';
+	import CloudUpload from '@lucide/svelte/icons/cloud-upload';
+	import Search from '@lucide/svelte/icons/search';
+	import History from '@lucide/svelte/icons/rotate-ccw-clock';
+	import ServerOff from '@lucide/svelte/icons/server-off';
+	import LockKeyhole from '@lucide/svelte/icons/lock-keyhole';
 	import { Badge } from '$lib/components/ui/badge';
 	import Hero from '$lib/components/Hero.svelte';
 	import BigIdea from '$lib/components/BigIdea.svelte';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ArrowRight } from '@lucide/svelte';
+	import ArrowRight from '@lucide/svelte/icons/arrow-right';
 	import { comparisons } from '$lib/comparisons';
 	import { Badge } from '$lib/components/ui/badge';
 </script>

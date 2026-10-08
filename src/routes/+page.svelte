@@ -1,19 +1,18 @@
 <script lang="ts">
-	import {
-		ArrowRight,
-		ShieldCheck,
-		Database,
-		LockKeyhole,
-		History,
-		ServerOff,
-		Search,
-		Activity,
-		Eye,
-		CloudUpload
-	} from '@lucide/svelte';
+	import ArrowRight from '@lucide/svelte/icons/arrow-right';
+	import ShieldCheck from '@lucide/svelte/icons/shield-check';
+	import Database from '@lucide/svelte/icons/database';
+	import LockKeyhole from '@lucide/svelte/icons/lock-keyhole';
+	import History from '@lucide/svelte/icons/rotate-ccw-clock';
+	import ServerOff from '@lucide/svelte/icons/server-off';
+	import Search from '@lucide/svelte/icons/search';
+	import Activity from '@lucide/svelte/icons/activity';
+	import Eye from '@lucide/svelte/icons/eye';
+	import CloudUpload from '@lucide/svelte/icons/cloud-upload';
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
-	import { blogs } from '$lib/data/blogs';
+	import type { PageData } from './$types';
+	let { data }: { data: PageData } = $props();
 	const title = 'Rover | Operational Intelligence for Users and AI Agents';
 	const description =
 		'Rover brings SIEM, database activity monitoring, and a Security Data Lake to customer-owned object storage.';
@@ -474,7 +473,7 @@
 			>
 		</div>
 		<div class="mt-10 grid gap-6 md:grid-cols-2">
-			{#each blogs.slice(0, 2) as blog}<a
+			{#each data.blogs as blog}<a
 					href="/blogs/{blog.slug}/"
 					class="resource-card group flex flex-col rounded-2xl border border-border bg-card p-7 sm:p-9"
 					><span class="text-[11px] font-semibold tracking-wide text-muted-foreground uppercase"

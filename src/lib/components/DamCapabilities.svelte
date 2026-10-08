@@ -1,20 +1,18 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Badge } from '$lib/components/ui/badge';
-	import {
-		Activity,
-		BellRing,
-		Check,
-		Database,
-		FileCheck,
-		FingerprintPattern,
-		Radar,
-		ScanEye,
-		SearchCode,
-		ShieldAlert,
-		ShieldBan,
-		UserCog
-	} from '@lucide/svelte';
+	import Activity from '@lucide/svelte/icons/activity';
+	import BellRing from '@lucide/svelte/icons/bell-ring';
+	import Check from '@lucide/svelte/icons/check';
+	import Database from '@lucide/svelte/icons/database';
+	import FileCheck from '@lucide/svelte/icons/file-check';
+	import FingerprintPattern from '@lucide/svelte/icons/fingerprint-pattern';
+	import Radar from '@lucide/svelte/icons/radar';
+	import ScanEye from '@lucide/svelte/icons/scan-eye';
+	import SearchCode from '@lucide/svelte/icons/search-code';
+	import ShieldAlert from '@lucide/svelte/icons/shield-alert';
+	import ShieldBan from '@lucide/svelte/icons/shield-ban';
+	import UserCog from '@lucide/svelte/icons/user-cog';
 
 	/* Group ids double as the DAM navbar anchors. */
 	const groups = [

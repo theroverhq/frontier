@@ -4,17 +4,15 @@
 	import { cubicOut } from 'svelte/easing';
 	import { Tween } from 'svelte/motion';
 	import { fly, slide } from 'svelte/transition';
-	import {
-		Activity,
-		ChartNoAxesColumn,
-		Database,
-		Pause,
-		Play,
-		Search,
-		Server,
-		TriangleAlert,
-		X as XIcon
-	} from '@lucide/svelte';
+	import Activity from '@lucide/svelte/icons/activity';
+	import ChartNoAxesColumn from '@lucide/svelte/icons/chart-no-axes-column';
+	import Database from '@lucide/svelte/icons/database';
+	import Pause from '@lucide/svelte/icons/pause';
+	import Play from '@lucide/svelte/icons/play';
+	import Search from '@lucide/svelte/icons/search';
+	import Server from '@lucide/svelte/icons/server';
+	import TriangleAlert from '@lucide/svelte/icons/triangle-alert';
+	import XIcon from '@lucide/svelte/icons/x';
 
 	/* ------------------------------------------------------------------
 	   Illustrative data. Instance names are shared across every card so
