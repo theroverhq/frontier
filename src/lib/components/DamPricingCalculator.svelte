@@ -36,9 +36,9 @@
 	];
 
 	let selectedRetentionIdx = $state(3); // Default: 3 Years
-	let selectedDatabaseIdx = $state(0); // Default: 100 databases
+	let selectedDatabaseIdx = $state(2); // Default: 300 databases
 	let damVolumeIdx = $state(
-		damVolumeTiers.findIndex((tier) => tier.gbPerDay === databaseOptions[0].dailyGB)
+		damVolumeTiers.findIndex((tier) => tier.gbPerDay === databaseOptions[2].dailyGB)
 	);
 	let billingPeriod = $state<'monthly' | 'yearly'>('monthly');
 
