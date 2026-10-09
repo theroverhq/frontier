@@ -209,7 +209,7 @@
 </script>
 
 <!-- overflow-clip (not hidden) so the sticky group headings still stick -->
-<section id="capabilities" class="bg-muted text-foreground relative overflow-clip pt-24 pb-28">
+<section id="capabilities" class="relative overflow-clip bg-muted pt-24 pb-28 text-foreground">
 	<div class="relative container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div class="text-center">
 			<Badge class="px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase">
@@ -228,7 +228,7 @@
 		</div>
 
 		<div
-			class="dark bg-background text-foreground relative mt-16 overflow-clip rounded-3xl px-5 shadow-[0_40px_90px_-30px_rgba(0,0,0,0.45)] md:px-11"
+			class="dark relative mt-16 overflow-clip rounded-3xl bg-background px-5 text-foreground shadow-[0_40px_90px_-30px_rgba(0,0,0,0.45)] md:px-11"
 		>
 			<!-- Ambient wash, mixed from the theme token -->
 			<div
@@ -242,10 +242,10 @@
 					<div
 						bind:this={groupEls[gi]}
 						id={group.id}
-						class="border-border grid grid-cols-1 gap-8 border-t py-12 first:border-t-0 md:py-14 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-14"
+						class="grid grid-cols-1 gap-8 border-t border-border py-12 first:border-t-0 md:py-14 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-14"
 					>
 						<div class="lg:sticky lg:top-20 lg:self-start">
-							<div class="text-primary text-[11px] font-bold tracking-[0.12em] uppercase">
+							<div class="text-[11px] font-bold tracking-[0.12em] text-primary uppercase">
 								{num(gi)} · {group.step}
 							</div>
 							<h3
@@ -253,7 +253,7 @@
 							>
 								{group.title}
 							</h3>
-							<p class="text-foreground/70 mt-3 text-[15.5px] leading-[1.65]">{group.body}</p>
+							<p class="mt-3 text-[15.5px] leading-[1.65] text-foreground/70">{group.body}</p>
 						</div>
 						<div class="grid grid-cols-1 gap-[18px] sm:grid-cols-2">
 							{#each group.features as feature, fi (feature.title)}
@@ -266,13 +266,13 @@
 										: 16}px); transition-delay: {shown[gi] ? fi * 90 : 0}ms;"
 								>
 									<article
-										class="border-border bg-card hover:border-primary/50 h-full rounded-2xl border p-6 transition-colors {wide
+										class="capability-card h-full rounded-2xl border border-border bg-card p-6 transition-colors hover:border-primary/50 {wide
 											? 'md:grid md:grid-cols-2 md:items-center'
 											: 'flex flex-col'}"
 									>
 										<div class={wide ? 'md:pr-10' : ''}>
 											<span
-												class="border-primary/25 bg-primary/10 text-primary flex h-11 w-11 items-center justify-center rounded-xl border"
+												class="flex h-11 w-11 items-center justify-center rounded-xl border border-primary/25 bg-primary/10 text-primary"
 											>
 												<feature.icon class="h-5 w-5" stroke-width={1.75} aria-hidden="true" />
 											</span>
@@ -280,7 +280,7 @@
 												{feature.title}
 											</h4>
 											<p
-												class="text-foreground/70 mt-2 mb-5 text-[14.5px] leading-[1.6] {wide
+												class="mt-2 mb-5 text-[14.5px] leading-[1.6] text-foreground/70 {wide
 													? 'md:mb-0'
 													: ''}"
 											>
@@ -288,13 +288,13 @@
 											</p>
 										</div>
 										<ul
-											class="border-border space-y-2 border-t pt-4 {wide
+											class="space-y-2 border-t border-border pt-4 {wide
 												? 'md:border-t-0 md:border-l md:pt-0 md:pl-[33px]'
 												: 'mt-auto'}"
 										>
 											{#each feature.points as point (point)}
 												<li class="flex items-start gap-2.5 text-[13.5px] font-medium">
-													<Check class="text-primary mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+													<Check class="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
 													{point}
 												</li>
 											{/each}
@@ -309,3 +309,26 @@
 		</div>
 	</div>
 </section>
+
+<style>
+	.capability-card {
+		transition:
+			transform 0.3s ease,
+			border-color 0.3s ease,
+			box-shadow 0.3s ease;
+	}
+	@media (hover: hover) {
+		.capability-card:hover {
+			transform: translateY(-4px);
+			box-shadow: 0 18px 32px -20px rgb(0 0 0 / 0.5);
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.capability-card {
+			transition-duration: 0.01ms;
+		}
+		.capability-card:hover {
+			transform: none;
+		}
+	}
+</style>

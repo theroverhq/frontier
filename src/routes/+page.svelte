@@ -12,6 +12,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
 	import type { PageData } from './$types';
+	import { spotlight, cycleProducts } from '$lib/effects';
 	let { data }: { data: PageData } = $props();
 	const title = 'Rover | Operational Intelligence for Users and AI Agents';
 	const description =
@@ -72,11 +73,18 @@
 	<meta name="twitter:image" content="https://roverhq.ai/og-image.jpg" />
 	{@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
 </svelte:head>
-<header class="dark relative overflow-hidden bg-background py-20 text-foreground">
+<header
+	class="home-hero dark relative overflow-hidden bg-background py-20 text-foreground"
+	use:spotlight={{ tilt: true }}
+>
 	<div class="hero-wash" aria-hidden="true"></div>
+	<div class="hero-grid" aria-hidden="true"></div>
+	<div class="hero-spotlight" aria-hidden="true"></div>
 	<div class="relative container mx-auto max-w-screen-2xl px-4 text-center sm:px-6">
 		<div
 			class="hero-landscape"
+			data-effects-loop
+			use:cycleProducts
 			role="img"
 			aria-label="Rover SIEM, Database Activity Monitoring, and Security Data Lake connect to your object storage."
 		>
@@ -86,14 +94,22 @@
 				preserveAspectRatio="none"
 				fill="none"
 				aria-hidden="true"
-				><path class="flow-line" d="M180 90V140Q180 190 230 190H400" /><path
+				><path id="home-flow-siem" class="flow-line" d="M180 90V140Q180 190 230 190H400" /><path
+					id="home-flow-dam"
 					class="flow-line"
 					d="M820 90V140Q820 190 770 190H600"
-				/><path class="flow-line" d="M500 90V190" /><path
+				/><path id="home-flow-sdl" class="flow-line" d="M500 90V190" /><path
 					d="M0 255Q250 160 500 230T1000 255M0 270Q250 175 500 245T1000 270"
 					stroke="var(--primary)"
 					stroke-opacity=".09"
-				/><path d="M500 190V285" stroke="var(--primary)" stroke-opacity=".3" /></svg
+				/><path d="M500 190V285" stroke="var(--primary)" stroke-opacity=".3" />
+				{#each ['siem', 'sdl', 'dam'] as product, i}
+					<circle class="flow-particle" r="3.5" fill="var(--primary)"
+						><animateMotion dur="{2.6 + i * 0.4}s" begin="{-i}s" repeatCount="indefinite"
+							><mpath href="#home-flow-{product}" /></animateMotion
+						></circle
+					>
+				{/each}</svg
 			>
 			<svg
 				class="landscape-lines landscape-lines-mobile"
@@ -102,10 +118,17 @@
 				fill="none"
 				aria-hidden="true"
 			>
-				<path class="flow-line" d="M180 90H90V220Q90 260 180 260H400" />
-				<path class="flow-line" d="M820 90H910V220Q910 260 820 260H600" />
-				<path class="flow-line" d="M500 180V270" />
+				<path id="home-flow-mobile-siem" class="flow-line" d="M180 90H90V220Q90 260 180 260H400" />
+				<path id="home-flow-mobile-dam" class="flow-line" d="M820 90H910V220Q910 260 820 260H600" />
+				<path id="home-flow-mobile-sdl" class="flow-line" d="M500 180V270" />
 				<path d="M500 270V340" stroke="var(--primary)" stroke-opacity=".3" />
+				{#each ['siem', 'sdl', 'dam'] as product, i}
+					<circle class="flow-particle" r="3.5" fill="var(--primary)"
+						><animateMotion dur="{2.6 + i * 0.4}s" begin="{-i}s" repeatCount="indefinite"
+							><mpath href="#home-flow-mobile-{product}" /></animateMotion
+						></circle
+					>
+				{/each}
 			</svg>
 			<div class="landscape-product left">
 				<ShieldCheck class="h-6 w-6 text-primary" stroke-width={1.5} />
@@ -148,10 +171,13 @@
 		>
 			Operational intelligence<br /><span class="text-primary">for users and AI agents.</span>
 		</h1>
-		<p class="mx-auto mt-6 max-w-[660px] text-[17.5px] leading-[1.62] text-foreground/75">
+		<p
+			data-effects-reveal
+			class="mx-auto mt-6 max-w-[660px] text-[17.5px] leading-[1.62] text-foreground/75"
+		>
 			Connect your data. Understand the patterns. Put intelligence to work.
 		</p>
-		<div class="mt-8 flex flex-wrap justify-center gap-3">
+		<div data-effects-reveal class="mt-8 flex flex-wrap justify-center gap-3">
 			<Button size="lg" href="#get-demo" class="rounded-full px-10 uppercase">Get Demo</Button
 			><Button size="lg" variant="outline" href="#products" class="rounded-full px-8 uppercase"
 				>Explore Rover<ArrowRight class="ml-2 h-4 w-4" aria-hidden="true" /></Button
@@ -178,7 +204,7 @@
 			</p>
 		</div>
 		<div class="mt-16 grid gap-6 lg:grid-cols-2">
-			<article class="rounded-2xl border border-border bg-card p-7 sm:p-10">
+			<article class="effect-card rounded-2xl border border-border bg-card p-7 sm:p-10">
 				<div class="flex items-center gap-3 text-[11px] font-bold tracking-[0.12em] uppercase">
 					<Search class="h-5 w-5" stroke-width={1.75} />Across your environment
 				</div>
@@ -191,11 +217,12 @@
 				</p>
 				<div class="mt-7 flex flex-wrap gap-2 border-t border-border pt-6">
 					{#each ['Cloud', 'Identity', 'Endpoint', 'Network'] as source}<span
-							class="rounded-md bg-muted px-3 py-2 text-[12px] font-medium">{source}</span
+							class="effect-chip rounded-md bg-muted px-3 py-2 text-[12px] font-medium"
+							>{source}</span
 						>{/each}
 				</div>
 			</article>
-			<article class="rounded-2xl border border-border bg-card p-7 sm:p-10">
+			<article class="effect-card rounded-2xl border border-border bg-card p-7 sm:p-10">
 				<div class="flex items-center gap-3 text-[11px] font-bold tracking-[0.12em] uppercase">
 					<Eye class="h-5 w-5" stroke-width={1.75} />Inside your databases
 				</div>
@@ -208,7 +235,8 @@
 				</p>
 				<div class="mt-7 flex flex-wrap gap-2 border-t border-border pt-6">
 					{#each ['Users', 'Queries', 'Sensitive data', 'Policies'] as source}<span
-							class="rounded-md bg-muted px-3 py-2 text-[12px] font-medium">{source}</span
+							class="effect-chip rounded-md bg-muted px-3 py-2 text-[12px] font-medium"
+							>{source}</span
 						>{/each}
 				</div>
 			</article>
@@ -239,6 +267,7 @@
 			<article
 				id="siem"
 				class="portfolio-card flex flex-col overflow-hidden rounded-2xl border border-border bg-card"
+				use:spotlight
 			>
 				<div class="p-7 sm:p-9 lg:p-6 xl:p-9">
 					<div class="flex items-center gap-3">
@@ -270,7 +299,7 @@
 						>
 						count <span class="text-primary">by</span> src_ip
 					</div>
-					<div class="mt-5 flex h-20 items-end gap-1" aria-hidden="true">
+					<div data-effects-loop class="mt-5 flex h-20 items-end gap-1" aria-hidden="true">
 						{#each Array.from({ length: 32 }, (_, i) => 12 + ((i * 17 + i * i * 3) % 68)) as height, i}<span
 								class="signal-bar flex-1 rounded-t-sm bg-primary/60"
 								style="height: {height}%; animation-delay: {i * 35}ms;"
@@ -291,6 +320,7 @@
 			<article
 				id="database-activity-monitoring"
 				class="portfolio-card flex flex-col overflow-hidden rounded-2xl border border-border bg-card"
+				use:spotlight
 			>
 				<div class="p-7 sm:p-9 lg:p-6 xl:p-9">
 					<div class="flex items-center gap-3">
@@ -346,6 +376,7 @@
 			<article
 				id="security-data-lake"
 				class="portfolio-card flex flex-col overflow-hidden rounded-2xl border border-border bg-card"
+				use:spotlight
 			>
 				<div class="p-7 sm:p-9 lg:p-6 xl:p-9">
 					<div class="flex items-center gap-3">
@@ -446,7 +477,7 @@
 			</div>
 			<div class="grid border-t border-border md:grid-cols-3">
 				{#each principles as principle, i}<div
-						class="border-border px-6 py-8 md:px-11 {i > 0
+						class="effect-tile border-border px-6 py-8 md:px-11 {i > 0
 							? 'border-t md:border-t-0 md:border-l'
 							: ''}"
 					>
@@ -533,11 +564,34 @@
 			transparent 65%
 		);
 	}
+	.hero-grid,
+	.hero-spotlight {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+	}
+	.hero-grid {
+		background-image:
+			linear-gradient(#ffffff08 1px, transparent 1px),
+			linear-gradient(90deg, #ffffff08 1px, transparent 1px);
+		background-size: 60px 60px;
+		mask-image: radial-gradient(55% 55% at 50% 45%, #000, transparent);
+	}
+	.hero-spotlight {
+		background: radial-gradient(
+			380px circle at var(--effects-pointer-x, 50%) var(--effects-pointer-y, 40%),
+			#c8f13518,
+			transparent 60%
+		);
+	}
 	.hero-landscape {
 		position: relative;
 		height: 260px;
 		max-width: 1000px;
 		margin: 0 auto 20px;
+		transform: perspective(1000px) rotateX(var(--effects-tilt-x, 0deg))
+			rotateY(var(--effects-tilt-y, 0deg));
+		transition: transform 200ms ease-out;
 	}
 	.landscape-lines {
 		position: absolute;
@@ -553,7 +607,7 @@
 		stroke-opacity: 0.4;
 		stroke-width: 1.5;
 		stroke-dasharray: 6 9;
-		animation: flow 18s linear infinite;
+		animation: flow 1.4s linear infinite;
 	}
 	.landscape-product {
 		position: absolute;
@@ -568,6 +622,11 @@
 		border: 1px solid var(--border);
 		border-radius: 14px;
 		box-shadow: 0 20px 55px #0004;
+		transition:
+			border-color 300ms,
+			box-shadow 300ms,
+			translate 300ms,
+			scale 300ms;
 	}
 	.landscape-product.left {
 		left: 6%;
@@ -597,6 +656,7 @@
 		border-radius: 50%;
 		background: var(--primary);
 		box-shadow: 0 0 12px var(--primary);
+		animation: status-pulse 2s infinite;
 	}
 	.landscape-core {
 		position: absolute;
@@ -613,9 +673,46 @@
 		border-radius: 12px;
 		box-shadow: 0 0 55px #c8f1350a;
 	}
+	.landscape-core::after {
+		content: '';
+		position: absolute;
+		inset: -1px;
+		border: 1px solid var(--primary);
+		border-radius: inherit;
+		pointer-events: none;
+		animation: storage-ring 3s infinite;
+	}
+	.landscape-product:global(.effects-active) {
+		border-color: var(--primary);
+		box-shadow: 0 0 44px -8px #c8f13570;
+	}
 	.portfolio-card,
 	.resource-card {
-		transition: border-color 0.2s;
+		transition:
+			border-color 350ms,
+			transform 350ms,
+			box-shadow 350ms;
+	}
+	.portfolio-card {
+		position: relative;
+		isolation: isolate;
+	}
+	.portfolio-card::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		pointer-events: none;
+		background: radial-gradient(
+			320px circle at var(--effects-pointer-x, 50%) var(--effects-pointer-y, 0%),
+			#c8f13520,
+			transparent 60%
+		);
+		opacity: 0;
+		transition: opacity 300ms;
+	}
+	.portfolio-card:global(.effects-pointer-active)::before {
+		opacity: 1;
 	}
 	.portfolio-card:hover,
 	.resource-card:hover {
@@ -640,21 +737,59 @@
 	.product-link:hover {
 		text-decoration: underline;
 	}
-	.signal-bar {
-		animation: bars-in 0.8s ease-out both;
-		transform-origin: bottom;
+	.product-link :global(svg) {
+		transition: transform 300ms;
 	}
-	@keyframes bars-in {
+	.signal-bar {
+		animation: signal-wave 2.6s ease-in-out infinite;
+		transform-origin: bottom;
+		transition: background-color 300ms;
+	}
+	@keyframes signal-wave {
+		50% {
+			transform: scaleY(0.7);
+		}
+	}
+	@keyframes status-pulse {
+		50% {
+			opacity: 0.25;
+		}
+	}
+	@keyframes storage-ring {
 		from {
-			transform: scaleY(0.1);
+			opacity: 0.8;
+			transform: scale(1);
 		}
 		to {
-			transform: scaleY(1);
+			opacity: 0;
+			transform: scale(1.28, 1.6);
 		}
 	}
 	@keyframes flow {
 		to {
-			stroke-dashoffset: -150;
+			stroke-dashoffset: -30;
+		}
+	}
+	@media (hover: hover) and (pointer: fine) {
+		.landscape-product:hover {
+			translate: 0 -6px;
+			scale: 1.04;
+			border-color: var(--primary);
+			box-shadow: 0 0 44px -8px #c8f13570;
+		}
+		.portfolio-card:hover,
+		.resource-card:hover {
+			transform: translateY(-6px);
+			box-shadow: 0 26px 50px -26px #0004;
+		}
+		.portfolio-card:hover .signal-bar {
+			background-color: var(--primary);
+		}
+		.portfolio-card:hover .product-surface :global(.border-border) {
+			border-color: color-mix(in oklab, var(--primary) 40%, var(--border));
+		}
+		.portfolio-card:hover .product-link :global(svg) {
+			transform: translateX(7px);
 		}
 	}
 	@media (max-width: 767px) {
@@ -704,12 +839,37 @@
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.flow-line,
-		.signal-bar {
+		.signal-bar,
+		.landscape-dot,
+		.landscape-core::after {
 			animation: none;
 		}
-		.portfolio-card,
-		.resource-card {
+		.flow-particle,
+		.landscape-core::after,
+		.hero-spotlight,
+		.portfolio-card::before {
+			display: none;
+		}
+		.hero-landscape {
+			transform: none;
 			transition: none;
+		}
+		.portfolio-card,
+		.resource-card,
+		.landscape-product {
+			transition: none;
+		}
+		.portfolio-card:hover,
+		.resource-card:hover {
+			transform: none;
+		}
+		.landscape-product:hover {
+			translate: none;
+			scale: none;
+		}
+		.product-link :global(svg) {
+			transition: none;
+			transform: none !important;
 		}
 	}
 </style>

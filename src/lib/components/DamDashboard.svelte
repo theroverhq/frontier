@@ -432,6 +432,7 @@
 
 <div
 	bind:this={dashEl}
+	data-effects-loop
 	data-phase={phase}
 	class="dash @container/dash grid grid-cols-12 gap-2.5 p-2.5 text-left"
 	class:paused
@@ -472,7 +473,7 @@
 					</div>
 				</div>
 				<div class="min-w-[130px] flex-1">
-					<div class="text-muted-foreground mb-2.5 text-[11px]">By technology</div>
+					<div class="mb-2.5 text-[11px] text-muted-foreground">By technology</div>
 					<ul class="grid gap-1.5 text-[11px]">
 						{#each technologies as [name, n] (name)}
 							<li class="lg-row">
@@ -522,7 +523,7 @@
 		</header>
 		<div class="cb">
 			<div
-				class="bg-background mb-3 flex gap-1.5 rounded-[10px] p-1"
+				class="mb-3 flex gap-1.5 rounded-[10px] bg-background p-1"
 				role="group"
 				aria-label="Metric"
 			>
@@ -551,7 +552,7 @@
 						>
 							<span class="flex justify-between text-[11px]">
 								<span class="truncate">{name}</span><em
-									class="text-muted-foreground font-mono not-italic"
+									class="font-mono text-muted-foreground not-italic"
 									>{count(serverPct[name].current)}%</em
 								>
 							</span>
@@ -655,7 +656,7 @@
 		<header class="ch">
 			<span class="ch-title">
 				<Activity aria-hidden="true" /><span class="truncate">Live Activity Stream</span>
-				<i class="live bg-primary inline-block h-1.5 w-1.5 rounded-full" aria-hidden="true"></i>
+				<i class="live inline-block h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true"></i>
 			</span>
 			<span class="flex items-center gap-2">
 				<label class="search hidden @md:flex">
@@ -680,7 +681,7 @@
 		</header>
 
 		<div
-			class="border-border flex items-center gap-1 border-b px-3"
+			class="flex items-center gap-1 border-b border-border px-3"
 			role="group"
 			aria-label="Event type"
 		>
@@ -762,7 +763,7 @@
 					{/if}
 				</div>
 			{:else}
-				<div class="text-muted-foreground px-3.5 py-3 text-[11px]">No matching events</div>
+				<div class="px-3.5 py-3 text-[11px] text-muted-foreground">No matching events</div>
 			{/each}
 			<div class="scan" aria-hidden="true"></div>
 		</div>
@@ -811,7 +812,7 @@
 								style:--d="{1200 + i * 100}ms"
 							></i>
 						</span>
-						<em class="text-muted-foreground w-8 text-right not-italic tabular-nums"
+						<em class="w-8 text-right text-muted-foreground not-italic tabular-nums"
 							>{count(q.impact)}%</em
 						>
 					</span>

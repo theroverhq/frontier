@@ -25,7 +25,8 @@
 
 <header
 	id="database-activity-monitoring"
-	class="dark bg-background text-foreground relative overflow-hidden pt-20 pb-24"
+	data-effects-loop
+	class="dark relative overflow-hidden bg-background pt-20 pb-24 text-foreground"
 >
 	<!-- Ambient lime wash, mixed from the theme token -->
 	<div
@@ -40,13 +41,13 @@
 		>
 			<div>
 				<Badge variant="secondary" class="gap-1.5 px-3 py-1 font-sans">
-					<span class="bg-primary inline-block h-2 w-2 animate-pulse rounded-full"></span>
+					<span class="inline-block h-2 w-2 animate-pulse rounded-full bg-primary"></span>
 					Database Activity Monitoring
 				</Badge>
 
 				<svelte:element
 					this={headingTag}
-					class="text-foreground mt-6 text-[clamp(2.125rem,4.4vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.028em]"
+					class="mt-6 text-[clamp(2.125rem,4.4vw,3.375rem)] leading-[1.12] font-bold tracking-[-0.028em] text-foreground"
 				>
 					<span class="block sm:whitespace-nowrap">Every query.</span>
 					<span class="block sm:whitespace-nowrap">Every database.</span>
@@ -70,8 +71,8 @@
 
 				<div class="mt-11 grid grid-cols-1 gap-x-11 gap-y-3 sm:grid-cols-2">
 					{#each features as feature (feature)}
-						<span class="text-foreground/80 flex items-center gap-2.5 text-[13.5px] font-medium">
-							<span class="bg-muted-foreground h-[5px] w-[5px] shrink-0 rounded-full"></span>
+						<span class="flex items-center gap-2.5 text-[13.5px] font-medium text-foreground/80">
+							<span class="h-[5px] w-[5px] shrink-0 rounded-full bg-muted-foreground"></span>
 							{feature}
 						</span>
 					{/each}

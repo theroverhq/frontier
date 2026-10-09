@@ -188,7 +188,10 @@
 		};
 
 		let interval: ReturnType<typeof setInterval> | undefined;
+		let started = false;
 		const start = () => {
+			if (started) return;
+			started = true;
 			typeLine(0, () => {});
 			later(() => {
 				gridIn = true;
@@ -209,7 +212,6 @@
 				(entries) => {
 					cardVisible = entries[0].isIntersecting;
 					if (cardVisible) {
-						io?.disconnect();
 						start();
 					}
 				},
@@ -217,6 +219,7 @@
 			);
 			io.observe(cardEl);
 		} else {
+			cardVisible = true;
 			start();
 		}
 
@@ -234,13 +237,13 @@
 
 <div
 	bind:this={cardEl}
-	class="border-border bg-card relative overflow-hidden rounded-[14px] border shadow-2xl"
+	class="history-card relative overflow-hidden rounded-[14px] border border-border bg-card shadow-2xl"
 >
 	<!-- Search bar -->
-	<div class="border-border flex items-center gap-3 border-b px-[18px] py-[15px]">
+	<div class="flex items-center gap-3 border-b border-border px-[18px] py-[15px]">
 		<svg
 			viewBox="0 0 24 24"
-			class="stroke-muted-foreground h-[15px] w-[15px] fill-none"
+			class="h-[15px] w-[15px] fill-none stroke-muted-foreground"
 			stroke-width="1.8"
 			aria-hidden="true"
 		>
@@ -248,12 +251,12 @@
 		</svg>
 		<span class=" text-[13.5px]">Search security data</span>
 		<span
-			class="border-border bg-muted ml-auto flex items-center gap-[7px] rounded-full border px-3 py-[5px] text-[11.5px]"
+			class="ml-auto flex items-center gap-[7px] rounded-full border border-border bg-muted px-3 py-[5px] text-[11.5px]"
 		>
 			Time: Last 10 years
 			<svg
 				viewBox="0 0 24 24"
-				class="stroke-muted-foreground h-[9px] w-[9px] fill-none"
+				class="h-[9px] w-[9px] fill-none stroke-muted-foreground"
 				stroke-width="2"
 				aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg
 			>
@@ -262,7 +265,7 @@
 
 	<!-- Query -->
 	<div
-		class="border-border overflow-x-auto border-b px-[18px] pt-4 pb-3.5 font-mono text-[12.5px] leading-[1.85]"
+		class="overflow-x-auto border-b border-border px-[18px] pt-4 pb-3.5 font-mono text-[12.5px] leading-[1.85]"
 	>
 		{#each codeLines as line, li (li)}
 			<div class="flex gap-3.5">
@@ -273,7 +276,7 @@
 							class="kw"
 							class:is-hot={tok.k && keysHot}>{tok.t}</span
 						>{/each}{#if caretLine === li}<span
-							class="bg-primary ml-px inline-block h-[13px] w-[7px] align-[-2px]"
+							class="ml-px inline-block h-[13px] w-[7px] bg-primary align-[-2px]"
 						></span>{/if}
 				</span>
 			</div>
@@ -282,17 +285,17 @@
 
 	<!-- Result meta -->
 	<div
-		class="border-border flex flex-wrap items-center gap-2 border-b px-[18px] py-3 text-[11.5px] sm:gap-3"
+		class="flex flex-wrap items-center gap-2 border-b border-border px-[18px] py-3 text-[11.5px] sm:gap-3"
 	>
 		<span>2016 → 2026</span>
-		<span class="border-primary/25 bg-primary/10 text-primary/90 rounded-md border px-2.5 py-1"
+		<span class="rounded-md border border-primary/25 bg-primary/10 px-2.5 py-1 text-primary/90"
 			>All security data</span
 		>
 		<span
-			class="border-primary/25 bg-primary/10 text-foreground ml-0 flex items-center gap-2 rounded-md border px-2.5 py-[5px] font-semibold transition-shadow duration-300 sm:ml-auto"
+			class="ml-0 flex items-center gap-2 rounded-md border border-primary/25 bg-primary/10 px-2.5 py-[5px] font-semibold text-foreground transition-shadow duration-300 sm:ml-auto"
 			class:is-flash={flash}
 		>
-			<span class="bg-primary h-1.5 w-1.5 rounded-full shadow-[0_0_8px_var(--primary)]"></span>
+			<span class="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_var(--primary)]"></span>
 			{fmt(tb, 1)} TB bytes · {fmt(ev, 1)}M events · {fmt(secs, 2)} sec
 		</span>
 	</div>
@@ -307,14 +310,14 @@
 		</div>
 
 		<div
-			class="border-border relative h-[118px] border-b"
+			class="relative h-[118px] border-b border-border"
 			class:is-focus={hoverIdx >= 0}
 			role="img"
 			aria-label="Security event volume per quarter across ten years"
 		>
 			{#each [25, 50, 75] as top (top)}
 				<div
-					class="bg-border absolute right-0 left-0 h-px transition-opacity duration-700"
+					class="absolute right-0 left-0 h-px bg-border transition-opacity duration-700"
 					style="top: {top}%; opacity: {gridIn ? 1 : 0};"
 				></div>
 			{/each}
@@ -333,19 +336,19 @@
 						aria-hidden="true"
 					>
 						<span
-							class="bg-muted-foreground/70 seg block w-full"
+							class="seg block w-full bg-muted-foreground/70"
 							style="height: {(h * 100 * 0.58).toFixed(1)}%; transition-delay: {250 +
 								i * 28}ms, 0ms;"
 							class:is-in={barsIn}
 						></span>
 						<span
-							class="bg-primary seg block w-full"
+							class="seg block w-full bg-primary"
 							style="height: {(h * 100 * 0.27).toFixed(1)}%; transition-delay: {310 +
 								i * 28}ms, 0ms;"
 							class:is-in={barsIn}
 						></span>
 						<span
-							class="bg-chart-4 seg block w-full rounded-t-[1.5px]"
+							class="seg block w-full rounded-t-[1.5px] bg-chart-4"
 							style="height: {(h * 100 * 0.15).toFixed(1)}%; transition-delay: {370 +
 								i * 28}ms, 0ms;"
 							class:is-in={barsIn}
@@ -365,18 +368,18 @@
 
 			{#if hoverIdx >= 0}
 				<div
-					class="bg-primary/35 pointer-events-none absolute top-0 bottom-0 w-px"
+					class="pointer-events-none absolute top-0 bottom-0 w-px bg-primary/35"
 					style="left: {guideXPercent.toFixed(2)}%;"
 				></div>
 				<div
-					class="border-primary/25 bg-muted pointer-events-none absolute z-5 -translate-x-1/2 rounded-lg border px-3 py-2 text-[10.5px] leading-[1.6] whitespace-nowrap shadow-xl"
+					class="pointer-events-none absolute z-5 -translate-x-1/2 rounded-lg border border-primary/25 bg-muted px-3 py-2 text-[10.5px] leading-[1.6] whitespace-nowrap shadow-xl"
 					style="left: clamp(70px, {guideXPercent.toFixed(
 						2
 					)}%, calc(100% - 70px)); bottom: calc({Math.min(heights[hoverIdx] * 100, 52).toFixed(
 						1
 					)}% + 10px);"
 				>
-					<b class="text-primary font-semibold">{tip(hoverIdx).months} months searched</b><br />
+					<b class="font-semibold text-primary">{tip(hoverIdx).months} months searched</b><br />
 					{tip(hoverIdx).events}B events · {tip(hoverIdx).secs} sec
 				</div>
 			{/if}
@@ -390,14 +393,16 @@
 	<!-- Top talkers -->
 	<div class="px-[18px] pt-1.5 pb-4">
 		<div
-			class=" border-border flex justify-between border-b py-2.5 text-[10px] font-bold tracking-[0.1em] uppercase"
+			class=" flex justify-between border-b border-border py-2.5 text-[10px] font-bold tracking-[0.1em] uppercase"
 		>
 			<span>Source IP</span><span>Count</span>
 		</div>
 		{#each rows as row, i (row.ip)}
-			<div class="border-border/60 flex items-center justify-between border-b py-2.5 text-[13px]">
+			<div
+				class="result-row flex items-center justify-between border-b border-border/60 py-2.5 text-[13px]"
+			>
 				<span class="flex items-center gap-2.5 text-[12.5px] font-semibold">
-					<span class="bg-primary h-1.5 w-1.5 rounded-full shadow-[0_0_7px_var(--primary)]"></span>
+					<span class="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_7px_var(--primary)]"></span>
 					{row.ip}
 				</span>
 				<span class=" text-[12.5px]">{fmt(rowCounts[i], 0, true)}</span>
@@ -408,6 +413,18 @@
 </div>
 
 <style>
+	.history-card {
+		transition: border-color 0.3s ease;
+	}
+	.history-card:hover {
+		border-color: color-mix(in oklab, var(--primary) 40%, var(--border));
+	}
+	.result-row {
+		transition: background-color 0.25s ease;
+	}
+	.result-row:hover {
+		background-color: color-mix(in oklab, var(--primary) 5%, var(--card));
+	}
 	/* Bars grow from the baseline as the result set lands. */
 	.seg {
 		transform: scaleY(0);

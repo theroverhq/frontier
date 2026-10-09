@@ -573,7 +573,7 @@
 					max={volumeTiers.length - 1}
 					step="1"
 					bind:value={selectedVolumeIdx}
-					class="h-2 w-full cursor-pointer rounded-lg bg-border accent-primary"
+					class="volume-slider h-2 w-full cursor-pointer rounded-lg bg-border accent-primary"
 				/>
 
 				<div class="relative h-5 text-caption font-medium text-text-muted">
@@ -660,7 +660,9 @@
 			<!-- Control 3: Retention Period -->
 			<div class="space-y-2 rounded-xl border border-border bg-background p-4 sm:p-5">
 				<div class="flex items-center justify-between">
-					<span class="text-overline font-semibold text-text-primary">Hot Tier Retention Period</span>
+					<span class="text-overline font-semibold text-text-primary"
+						>Hot Tier Retention Period</span
+					>
 					<span
 						class="rounded-md border border-border bg-card/80 px-3 py-1 text-label-sm font-bold text-text-primary"
 					>
@@ -771,7 +773,7 @@
 				{@const archiveLatency = getArchiveLatency(provider.id)}
 				{@const queryLatency = estimateQueryLatency(provider.id, latencyWorkload)}
 				<div
-					class="flex flex-col items-stretch gap-4 rounded-xl border border-border bg-card/60 p-3 transition-all hover:bg-card min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between sm:p-3.5"
+					class="pricing-row flex flex-col items-stretch gap-4 rounded-xl border border-border bg-card/60 p-3 transition-all hover:bg-card min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between sm:p-3.5"
 				>
 					<div class="flex min-w-0 items-center gap-2.5">
 						<!-- Direct Competitor SVG / PNG Icon -->
@@ -982,3 +984,46 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	.volume-slider::-webkit-slider-thumb {
+		transition:
+			transform 0.2s ease,
+			filter 0.2s ease;
+	}
+	.volume-slider::-moz-range-thumb {
+		transition:
+			transform 0.2s ease,
+			filter 0.2s ease;
+	}
+	@media (hover: hover) {
+		.volume-slider:hover::-webkit-slider-thumb {
+			transform: scale(1.2);
+			filter: brightness(1.15);
+		}
+		.volume-slider:hover::-moz-range-thumb {
+			transform: scale(1.2);
+			filter: brightness(1.15);
+		}
+		.pricing-row:hover {
+			transform: translateX(3px);
+			border-color: color-mix(in oklab, var(--primary) 35%, var(--border));
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.pricing-row,
+		.volume-slider::-webkit-slider-thumb {
+			transition-duration: 0.01ms;
+		}
+		.volume-slider::-moz-range-thumb {
+			transition-duration: 0.01ms;
+		}
+		.pricing-row:hover,
+		.volume-slider:hover::-webkit-slider-thumb {
+			transform: none;
+		}
+		.volume-slider:hover::-moz-range-thumb {
+			transform: none;
+		}
+	}
+</style>

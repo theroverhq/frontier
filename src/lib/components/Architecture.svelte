@@ -352,7 +352,7 @@
 	});
 </script>
 
-<section id="architecture" class="bg-muted text-foreground relative overflow-hidden pt-24 pb-28">
+<section id="architecture" class="relative overflow-hidden bg-muted pt-24 pb-28 text-foreground">
 	<div class="relative container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<!-- ============ Architecture ============ -->
 		<div class="text-center">
@@ -374,7 +374,7 @@
 
 		<div
 			bind:this={panelEl}
-			class="dark bg-background text-foreground relative mt-16 overflow-hidden rounded-3xl px-5 pt-11 pb-13 shadow-[0_40px_90px_-30px_rgba(0,0,0,0.45)] md:px-11"
+			class="dark relative mt-16 overflow-hidden rounded-3xl bg-background px-5 pt-11 pb-13 text-foreground shadow-[0_40px_90px_-30px_rgba(0,0,0,0.45)] md:px-11"
 		>
 			<svg
 				bind:this={overlay}
@@ -392,7 +392,7 @@
 							<div class="abox relative" class:is-lit={ingestLit[i]} data-ingest>
 								{#if box.chip}
 									<span
-										class="border-primary/40 bg-primary/10 text-primary absolute -top-2.5 right-3 rounded-[5px] border px-[7px] py-[3px] text-[9px] font-bold tracking-[0.09em] uppercase"
+										class="absolute -top-2.5 right-3 rounded-[5px] border border-primary/40 bg-primary/10 px-[7px] py-[3px] text-[9px] font-bold tracking-[0.09em] text-primary uppercase"
 									>
 										{box.chip}
 									</span>
@@ -416,7 +416,7 @@
 						class:is-lit={readerLit}
 					>
 						<h3 class="text-[16.5px] font-semibold tracking-[-0.01em]">Rover Reader + Indexer</h3>
-						<div class="text-primary mt-2 text-[12.5px] font-semibold">Schema-on-read</div>
+						<div class="mt-2 text-[12.5px] font-semibold text-primary">Schema-on-read</div>
 						<p class=" mt-2.5 text-[12.5px] leading-[1.55]">No upfront schema engineering</p>
 						<p class=" mt-1 text-[12.5px] leading-[1.55]">Go live in hours, not weeks</p>
 					</div>
@@ -425,12 +425,12 @@
 					<div class="mt-4 flex items-start justify-between gap-1 text-center sm:hidden">
 						{#each branchLabels as br (br.x)}
 							<div class="flex flex-1 flex-col items-center px-1">
-								<div class="bg-border mb-1.5 h-4 w-px"></div>
+								<div class="mb-1.5 h-4 w-px bg-border"></div>
 								<span class="text-[9px] leading-[1.35] font-semibold tracking-[0.05em] uppercase">
 									{br.label}
 									{#if br.note}
 										<small
-											class="text-muted-foreground block text-[8px] font-normal tracking-normal normal-case"
+											class="block text-[8px] font-normal tracking-normal text-muted-foreground normal-case"
 										>
 											{br.note}
 										</small>
@@ -464,7 +464,7 @@
 								{br.label}
 								{#if br.note}
 									<small
-										class="text-muted-foreground block text-[9px] font-normal tracking-[0.04em] normal-case"
+										class="block text-[9px] font-normal tracking-[0.04em] text-muted-foreground normal-case"
 										>{br.note}</small
 									>
 								{/if}
@@ -474,7 +474,7 @@
 				</div>
 
 				<!-- 02 · Index In Place -->
-				<div class="stage" data-stage="index">
+				<div class="stage" data-stage="index" data-effects-loop>
 					<span class="stage-tag bg-background">02 · Index In Place</span>
 
 					<div class="aconn mb-2.5"><span class="vline h-[22px]"></span></div>
@@ -491,15 +491,15 @@
 					</div>
 
 					<div
-						class="border-border oswrap mx-auto mt-2.5 grid max-w-[480px] grid-cols-1 items-stretch gap-3.5 rounded-[14px] border p-5 sm:grid-cols-[1fr_auto_1fr]"
+						class="oswrap mx-auto mt-2.5 grid max-w-[480px] grid-cols-1 items-stretch gap-3.5 rounded-[14px] border border-border p-5 sm:grid-cols-[1fr_auto_1fr]"
 						class:is-lit={oswrapLit}
 					>
-						<div class="border-border bg-card rounded-[11px] border px-[18px] py-4">
+						<div class="rounded-[11px] border border-border bg-card px-[18px] py-4">
 							<div class="text-[10px] font-bold tracking-[0.11em] uppercase">Security Data</div>
 							<ul class="mt-3">
 								{#each securityData as item (item)}
 									<li class=" flex items-center gap-2 py-[3.5px] text-[11.5px]">
-										<span class="bg-muted-foreground/60 h-[3px] w-[3px] shrink-0 rounded-full"
+										<span class="h-[3px] w-[3px] shrink-0 rounded-full bg-muted-foreground/60"
 										></span>
 										{item}
 									</li>
@@ -509,18 +509,19 @@
 
 						<div class=" self-center text-center text-[19px]">+</div>
 
-						<div class="border-border bg-card rounded-[11px] border px-[18px] py-4">
+						<div class="rounded-[11px] border border-border bg-card px-[18px] py-4">
 							<div class="text-[10px] font-bold tracking-[0.11em] uppercase">Rover Index</div>
 							<div class="mt-3">
 								{#each lsmLevels as lvl, li (lvl.level)}
 									{#if li > 0}
-										<div class="bg-muted-foreground/40 ml-11 h-2.5 w-px"></div>
+										<div class="ml-11 h-2.5 w-px bg-muted-foreground/40"></div>
 									{/if}
 									<div class="flex items-center gap-2.5 py-[5px]">
 										<span class=" w-4 text-[10px]">{lvl.level}</span>
 										{#each lvl.segs as w, si (si)}
 											<span
-												class="bg-primary h-2 origin-left rounded-[2px] transition-transform duration-500 ease-out"
+												class="index-segment h-2 origin-left rounded-[2px] bg-primary transition-transform duration-500 ease-out"
+												style:--index-delay="{(li * 3 + si) * 180}ms"
 												style="width: {w}px; opacity: {0.9 - si * 0.28}; transform: scaleX({lsmIn
 													? 1
 													: 0}); transition-delay: {(li * lvl.segs.length + si) * 120}ms;"
@@ -548,7 +549,7 @@
 						</div>
 
 						<div bind:this={meshEl} class="abox max-w-[360px] p-[26px]" class:is-lit={meshLit}>
-							<h3 class="text-primary text-[21px] font-semibold">Signal Mesh</h3>
+							<h3 class="text-[21px] font-semibold text-primary">Signal Mesh</h3>
 							<p class=" mt-[7px] text-[12.5px]">Detection state machine</p>
 						</div>
 
@@ -559,7 +560,7 @@
 
 						<div
 							bind:this={alertEl}
-							class="border-destructive/50 bg-destructive/5 text-destructive sig-alert inline-flex rounded-[9px] border px-5 py-2.5 text-[12.5px] font-medium"
+							class="sig-alert inline-flex rounded-[9px] border border-destructive/50 bg-destructive/5 px-5 py-2.5 text-[12.5px] font-medium text-destructive"
 							class:is-lit={alertLit}
 						>
 							Signal / Alert
@@ -586,14 +587,14 @@
 							class=" flex min-h-[120px] items-center justify-center gap-2.5 self-stretch text-[9.5px] font-semibold tracking-[0.13em] uppercase"
 						>
 							<span
-								class="border-border/80 hidden max-w-[60px] flex-1 border-t border-dashed lg:block"
+								class="hidden max-w-[60px] flex-1 border-t border-dashed border-border/80 lg:block"
 							></span>
 							Fan out
 							<span
-								class="border-border/80 relative hidden max-w-[60px] flex-1 border-t border-dashed lg:block"
+								class="relative hidden max-w-[60px] flex-1 border-t border-dashed border-border/80 lg:block"
 							>
 								<span
-									class="border-l-muted-foreground absolute -top-[3.5px] -right-px border-[3.5px] border-transparent"
+									class="absolute -top-[3.5px] -right-px border-[3.5px] border-transparent border-l-muted-foreground"
 									style="border-left-color: var(--muted-foreground);"
 								></span>
 							</span>
@@ -613,7 +614,7 @@
 								<span class="vline h-4"></span>
 							</div>
 
-							<div class="s4-klabel text-primary mb-0.5">Ephemeral · Per Query</div>
+							<div class="s4-klabel mb-0.5 text-primary">Ephemeral · Per Query</div>
 							<div class="my-2 flex gap-2.5">
 								{#each lamOn as on, i (i)}
 									<span class="lam" class:is-on={on}>λ</span>
@@ -649,10 +650,10 @@
 
 					<div
 						bind:this={rspEl}
-						class="border-primary/50 bg-primary/5 rsp-box mx-auto mt-[18px] max-w-[340px] rounded-[13px] border px-[26px] py-[22px] text-center"
+						class="rsp-box mx-auto mt-[18px] max-w-[340px] rounded-[13px] border border-primary/50 bg-primary/5 px-[26px] py-[22px] text-center"
 						class:is-lit={rspLit}
 					>
-						<div class="text-primary text-[10.5px] font-bold tracking-[0.12em] uppercase">
+						<div class="text-[10.5px] font-bold tracking-[0.12em] text-primary uppercase">
 							Rover Security Platform
 						</div>
 						<h3 class="mt-2.5 text-[19px] font-bold tracking-[0.01em]">SIEM · AI SOC</h3>
@@ -897,8 +898,26 @@
 		text-align: center;
 		padding: 20px 18px;
 		transition:
+			transform 0.3s ease,
+			background-color 0.3s ease,
 			border-color 0.4s ease,
 			box-shadow 0.4s ease;
+	}
+	@media (hover: hover) {
+		.abox:hover {
+			transform: translateY(-4px);
+			border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
+			background-color: color-mix(in oklab, var(--primary) 5%, var(--card));
+		}
+	}
+	.index-segment {
+		animation: index-pulse 2.4s ease-in-out infinite alternate;
+		animation-delay: var(--index-delay);
+	}
+	@keyframes index-pulse {
+		to {
+			filter: brightness(0.45);
+		}
 	}
 	.abox.is-lit {
 		border-color: color-mix(in oklab, var(--primary) 45%, transparent);
@@ -992,6 +1011,12 @@
 	}
 
 	@media (prefers-reduced-motion: reduce) {
+		.index-segment {
+			animation: none;
+		}
+		.abox:hover {
+			transform: none;
+		}
 		.abox,
 		.oswrap,
 		.sig-alert,

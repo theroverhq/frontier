@@ -29,7 +29,7 @@
 			{#each comparisons as comparison (comparison.slug)}
 				<a
 					href={comparison.pagePath}
-					class="group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-primary/45 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background focus-visible:outline-none"
+					class="comparison-card group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-primary/45 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background focus-visible:outline-none"
 				>
 					<img
 						src={comparison.images.dark}
@@ -61,3 +61,29 @@
 		</div>
 	</div>
 </section>
+
+<style>
+	.comparison-card {
+		transition:
+			transform 0.3s ease,
+			border-color 0.3s ease,
+			box-shadow 0.3s ease;
+	}
+	@media (hover: hover) {
+		.comparison-card:hover {
+			transform: translateY(-6px);
+			box-shadow: 0 24px 36px -24px rgb(0 0 0 / 0.55);
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.comparison-card {
+			transition-duration: 0.01ms;
+		}
+		.comparison-card:hover {
+			transform: none;
+		}
+		.comparison-card :global(svg) {
+			transition: none;
+		}
+	}
+</style>

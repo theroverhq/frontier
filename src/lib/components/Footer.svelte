@@ -2,6 +2,82 @@
 	import { page } from '$app/stores';
 	import '@fontsource/mitr/400.css';
 
+	/* Decorative curves stay deterministic between server rendering and hydration. */
+	const beamTiles = [-170, 400, 970];
+	const beamCurves = Array.from({ length: 8 }, (_, index) => {
+		const offset = index * 12;
+		return `M ${-260 - offset} -170 C ${-260 - offset} -170 ${-200 - offset} ${205 - offset} ${220 - offset} ${325 - offset} C ${640 - offset} ${445 - offset} ${700 - offset} ${825 - offset} ${700 - offset} ${825 - offset}`;
+	});
+
+	function footerEffects(node: HTMLElement) {
+		const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+		const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+		let inView = false;
+		let frame = 0;
+		let pointerX = 0;
+		let pointerY = 0;
+
+		function clearSpotlight() {
+			cancelAnimationFrame(frame);
+			frame = 0;
+			node.classList.remove('pointer-active');
+		}
+
+		function syncActivity() {
+			node.classList.toggle(
+				'effects-running',
+				inView && !document.hidden && !reducedMotion.matches
+			);
+			if (!inView || document.hidden || reducedMotion.matches || !finePointer.matches) {
+				clearSpotlight();
+			}
+		}
+
+		function followPointer(event: PointerEvent) {
+			if (
+				event.pointerType !== 'mouse' ||
+				!inView ||
+				document.hidden ||
+				reducedMotion.matches ||
+				!finePointer.matches
+			)
+				return;
+			pointerX = event.clientX;
+			pointerY = event.clientY;
+			if (frame) return;
+			frame = requestAnimationFrame(() => {
+				frame = 0;
+				const bounds = node.getBoundingClientRect();
+				node.style.setProperty('--footer-pointer-x', `${pointerX - bounds.left}px`);
+				node.style.setProperty('--footer-pointer-y', `${pointerY - bounds.top}px`);
+				node.classList.add('pointer-active');
+			});
+		}
+
+		const observer = new IntersectionObserver(([entry]) => {
+			inView = entry.isIntersecting;
+			syncActivity();
+		});
+		observer.observe(node);
+		document.addEventListener('visibilitychange', syncActivity);
+		reducedMotion.addEventListener('change', syncActivity);
+		finePointer.addEventListener('change', syncActivity);
+		node.addEventListener('pointermove', followPointer, { passive: true });
+		node.addEventListener('pointerleave', clearSpotlight);
+
+		return {
+			destroy() {
+				observer.disconnect();
+				document.removeEventListener('visibilitychange', syncActivity);
+				reducedMotion.removeEventListener('change', syncActivity);
+				finePointer.removeEventListener('change', syncActivity);
+				node.removeEventListener('pointermove', followPointer);
+				node.removeEventListener('pointerleave', clearSpotlight);
+				clearSpotlight();
+			}
+		};
+	}
+
 	/* `here` is used on the platform's own page so the browser scrolls instead of navigating. */
 	const section = (path: string, label: string, hash: string) => ({
 		label,
@@ -59,10 +135,38 @@
 	}
 </script>
 
-<footer class="dark relative overflow-hidden border-t border-border bg-background text-foreground">
+<footer
+	use:footerEffects
+	class="footer-effects dark relative overflow-hidden border-t border-border bg-background text-foreground"
+>
+	<div class="footer-ambient" aria-hidden="true"></div>
+	<div class="footer-grid" aria-hidden="true"></div>
+	<svg
+		class="footer-beams"
+		viewBox="0 0 1440 460"
+		preserveAspectRatio="none"
+		fill="none"
+		aria-hidden="true"
+	>
+		{#each beamTiles as x, tileIndex}
+			<g transform={`translate(${x} -40)`}>
+				{#each beamCurves as d, curveIndex}
+					<path class="footer-curve" {d} vector-effect="non-scaling-stroke" />
+					<path
+						class="footer-beam"
+						{d}
+						pathLength="1000"
+						vector-effect="non-scaling-stroke"
+						style={`--beam-duration: ${11 + ((curveIndex * 3 + tileIndex) % 8)}s; --beam-delay: -${curveIndex * 1.7 + tileIndex * 3.1}s;`}
+					/>
+				{/each}
+			</g>
+		{/each}
+	</svg>
+	<div class="footer-spotlight" aria-hidden="true"></div>
 	<div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div
-			class="relative z-2 grid grid-cols-2 gap-10 pt-16 pb-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]"
+			class="footer-links relative z-2 grid grid-cols-2 gap-10 pt-16 pb-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]"
 		>
 			<!-- Brand -->
 			<div class="col-span-2 sm:col-span-1">
@@ -131,7 +235,7 @@
 
 		<!-- Oversized wordmark, sunk just above the base colour -->
 		<div
-			class="pointer-events-none absolute bottom-[-11%] left-1/2 z-1 max-w-screen -translate-x-1/2 overflow-hidden text-[clamp(90px,21vw,300px)] leading-[0.8] font-bold tracking-[0.02em] whitespace-nowrap select-none"
+			class="footer-wordmark pointer-events-none absolute bottom-[-11%] left-1/2 z-1 max-w-screen -translate-x-1/2 overflow-hidden text-[clamp(90px,21vw,300px)] leading-[0.8] font-bold tracking-[0.02em] whitespace-nowrap select-none"
 			style="color: color-mix(in oklab, var(--foreground) 5%, var(--background));"
 			aria-hidden="true"
 		>
@@ -142,7 +246,7 @@
 			class="relative z-2 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-5 pb-6 text-[12.5px]"
 		>
 			<span>&copy; 2026 Rover HQ Inc. All rights reserved.</span>
-			<div class="flex items-center gap-5">
+			<div class="footer-socials flex items-center gap-5">
 				<a
 					href="https://www.linkedin.com/company/rover-hq-ai/"
 					target="_blank"
@@ -236,3 +340,160 @@
 		</div>
 	</div>
 </footer>
+
+<style>
+	.footer-effects {
+		isolation: isolate;
+	}
+
+	.footer-ambient,
+	.footer-grid,
+	.footer-beams,
+	.footer-spotlight {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+	}
+
+	.footer-ambient {
+		background:
+			radial-gradient(900px 340px at 50% 0%, #c8f13524, transparent 70%),
+			radial-gradient(700px 300px at 85% 110%, #c8f13518, transparent 70%),
+			radial-gradient(600px 300px at 10% 110%, #c8f13512, transparent 70%);
+	}
+
+	.footer-grid {
+		background-image:
+			linear-gradient(#ffffff06 1px, transparent 1px),
+			linear-gradient(90deg, #ffffff06 1px, transparent 1px);
+		background-size: 56px 56px;
+		mask-image: radial-gradient(80% 100% at 50% 100%, #000, transparent);
+	}
+
+	.footer-beams {
+		width: 100%;
+		height: 100%;
+		mask-image: radial-gradient(90% 120% at 50% 50%, #000 20%, transparent);
+	}
+
+	.footer-curve {
+		stroke: #c8f135;
+		stroke-width: 0.7px;
+		opacity: 0.14;
+	}
+
+	.footer-beam {
+		stroke: #d8f66c;
+		stroke-width: 1.5px;
+		stroke-linecap: round;
+		stroke-dasharray: 50 950;
+		opacity: 0.35;
+		animation: footer-beam-travel var(--beam-duration) linear var(--beam-delay) infinite;
+		animation-play-state: paused;
+	}
+
+	.footer-spotlight {
+		background: radial-gradient(
+			260px circle at var(--footer-pointer-x, 50%) var(--footer-pointer-y, 50%),
+			#c8f1351f,
+			transparent 70%
+		);
+		opacity: 0;
+		transition: opacity 400ms;
+	}
+
+	.footer-effects:global(.pointer-active) .footer-spotlight {
+		opacity: 1;
+	}
+
+	.footer-wordmark {
+		background-image:
+			linear-gradient(100deg, transparent 30%, #c8f13526 50%, transparent 70%),
+			linear-gradient(currentColor, currentColor);
+		background-size:
+			250% 100%,
+			100% 100%;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
+		animation: footer-wordmark-shimmer 7s linear infinite;
+		animation-play-state: paused;
+	}
+
+	.footer-effects:global(.effects-running) .footer-beam,
+	.footer-effects:global(.effects-running) .footer-wordmark {
+		animation-play-state: running;
+	}
+
+	.footer-links a {
+		transition:
+			color 200ms,
+			opacity 200ms,
+			transform 200ms;
+	}
+
+	.footer-socials a {
+		transition:
+			color 250ms,
+			transform 250ms;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.footer-links a:hover {
+			color: var(--primary);
+			transform: translateX(5px);
+		}
+
+		.footer-socials a:hover {
+			color: var(--primary);
+			transform: translateY(-3px);
+		}
+
+		.footer-socials a:hover svg {
+			fill: var(--primary);
+		}
+	}
+
+	@keyframes footer-beam-travel {
+		from {
+			stroke-dashoffset: 1000;
+		}
+		to {
+			stroke-dashoffset: 0;
+		}
+	}
+
+	@keyframes footer-wordmark-shimmer {
+		from {
+			background-position:
+				150% 0,
+				0 0;
+		}
+		to {
+			background-position:
+				-100% 0,
+				0 0;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.footer-beam,
+		.footer-wordmark {
+			animation: none;
+		}
+
+		.footer-spotlight {
+			display: none;
+		}
+
+		.footer-links a,
+		.footer-socials a {
+			transition: none;
+		}
+
+		.footer-links a:hover,
+		.footer-socials a:hover {
+			transform: none;
+		}
+	}
+</style>

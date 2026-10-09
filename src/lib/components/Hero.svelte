@@ -142,6 +142,7 @@
 			);
 			p.style.fill = 'none';
 			if (visible) {
+				p.classList.add('hd-flow');
 				p.style.stroke = LINE;
 				p.style.strokeWidth = '1';
 				p.style.transition = 'stroke .35s ease, opacity .35s ease';
@@ -378,20 +379,21 @@
 		};
 
 		let started = false;
+		let diagramVisible = false;
 		const startIdle = () => {
 			if (reduced) return;
 			const ingestLoop = () => {
-				if (!document.hidden) ingest(Math.floor(Math.random() * srcs.length));
+				if (diagramVisible && !document.hidden) ingest(Math.floor(Math.random() * srcs.length));
 				later(ingestLoop, 4500 + Math.random() * 2000);
 			};
 
 			const queryLoop = () => {
-				if (!document.hidden) query();
+				if (diagramVisible && !document.hidden) query();
 				later(queryLoop, 4000 + Math.random() * 2000);
 			};
 
 			const cylLoop = () => {
-				if (!document.hidden) {
+				if (diagramVisible && !document.hidden) {
 					litCyl(900);
 					pulseRow(Math.floor(Math.random() * rowLit.length));
 				}
@@ -435,15 +437,16 @@
 		if ('IntersectionObserver' in window) {
 			io = new IntersectionObserver(
 				(entries) => {
-					if (entries[0].isIntersecting) {
+					diagramVisible = entries[0].isIntersecting;
+					if (diagramVisible) {
 						intro();
-						io?.disconnect();
 					}
 				},
 				{ threshold: 0.35 }
 			);
 			io.observe(dia);
 		} else {
+			diagramVisible = true;
 			intro();
 		}
 
@@ -504,6 +507,7 @@
 					px = lerp(px, tx, 0.07);
 					py = lerp(py, ty, 0.07);
 					dia.style.translate = `${px.toFixed(2)}px ${py.toFixed(2)}px`;
+					dia.style.transform = `rotateX(${(-py * 0.5).toFixed(2)}deg) rotateY(${(px * 0.5).toFixed(2)}deg)`;
 					raf =
 						Math.abs(px - tx) > 0.05 || Math.abs(py - ty) > 0.05
 							? requestAnimationFrame(tick)
@@ -535,6 +539,7 @@
 </script>
 
 <header
+	data-effects-loop
 	bind:this={heroEl}
 	id={product}
 	class="dark relative overflow-hidden bg-background pt-20 pb-24 text-foreground"
@@ -797,14 +802,20 @@
 	.hd-src,
 	.hd-out {
 		transition:
+			background-color 0.3s ease,
 			border-color 0.3s ease,
 			box-shadow 0.3s ease,
 			opacity 0.35s ease;
 	}
 	.hd-src:hover,
 	.hd-src.is-lit {
-		border-color: color-mix(in oklab, var(--primary) 0%, transparent);
-		box-shadow: 0 0 1px color-mix(in oklab, var(--primary) 12%, transparent);
+		border-color: color-mix(in oklab, var(--primary) 45%, var(--border));
+		box-shadow: 0 0 14px -4px color-mix(in oklab, var(--primary) 18%, transparent);
+	}
+	.hd-src:hover,
+	.hd-out:hover {
+		background-color: color-mix(in oklab, var(--primary) 7%, var(--background));
+		border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
 	}
 	.hd-out.is-lit {
 		border-color: var(--primary);
@@ -838,6 +849,21 @@
 		stroke-width: 1;
 		stroke-dasharray: 5 6;
 		transition: stroke 0.3s ease;
+		animation: cylinder-flow 1.4s linear infinite;
+	}
+	.hd-diagram :global(.hd-flow) {
+		stroke-dasharray: 4 6;
+		animation: connector-flow 1.4s linear infinite;
+	}
+	@keyframes connector-flow {
+		to {
+			stroke-dashoffset: -20;
+		}
+	}
+	@keyframes cylinder-flow {
+		to {
+			stroke-dashoffset: -22;
+		}
 	}
 	.cyl-year {
 		fill: var(--muted-foreground);
@@ -851,6 +877,10 @@
 	}
 
 	@media (prefers-reduced-motion: reduce) {
+		.hd-diagram {
+			transform: none !important;
+			translate: none !important;
+		}
 		.hd-src,
 		.hd-out,
 		.cyl-stroke,
@@ -862,6 +892,10 @@
 		.gradient-text {
 			animation: none;
 			background-position: 50% 0;
+		}
+		.cyl-dash,
+		.hd-diagram :global(.hd-flow) {
+			animation: none;
 		}
 	}
 </style>

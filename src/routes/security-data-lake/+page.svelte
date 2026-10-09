@@ -97,7 +97,7 @@
 			class="dark mt-16 grid overflow-hidden rounded-3xl bg-background text-foreground shadow-[0_40px_90px_-30px_rgba(0,0,0,0.45)] md:grid-cols-3"
 		>
 			{#each ingestion as step, i}<div
-					class="border-border px-6 py-10 md:px-9 {i > 0
+					class="effect-tile border-border px-6 py-10 md:px-9 {i > 0
 						? 'border-t md:border-t-0 md:border-l'
 						: ''}"
 				>
@@ -132,7 +132,9 @@
 			</p>
 		</div>
 		<div class="mt-14 grid gap-6 md:grid-cols-3">
-			{#each benefits as benefit}<article class="rounded-2xl border border-border bg-card p-7">
+			{#each benefits as benefit}<article
+					class="effect-card rounded-2xl border border-border bg-card p-7"
+				>
 					<benefit.icon class="h-6 w-6" stroke-width={1.75} />
 					<h3 class="mt-5 text-[20px] leading-[1.25] font-bold">{benefit.title}</h3>
 					<p class="mt-4 text-[15px] leading-[1.65] text-muted-foreground">{benefit.body}</p>
@@ -159,7 +161,7 @@
 			class="dark mt-16 overflow-hidden rounded-3xl bg-background text-foreground shadow-[0_40px_90px_-30px_rgba(0,0,0,0.45)]"
 		>
 			<div class="grid md:grid-cols-3">
-				<article class="border-border px-6 py-10 md:px-9">
+				<article class="effect-tile border-border px-6 py-10 md:px-9">
 					<p class="text-[11px] font-bold tracking-[0.12em] text-primary uppercase">
 						High-volume telemetry
 					</p>
@@ -169,7 +171,9 @@
 						keep in traditional indexed systems.
 					</p>
 				</article>
-				<article class="border-t border-border px-6 py-10 md:border-t-0 md:border-l md:px-9">
+				<article
+					class="effect-tile border-t border-border px-6 py-10 md:border-t-0 md:border-l md:px-9"
+				>
 					<p class="text-[11px] font-bold tracking-[0.12em] text-primary uppercase">
 						Historical analysis
 					</p>
@@ -179,7 +183,9 @@
 						audits without a separate restore workflow.
 					</p>
 				</article>
-				<article class="border-t border-border px-6 py-10 md:border-t-0 md:border-l md:px-9">
+				<article
+					class="effect-tile border-t border-border px-6 py-10 md:border-t-0 md:border-l md:px-9"
+				>
 					<p class="text-[11px] font-bold tracking-[0.12em] text-primary uppercase">
 						Analysts & AI agents
 					</p>

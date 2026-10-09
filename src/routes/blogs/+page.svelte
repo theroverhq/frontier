@@ -66,7 +66,7 @@
 	</script>`}
 </svelte:head>
 
-<div class="dark min-h-screen bg-background text-foreground">
+<div class="blog-index dark min-h-screen bg-background text-foreground">
 	<!-- Hero Section -->
 	<section class="border-b border-border bg-card/40 py-16 lg:py-24">
 		<div class="container mx-auto max-w-screen-2xl px-4 sm:px-6">
