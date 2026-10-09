@@ -59,9 +59,9 @@
 </svelte:head>
 
 <Hero />
-<BigIdea />
+<Economics />
 <Architecture />
 <AiSoc />
-<Economics />
+<BigIdea />
 <Comparisons />
 <FinalCta />
