@@ -14,11 +14,11 @@
 	import ShieldBan from '@lucide/svelte/icons/shield-ban';
 	import UserCog from '@lucide/svelte/icons/user-cog';
 
-	/* Group ids double as the DAM navbar anchors. */
+	/* Stable fragment IDs for each capability group. */
 	const groups = [
 		{
 			id: 'discovery',
-			step: 'Discover',
+			step: 'Discovery',
 			title: "Map every database and what's inside it.",
 			body: 'Find every instance, every table holding regulated data, and every account that can reach it.',
 			features: [
@@ -56,7 +56,7 @@
 		},
 		{
 			id: 'monitoring',
-			step: 'Monitor',
+			step: 'Monitoring',
 			title: 'Capture every statement as it runs.',
 			body: 'SQL-level visibility: the statement, the account that ran it, the client it came from, and the objects it touched.',
 			features: [
@@ -94,7 +94,7 @@
 		},
 		{
 			id: 'detection',
-			step: 'Detect',
+			step: 'Detection',
 			title: "Spot the query that shouldn't have run.",
 			body: 'Rules and behavioral baselines built around how databases are actually used, and misused.',
 			features: [
@@ -122,7 +122,7 @@
 		},
 		{
 			id: 'investigation',
-			step: 'Investigate',
+			step: 'Investigation',
 			title: 'Know exactly who touched which data.',
 			body: 'Every statement is kept and searchable, so an investigation starts from the exact SQL, not a guess.',
 			features: [
@@ -140,7 +140,7 @@
 		},
 		{
 			id: 'response',
-			step: 'Respond',
+			step: 'Response',
 			title: 'Stop risky queries before data leaves.',
 			body: 'Enforce database policy in real time, not at the next audit.',
 			features: [
@@ -158,7 +158,7 @@
 		},
 		{
 			id: 'compliance',
-			step: 'Prove',
+			step: 'Compliance',
 			title: 'Prove who accessed what.',
 			body: 'A statement-level record of who accessed regulated data and who changed permissions, ready whenever auditors ask.',
 			features: [
@@ -212,7 +212,10 @@
 <section id="capabilities" class="relative overflow-clip bg-muted pt-24 pb-28 text-foreground">
 	<div class="relative container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div class="text-center">
-			<Badge class="px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase">
+			<Badge
+				href="#capabilities"
+				class="px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase"
+			>
 				Capabilities
 			</Badge>
 			<div class="mt-4 text-[11px] font-bold tracking-[0.12em] uppercase">
@@ -245,9 +248,12 @@
 						class="grid grid-cols-1 gap-8 border-t border-border py-12 first:border-t-0 md:py-14 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-14"
 					>
 						<div class="lg:sticky lg:top-20 lg:self-start">
-							<div class="text-[11px] font-bold tracking-[0.12em] text-primary uppercase">
+							<a
+								href="#{group.id}"
+								class="inline-flex text-[11px] font-bold tracking-[0.12em] text-primary uppercase underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+							>
 								{num(gi)} · {group.step}
-							</div>
+							</a>
 							<h3
 								class="mt-3 text-[clamp(1.5rem,2.4vw,1.875rem)] leading-[1.2] font-bold tracking-[-0.02em]"
 							>

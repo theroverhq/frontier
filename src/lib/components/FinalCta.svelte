@@ -7,6 +7,7 @@
 	/* Defaults are the SIEM copy; other platform pages pass their own. */
 	let {
 		badge = 'Rover Security Data Platform',
+		badgeHref,
 		title = 'Bring the data your SIEM',
 		accent = "can't afford to keep.",
 		body = "Make high-volume security telemetry searchable for years—not days. Start with DNS, network flows, cloud audit, raw endpoint telemetry, or anything you archive today because it's too expensive to index.",
@@ -18,6 +19,7 @@
 		]
 	}: {
 		badge?: string;
+		badgeHref?: string;
 		title?: string;
 		accent?: string;
 		body?: string;
@@ -63,6 +65,7 @@
 
 	<div class="relative container mx-auto max-w-screen-2xl px-4 text-center sm:px-6">
 		<Badge
+			href={badgeHref}
 			variant="outline"
 			class="border-primary/35 bg-primary/5 px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] text-primary uppercase"
 		>

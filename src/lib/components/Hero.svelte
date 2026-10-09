@@ -558,7 +558,7 @@
 			<div>
 				<Badge variant="secondary" class="gap-1.5 px-3 py-1 font-sans">
 					<span class="inline-block h-2 w-2 animate-pulse rounded-full bg-primary"></span>
-					{product === 'security-data-lake' ? 'Security Data Lake' : 'SIEM + Security Data Lake'}
+					{product === 'security-data-lake' ? 'Security Data Lake' : 'SIEM'}
 				</Badge>
 
 				<svelte:element

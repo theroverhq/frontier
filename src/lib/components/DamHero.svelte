@@ -40,7 +40,11 @@
 			class="grid grid-cols-1 items-center gap-12 xl:grid-cols-[minmax(0,430px)_minmax(0,1fr)] xl:gap-9"
 		>
 			<div>
-				<Badge variant="secondary" class="gap-1.5 px-3 py-1 font-sans">
+				<Badge
+					href="#database-activity-monitoring"
+					variant="secondary"
+					class="gap-1.5 px-3 py-1 font-sans"
+				>
 					<span class="inline-block h-2 w-2 animate-pulse rounded-full bg-primary"></span>
 					Database Activity Monitoring
 				</Badge>

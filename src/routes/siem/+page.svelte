@@ -31,7 +31,14 @@
 		property="og:description"
 		content="Cold storage. Hot intelligence. The SIEM & Security Data Lake built for object storage. Search years of data in seconds without search clusters."
 	/>
-	<meta property="og:image" content="https://roverhq.ai/og-image.jpg" />
+	<meta property="og:image" content="https://roverhq.ai/assets/og/siem.png" />
+	<meta property="og:image:type" content="image/png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta
+		property="og:image:alt"
+		content="Rover — The SIEM built for infinite retention. Cold Storage. Hot Intelligence."
+	/>
 
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta
@@ -42,7 +49,11 @@
 		name="twitter:description"
 		content="Cold storage. Hot intelligence. The SIEM & Security Data Lake built for object storage. Search years of data in seconds without search clusters."
 	/>
-	<meta name="twitter:image" content="https://roverhq.ai/og-image.jpg" />
+	<meta name="twitter:image" content="https://roverhq.ai/assets/og/siem.png" />
+	<meta
+		name="twitter:image:alt"
+		content="Rover — The SIEM built for infinite retention. Cold Storage. Hot Intelligence."
+	/>
 
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',

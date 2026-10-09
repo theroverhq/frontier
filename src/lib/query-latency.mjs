@@ -22,7 +22,7 @@ const ELASTIC_OBJECT_STORAGE_SCENARIOS = {
 };
 
 // Snowflake/Databricks ranges surround the existing 1,000 compressed GB/hour
-// sizing assumption in src/lib/components/PricingCalculator.svelte. They are
+// sizing assumption in src/lib/components/SiemPricingCalculator.svelte. They are
 // not claims about measured XS warehouse or 4 DBU/hour performance.
 const warehouseProfile = {
 	indexed: false,

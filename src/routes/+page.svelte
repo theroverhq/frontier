@@ -11,6 +11,7 @@
 	import CloudUpload from '@lucide/svelte/icons/cloud-upload';
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
+	import ProductOverview from '$lib/components/ProductOverview.svelte';
 	import type { PageData } from './$types';
 	import { spotlight, cycleProducts } from '$lib/effects';
 	let { data }: { data: PageData } = $props();
@@ -66,11 +67,22 @@
 	<meta property="og:url" content="https://roverhq.ai/" />
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={description} />
-	<meta property="og:image" content="https://roverhq.ai/og-image.jpg" />
+	<meta property="og:image" content="https://roverhq.ai/assets/og/home.png" />
+	<meta property="og:image:type" content="image/png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta
+		property="og:image:alt"
+		content="Rover — Operational intelligence for users and AI agents. Cold Storage. Hot Intelligence."
+	/>
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={description} />
-	<meta name="twitter:image" content="https://roverhq.ai/og-image.jpg" />
+	<meta name="twitter:image" content="https://roverhq.ai/assets/og/home.png" />
+	<meta
+		name="twitter:image:alt"
+		content="Rover — Operational intelligence for users and AI agents. Cold Storage. Hot Intelligence."
+	/>
 	{@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
 </svelte:head>
 <header
@@ -133,7 +145,7 @@
 			<div class="landscape-product left">
 				<ShieldCheck class="h-6 w-6 text-primary" stroke-width={1.5} />
 				<div>
-					<span class="text-[15px] font-semibold">Rover SIEM</span><small>Understand threats.</small
+					<span class="text-[15px] font-semibold">Rover SIEM</span><small>Security Information and Event Management.</small
 					>
 				</div>
 				<span class="landscape-dot"></span>
@@ -141,7 +153,7 @@
 			<div class="landscape-product middle">
 				<CloudUpload class="h-6 w-6 text-primary" stroke-width={1.5} />
 				<div>
-					<span class="text-[15px] font-semibold">Rover SDL</span><small
+					<span class="text-[15px] font-semibold">Rover Security Datalake</span><small
 						>Search retained history.</small
 					>
 				</div>
@@ -151,7 +163,7 @@
 				<Database class="h-6 w-6 text-primary" stroke-width={1.5} />
 				<div>
 					<span class="text-[15px] font-semibold">Rover DAM</span><small
-						>Control database activity.</small
+						>Database Activity Monitoring.</small
 					>
 				</div>
 				<span class="landscape-dot"></span>
@@ -185,6 +197,8 @@
 		</div>
 	</div>
 </header>
+
+<ProductOverview />
 
 <section
 	id="perspective"

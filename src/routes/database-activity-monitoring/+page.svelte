@@ -2,6 +2,7 @@
 	import DamHero from '$lib/components/DamHero.svelte';
 	import DamCapabilities from '$lib/components/DamCapabilities.svelte';
 	import DamWhyRover from '$lib/components/DamWhyRover.svelte';
+	import DamPricing from '$lib/components/DamPricing.svelte';
 	import FinalCta from '$lib/components/FinalCta.svelte';
 </script>
 
@@ -28,7 +29,11 @@
 		property="og:description"
 		content="Rover DAM monitors every database query in real time. Track privileged users, protect sensitive data, detect threats, enforce policy, and produce audit-ready compliance reports."
 	/>
-	<meta property="og:image" content="https://roverhq.ai/og-image.jpg" />
+	<meta property="og:image" content="https://roverhq.ai/assets/og/dam.png" />
+	<meta property="og:image:type" content="image/png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="Rover — Every query. Every database." />
 
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta
@@ -39,7 +44,8 @@
 		name="twitter:description"
 		content="Rover DAM monitors every database query in real time. Track privileged users, protect sensitive data, detect threats, enforce policy, and produce audit-ready compliance reports."
 	/>
-	<meta name="twitter:image" content="https://roverhq.ai/og-image.jpg" />
+	<meta name="twitter:image" content="https://roverhq.ai/assets/og/dam.png" />
+	<meta name="twitter:image:alt" content="Rover — Every query. Every database." />
 
 	{@html `<script type="application/ld+json">
 	{
@@ -73,9 +79,11 @@
 
 <DamHero />
 <DamCapabilities />
+<DamPricing />
 <DamWhyRover />
 <FinalCta
-	badge="Rover Database Activity Monitoring"
+	badge="Get Demo"
+	badgeHref="#get-demo"
 	title="Your data is only as safe"
 	accent="as the queries you can see."
 	body="Start with the databases that hold your most sensitive data. Rover monitors activity in real time, flags what matters, and keeps the evidence ready for every investigation and audit."

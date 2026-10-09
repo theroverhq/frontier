@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Badge } from '$lib/components/ui/badge';
-	import PricingCalculator from '$lib/components/PricingCalculator.svelte';
+	import SiemPricingCalculator from '$lib/components/SiemPricingCalculator.svelte';
 	let { dataLake = false }: { dataLake?: boolean } = $props();
 
 	const proof = ['No Hot Index Tier', 'No Always-On Search Cluster', 'No Rehydration'];
@@ -30,7 +30,7 @@
 		</div>
 
 		<div class="my-26">
-			<PricingCalculator {dataLake} />
+			<SiemPricingCalculator {dataLake} />
 		</div>
 
 		<div class="text-center">

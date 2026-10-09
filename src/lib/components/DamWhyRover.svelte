@@ -29,8 +29,11 @@
 <section id="why-rover" class="relative overflow-hidden bg-background pt-24 pb-28 text-foreground">
 	<div class="relative container mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div class="text-center">
-			<Badge class="px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase">
-				Why Rover Database Activity Monitoring
+			<Badge
+				href="#why-rover"
+				class="px-4 py-1 text-[11.5px] font-bold tracking-[0.12em] uppercase"
+			>
+				Why Rover
 			</Badge>
 			<div class="mt-4 text-[11px] font-bold tracking-[0.12em] uppercase">
 				Customer-owned object storage

@@ -23,7 +23,7 @@
 		"precheck": "npm run generate:comparisons",
 		"upload:comparison": "node scripts/upload-comparison-pdf.mjs",
 		"test:comparisons": "node --test tests/comparisons.test.mjs",
-		"test:pricing": "node --test tests/data-lake-pricing.test.mjs tests/query-latency.test.mjs"
+		"test:pricing": "node --test tests/data-lake-pricing.test.mjs tests/dam-pricing.test.mjs tests/query-latency.test.mjs"
 	},
 	"devDependencies": {
 		"@fontsource-variable/instrument-sans": "^5.3.0",
