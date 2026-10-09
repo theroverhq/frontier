@@ -1,50 +1,11 @@
 <script lang="ts">
 	import { Badge } from '$lib/components/ui/badge';
+	import Database from '@lucide/svelte/icons/database';
+	import { estimateDataLake } from '$lib/data-lake-pricing.mjs';
+	import { estimateQueryLatency } from '$lib/query-latency.mjs';
+	let { dataLake = false }: { dataLake?: boolean } = $props();
 
-	// Helper function: Round figure to nearest 5 or 10
-	function roundToNearest5(val: number): number {
-		return Math.round(val / 5) * 5;
-	}
-
-	// Helper function: Platform-tailored Search Latency timing for unindexed Data Lakes/Warehouses
-	function getSearchLatency(
-		providerId: string,
-		tbTotal: number,
-		queryFactor: number = 1.0
-	): string {
-		// Scanned volume increases dynamically as total searchable dataset (GB/day x Retention) scales
-		// Standard SOC scans recent partition windows, while Advanced Hunting/Incident Response execute full table sweeps
-		const scanRatio = queryFactor === 1.0 ? 0.08 : 0.2 + (queryFactor - 1) * 0.15;
-		const effectiveTB = Math.max(1, tbTotal * scanRatio);
-
-		if (providerId === 'athena') {
-			if (effectiveTB <= 2) return '~45s - 2 min query latency';
-			if (effectiveTB <= 15) return '~3 - 15 min query latency';
-			if (effectiveTB <= 60) return '~30 min - 2 hr query latency';
-			if (effectiveTB <= 200) return '~6 - 18+ hr query latency';
-			return '~1 - 7+ days (query timeout)';
-		}
-
-		if (providerId === 'databricks') {
-			if (effectiveTB <= 2) return '~30s - 1.5 min query latency';
-			if (effectiveTB <= 15) return '~2 - 10 min query latency';
-			if (effectiveTB <= 60) return '~20 - 60 min query latency';
-			if (effectiveTB <= 200) return '~3 - 12+ hr query latency';
-			return '~8 - 24+ hr query latency';
-		}
-
-		if (providerId === 'snowflake') {
-			if (effectiveTB <= 2) return '~15s - 45s query latency';
-			if (effectiveTB <= 15) return '~1 - 6 min query latency';
-			if (effectiveTB <= 60) return '~15 - 45 min query latency';
-			if (effectiveTB <= 200) return '~2 - 8+ hr query latency';
-			return '~6 - 18+ hr query latency';
-		}
-
-		return '~45s - 2 min query latency';
-	}
-
-	// Helper function: Dynamic Rover query latency scaling anchored at ~100 TB = 10s
+	// Dynamic Rover query latency scaling anchored at ~100 TB = 10s.
 	function getRoverLatency(tbTotal: number): string {
 		if (tbTotal <= 5) return '< 1s instant search';
 		if (tbTotal <= 25) return '< 3s instant search';
@@ -64,8 +25,7 @@
 			desc: 'Small Security Posture',
 			alertsPerMonth: 450,
 			huntsPerMonth: 70,
-			totalSearches: 520,
-			legacyQueryCostMo: 45
+			totalSearches: 520
 		},
 		{
 			label: '100 GB / day',
@@ -74,8 +34,7 @@
 			desc: 'Mid-Market Baseline',
 			alertsPerMonth: 1250,
 			huntsPerMonth: 260,
-			totalSearches: 1510,
-			legacyQueryCostMo: 1320
+			totalSearches: 1510
 		},
 		{
 			label: '250 GB / day',
@@ -84,8 +43,7 @@
 			desc: 'Growing Enterprise',
 			alertsPerMonth: 2000,
 			huntsPerMonth: 500,
-			totalSearches: 2500,
-			legacyQueryCostMo: 5470
+			totalSearches: 2500
 		},
 		{
 			label: '500 GB / day',
@@ -94,8 +52,7 @@
 			desc: 'Multi-Cloud Enterprise',
 			alertsPerMonth: 3200,
 			huntsPerMonth: 810,
-			totalSearches: 4010,
-			legacyQueryCostMo: 17500
+			totalSearches: 4010
 		},
 		{
 			label: '1 TB / day',
@@ -104,8 +61,7 @@
 			desc: 'High-Volume Enterprise SIEM',
 			alertsPerMonth: 5000,
 			huntsPerMonth: 1040,
-			totalSearches: 6040,
-			legacyQueryCostMo: 45300
+			totalSearches: 6040
 		},
 		{
 			label: '2 TB / day',
@@ -114,8 +70,7 @@
 			desc: 'Large Enterprise Scale',
 			alertsPerMonth: 7500,
 			huntsPerMonth: 1560,
-			totalSearches: 9060,
-			legacyQueryCostMo: 135900
+			totalSearches: 9060
 		},
 		{
 			label: '10 TB / day',
@@ -124,8 +79,7 @@
 			desc: 'Global FinTech / SaaS Platform',
 			alertsPerMonth: 15000,
 			huntsPerMonth: 4120,
-			totalSearches: 19120,
-			legacyQueryCostMo: 1434000
+			totalSearches: 19120
 		},
 		{
 			label: '100 TB / day',
@@ -134,8 +88,7 @@
 			desc: 'Hyperscale Fortune 50 Enterprise',
 			alertsPerMonth: 40000,
 			huntsPerMonth: 14000,
-			totalSearches: 54000,
-			legacyQueryCostMo: 8100000
+			totalSearches: 54000
 		}
 	];
 
@@ -166,7 +119,7 @@
 			id: 'ai',
 			label: 'AI Agents SOC',
 			factor: 5.0,
-			desc: '5.0× query workload. Autonomous AI SOC agents executing continuous sub-second investigation loops.'
+			desc: '5.0× query workload. Autonomous AI SOC agents running continuous investigations and historical pivots.'
 		},
 		{
 			id: 'ir',
@@ -179,53 +132,53 @@
 	// Rover baseline rates anchored at 250 GB/day = $50k/yr, 500 GB/day = $120k/yr, 1 TB/day = $200k/yr, 2 TB/day = $275k/yr
 	// ArcSight retains the existing estimates; no public rate was verified.
 	interface ProviderBenchmark {
-		rover: { monthly1Y: number; yearly1Y: number };
+		rover: { yearly1Y: number };
 		opentext: { baseYearly: number; oneYearHot: number };
 	}
 
 	const benchmarkData: Record<number, ProviderBenchmark> = {
 		10: {
-			rover: { monthly1Y: 835, yearly1Y: 10000 },
+			rover: { yearly1Y: 10000 },
 			opentext: { baseYearly: 16000, oneYearHot: 21500 }
 		},
 		100: {
-			rover: { monthly1Y: 2085, yearly1Y: 25000 },
+			rover: { yearly1Y: 25000 },
 			opentext: { baseYearly: 160000, oneYearHot: 215000 }
 		},
 		250: {
-			rover: { monthly1Y: 4167, yearly1Y: 50000 }, // Exact $50k/yr anchor
+			rover: { yearly1Y: 50000 }, // Exact $50k/yr anchor
 			opentext: { baseYearly: 400000, oneYearHot: 538000 }
 		},
 		500: {
-			rover: { monthly1Y: 10000, yearly1Y: 120000 }, // Exact $120k/yr anchor
+			rover: { yearly1Y: 120000 }, // Exact $120k/yr anchor
 			opentext: { baseYearly: 800000, oneYearHot: 1075000 }
 		},
 		1000: {
 			// 1 TB
-			rover: { monthly1Y: 16667, yearly1Y: 200000 }, // Exact $200k/yr anchor
+			rover: { yearly1Y: 200000 }, // Exact $200k/yr anchor
 			opentext: { baseYearly: 1600000, oneYearHot: 2150000 }
 		},
 		2000: {
 			// 2 TB
-			rover: { monthly1Y: 22917, yearly1Y: 275000 }, // Exact $275k/yr anchor
+			rover: { yearly1Y: 275000 }, // Exact $275k/yr anchor
 			opentext: { baseYearly: 3200000, oneYearHot: 4300000 }
 		},
 		10000: {
 			// 10 TB
-			rover: { monthly1Y: 54167, yearly1Y: 650000 },
+			rover: { yearly1Y: 650000 },
 			opentext: { baseYearly: 16000000, oneYearHot: 21500000 }
 		},
 		100000: {
 			// 100 TB
-			rover: { monthly1Y: 375000, yearly1Y: 4500000 },
+			rover: { yearly1Y: 4500000 },
 			opentext: { baseYearly: 160000000, oneYearHot: 215000000 }
 		}
 	};
 
 	// State
-	let selectedVolumeIdx = $state(2); // Default: 250 GB/day
-	let selectedRetentionIdx = $state(2); // Default: 1 Year
-	let selectedQueryIntensityIdx = $state(0); // Default: Standard SOC (1.0x base)
+	let selectedVolumeIdx = $state(4); // Default: 1 TB/day
+	let selectedRetentionIdx = $state(3); // Default: 3 Years
+	let selectedQueryIntensityIdx = $state(2); // Default: AI Agents SOC (5x)
 	let billingPeriod = $state<'monthly' | 'yearly'>('monthly');
 
 	// Active Selections
@@ -238,8 +191,12 @@
 	const R = $derived(activeRetention.R);
 	// Query intensity multiplier Q
 	const Q = $derived(activeQueryIntensity.factor);
-	// Total searchable dataset volume in TB
-	let totalSearchableTB = $derived(activeVolume.tbPerMonth * R * 12);
+	// Compare one uncached historical search. Query workload changes monthly count only.
+	const latencyWorkload = $derived({
+		dailyGB: activeVolume.gbPerDay,
+		retentionDays: Math.round(R * 365)
+	});
+	const totalSearchableTB = $derived(activeVolume.tbPerMonth * R * 12);
 
 	// Rover calculator pricing: ingestion subscription only.
 	let roverYearly = $derived(bm.rover.yearly1Y);
@@ -428,7 +385,64 @@
 		return billingPeriod === 'yearly' ? annual : annual / 12;
 	}
 
-	let providerList = $derived([
+	interface ProviderComparison {
+		id: string;
+		name: string;
+		category: string;
+		cost: number;
+		logo?: string;
+		pricingNote?: string;
+	}
+	const additionalDataLakeDefinitions: {
+		id: Parameters<typeof estimateDataLake>[0];
+		name: string;
+		category: string;
+		logo: string;
+		pricingNote?: string;
+	}[] = [
+		{
+			id: 'cribl',
+			name: 'Cribl Lake + Search',
+			category: 'Telemetry Data Lake',
+			logo: '/assets/vendor-logos/cribl.svg'
+		},
+		{
+			id: 'elastic-security',
+			name: 'Elastic Security Serverless',
+			category: 'Security Analytics Complete',
+			logo: '/assets/vendor-logos/elastic.svg',
+			pricingNote:
+				'AWS us-east-1 Security Analytics Complete: graduated monthly ingestion and retained-data rates. Assumes billed normalized volume equals input volume. Excludes egress, support upgrades, Agent Builder, workflow, and LLM token charges.'
+		},
+		{
+			id: 'bigquery',
+			name: 'Google BigQuery',
+			category: 'Data Warehouse & Lake Analytics',
+			logo: '/assets/vendor-logos/google-bigquery.svg'
+		},
+		{
+			id: 'fabric',
+			name: 'Microsoft Fabric OneLake',
+			category: 'Data Lake & Analytics Platform',
+			logo: '/assets/vendor-logos/microsoft-fabric.svg'
+		}
+	];
+	const additionalDataLakes = $derived<ProviderComparison[]>(
+		additionalDataLakeDefinitions.map((provider) => {
+			const estimate = estimateDataLake(provider.id, {
+				dailyGB: activeVolume.gbPerDay,
+				retentionDays: Math.round(R * 365),
+				queriesPerMonth: Math.round(activeVolume.totalSearches * Q)
+			});
+			const periodFactor = billingPeriod === 'yearly' ? 12 : 1;
+			return {
+				...provider,
+				cost: estimate.monthly * periodFactor
+			};
+		})
+	);
+
+	let allProviders = $derived([
 		{
 			id: 'splunk',
 			name: 'Splunk ES',
@@ -491,48 +505,62 @@
 		}
 	]);
 
-	// Formatter
-	const formatVal = (val: number) => {
-		if (val >= 1000000) {
-			return `$${(val / 1000000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}M`;
+	const providerList = $derived<ProviderComparison[]>(
+		dataLake
+			? [
+					...allProviders.filter((provider) =>
+						['snowflake', 'databricks', 'athena'].includes(provider.id)
+					),
+					...additionalDataLakes
+				]
+			: allProviders
+	);
+
+	// Compact six-figure values; promote rounded 1,000K to 1M.
+	const formatNumber = (val: number) => {
+		const rounded = Math.round(val);
+		if (rounded >= 999_950) {
+			return `${(rounded / 1_000_000).toLocaleString('en-US', { maximumFractionDigits: 2 })}M`;
 		}
-		return new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency: 'USD',
-			maximumFractionDigits: 0
-		}).format(val);
+		if (rounded >= 100_000) {
+			return `${(rounded / 1_000).toLocaleString('en-US', { maximumFractionDigits: 1 })}K`;
+		}
+		return rounded.toLocaleString('en-US');
 	};
+	const formatVal = (val: number) => `$${formatNumber(val)}`;
 </script>
 
-<div class="dark border-border bg-card text-foreground rounded-2xl border p-4 sm:p-8 lg:p-10">
+<div class="dark rounded-2xl border border-border bg-card p-4 text-foreground sm:p-8 lg:p-10">
 	<div class="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-12">
 		<!-- LEFT COLUMN: Controls & Options -->
 		<div class="flex flex-col justify-between space-y-3.5">
 			<div>
 				<Badge
 					variant="outline"
-					class="border-border text-text-muted text-overline rounded-full bg-transparent px-3 py-1 tracking-normal"
+					class="rounded-full border-border bg-transparent px-3 py-1 text-overline tracking-normal text-text-muted"
 				>
 					Interactive Cost Model
 				</Badge>
-				<h3 class="text-heading-3 text-text-primary mt-4 font-bold tracking-tight">
+				<h3 class="mt-4 text-heading-3 font-bold tracking-tight text-text-primary">
 					Calculate your savings with Rover.
 				</h3>
-				<p class="text-body-sm text-text-secondary mt-3 leading-relaxed">
-					Traditional SIEMs and data warehouses charge for retention and query scans. Rover pricing
-					is based on daily ingestion volume, with multi-year retention included and queries billed
-					at $0.01 each.
+				<p class="mt-3 text-body-sm leading-relaxed text-text-secondary">
+					{dataLake
+						? 'Data lakes and warehouses charge for storage and query compute.'
+						: 'Traditional SIEMs and data warehouses charge for retention and query scans.'} Rover pricing
+					is based on daily ingestion volume, with multi-year retention included and queries billed at
+					$0.01 each.
 				</p>
 			</div>
 
 			<!-- Control 1: Daily Ingestion Volume -->
-			<div class="border-border bg-background space-y-2 rounded-xl border p-4 sm:p-5">
+			<div class="space-y-2 rounded-xl border border-border bg-background p-4 sm:p-5">
 				<div class="flex items-center justify-between">
-					<label for="volume-slider-standard" class="text-overline text-text-primary font-semibold">
+					<label for="volume-slider-standard" class="text-overline font-semibold text-text-primary">
 						Daily Ingestion Volume
 					</label>
 					<span
-						class="border-border bg-card/80 text-label-sm text-text-primary rounded-md border px-3 py-1 font-bold"
+						class="rounded-md border border-border bg-card/80 px-3 py-1 text-label-sm font-bold text-text-primary"
 					>
 						{activeVolume.label}
 					</span>
@@ -545,29 +573,29 @@
 					max={volumeTiers.length - 1}
 					step="1"
 					bind:value={selectedVolumeIdx}
-					class="accent-primary bg-border h-2 w-full cursor-pointer rounded-lg"
+					class="volume-slider h-2 w-full cursor-pointer rounded-lg bg-border accent-primary"
 				/>
 
-				<div class="text-caption text-text-muted relative h-5 font-medium">
+				<div class="relative h-5 text-caption font-medium text-text-muted">
 					<span class="absolute left-0">10 GB/d</span>
 					<span class="absolute left-[42.86%] hidden -translate-x-1/2 sm:inline">500 GB/d</span>
 					<span class="absolute left-[71.43%] hidden -translate-x-1/2 sm:inline">2 TB/d</span>
 					<span class="absolute right-0 text-right">100 TB/d</span>
 				</div>
-				<div class="text-caption text-text-muted pt-1">
-					Telemetry volume: <strong class="text-text-primary font-bold"
+				<div class="pt-1 text-caption text-text-muted">
+					Telemetry volume: <strong class="font-bold text-text-primary"
 						>{activeVolume.tbPerMonth} TB / month</strong
 					>
-					({activeVolume.desc})
+					({dataLake ? activeVolume.desc.replace(' SIEM', '') : activeVolume.desc})
 				</div>
 			</div>
 
 			<!-- Control 2: Query Workload Factor -->
-			<div class="border-border bg-background space-y-2 rounded-xl border p-4 sm:p-5">
+			<div class="space-y-2 rounded-xl border border-border bg-background p-4 sm:p-5">
 				<div class="flex items-center justify-between">
-					<span class="text-overline text-text-primary font-semibold">Query Workload Factor</span>
+					<span class="text-overline font-semibold text-text-primary">Query Workload Factor</span>
 					<span
-						class="border-border bg-card/80 text-label-sm text-text-primary rounded-md border px-3 py-1 font-bold"
+						class="rounded-md border border-border bg-card/80 px-3 py-1 text-label-sm font-bold text-text-primary"
 					>
 						{activeQueryIntensity.factor}× Factor
 					</span>
@@ -580,7 +608,7 @@
 							onclick={() => (selectedQueryIntensityIdx = idx)}
 							class="flex min-w-0 flex-col items-start justify-between gap-2 rounded-xl border p-3 transition-all sm:flex-row sm:items-center sm:p-3.5 {selectedQueryIntensityIdx ===
 							idx
-								? 'border-primary/80 bg-card text-foreground font-semibold shadow-sm'
+								? 'border-primary/80 bg-card font-semibold text-foreground shadow-sm'
 								: 'border-border bg-card/40 text-text-secondary hover:border-border/80 hover:text-text-primary'}"
 						>
 							<div class="flex min-w-0 items-center gap-2.5">
@@ -591,15 +619,15 @@
 										: 'border-border'}"
 								>
 									{#if selectedQueryIntensityIdx === idx}
-										<div class="bg-primary h-2 w-2 rounded-full"></div>
+										<div class="h-2 w-2 rounded-full bg-primary"></div>
 									{/if}
 								</div>
-								<span class="text-label-sm text-text-primary min-w-0 leading-tight font-bold"
+								<span class="min-w-0 text-label-sm leading-tight font-bold text-text-primary"
 									>{option.label}</span
 								>
 							</div>
 							<span
-								class="text-caption self-end font-bold sm:self-auto {selectedQueryIntensityIdx ===
+								class="self-end text-caption font-bold sm:self-auto {selectedQueryIntensityIdx ===
 								idx
 									? 'text-primary'
 									: 'text-text-muted'}"
@@ -610,34 +638,33 @@
 					{/each}
 				</div>
 
-				<p class="text-caption text-text-muted leading-relaxed">
+				<p class="text-caption leading-relaxed text-text-muted">
 					↳ {activeQueryIntensity.desc}
 				</p>
 
 				<div
-					class="border-border bg-card/60 text-caption flex flex-wrap items-center justify-between gap-2 rounded-lg border p-3"
+					class="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border bg-card/60 p-3 text-caption"
 				>
 					<span class="text-text-muted">Calculated query workload:</span>
-					<span class="text-text-primary font-bold">
-						{Math.round(activeVolume.totalSearches * activeQueryIntensity.factor).toLocaleString()} queries
-						/ mo
-						<span class="text-text-muted font-normal">
-							({Math.round(
-								activeVolume.alertsPerMonth * activeQueryIntensity.factor
-							).toLocaleString()} alerts + {Math.round(
+					<span class="font-bold text-text-primary">
+						{formatNumber(activeVolume.totalSearches * activeQueryIntensity.factor)} queries / mo
+						<span class="font-normal text-text-muted">
+							({formatNumber(activeVolume.alertsPerMonth * activeQueryIntensity.factor)} alerts + {formatNumber(
 								activeVolume.huntsPerMonth * activeQueryIntensity.factor
-							).toLocaleString()} hunts)
+							)} hunts)
 						</span>
 					</span>
 				</div>
 			</div>
 
 			<!-- Control 3: Retention Period -->
-			<div class="border-border bg-background space-y-2 rounded-xl border p-4 sm:p-5">
+			<div class="space-y-2 rounded-xl border border-border bg-background p-4 sm:p-5">
 				<div class="flex items-center justify-between">
-					<span class="text-overline text-text-primary font-semibold">Retention Period</span>
+					<span class="text-overline font-semibold text-text-primary"
+						>Hot Tier Retention Period</span
+					>
 					<span
-						class="border-border bg-card/80 text-label-sm text-text-primary rounded-md border px-3 py-1 font-bold"
+						class="rounded-md border border-border bg-card/80 px-3 py-1 text-label-sm font-bold text-text-primary"
 					>
 						{activeRetention.label}
 					</span>
@@ -648,9 +675,9 @@
 						<button
 							type="button"
 							onclick={() => (selectedRetentionIdx = idx)}
-							class="text-button-sm min-h-11 rounded-lg border px-2 py-2.5 text-center transition-all {selectedRetentionIdx ===
+							class="min-h-11 rounded-lg border px-2 py-2.5 text-center text-button-sm transition-all {selectedRetentionIdx ===
 							idx
-								? 'border-foreground bg-foreground text-background font-bold shadow-sm'
+								? 'border-foreground bg-foreground font-bold text-background shadow-sm'
 								: 'border-border bg-card/40 text-text-secondary hover:text-text-primary'}"
 						>
 							{ret.label}
@@ -661,16 +688,16 @@
 
 			<!-- Control 4: Billing Term Toggle -->
 			<div
-				class="border-border bg-background flex items-center justify-between rounded-xl border p-4"
+				class="flex items-center justify-between rounded-xl border border-border bg-background p-4"
 			>
-				<span class="text-overline text-text-primary font-semibold">Billing Term</span>
-				<div class="border-border bg-card flex rounded-lg border p-1">
+				<span class="text-overline font-semibold text-text-primary">Billing Term</span>
+				<div class="flex rounded-lg border border-border bg-card p-1">
 					<button
 						type="button"
 						onclick={() => (billingPeriod = 'monthly')}
-						class="text-button-sm min-h-11 rounded-md px-3.5 py-1 transition-all {billingPeriod ===
+						class="min-h-11 rounded-md px-3.5 py-1 text-button-sm transition-all {billingPeriod ===
 						'monthly'
-							? 'bg-foreground text-background font-bold shadow-sm'
+							? 'bg-foreground font-bold text-background shadow-sm'
 							: 'text-text-muted hover:text-text-primary'}"
 					>
 						Monthly
@@ -678,9 +705,9 @@
 					<button
 						type="button"
 						onclick={() => (billingPeriod = 'yearly')}
-						class="text-button-sm min-h-11 rounded-md px-3.5 py-1 transition-all {billingPeriod ===
+						class="min-h-11 rounded-md px-3.5 py-1 text-button-sm transition-all {billingPeriod ===
 						'yearly'
-							? 'bg-foreground text-background font-bold shadow-sm'
+							? 'bg-foreground font-bold text-background shadow-sm'
 							: 'text-text-muted hover:text-text-primary'}"
 					>
 						Yearly
@@ -692,15 +719,15 @@
 		<!-- RIGHT COLUMN: Provider Cards -->
 		<div class="flex flex-col space-y-2.5">
 			<div class="hidden items-center justify-between px-1 pb-0.5 sm:flex">
-				<span class="text-overline text-text-muted font-semibold">Provider</span>
-				<span class="text-overline text-text-muted font-semibold"
+				<span class="text-overline font-semibold text-text-muted">Provider</span>
+				<span class="text-overline font-semibold text-text-muted"
 					>Estimated Pricing ({billingPeriod})</span
 				>
 			</div>
 
 			<!-- ROVER PLATFORM CARD -->
 			<div
-				class="border-border bg-background relative mt-1 mb-6 overflow-hidden rounded-xl border p-4 shadow-md sm:p-4"
+				class="relative mt-1 mb-6 overflow-hidden rounded-xl border border-border bg-background p-4 shadow-md sm:p-4"
 			>
 				<div
 					class="flex flex-col items-stretch gap-4 min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between"
@@ -719,9 +746,9 @@
 
 						<div class="max-w-[280px]">
 							<div class="flex flex-wrap items-center gap-1.5">
-								<span class="text-label-md text-text-primary font-bold">Rover Platform</span>
+								<span class="text-label-md font-bold text-text-primary">Rover Platform</span>
 								<Badge
-									class="border-primary/40 bg-primary/10 text-primary rounded-full px-2 py-0.5 text-[9px] font-semibold"
+									class="rounded-full border-primary/40 bg-primary/10 px-2 py-0.5 text-[9px] font-semibold text-primary"
 								>
 									{getRoverLatency(totalSearchableTB)}
 								</Badge>
@@ -731,8 +758,8 @@
 
 					<div class="shrink-0 self-end text-right min-[420px]:self-auto">
 						<div class="flex items-baseline justify-end gap-1">
-							<span class="text-heading-3 text-primary font-bold">{formatVal(roverCost)}</span>
-							<span class="text-caption text-text-muted font-medium"
+							<span class="text-heading-3 font-bold text-primary">{formatVal(roverCost)}</span>
+							<span class="text-caption font-medium text-text-muted"
 								>/{billingPeriod === 'monthly' ? 'mo' : 'yr'}</span
 							>
 						</div>
@@ -744,17 +771,25 @@
 			{#each providerList as provider (provider.name)}
 				{@const multiplier = (provider.cost / Math.max(1, roverCost)).toFixed(1)}
 				{@const archiveLatency = getArchiveLatency(provider.id)}
-				{@const totalSearchableTB = activeVolume.tbPerMonth * activeRetention.R * 12}
+				{@const queryLatency = estimateQueryLatency(provider.id, latencyWorkload)}
 				<div
-					class="border-border bg-card/60 hover:bg-card flex flex-col items-stretch gap-4 rounded-xl border p-3 transition-all min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between sm:p-3.5"
+					class="pricing-row flex flex-col items-stretch gap-4 rounded-xl border border-border bg-card/60 p-3 transition-all hover:bg-card min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between sm:p-3.5"
 				>
 					<div class="flex min-w-0 items-center gap-2.5">
 						<!-- Direct Competitor SVG / PNG Icon -->
 						<div class="flex h-7 w-7 shrink-0 items-center justify-center">
-							{#if provider.id === 'crowdstrike'}
+							{#if provider.logo}
+								<img
+									src={provider.logo}
+									alt=""
+									width="28"
+									height="28"
+									class="h-7 w-7 shrink-0 object-contain brightness-0 invert"
+								/>
+							{:else if provider.id === 'crowdstrike'}
 								<!-- CrowdStrike LogScale.svg -->
 								<svg
-									class="text-foreground h-7 w-7 shrink-0"
+									class="h-7 w-7 shrink-0 text-foreground"
 									viewBox="0 0 34 34"
 									fill="none"
 									xmlns="http://www.w3.org/2000/svg"
@@ -790,7 +825,7 @@
 							{:else if provider.id === 'splunk'}
 								<!-- Splunk ES.svg -->
 								<svg
-									class="text-foreground h-7 w-7 shrink-0"
+									class="h-7 w-7 shrink-0 text-foreground"
 									viewBox="0 0 34 34"
 									fill="none"
 									xmlns="http://www.w3.org/2000/svg"
@@ -808,7 +843,7 @@
 							{:else if provider.id === 'sentinel'}
 								<!-- Microsoft Sentinel.svg -->
 								<svg
-									class="text-foreground h-6 w-6 shrink-0"
+									class="h-6 w-6 shrink-0 text-foreground"
 									viewBox="0 0 34 34"
 									fill="none"
 									xmlns="http://www.w3.org/2000/svg"
@@ -821,7 +856,7 @@
 							{:else if provider.id === 'snowflake'}
 								<!-- Snowflake.svg -->
 								<svg
-									class="text-foreground h-7 w-7 shrink-0"
+									class="h-7 w-7 shrink-0 text-foreground"
 									viewBox="0 0 34 34"
 									fill="none"
 									xmlns="http://www.w3.org/2000/svg"
@@ -836,7 +871,7 @@
 							{:else if provider.id === 'databricks'}
 								<!-- Databricks.svg -->
 								<svg
-									class="text-foreground h-7 w-7 shrink-0"
+									class="h-7 w-7 shrink-0 text-foreground"
 									viewBox="0 0 34 34"
 									fill="none"
 									xmlns="http://www.w3.org/2000/svg"
@@ -849,7 +884,7 @@
 							{:else if provider.id === 'athena'}
 								<!-- AWS.svg -->
 								<svg
-									class="text-foreground h-7 w-7 shrink-0"
+									class="h-7 w-7 shrink-0 text-foreground"
 									viewBox="0 0 34 34"
 									fill="none"
 									xmlns="http://www.w3.org/2000/svg"
@@ -870,7 +905,7 @@
 							{:else if provider.id === 'qradar'}
 								<!-- IBM QRadar.svg -->
 								<svg
-									class="text-foreground h-7 w-7 shrink-0"
+									class="h-7 w-7 shrink-0 text-foreground"
 									viewBox="0 0 34 34"
 									fill="none"
 									xmlns="http://www.w3.org/2000/svg"
@@ -883,7 +918,7 @@
 							{:else if provider.id === 'opentext'}
 								<!-- OpenText.svg -->
 								<svg
-									class="text-foreground h-7 w-7 shrink-0"
+									class="h-7 w-7 shrink-0 text-foreground"
 									viewBox="0 0 24 24"
 									fill="none"
 									xmlns="http://www.w3.org/2000/svg"
@@ -894,30 +929,32 @@
 										fill="currentColor"
 									/>
 								</svg>
+							{:else}
+								<Database class="h-7 w-7 text-foreground" stroke-width={1.5} aria-hidden="true" />
 							{/if}
 						</div>
 
 						<div class="min-w-0">
 							<div class="flex flex-wrap items-center gap-2">
-								<span class="text-label-md text-text-primary font-bold">{provider.name}</span>
-								{#if provider.id === 'athena' || provider.id === 'snowflake' || provider.id === 'databricks'}
+								<span class="text-label-md font-bold text-text-primary">{provider.name}</span>
+								{#if queryLatency}
 									<span
-										class="border-security-critical/30 bg-security-critical/10 text-security-critical/80 rounded-full border bg-transparent px-2 py-0.5 text-[10px] font-medium"
+										class="rounded-full border border-security-critical/30 bg-security-critical/10 bg-transparent px-2 py-0.5 text-[10px] font-medium text-security-critical/80"
 									>
-										{getSearchLatency(provider.id, totalSearchableTB, activeQueryIntensity.factor)}
+										{queryLatency.label}
 									</span>
 								{/if}
 							</div>
-							<div class="text-caption text-text-muted mt-0.5">
+							<div class="mt-0.5 text-caption text-text-muted">
 								{provider.category}
 								{#if archiveLatency}
-									<span class="text-security-critical/80 text-[10px]" title={archiveLatency.title}>
+									<span class="text-[10px] text-security-critical/80">
 										{archiveLatency.label}
 									</span>
 								{/if}
 							</div>
 							{#if provider.id === 'athena' || provider.id === 'snowflake' || provider.id === 'databricks'}
-								<div class="text-text-muted/80 mt-0.5 text-[10px] leading-tight">
+								<div class="mt-0.5 text-[10px] leading-tight text-text-muted/80">
 									* Fast on time filters · Slow on unindexed log search
 								</div>
 							{/if}
@@ -927,16 +964,17 @@
 					<div class="flex shrink-0 items-center gap-2.5 self-end min-[420px]:self-auto">
 						{#if Number(multiplier) > 1.1}
 							<span
-								class="border-border/80 bg-background/80 text-text-muted rounded-md border px-2 py-0.5 text-[10px] font-medium"
+								class="rounded-md border border-border/80 bg-background/80 px-2 py-0.5 text-[10px] font-medium text-text-muted"
 							>
 								{multiplier}x higher
 							</span>
 						{/if}
+
 						<div class="flex items-baseline justify-end gap-1">
-							<span class="text-heading-4 text-text-primary font-bold"
+							<span class="text-heading-4 font-bold text-text-primary" title={provider.pricingNote}
 								>{formatVal(provider.cost)}</span
 							>
-							<span class="text-caption text-text-muted font-medium"
+							<span class="text-caption font-medium text-text-muted"
 								>/{billingPeriod === 'monthly' ? 'mo' : 'yr'}</span
 							>
 						</div>
@@ -946,3 +984,46 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	.volume-slider::-webkit-slider-thumb {
+		transition:
+			transform 0.2s ease,
+			filter 0.2s ease;
+	}
+	.volume-slider::-moz-range-thumb {
+		transition:
+			transform 0.2s ease,
+			filter 0.2s ease;
+	}
+	@media (hover: hover) {
+		.volume-slider:hover::-webkit-slider-thumb {
+			transform: scale(1.2);
+			filter: brightness(1.15);
+		}
+		.volume-slider:hover::-moz-range-thumb {
+			transform: scale(1.2);
+			filter: brightness(1.15);
+		}
+		.pricing-row:hover {
+			transform: translateX(3px);
+			border-color: color-mix(in oklab, var(--primary) 35%, var(--border));
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.pricing-row,
+		.volume-slider::-webkit-slider-thumb {
+			transition-duration: 0.01ms;
+		}
+		.volume-slider::-moz-range-thumb {
+			transition-duration: 0.01ms;
+		}
+		.pricing-row:hover,
+		.volume-slider:hover::-webkit-slider-thumb {
+			transform: none;
+		}
+		.volume-slider:hover::-moz-range-thumb {
+			transform: none;
+		}
+	}
+</style>

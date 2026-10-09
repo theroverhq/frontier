@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { Command, Popover } from 'bits-ui';
-	import { Check, ChevronDown, Search } from '@lucide/svelte';
+	import Check from '@lucide/svelte/icons/check';
+	import ChevronDown from '@lucide/svelte/icons/chevron-down';
+	import Search from '@lucide/svelte/icons/search';
 	import type { CountryCode } from 'libphonenumber-js';
 	import { phoneCountries, searchCountry } from '$lib/forms/phone-number';
 

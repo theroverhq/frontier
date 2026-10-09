@@ -8,6 +8,9 @@ export const GET: RequestHandler = async () => {
 	const site = 'https://roverhq.ai';
 	const paths = [
 		'/',
+		'/siem/',
+		'/security-data-lake/',
+		'/database-activity-monitoring/',
 		'/blogs/',
 		...comparisons.map((comparison) => comparison.pagePath),
 		...blogs.map((blog) => `/blogs/${blog.slug}/`)

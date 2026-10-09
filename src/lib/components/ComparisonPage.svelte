@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { ChevronDown, Download } from '@lucide/svelte';
+	import ChevronDown from '@lucide/svelte/icons/chevron-down';
+	import Download from '@lucide/svelte/icons/download';
 	import { Button } from '$lib/components/ui/button';
 	import FinalCta from '$lib/components/FinalCta.svelte';
 	import ResourceDownloadForm from '$lib/components/ResourceDownloadForm.svelte';

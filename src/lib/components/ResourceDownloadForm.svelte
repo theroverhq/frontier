@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { onDestroy, onMount, tick } from 'svelte';
-	import { Download, FileText, LoaderCircle } from '@lucide/svelte';
+	import Download from '@lucide/svelte/icons/download';
+	import FileText from '@lucide/svelte/icons/file-text';
+	import LoaderCircle from '@lucide/svelte/icons/loader-circle';
 	import CountryCodePicker from '$lib/components/CountryCodePicker.svelte';
 	import { internationalPhone, nationalPhone, pastedPhoneCountry } from '$lib/forms/phone-number';
 	import type { CountryCode } from 'libphonenumber-js';
