@@ -29,10 +29,10 @@
 	});
 
 	const databaseOptions = [
-		{ label: '100', maxDatabases: 100, dailyGB: 50, monthlyAddOn: 10000 },
-		{ label: '200', maxDatabases: 200, dailyGB: 100, monthlyAddOn: 15000 },
-		{ label: '300', maxDatabases: 300, dailyGB: 150, monthlyAddOn: 20000 },
-		{ label: 'Unlimited (max 500)', maxDatabases: 500, dailyGB: 250, monthlyAddOn: 40000 }
+		{ label: '1–100', maxDatabases: 100, dailyGB: 50, monthlyAddOn: 10000 },
+		{ label: '101–200', maxDatabases: 200, dailyGB: 100, monthlyAddOn: 15000 },
+		{ label: '201–300', maxDatabases: 300, dailyGB: 150, monthlyAddOn: 20000 },
+		{ label: '300–1000+', maxDatabases: 500, dailyGB: 250, monthlyAddOn: 40000 }
 	];
 
 	let selectedRetentionIdx = $state(3); // Default: 3 Years
@@ -113,7 +113,7 @@
 					<span
 						class="rounded-md border border-border bg-card/80 px-2 py-0.5 text-label-sm font-bold text-text-primary"
 					>
-						{activeDatabaseOption.maxDatabases} max
+						{activeDatabaseOption.label}
 					</span>
 				</div>
 				<div class="grid grid-cols-2 gap-2">
