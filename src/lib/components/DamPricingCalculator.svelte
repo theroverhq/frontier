@@ -11,34 +11,27 @@
 		type ProviderComparison
 	} from '$lib/pricing-calculator';
 
-	// Keep the full ingestion scale, including the values selected by DAM database options.
-	const damVolumeTiers = baseVolumeTiers.flatMap((tier) => {
-		const extraGB = tier.gbPerDay === 100 ? 50 : tier.gbPerDay === 250 ? 150 : null;
-		return extraGB === null
-			? [tier]
-			: [
-					{
-						...tier,
-						label: `${extraGB} GB / day`,
-						gbPerDay: extraGB,
-						tbPerMonth: (extraGB * 30) / 1000,
-						desc: 'Database activity'
-					},
-					tier
-				];
-	});
-
+	// Proportional planning defaults from ~1 TB indexed/day across ~300 databases;
+	// these are editable workload estimates, not measured raw-ingestion benchmarks.
 	const databaseOptions = [
-		{ label: '1–100', maxDatabases: 100, dailyGB: 50, monthlyAddOn: 10000 },
-		{ label: '101–200', maxDatabases: 200, dailyGB: 100, monthlyAddOn: 15000 },
-		{ label: '201–300', maxDatabases: 300, dailyGB: 150, monthlyAddOn: 20000 },
-		{ label: '300–1000+', maxDatabases: 500, dailyGB: 250, monthlyAddOn: 40000 }
-	];
+		{ label: '1–100', maxDatabases: 100, monthlyAddOn: 10000 },
+		{ label: '101–200', maxDatabases: 200, monthlyAddOn: 15000 },
+		{ label: '201–300', maxDatabases: 300, monthlyAddOn: 20000 },
+		{ label: '300–1000+', maxDatabases: 500, monthlyAddOn: 40000 }
+	].map((option) => ({ ...option, dailyGB: Math.round((option.maxDatabases * 1000) / 300) }));
+
+	const extraDailyGB = [50, 150, ...databaseOptions.map(({ dailyGB }) => dailyGB)].filter(
+		(gbPerDay) => !baseVolumeTiers.some((tier) => tier.gbPerDay === gbPerDay)
+	);
+	const damVolumeTiers = [
+		...baseVolumeTiers.map(({ label, gbPerDay }) => ({ label, gbPerDay })),
+		...extraDailyGB.map((gbPerDay) => ({ label: `${gbPerDay} GB / day`, gbPerDay }))
+	].sort((a, b) => a.gbPerDay - b.gbPerDay);
 
 	let selectedRetentionIdx = $state(3); // Default: 3 Years
-	let selectedDatabaseIdx = $state(2); // Default: 300 databases
+	let selectedDatabaseIdx = $state(1); // Default: 200 databases
 	let damVolumeIdx = $state(
-		damVolumeTiers.findIndex((tier) => tier.gbPerDay === databaseOptions[2].dailyGB)
+		damVolumeTiers.findIndex((tier) => tier.gbPerDay === databaseOptions[1].dailyGB)
 	);
 	let billingPeriod = $state<'monthly' | 'yearly'>('monthly');
 
@@ -50,29 +43,34 @@
 	}
 
 	let activeDatabaseOption = $derived(databaseOptions[selectedDatabaseIdx]);
-	let activeVolume = $derived({ ...damVolumeTiers[damVolumeIdx], desc: 'Database activity' });
+	let activeVolume = $derived({
+		...damVolumeTiers[damVolumeIdx],
+		tbPerMonth: Number(((damVolumeTiers[damVolumeIdx].gbPerDay * 365) / 12 / 1000).toFixed(2)),
+		desc: 'Database activity'
+	});
 	let activeRetention = $derived(retentionOptions[selectedRetentionIdx]);
 	const R = $derived(activeRetention.R);
-	const totalSearchableTB = $derived(activeVolume.tbPerMonth * R * 12);
+	const retentionDays = $derived(Math.round(R * 365));
+	const totalSearchableTB = $derived((activeVolume.gbPerDay * retentionDays) / 1000);
 
 	// Database fees are monthly add-ons to the unchanged ingestion subscription.
 	let roverIngestionYearly = $derived(getRoverIngestionYearly(activeVolume.gbPerDay));
 	let databaseMonthlyAddOn = $derived(activeDatabaseOption.monthlyAddOn);
 	let roverYearly = $derived(roverIngestionYearly + databaseMonthlyAddOn * 12);
 	let roverCost = $derived(billingPeriod === 'yearly' ? roverYearly : roverYearly / 12);
-
 	const damProviders = $derived<ProviderComparison[]>(
 		DAM_PROVIDERS.map((provider) => {
 			const estimate = estimateDam(provider.id, {
 				databases: activeDatabaseOption.maxDatabases,
-				retentionDays: Math.round(R * 365),
-				dailyGB: activeVolume.gbPerDay,
-				// DAM has no SOC workload selector; use the ingestion tier's standard search count.
-				queriesPerMonth: activeVolume.totalSearches
+				retentionDays,
+				dailyGB: activeVolume.gbPerDay
 			});
 			return {
 				...provider,
 				...estimate,
+				pricingNote: undefined,
+				// Rover's separate query fees and vendor coverage differ from these estimates.
+				compareWithRover: false,
 				cost: billingPeriod === 'yearly' ? estimate.yearly : estimate.monthly
 			};
 		})
@@ -268,7 +266,7 @@
 			<div class="hidden items-center justify-between px-1 pb-0.5 sm:flex">
 				<span class="text-overline font-semibold text-text-muted">Provider</span>
 				<span class="text-overline font-semibold text-text-muted"
-					>{`Estimated TCO (${billingPeriod} equivalent)`}</span
+					>{`Estimated vendor fees (${billingPeriod} equivalent)`}</span
 				>
 			</div>
 

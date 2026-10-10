@@ -1,25 +1,15 @@
 /**
- * Published database monitoring license/subscription rates checked 2026-10-09.
- * Count-based scenarios assume one monitored instance/server per selected database.
- * Every provider includes an explicit customer-infrastructure and labor scenario.
- * Three-year totals count one-time purchases once; annual subscriptions recur.
- * The comparison assumes eBPF ingestion is 80% lower for the same activity.
- * Selected ingestion is the reduced baseline; other capture methods use 5x.
- * This is a user-selected scenario assumption, not a measured vendor benchmark.
+ * Published vendor license and consumption rates checked 2026-10-10.
+ * This comparison estimates vendor fees, not complete deployment TCO.
+ * Customer infrastructure, implementation and internal labor are outside scope.
+ * All providers receive the same selected daily data volume; capture technology
+ * alone does not establish a vendor-specific ingestion-volume conversion.
+ * Three-year totals count one-time licenses once and annual fees each year.
  * Taxes and negotiated discounts are not modeled.
  */
-import {
-	createDamTco,
-	validateDamWorkload,
-	estimateDamCollection,
-	estimateDamEgressYearly,
-	estimateSelfHostedDam,
-	DAM_TCO_ASSUMPTIONS,
-	DAM_COLLECTION_BASIS,
-	DAM_LABOR_BASIS
-} from './dam-tco.mjs';
+import { createDamTco, validateDamWorkload } from './dam-tco.mjs';
 
-export { DAM_LIFECYCLE_YEARS, DAM_TCO_RATES, DAM_TCO_ASSUMPTIONS } from './dam-tco.mjs';
+export { DAM_LIFECYCLE_YEARS } from './dam-tco.mjs';
 
 export const DAM_PROVIDERS = [
 	{
@@ -27,7 +17,6 @@ export const DAM_PROVIDERS = [
 		name: 'IBM Guardium Data Protection',
 		category: 'Enterprise DAM',
 		logo: '/assets/vendor-logos/ibm.svg',
-		// Appliance purge setting, not an included hot-storage license allowance.
 		retentionDescription: 'Default purge: 60 days',
 		retentionSource: 'https://www.ibm.com/docs/en/gdp/12.x?topic=data-configuring-purge',
 		source: 'https://aws.amazon.com/marketplace/pp/prodview-iwwxejrcekneg'
@@ -37,9 +26,10 @@ export const DAM_PROVIDERS = [
 		name: 'Imperva Data 360',
 		category: 'Data Security Fabric',
 		logo: '/assets/vendor-logos/imperva.svg',
-		// Data 360 plan entitlement; extended retention is optional.
 		retentionDescription: 'Base retention: 13 months',
 		retentionSource: 'https://www.imperva.com/products/plans/',
+		licensingSource:
+			'https://www.imperva.com/legal/wp-content/uploads/sites/14/2025/04/licensedefinitionsandrules.pdf',
 		source:
 			'https://assets.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-14/documents/719953/581820883089188-pricing-document-2024-05-06-1147.pdf'
 	},
@@ -48,10 +38,10 @@ export const DAM_PROVIDERS = [
 		name: 'Oracle Audit Vault & Database Firewall',
 		category: 'Database Activity Monitoring',
 		logo: '/assets/vendor-logos/oracle.png',
-		// Default target policy has 12 months online plus a separate 12-month archive.
 		retentionDescription: 'Default online retention: 12 months',
 		retentionSource:
 			'https://docs.oracle.com/en/database/oracle/audit-vault-database-firewall/20/sigau/secured_targets.html',
+		licensingSource: 'https://www.oracle.com/a/ocom/docs/cloud-licensing-070579.pdf',
 		source: 'https://www.oracle.com/ma/a/ocom/docs/corporate/pricing/us-public-sector-3904395.pdf'
 	},
 	{
@@ -59,7 +49,6 @@ export const DAM_PROVIDERS = [
 		name: 'DataSunrise Database Security',
 		category: 'Database Activity Monitoring',
 		logo: '/assets/vendor-logos/datasunrise.png',
-		// Cleanup is configurable; the public guide does not establish a numeric default.
 		retentionSource:
 			'https://www.datasunrise.com/guides/how-to/offload-audit-data-to-s3-and-read-it-by-aws-athena/',
 		source: 'https://aws.amazon.com/marketplace/pp/prodview-h5srpjexxsnl4'
@@ -69,7 +58,6 @@ export const DAM_PROVIDERS = [
 		name: 'Aurva DAM',
 		category: 'Database Activity Monitoring',
 		logo: '/assets/vendor-logos/aurva.svg',
-		// The Razorpay example's 7-day hot tier is not a platform-wide default.
 		source: 'https://aws.amazon.com/marketplace/pp/prodview-bbn5hfvvzd6cu'
 	},
 	{
@@ -77,11 +65,9 @@ export const DAM_PROVIDERS = [
 		name: 'Trellix Database Security',
 		category: 'Database Activity Monitoring',
 		logo: '/assets/vendor-logos/trellix.png',
-		// Archiving is configurable by alert count/time; no fixed default duration verified.
 		retentionSource:
 			'https://docs.trellix.com/data-and-email/docs/configure-automatic-alert-archiving',
-		source:
-			'https://acquire.co.nz/p/miscellaneous/miscellaneous/database-security-11te-1yr-subscription-with-1yr-thrive-dcdece-aa-aa-9979486',
+		source: 'https://www.shi.com/product/47592122/INSTI-DATABASE-SEC-1%3A1TE-5-250',
 		volumeSource:
 			'https://acquire.co.nz/p/miscellaneous/miscellaneous/database-security-11te-1yr-subscription-with-1yr-thrive-dcdece-aa-ba-9979487'
 	},
@@ -89,9 +75,7 @@ export const DAM_PROVIDERS = [
 		id: 'dynatrace-database',
 		name: 'Dynatrace Database Monitoring',
 		logo: '/assets/vendor-logos/dynatrace.png',
-		// Performance monitoring plus separately ingested audit logs; not security DAM feature parity.
 		category: 'Database monitoring + log analytics (PostgreSQL/MySQL)',
-		// Statement records are distinct from Grail metric time-series retention.
 		retentionDescription: 'Default statement retention: 35 days',
 		retentionSource:
 			'https://docs.dynatrace.com/docs/observe/infrastructure-observability/databases/concepts/statements-and-execution-plans',
@@ -107,180 +91,146 @@ export const DAM_PROVIDERS = [
 	}
 ];
 
-// ECB 8 October 2026 reference rates: USD 1.1186/EUR, GBP 0.84698/EUR.
+// ECB 8 October 2026: USD 1.1186/EUR, GBP 0.84698/EUR, NZD 2.0014/EUR.
 // https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html
 export const DAM_GBP_TO_USD = 1.1186 / 0.84698;
-
-// Same ECB 8 October 2026 reference date: NZD 2.0014/EUR, USD 1.1186/EUR.
 export const DAM_NZD_TO_USD = 1.1186 / 2.0014;
-
-// Aurva keeps the eBPF baseline. The other listed competitors use the higher
-// ingestion scenario; this does not claim that every component lacks eBPF.
-export const DAM_EBPF_INGESTION_REDUCTION_PERCENT = 80;
 
 /**
  * @typedef {'ibm-guardium-dam' | 'imperva-dam' | 'oracle-avdf' | 'datasunrise-dam' | 'aurva-dam' | 'trellix-dam' | 'dynatrace-database'} DamProviderId
  * @typedef {{ processedVolumeRatio: number, detectionRuleCount: number, detectionIntervalMinutes: number, detectionLookbackMinutes: number, dashboardTiles: number, dashboardRefreshMinutes: number, dashboardHoursPerDay: number, dashboardDaysPerMonth: number, dashboardLookbackDays: number }} DynatraceUsageConfiguration
  * @typedef {{ databases: number, retentionDays: number, dailyGB: number, queriesPerMonth?: number, dynatraceConfiguration?: Partial<DynatraceUsageConfiguration> }} DamWorkload
- * @typedef {{ label: string, yearly: number }} DamCostComponent
+ * @typedef {import('./dam-tco.mjs').DamTcoComponent} DamCostComponent
  */
 
-// Published rates; sizing and labor allowances below are estimator assumptions.
-// License/support: https://www.oracle.com/ma/a/ocom/docs/corporate/pricing/us-public-sector-3904395.pdf
-// AWS cloud license conversion: https://www.oracle.com/a/ocom/docs/cloud-licensing-070579.pdf
-// AVDF eligible program: https://www.oracle.com/us/corporate/pricing/authorized-cloud-environments-3493562.pdf
-// Linux c5.2xlarge on-demand, us-east-1: https://aws.amazon.com/ec2/pricing/on-demand/
-// gp3 and standard snapshots, us-east-1: https://aws.amazon.com/ebs/pricing/
+// Oracle public license/support list and authorized-cloud Processor conversion.
+// https://www.oracle.com/ma/a/ocom/docs/corporate/pricing/us-public-sector-3904395.pdf
+// https://www.oracle.com/a/ocom/docs/cloud-licensing-070579.pdf
+// https://www.oracle.com/us/corporate/pricing/authorized-cloud-environments-3493562.pdf
 export const ORACLE_TCO_RATES = {
 	licensePerProcessor: 6000,
-	annualSupportPerProcessor: 1320,
-	appliancePerHour: 0.34,
-	gp3PerGiBMonth: 0.08,
-	snapshotPerGiBMonth: 0.05,
-	regionalTransferPerGB: 0.02
+	annualSupportPerProcessor: 1320
 };
 
-// A transparent planning scenario, not a measured Oracle capacity benchmark.
-// Each logical DB is assumed to have its own single-node, multithreaded AWS host.
-// Oracle Standard Edition socket licensing and shared/multi-node hosts differ.
-// Each HA group has two AVS and two out-of-band Database Firewall appliances.
-// Local storage/HA: https://docs.oracle.com/en/database/oracle/audit-vault-database-firewall/20/sigig/preinstall.html
-// Online retention: https://docs.oracle.com/en/database/oracle/audit-vault-database-firewall/20/sigad/sigma_server.html
+// One separate, single-node, multithreaded AWS target per selected database.
+// Shared hosts, larger targets and Oracle Standard Edition require different sizing.
 export const ORACLE_TCO_ASSUMPTIONS = {
 	monitoredVCPUsPerDatabase: 4,
-	vCPUsPerLicensedProcessor: 2,
-	databasesPerHAGroup: 250,
-	dailyGBPerHAGroup: 250,
-	repositoryGiBPerHAGroup: 32 * 1024,
-	storageHeadroom: 1.25,
-	minimumRepositoryGiBPerHAGroup: 371,
-	avsBootGiB: 370,
-	firewallBootGiB: 220,
-	laborPerHour: DAM_TCO_ASSUMPTIONS.laborPerHour,
-	deploymentBaseHours: DAM_TCO_ASSUMPTIONS.deploymentBaseHours,
-	deploymentHoursPerDatabase: DAM_TCO_ASSUMPTIONS.deploymentHoursPerDatabase,
-	deploymentHoursPerHAGroup: DAM_TCO_ASSUMPTIONS.deploymentHoursPerNode * 4,
-	monthlyOperationsHoursPer100Databases: DAM_TCO_ASSUMPTIONS.monthlyOperationsHoursPer100Databases,
-	monthlyOperationsHoursPerHAGroup: DAM_TCO_ASSUMPTIONS.monthlyOperationsHoursPerNode * 4
+	vCPUsPerLicensedProcessor: 2
 };
 
-/** @param {DamWorkload} workload */
-function estimateOracleTco({ databases, retentionDays, dailyGB }) {
-	const rates = ORACLE_TCO_RATES;
-	const assumptions = ORACLE_TCO_ASSUMPTIONS;
-	const processors =
-		(databases * assumptions.monitoredVCPUsPerDatabase) / assumptions.vCPUsPerLicensedProcessor;
-	// Slider GB are decimal bytes; AWS EBS storage is billed in GiB.
-	const retainedGiB = (dailyGB * retentionDays * 1e9) / 2 ** 30;
-	const plannedRepositoryGiB = retainedGiB * assumptions.storageHeadroom;
-	const haGroups = Math.max(
-		1,
-		Math.ceil(databases / assumptions.databasesPerHAGroup),
-		Math.ceil(dailyGB / assumptions.dailyGBPerHAGroup),
-		Math.ceil(plannedRepositoryGiB / assumptions.repositoryGiBPerHAGroup)
-	);
-	// Each added data disk must exceed the AVS's 370 GiB boot disk; allocate whole GiB.
-	const repositoryGiB =
-		haGroups *
-		Math.max(
-			assumptions.minimumRepositoryGiBPerHAGroup,
-			Math.ceil(plannedRepositoryGiB / haGroups)
-		);
-	const bootGiB = haGroups * (2 * assumptions.avsBootGiB + 2 * assumptions.firewallBootGiB);
-	// Full hot repository on primary + standby, including 25% provisioning headroom.
-	// gp3 included IOPS/throughput; no compression discount or paid performance tier.
-	const storageYearly = (2 * repositoryGiB + bootGiB) * rates.gp3PerGiBMonth * 12;
-	// One full logical backup; free headroom and duplicate HA disks are not backed up twice.
-	const backupGiB = retainedGiB + bootGiB / 2;
-	// Assume one cross-AZ replication pass over the incoming audit data.
-	// https://aws.amazon.com/blogs/networking-and-content-delivery/demystifying-amazon-vpc-peering-charges/
-	const backupAndTransferYearly =
-		backupGiB * rates.snapshotPerGiBMonth * 12 + dailyGB * 365 * rates.regionalTransferPerGB;
-	const deploymentHours =
-		assumptions.deploymentBaseHours +
-		databases * assumptions.deploymentHoursPerDatabase +
-		haGroups * assumptions.deploymentHoursPerHAGroup;
-	const operationsHoursPerMonth =
-		(databases / 100) * assumptions.monthlyOperationsHoursPer100Databases +
-		haGroups * assumptions.monthlyOperationsHoursPerHAGroup;
-	/** @type {DamCostComponent[]} */
-	const costBreakdown = [
-		{ label: 'Licenses', yearly: processors * rates.licensePerProcessor },
-		{ label: 'Support', yearly: processors * rates.annualSupportPerProcessor },
-		{ label: 'HA compute', yearly: haGroups * 4 * rates.appliancePerHour * 730 * 12 },
-		{ label: 'Hot storage', yearly: storageYearly },
-		{ label: 'Backups & transfer', yearly: backupAndTransferYearly },
-		{ label: 'Deployment', yearly: deploymentHours * assumptions.laborPerHour },
-		{ label: 'Operations', yearly: operationsHoursPerMonth * assumptions.laborPerHour * 12 }
-	];
-	return {
-		costBreakdown,
-		pricingBasis: `Assumes ${databases} separate 4-vCPU AWS hosts · ${processors} Processor licenses · ${haGroups} HA group${haGroups === 1 ? '' : 's'} · us-east-1`,
-		pricingAssumptions:
-			'Planning: 250 DBs / 250 GB/day / 32 TiB per HA group; 4 × c5.2xlarge/group. Two hot copies + 25% headroom; one logical backup-storage allowance; one cross-AZ transfer of incoming data. gp3 includes baseline performance; extra IOPS/throughput excluded. Assumes single-node, multithreaded AWS targets; excludes Oracle Standard Edition, existing database hosting, tax and discounts. Steady-state retained capacity; no compression discount. Processor licenses and rollout are purchased once; support and operating costs recur annually. ' +
-			DAM_LABOR_BASIS
-	};
+// Quadris G-Cloud 14 tariff, 2024, page 5. Prices are annual GBP.
+// Progressive use of additional-server bands is an explicit conservative assumption;
+// the published tariff does not unambiguously establish a 200-server invoice.
+export const IMPERVA_TCO_RATES = {
+	baseServers: 8,
+	baseLicenseGBP: 100245.6,
+	baseThreeYearRetentionGBP: 15422.4,
+	baseUnlimitedRetentionGBP: 30844.8,
+	additionalServerBands: [
+		{
+			capacity: 6,
+			licenseGBP: 9435.2,
+			threeYearRetentionGBP: 1451.2,
+			unlimitedRetentionGBP: 2903.2
+		},
+		{
+			capacity: 5,
+			licenseGBP: 8550.4,
+			threeYearRetentionGBP: 1315.2,
+			unlimitedRetentionGBP: 2631.2
+		},
+		{
+			capacity: 20,
+			licenseGBP: 8019.2,
+			threeYearRetentionGBP: 1233.6,
+			unlimitedRetentionGBP: 2468
+		},
+		{
+			capacity: 60,
+			licenseGBP: 7429.6,
+			threeYearRetentionGBP: 1143.2,
+			unlimitedRetentionGBP: 2286.4
+		},
+		{
+			capacity: 400,
+			licenseGBP: 6486.4,
+			threeYearRetentionGBP: 997.6,
+			unlimitedRetentionGBP: 1996
+		},
+		{
+			capacity: 500,
+			licenseGBP: 5896.8,
+			threeYearRetentionGBP: 907.2,
+			unlimitedRetentionGBP: 1814.4
+		},
+		{
+			capacity: 1000,
+			licenseGBP: 3774.4,
+			threeYearRetentionGBP: 580.8,
+			unlimitedRetentionGBP: 1160.8
+		},
+		{
+			capacity: 2000,
+			licenseGBP: 3066.4,
+			threeYearRetentionGBP: 472,
+			unlimitedRetentionGBP: 943.2
+		},
+		{
+			capacity: Infinity,
+			licenseGBP: 2358.4,
+			threeYearRetentionGBP: 363.2,
+			unlimitedRetentionGBP: 725.6
+		}
+	]
+};
+
+export const IMPERVA_TCO_ASSUMPTIONS = {
+	baseRetentionDays: Math.ceil((365 * 13) / 12),
+	threeYearRetentionDays: 1095
+};
+
+/** @param {number} databases @param {'licenseGBP' | 'threeYearRetentionGBP' | 'unlimitedRetentionGBP'} rateKey */
+function impervaAdditionalServerFees(databases, rateKey) {
+	let remaining = Math.max(0, databases - IMPERVA_TCO_RATES.baseServers);
+	let annualGBP = 0;
+	for (const band of IMPERVA_TCO_RATES.additionalServerBands) {
+		const servers = Math.min(remaining, band.capacity);
+		annualGBP += servers * band[rateKey];
+		remaining -= servers;
+		if (remaining === 0) break;
+	}
+	return annualGBP;
 }
 
-// Dynatrace public USD list rates, verified 2026-10-09.
+// Dynatrace public USD list rates. Ingestion uses raw GiB; retention and external
+// log queries use uncompressed processed GiB. Included performance-monitoring
+// queries are separate from the additional audit-log workload modeled below.
 // https://www.dynatrace.com/pricing/rate-card/
-// Log ingestion is raw GiB; retention and queries use uncompressed, processed GiB.
-// Instance monitoring includes its default normalized-query capture and Databases app queries.
-// The log meters below apply only to additional raw database audit logs and external log searches.
-// AWS Linux c7i.xlarge on-demand and gp3: us-east-1, no Savings Plan/free-tier credits.
-// c7i.xlarge SKU D8WVCVBE32N227KA, EC2 price-list version 20261008184850.
-// https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonEC2/current/us-east-1/index.csv
-// https://aws.amazon.com/ec2/pricing/on-demand/
-// https://aws.amazon.com/ebs/pricing/
-// https://aws.amazon.com/vpc/pricing/
 export const DYNATRACE_TCO_RATES = {
 	monitoringPerInstanceHour: 0.11,
 	ingestPerGiB: 0.2,
 	retainPerGiBDay: 0.0007,
-	queryPerGiBScanned: 0.0035,
-	activeGatePerHour: 0.1785,
-	gp3PerGiBMonth: 0.08,
-	publicIPv4PerHour: 0.005
+	queryPerGiBScanned: 0.0035
 };
 
-// Explicit planning allowances, not vendor requirements or measured query workloads.
-// The combined-workload c7i.xlarge profile estimates 900 routed hosts + 1,500 MB/min.
-// Use that as a sizing reference for the assumed monitoring/log mix, with one spare node.
-// Actual remote-extension capacity and log bursts need deployment-specific validation.
-// https://docs.dynatrace.com/docs/ingest-from/dynatrace-activegate/installation/linux/linux-activegate-hardware-and-system-requirements
+// Chosen query workload, not vendor-mandated activity or a measured audit workload.
 export const DYNATRACE_TCO_ASSUMPTIONS = {
 	defaultQueriesPerMonth: 1000,
-	// Enriched audit-log planning scenario; not a universal Dynatrace expansion factor.
-	// https://docs.dynatrace.com/docs/license/capabilities/log-analytics
-	processedVolumeRatio: 2,
+	processedVolumeRatio: 1,
 	scanFraction: 0.01,
-	// Fleet-wide DQL checks; each query can group its results by database.
-	// These are raw-log checks, distinct from included performance-monitoring queries.
-	// https://docs.dynatrace.com/docs/analyze-explore-automate/logs/alerting-on-logs
 	detectionRuleCount: 20,
 	detectionIntervalMinutes: 1,
 	detectionLookbackMinutes: 5,
-	// One shared log dashboard, during business hours, scanning the last 24 hours.
-	// https://docs.dynatrace.com/docs/analyze-explore-automate/logs/lma-use-cases/lma-log-query-dashboard
 	dashboardTiles: 12,
 	dashboardRefreshMinutes: 5,
 	dashboardHoursPerDay: 8,
 	dashboardDaysPerMonth: 22,
-	dashboardLookbackDays: 1,
-	activeGateHosts: 900,
-	activeGateMBPerMinute: 1500,
-	spareActiveGates: 1,
-	activeGateDiskGiB: 50,
-	laborPerHour: DAM_TCO_ASSUMPTIONS.laborPerHour,
-	deploymentBaseHours: DAM_TCO_ASSUMPTIONS.deploymentBaseHours,
-	deploymentHoursPerDatabase: DAM_TCO_ASSUMPTIONS.deploymentHoursPerDatabase,
-	deploymentHoursPerActiveGate: DAM_TCO_ASSUMPTIONS.deploymentHoursPerNode,
-	monthlyOperationsHoursPer100Databases: DAM_TCO_ASSUMPTIONS.monthlyOperationsHoursPer100Databases,
-	monthlyOperationsHoursPerActiveGate: DAM_TCO_ASSUMPTIONS.monthlyOperationsHoursPerNode
+	dashboardLookbackDays: 1
 };
 
 /** @param {DamWorkload} workload */
-function estimateDynatraceTco({
+function estimateDynatraceFees({
 	databases,
 	retentionDays,
 	dailyGB,
@@ -339,10 +289,10 @@ function estimateDynatraceTco({
 	}
 	if (assumptions.dashboardHoursPerDay > 24 || assumptions.dashboardDaysPerMonth > 31)
 		throw new RangeError('Dashboard active time exceeds the available hours or days.');
+
 	const dailyGiB = (dailyGB * 1e9) / 2 ** 30;
 	const processedDailyGiB = dailyGiB * assumptions.processedVolumeRatio;
-	// Model a fully populated hot-retention window, not the cheaper initial fill period.
-	// Compression does not reduce Grail's processed-byte storage/query billing.
+	// Fully populated retention window, without a compression or initial-fill discount.
 	const retainedGiB = processedDailyGiB * retentionDays;
 	const scheduledChecksPerYear =
 		(assumptions.detectionRuleCount * 365 * 1440) / assumptions.detectionIntervalMinutes;
@@ -355,70 +305,61 @@ function estimateDynatraceTco({
 		12;
 	const dashboardGiBPerQuery =
 		processedDailyGiB * Math.min(retentionDays, assumptions.dashboardLookbackDays);
-	const activeGates =
-		Math.max(
-			1,
-			Math.ceil(databases / assumptions.activeGateHosts),
-			Math.ceil((dailyGB * 1000) / (1440 * assumptions.activeGateMBPerMinute))
-		) + assumptions.spareActiveGates;
-	const deploymentHours =
-		assumptions.deploymentBaseHours +
-		databases * assumptions.deploymentHoursPerDatabase +
-		activeGates * assumptions.deploymentHoursPerActiveGate;
-	const operationsHoursPerMonth =
-		(databases / 100) * assumptions.monthlyOperationsHoursPer100Databases +
-		activeGates * assumptions.monthlyOperationsHoursPerActiveGate;
 	/** @type {DamCostComponent[]} */
-	const costBreakdown = [
-		{ label: 'Database monitoring', yearly: databases * rates.monitoringPerInstanceHour * 8760 },
-		{ label: 'Log ingestion', yearly: dailyGiB * 365 * rates.ingestPerGiB },
-		{ label: 'Hot log retention', yearly: retainedGiB * 365 * rates.retainPerGiBDay },
+	const components = [
 		{
+			id: 'database-monitoring',
+			label: 'Database monitoring',
+			amount: databases * rates.monitoringPerInstanceHour * 8760,
+			frequency: 'annual'
+		},
+		{
+			id: 'log-ingestion',
+			label: 'Log ingestion',
+			amount: dailyGiB * 365 * rates.ingestPerGiB,
+			frequency: 'annual'
+		},
+		{
+			id: 'hot-log-retention',
+			label: 'Hot log retention',
+			amount: retainedGiB * 365 * rates.retainPerGiBDay,
+			frequency: 'annual'
+		},
+		{
+			id: 'investigation-queries',
 			label: 'Investigation queries',
-			// Each external search covers and scans 1% of retained log volume (e.g. its time range).
-			// No per-query count charge, compression discount, or mandatory full-history scan.
-			yearly:
-				queriesPerMonth * 12 * retainedGiB * assumptions.scanFraction * rates.queryPerGiBScanned
+			amount:
+				queriesPerMonth * 12 * retainedGiB * assumptions.scanFraction * rates.queryPerGiBScanned,
+			frequency: 'annual'
 		},
 		{
+			id: 'scheduled-detection-queries',
 			label: 'Scheduled detection queries',
-			// The raw-log rule runs once for the fleet, not once per DB over all fleet data.
-			// Overlapping lookback windows are re-read and billed on each execution.
-			yearly: scheduledChecksPerYear * scheduledGiBPerCheck * rates.queryPerGiBScanned
+			amount: scheduledChecksPerYear * scheduledGiBPerCheck * rates.queryPerGiBScanned,
+			frequency: 'annual'
 		},
 		{
+			id: 'dashboard-queries',
 			label: 'Dashboard queries',
-			yearly: dashboardQueriesPerYear * dashboardGiBPerQuery * rates.queryPerGiBScanned
-		},
-		{ label: 'Collector compute', yearly: activeGates * rates.activeGatePerHour * 8760 },
-		{
-			label: 'Collector storage',
-			yearly: activeGates * assumptions.activeGateDiskGiB * rates.gp3PerGiBMonth * 12
-		},
-		{ label: 'Network transfer', yearly: estimateDamEgressYearly((dailyGiB * 365) / 12) },
-		{ label: 'Public IPv4', yearly: activeGates * rates.publicIPv4PerHour * 8760 },
-		{ label: 'Deployment', yearly: deploymentHours * assumptions.laborPerHour },
-		{ label: 'Operations', yearly: operationsHoursPerMonth * assumptions.laborPerHour * 12 }
+			amount: dashboardQueriesPerYear * dashboardGiBPerQuery * rates.queryPerGiBScanned,
+			frequency: 'annual'
+		}
 	];
 	return {
-		costBreakdown,
-		pricingBasis: `Assumes ${databases} monitored PostgreSQL/MySQL instances · 730 hours/month · ${dailyGB} GB/day raw audit logs · ${retentionDays} days hot retention · ${queriesPerMonth} investigations/month plus scheduled checks and dashboard refreshes`,
+		components,
+		pricingBasis: `${databases} PostgreSQL/MySQL instances · 730 hours/month · ${dailyGB} GB/day raw audit logs · ${retentionDays} days hot retention`,
 		pricingAssumptions: [
-			'Public-list cost scenario, not a vendor quote or a claim of complete security DAM feature parity. Default 5-minute performance-query capture and Databases app searches are included; separate native audit logs use Grail pay-as-you-go ingestion, retention and query rates. GB input is decimal; billing uses GiB.',
-			`Enriched-audit planning ratio: processed bytes = ${assumptions.processedVolumeRatio} × raw bytes. This is not a universal vendor default. Only retained/query bytes use this ratio; raw ingestion, outbound traffic and collector ingress are charged once. SaaS hot storage is billed once, without additional S3, HA-storage or backup charges.`,
-			`Investigations: ${queriesPerMonth}/month, each scanning a range containing 1% of retained processed bytes. Scheduled DQL monitoring: ${assumptions.detectionRuleCount} fleet-wide rules, every ${assumptions.detectionIntervalMinutes} minute(s), over the last ${assumptions.detectionLookbackMinutes} minute(s). One shared log dashboard: ${assumptions.dashboardTiles} tiles, refreshed every ${assumptions.dashboardRefreshMinutes} minute(s), ${assumptions.dashboardHoursPerDay} hours/day and ${assumptions.dashboardDaysPerMonth} days/month, over the last ${assumptions.dashboardLookbackDays} day(s).`,
-			'Query windows are capped at available retention. Repeated scans of overlapping windows are billed per execution. No assumed Grail skip discount; selective queries or metric/event-based alerts can cost less. These are chosen workload assumptions, not mandatory Dynatrace rules. The model does not charge a fleet-wide scan separately for every database.',
-			`${activeGates} new c7i.xlarge ActiveGates, including one spare, use the vendor combined-workload sizing reference; its routed-host count is a planning proxy, not a SQL-instance capacity guarantee. Each has 50 GiB gp3 and one public IPv4. Direct public HTTPS; no NAT/PrivateLink or CloudWatch forwarding. Assumes uncompressed outbound logs and the account-wide 100 GiB/month transfer allowance is available; above 500 TiB/month the last transfer band is an estimate requiring an AWS quote.`,
-			DAM_LABOR_BASIS,
-			'Three-year lifecycle uses one rollout allowance plus recurring annual consumption at fully populated retention, not a new-install retention ramp. Standard support is included; enterprise support, professional services, native audit-plugin licenses, host/full-stack monitoring, AI/workflow add-ons and SaaS exports need separate scope and quotes. Existing database hosting, taxes, growth and negotiated commitment floors/discounts are excluded. A DPS commitment draws down against consumption, not an additional fee.'
+			'Database monitoring includes its default performance-query capture and Databases app searches. Separate native audit logs use additional Grail ingestion, retention and query meters. GB input is decimal; billing uses GiB.',
+			`Processed bytes = ${assumptions.processedVolumeRatio} × raw bytes, an explicit planning input. Only retained/query bytes use this ratio; raw ingestion is billed once. Retention uses a fully populated window without a compression discount or a new-install fill ramp.`,
+			`Investigations: ${queriesPerMonth}/month, each scanning 1% of retained processed bytes. Scheduled detection: ${assumptions.detectionRuleCount} fleet-wide rules, every ${assumptions.detectionIntervalMinutes} minute(s), over the last ${assumptions.detectionLookbackMinutes} minute(s). Dashboard: ${assumptions.dashboardTiles} tiles, every ${assumptions.dashboardRefreshMinutes} minute(s), ${assumptions.dashboardHoursPerDay} hours/day and ${assumptions.dashboardDaysPerMonth} days/month, over the last ${assumptions.dashboardLookbackDays} day(s).`,
+			'Query windows are capped at available retention. Repeated scans are billed per execution; no assumed scan-skipping discount. These chosen queries run across the fleet, not once per database. Standard support is included. A DPS commitment pays for consumption and is not an additional fee.'
 		].join(' ')
 	};
 }
 
 /**
- * Returns a three-year ownership scenario using published software meters.
- * Retention affects live capacity, not the license acquisition cost or billing term.
- * dailyGB is the selected eBPF baseline, before the collection-volume assumption.
+ * Returns vendor fees over a three-year ownership horizon.
+ * dailyGB is the same selected audit-data payload for every provider.
  * @param {string} provider
  * @param {DamWorkload} workload
  */
@@ -427,146 +368,209 @@ export function estimateDam(
 	{ databases, retentionDays, dailyGB, queriesPerMonth, dynatraceConfiguration }
 ) {
 	validateDamWorkload({ databases, retentionDays, dailyGB });
-
-	// 80% less means the baseline is 20% of the other methods' volume: 5x, not 1.8x.
-	// Apply this to raw volume once; existing processing ratios remain separate.
-	const ingestionMultiplier =
-		provider === 'aurva-dam' ? 1 : 100 / (100 - DAM_EBPF_INGESTION_REDUCTION_PERCENT);
-	const modeledDailyGB = dailyGB * ingestionMultiplier;
-	const ingestionAssumption =
-		`Comparison assumption: eBPF ingestion is ${DAM_EBPF_INGESTION_REDUCTION_PERCENT}% lower for the same activity, not a measured vendor benchmark. ` +
-		`Selected baseline: ${dailyGB} GB/day; modeled raw ingestion: ${modeledDailyGB} GB/day (${ingestionMultiplier}x). ` +
-		'Only data-volume costs and capacity sizing use this factor; per-database license rates stay unchanged.';
-
-	let yearly = 0;
+	/** @type {DamCostComponent[]} */
+	let components = [];
 	let pricingBasis;
-	let compareWithRover = true;
-	/** @type {DamCostComponent[] | undefined} */
-	let costBreakdown;
 	let pricingAssumptions;
+	let pricingNote;
+	let ingestionBilling;
+	/** @type {string[]} */
+	let quoteLimitations;
+	let compareWithRover = true;
 
 	if (provider === 'ibm-guardium-dam') {
-		// 12-month Data Protection pack: 5 data sources / 1,500 RU for $38,160.
-		// Exclude the separate Vulnerability Assessment product's $5,088 rate.
-		yearly = Math.ceil(databases / 5) * 38160;
-		pricingBasis = `Assumes ${databases} licensed instances · 300 RU each · annual license`;
-	} else if (provider === 'imperva-dam') {
-		// Quadris G-Cloud 14, 2024, page 5: annual-prepaid Data 360 eight-server base.
-		// Each selected database is modeled as one licensed server. All four options
-		// fall in the 92–491 or 492–991 additional-server volume-price bands.
-		const addedServers = databases - 8;
-		const largerBand = addedServers >= 492;
-		let annualGBP = 100245.6 + addedServers * (largerBand ? 5896.8 : 6486.4);
-		let retentionLabel = 'base license';
-		if (retentionDays > 1095) {
-			annualGBP += 30844.8 + addedServers * (largerBand ? 1814.4 : 1996);
-			retentionLabel = 'unlimited-retention add-on';
-		} else if (retentionDays > 365) {
-			annualGBP += 15422.4 + addedServers * (largerBand ? 907.2 : 997.6);
-			retentionLabel = '3-year retention add-on';
-		}
-		yearly = annualGBP * DAM_GBP_TO_USD;
-		pricingBasis = `Assumes ${databases} servers · ${retentionLabel} · UK 2024 rate card · £1 = $1.3207 (8 Oct 2026)`;
-	} else if (provider === 'oracle-avdf') {
-		const tco = estimateOracleTco({ databases, retentionDays, dailyGB: modeledDailyGB });
-		pricingBasis = tco.pricingBasis;
-		pricingAssumptions = tco.pricingAssumptions;
-		costBreakdown = tco.costBreakdown;
-	} else if (provider === 'datasunrise-dam') {
-		// Software-only Marketplace metering: $1.40/protected database instance/hour.
-		yearly = databases * 1.4 * 730 * 12;
-		pricingBasis = `${databases} protected instances · $1.40/hour · 730 hours/month`;
-	} else if (provider === 'aurva-dam') {
-		// AWS Marketplace 12-month contract: AWS/S3/RDS dimension is $8,000/DB.
-		// Model one $10,000 Universal Database Connector as an explicit scenario
-		// assumption; the listing does not specify a required connector quantity.
-		// Azure and data-warehouse dimensions are excluded from this AWS/RDS scenario.
-		yearly = databases * 8000 + 10000;
-		pricingBasis = `Assumes ${databases} AWS/RDS databases · $8,000/DB/year + one $10,000/year connector`;
-	} else if (provider === 'trellix-dam') {
-		// Published Acquire NZ retail listings, indexed May 2026, exclude GST.
-		// DCDECE-AA-AA: 5–250 instances, NZ$13,837.02 per instance/year.
-		// DCDECE-AA-BA: 251–1,000 instances, NZ$7,599.25 per instance/year.
-		// Both include a one-year subscription and one year of Thrive Essential.
-		// Currency: https://acquire.co.nz/shipping/
-		// Instance metric/package: https://www.trellix.com/assets/events/apj-partner-summit-2024/trellix-apj-partner-summit-data.pdf
-		// Apply the published band rate to all instances; do not invent volume smoothing.
-		// AWS Marketplace's $9,999 dimensions explicitly say "Do Not Use"; exclude them.
-		const yearlyNZDPerInstance = databases <= 250 ? 13837.02 : 7599.25;
-		yearly = databases * yearlyNZDPerInstance * DAM_NZD_TO_USD;
-		pricingBasis = `Assumes ${databases} licensed instances · Acquire NZ annual subscription + Thrive Essential · NZD converted to USD (8 Oct 2026)`;
-	} else if (provider === 'dynatrace-database') {
-		const tco = estimateDynatraceTco({
-			databases,
-			retentionDays,
-			dailyGB: modeledDailyGB,
-			queriesPerMonth,
-			dynatraceConfiguration
-		});
-		pricingBasis = tco.pricingBasis;
-		pricingAssumptions = tco.pricingAssumptions;
-		costBreakdown = tco.costBreakdown;
-	} else {
-		throw new RangeError('Unknown DAM provider.');
-	}
-
-	/** @type {import('./dam-tco.mjs').DamTcoComponent[]} */
-	let components;
-	if (costBreakdown) {
-		components = costBreakdown.map(({ label, yearly: amount }) => ({
-			id: label.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-			label,
-			amount,
-			frequency:
-				label === 'Deployment' || (provider === 'oracle-avdf' && label === 'Licenses')
-					? 'one_time'
-					: 'annual'
-		}));
-	} else {
+		const packs = Math.ceil(databases / 5);
 		components = [
 			{
 				id: 'license-subscription',
-				label: 'License subscription',
-				amount: yearly,
+				label: 'Data Protection subscription',
+				amount: packs * 38160,
 				frequency: 'annual'
 			}
 		];
-		if (provider === 'aurva-dam') {
-			const collection = estimateDamCollection(databases, modeledDailyGB);
-			components.push(...collection.components);
-			pricingAssumptions =
-				'Marketplace SaaS scenario: customer collectors and operating effort are additional; vendor backend storage/compute are not charged again. Selected hot retention beyond the contractual allowance requires a vendor quote; the listing does not publish an excess-retention meter. No invented storage surcharge. ' +
-				DAM_COLLECTION_BASIS +
-				' ' +
-				DAM_LABOR_BASIS;
-		} else if (
-			provider === 'ibm-guardium-dam' ||
-			provider === 'imperva-dam' ||
-			provider === 'datasunrise-dam' ||
-			provider === 'trellix-dam'
-		) {
-			const infrastructure = estimateSelfHostedDam(provider, {
-				databases,
-				retentionDays,
-				dailyGB: modeledDailyGB
+		pricingBasis = `${packs} annual packs · 5 data sources / 1,500 RU per pack · $38,160/pack`;
+		pricingAssumptions =
+			'One selected database is assumed to be one licensed data source using 300 Resource Units. Uses the Marketplace 12-month Data Protection dimension; the separate Vulnerability Assessment dimension is excluded. The SaaS listing does not establish that all deployment infrastructure or selected retention is included.';
+		pricingNote =
+			'Public annual subscription; retention and capacity entitlements require confirmation.';
+		ingestionBilling = 'Source/RU subscription; no public per-GB ingestion rate in this SKU.';
+		quoteLimitations = [
+			'Confirm source/RU classification, throughput capacity and retention/storage entitlement for the selected workload.',
+			'Additional vendor capacity, support tiers and professional services are not publicly priced in this scenario.'
+		];
+	} else if (provider === 'imperva-dam') {
+		const licenseGBP =
+			IMPERVA_TCO_RATES.baseLicenseGBP + impervaAdditionalServerFees(databases, 'licenseGBP');
+		components = [
+			{
+				id: 'license-subscription',
+				label: 'Data 360 subscription',
+				amount: licenseGBP * DAM_GBP_TO_USD,
+				frequency: 'annual'
+			}
+		];
+		let retentionLabel = '13-month base retention';
+		if (retentionDays > IMPERVA_TCO_ASSUMPTIONS.baseRetentionDays) {
+			const unlimited = retentionDays > IMPERVA_TCO_ASSUMPTIONS.threeYearRetentionDays;
+			const retentionGBP = unlimited
+				? IMPERVA_TCO_RATES.baseUnlimitedRetentionGBP +
+					impervaAdditionalServerFees(databases, 'unlimitedRetentionGBP')
+				: IMPERVA_TCO_RATES.baseThreeYearRetentionGBP +
+					impervaAdditionalServerFees(databases, 'threeYearRetentionGBP');
+			retentionLabel = unlimited ? 'unlimited-retention add-on' : '3-year retention add-on';
+			components.push({
+				id: 'retention-addon',
+				label: unlimited ? 'Unlimited retention add-on' : '3-year retention add-on',
+				amount: retentionGBP * DAM_GBP_TO_USD,
+				frequency: 'annual'
 			});
-			components.push(...infrastructure.components);
-			pricingAssumptions = infrastructure.pricingAssumptions;
 		}
+		pricingBasis = `${databases} servers · ${retentionLabel} · UK 2024 tariff · £1 = $1.3207 (8 Oct 2026)`;
+		pricingAssumptions =
+			'Historical Quadris G-Cloud 14 annual-prepaid tariff: eight-server base plus progressive additional-server bands. This is a conservative interpretation of the published tiers, not a confirmed invoice or current 200-server quote. One database is assumed to be one licensed server. The 13-month base is approximated as 396 days; longer selections use the published retention add-on. Contract deployment and retention-tier entitlements require confirmation.';
+		pricingNote =
+			'2024 tariff with assumed progressive tiers; event/storage overages remain unpriced.';
+		ingestionBilling =
+			'Server tariff here; contract-specific event and compressed-storage limits may add charges.';
+		quoteLimitations = [
+			'Obtain a current quote confirming tier interpretation, licensed server count and required hot/searchable retention.',
+			'Event and storage charges permitted by the 2025 licensing rules are not quantified by this tariff: https://www.imperva.com/legal/wp-content/uploads/sites/14/2025/04/licensedefinitionsandrules.pdf',
+			'Additional vendor support tiers, appliances and professional services require deployment-specific scope.'
+		];
+	} else if (provider === 'oracle-avdf') {
+		const processors =
+			(databases * ORACLE_TCO_ASSUMPTIONS.monitoredVCPUsPerDatabase) /
+			ORACLE_TCO_ASSUMPTIONS.vCPUsPerLicensedProcessor;
+		components = [
+			{
+				id: 'licenses',
+				label: 'Processor licenses',
+				amount: processors * ORACLE_TCO_RATES.licensePerProcessor,
+				frequency: 'one_time'
+			},
+			{
+				id: 'support',
+				label: 'Annual support',
+				amount: processors * ORACLE_TCO_RATES.annualSupportPerProcessor,
+				frequency: 'annual'
+			}
+		];
+		pricingBasis = `${databases} separate 4-vCPU AWS targets · ${processors} Processor licenses · $6,000 license + $1,320 annual support/Processor`;
+		pricingAssumptions =
+			'Each database has its own single-node, multithreaded 4-vCPU AWS target, licensed at two vCPUs per Oracle Processor. Processor licenses are purchased once; support is paid in each of the three years. Shared hosts, larger or multi-node targets and Oracle Standard Edition need different licensing calculations. Retention is customer-managed and does not change this software-only Processor fee.';
+		pricingNote =
+			'One-time Processor licenses plus annual support; database-host sizing is assumed.';
+		ingestionBilling = 'Processor licensing; no per-GB ingestion charge in the modeled list price.';
+		quoteLimitations = [
+			'Validate secured-target Processor counts and cloud/edition licensing eligibility with Oracle.',
+			'Additional vendor services, optional products and negotiated support terms are outside the public license/support calculation.'
+		];
+	} else if (provider === 'datasunrise-dam') {
+		components = [
+			{
+				id: 'license-subscription',
+				label: 'Protected-instance software',
+				amount: databases * 1.4 * 8760,
+				frequency: 'annual'
+			}
+		];
+		pricingBasis = `${databases} protected instances · $1.40/instance/hour · 730 hours/month`;
+		pricingAssumptions =
+			'Marketplace software meter runs continuously for 8,760 hours/year. One selected database is modeled as one protected database instance. Customer-managed storage and retention do not add a published per-GB software charge to this meter.';
+		pricingNote =
+			'Public protected-instance hourly software rate; deployment infrastructure is separate.';
+		ingestionBilling = 'Protected-instance hours; no per-GB ingestion rate in the modeled SKU.';
+		quoteLimitations = [
+			'Confirm licensed instance count, HA/standby treatment and throughput capacity for the deployment.',
+			'Additional vendor support tiers, optional modules and professional services are not separately priced here.'
+		];
+	} else if (provider === 'aurva-dam') {
+		components = [
+			{
+				id: 'license-subscription',
+				label: 'Database subscription',
+				amount: databases * 8000,
+				frequency: 'annual'
+			},
+			{
+				id: 'universal-database-connector',
+				label: 'Universal Database Connector',
+				amount: 10000,
+				frequency: 'annual'
+			}
+		];
+		pricingBasis = `${databases} AWS/RDS databases · $8,000/DB/year + one $10,000/year connector`;
+		pricingAssumptions =
+			'Uses the Marketplace 12-month AWS/S3/RDS database dimension. One Universal Database Connector is an explicit planning assumption; the listing does not establish a mandatory connector quantity. Azure and data-warehouse dimensions are excluded. No retention surcharge is invented where a public rate is unavailable.';
+		pricingNote =
+			'Annual database fees plus one assumed connector; retained-volume entitlement needs a quote.';
+		ingestionBilling =
+			'Database and connector contract dimensions; public excess-volume pricing is unavailable.';
+		quoteLimitations = [
+			'Confirm applicable database dimension and required connector quantity.',
+			'Included ingestion, storage, retention, overage charges and additional vendor services are not established by the public listing.'
+		];
+	} else if (provider === 'trellix-dam') {
+		const smallerFleet = databases <= 250;
+		const annualPerInstance = smallerFleet ? 6133 : 7599.25 * DAM_NZD_TO_USD;
+		components = [
+			{
+				id: 'license-subscription',
+				label: 'Database Security subscription',
+				amount: databases * annualPerInstance,
+				frequency: 'annual'
+			}
+		];
+		pricingBasis = smallerFleet
+			? `${databases} instances · SHI US 5–250 band · $6,133/instance/year`
+			: `${databases} instances · Acquire NZ 251–1,000 band · NZ$7,599.25/instance/year · NZD converted to USD (8 Oct 2026)`;
+		pricingAssumptions =
+			'One selected database is modeled as one licensed instance. Annual subscription includes one year of Thrive Essential. The 100/200 options use SHI US pricing; the 300/500 options use a different reseller, Acquire NZ, converted at the stated exchange rate. The reseller/currency change is not solely a vendor volume discount. AWS Marketplace dimensions marked Do Not Use are excluded.';
+		pricingNote = smallerFleet
+			? 'SHI US annual subscription with Thrive Essential; licensed instance count is assumed.'
+			: 'Acquire NZ annual subscription with Thrive Essential; different reseller and currency.';
+		ingestionBilling =
+			'Annual licensed instances; no per-GB ingestion rate in the reseller tariff.';
+		quoteLimitations = [
+			'Confirm instance metric, applicable regional/volume pricing and HA licensing with a reseller.',
+			'Retention capacity, additional modules and vendor professional services are not separately priced by these subscription listings.'
+		];
+	} else if (provider === 'dynatrace-database') {
+		const estimate = estimateDynatraceFees({
+			databases,
+			retentionDays,
+			dailyGB,
+			queriesPerMonth,
+			dynatraceConfiguration
+		});
+		components = estimate.components;
+		pricingBasis = estimate.pricingBasis;
+		pricingAssumptions = estimate.pricingAssumptions;
+		pricingNote =
+			'Database monitoring plus separately metered audit logs; security DAM coverage differs.';
+		ingestionBilling =
+			'Raw log GiB ingestion plus processed GiB-day retention and GiB-scanned queries.';
+		quoteLimitations = [
+			'Database observability and audit-log analytics do not establish feature parity with a security DAM product.',
+			'Actual processed volume and bytes scanned determine consumption; additional security capabilities, enterprise support and vendor professional services require separate scope.'
+		];
+		compareWithRover = false;
+	} else {
+		throw new RangeError('Unknown DAM provider.');
 	}
 
 	return {
 		...createDamTco(components),
 		pricingBasis,
 		pricingAssumptions: [
-			'Three-year ownership scenario; monthly and yearly figures are lifecycle averages. One-time costs are counted once, subscriptions/operations recur annually. Hot-retention duration is independent of the lifecycle. No growth, inflation or negotiated discounts assumed.',
-			ingestionAssumption,
+			'Three-year vendor-fee scenario. Monthly and yearly figures are lifecycle averages; one-time purchases are counted once and annual fees recur. The same selected daily data volume is used for all providers. Customer infrastructure, implementation and internal labor are excluded. Public prices are not negotiated quotes, and unpriced vendor charges are identified separately.',
 			pricingAssumptions
-		]
-			.filter(Boolean)
-			.join(' '),
-		ingestionMultiplier,
-		modeledDailyGB,
+		].join(' '),
+		pricingNote,
+		ingestionBilling,
+		quoteLimitations,
+		ingestionMultiplier: 1,
+		modeledDailyGB: dailyGB,
 		compareWithRover
 	};
 }
